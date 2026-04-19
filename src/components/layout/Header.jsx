@@ -3,17 +3,20 @@ import { NavLink } from 'react-router-dom';
 import { useWallet } from '../../context/WalletContext';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { Badge } from '../ui/Badge';
-import { STRINGS } from '../../lib/constants';
+import { STRINGS, NAV_ITEMS } from '../../lib/constants';
 import { abbreviateAddress } from '../../lib/formatters';
-import { LogOut, Menu } from 'lucide-react';
+import { LogOut, Menu, ArrowDownToLine, LayoutDashboard, Vault } from 'lucide-react';
+
+const ICON_MAP = { ArrowDownToLine, LayoutDashboard, Vault };
 
 export const Header = ({ onMenuToggle }) => {
   const { connected, address, balance, disconnect } = useWallet();
   const network = import.meta.env.VITE_NETWORK || 'devnet';
 
   return (
-    <header className="sticky top-0 z-40 bg-sg-bg-secondary/80 backdrop-blur-md border-b border-sg-border">
-      <div className="flex items-center justify-between h-16 px-4 lg:px-8">
+    <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-sg-border">
+      <div className="flex items-center justify-between h-16 px-4 lg:px-8 max-w-[1400px] mx-auto">
+        {/* Left: Logo + mobile menu */}
         <div className="flex items-center gap-4">
           <button
             onClick={onMenuToggle}
@@ -23,14 +26,39 @@ export const Header = ({ onMenuToggle }) => {
             <Menu size={24} strokeWidth={1.5} />
           </button>
 
-          <NavLink to="/" className="lg:hidden flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-[image:var(--gradient-cta)] flex items-center justify-center text-[#163300] font-bold text-xs">
-              SG
+          <NavLink to="/" className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-[image:var(--gradient-cta)] flex items-center justify-center text-[#163300] font-bold text-sm">
+              {STRINGS.APP_LOGO_ABBR}
             </div>
             <span className="text-h3 text-sg-text">{STRINGS.APP_NAME}</span>
           </NavLink>
         </div>
 
+        {/* Center: Navigation links (desktop) */}
+        <nav className="hidden lg:flex items-center gap-1">
+          {NAV_ITEMS.map(({ to, label, iconName }) => {
+            const Icon = ICON_MAP[iconName];
+            return (
+              <NavLink
+                key={to}
+                to={to}
+                end={to === '/'}
+                className={({ isActive }) => `
+                  flex items-center gap-2 px-4 py-2 rounded-lg text-body
+                  transition-colors duration-150
+                  ${isActive
+                    ? 'bg-sg-accent-purple/10 text-sg-accent-purple font-medium'
+                    : 'text-sg-text-secondary hover:text-sg-text hover:bg-sg-bg-elevated'}
+                `}
+              >
+                <Icon size={18} strokeWidth={1.5} />
+                <span>{STRINGS[label]}</span>
+              </NavLink>
+            );
+          })}
+        </nav>
+
+        {/* Right: Wallet */}
         <div className="flex items-center gap-3">
           {connected ? (
             <div className="flex items-center gap-2">
@@ -55,7 +83,7 @@ export const Header = ({ onMenuToggle }) => {
               </div>
             </div>
           ) : (
-            <WalletMultiButton className="!bg-[image:var(--gradient-cta)] !rounded-button !text-body !font-semibold !h-10 !px-5 !text-[#163300]" />
+            <WalletMultiButton className="sg-wallet-btn" />
           )}
         </div>
       </div>

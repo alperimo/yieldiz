@@ -21,7 +21,7 @@ const Vaults = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-8 space-y-6">
       <div>
         <h1 className="text-h1 text-sg-text mb-2">{STRINGS.VAULTS_TITLE}</h1>
         <p className="text-body text-sg-text-secondary">

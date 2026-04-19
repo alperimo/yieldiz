@@ -99,6 +99,20 @@ export const STRINGS = {
   STATS_TVL: 'TVL',
   STATS_AVG_APY: 'Avg APY',
   STATS_USERS: 'Users',
+
+  // Features section
+  FEATURES_HEADLINE: 'Why SolGate?',
+  FEATURE_CHAINS_TITLE: '5 Chains Supported',
+  FEATURE_CHAINS_DESC: 'Bridge from Ethereum, Arbitrum, Base, Polygon & Optimism to Solana in one click.',
+  FEATURE_MEV_TITLE: 'MEV Protected',
+  FEATURE_MEV_DESC: 'Jito bundles shield your deposits from frontrunning and sandwich attacks.',
+  FEATURE_RATES_TITLE: 'Best Swap Rates',
+  FEATURE_RATES_DESC: 'DFlow smart order routing finds the optimal execution path for every trade.',
+  FEATURE_YIELD_TITLE: 'Institutional Yield',
+  FEATURE_YIELD_DESC: 'Kamino automated vaults deliver optimized DeFi yield strategies on Solana.',
+
+  // Hero badge
+  HERO_BADGE: 'Powered by Solana • 5 chains supported',
 };
 
 export const CHAINS = [
