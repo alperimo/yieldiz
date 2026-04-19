@@ -1,0 +1,24 @@
+:root {
+  --color-bg-primary: #0A0E1A;
+  --color-bg-secondary: #131929;
+  --color-bg-elevated: #1C2333;
+  --color-border: #2A3352;
+
+  --color-accent-green: #00D1A0;
+  --color-accent-purple: #7C5CFC;
+  --color-accent-blue: #3B82F6;
+
+  --color-text-primary: #F1F5F9;
+  --color-text-secondary: #94A3B8;
+  --color-text-tertiary: #64748B;
+
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+
+  --radius-card: 12px;
+  --radius-button: 10px;
+  --radius-input: 10px;
+
+  --gradient-cta: linear-gradient(135deg, var(--color-accent-purple), var(--color-accent-green));
+}
