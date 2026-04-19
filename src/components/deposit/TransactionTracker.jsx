@@ -4,7 +4,7 @@ import { STRINGS, DEPOSIT_FLOW_STATES } from '../../lib/constants';
 import { formatCurrency, formatDuration, abbreviateAddress, getExplorerUrl } from '../../lib/formatters';
 import { Badge } from '../ui/Badge';
 
-const CONFETTI_COLORS = ['#7C5CFC', '#00D1A0', '#3B82F6', '#F59E0B', '#EF4444', '#10B981'];
+const CONFETTI_COLORS = ['#9FE870', '#0F766E', '#2563EB', '#D97706', '#DC2626', '#16A34A'];
 
 const Confetti = () => {
   const particles = useMemo(() =>

@@ -1,24 +1,30 @@
 :root {
-  --color-bg-primary: #0A0E1A;
-  --color-bg-secondary: #131929;
-  --color-bg-elevated: #1C2333;
-  --color-border: #2A3352;
+  /* Backgrounds — clean light fintech */
+  --color-bg-primary: #F7F9FC;
+  --color-bg-secondary: #FFFFFF;
+  --color-bg-elevated: #F0F3F8;
+  --color-border: #E2E8F0;
 
-  --color-accent-green: #00D1A0;
-  --color-accent-purple: #7C5CFC;
-  --color-accent-blue: #3B82F6;
+  /* Accents — Wise-inspired green palette */
+  --color-accent-green: #16A34A;
+  --color-accent-purple: #0F766E;
+  --color-accent-blue: #2563EB;
 
-  --color-text-primary: #F1F5F9;
-  --color-text-secondary: #94A3B8;
-  --color-text-tertiary: #64748B;
+  /* Text — high contrast on light */
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #64748B;
+  --color-text-tertiary: #94A3B8;
 
-  --color-success: #10B981;
-  --color-warning: #F59E0B;
-  --color-error: #EF4444;
+  /* Status */
+  --color-success: #16A34A;
+  --color-warning: #D97706;
+  --color-error: #DC2626;
 
-  --radius-card: 12px;
-  --radius-button: 10px;
-  --radius-input: 10px;
+  /* Radius — generous for modern feel */
+  --radius-card: 16px;
+  --radius-button: 12px;
+  --radius-input: 12px;
 
-  --gradient-cta: linear-gradient(135deg, var(--color-accent-purple), var(--color-accent-green));
+  /* CTA — Wise lime green */
+  --gradient-cta: linear-gradient(135deg, #9FE870, #76CC44);
 }

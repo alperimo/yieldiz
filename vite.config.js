@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  define: {
+    global: 'globalThis',
+  },
   resolve: {
     alias: {
       '@': '/src',
@@ -13,7 +16,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-solana': ['@solana/kit', '@solana/wallet-adapter-react', '@solana/wallet-adapter-react-ui', '@solana/wallet-adapter-wallets'],
+          'vendor-solana': ['@solana/kit', '@solana/wallet-adapter-react', '@solana/wallet-adapter-react-ui'],
           'vendor-supabase': ['@supabase/supabase-js'],
           'vendor-lifi': ['@lifi/sdk'],
           'vendor-ui': ['lucide-react'],

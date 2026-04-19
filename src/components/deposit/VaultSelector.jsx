@@ -41,7 +41,7 @@ export const VaultSelector = ({ vaults, value, onChange, className = '' }) => {
       {open && vaults?.length > 0 && (
         <ul
           role="listbox"
-          className="absolute left-0 top-full mt-1 z-50 w-full min-w-[260px] bg-sg-bg-elevated border border-sg-border rounded-card py-1 shadow-lg shadow-black/30 max-h-[240px] overflow-y-auto animate-in"
+          className="absolute left-0 top-full mt-1 z-50 w-full min-w-[260px] bg-sg-bg-secondary border border-sg-border rounded-card py-1 shadow-lg shadow-black/10 max-h-[240px] overflow-y-auto animate-in"
         >
           {vaults.map((vault) => (
             <li key={vault.pubkey}>
@@ -52,7 +52,7 @@ export const VaultSelector = ({ vaults, value, onChange, className = '' }) => {
                 className={`w-full flex items-center gap-3 px-3 py-2.5 text-body transition-colors ${
                   vault.pubkey === value
                     ? 'bg-sg-accent-purple/10 text-sg-accent-purple'
-                    : 'text-sg-text hover:bg-sg-bg-secondary'
+                    : 'text-sg-text hover:bg-sg-bg-elevated'
                 }`}
                 onClick={() => { onChange(vault.pubkey); setOpen(false); }}
               >

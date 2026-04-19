@@ -150,7 +150,7 @@ export const DEFAULT_SLIPPAGE_DISPLAY = '0.5%';
 
 export const TOAST_DURATION_MS = 4000;
 
-export const CONFETTI_COLORS = ['#7C5CFC', '#00D1A0', '#3B82F6', '#F59E0B', '#EF4444', '#10B981'];
+export const CONFETTI_COLORS = ['#9FE870', '#0F766E', '#2563EB', '#D97706', '#DC2626', '#16A34A'];
 
 export const MOCK_PLATFORM_STATS = {
   tvl: 3_760_000,

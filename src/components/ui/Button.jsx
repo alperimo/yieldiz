@@ -1,8 +1,8 @@
 import React from 'react';
 
 const variants = {
-  primary: 'text-white font-semibold',
-  secondary: 'bg-sg-bg-elevated text-sg-text border border-sg-border hover:border-sg-accent-purple',
+  primary: 'text-[#163300] font-semibold',
+  secondary: 'bg-sg-bg-secondary text-sg-text border border-sg-border hover:border-sg-accent-purple shadow-sm',
   ghost: 'bg-transparent text-sg-text-secondary hover:text-sg-text hover:bg-sg-bg-elevated',
   danger: 'bg-sg-error/10 text-sg-error border border-sg-error/20 hover:bg-sg-error/20',
 };

@@ -22,6 +22,7 @@ body {
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
   min-height: 100vh;
+  -webkit-text-size-adjust: 100%;
 }
 
 #root {
@@ -36,7 +37,7 @@ body {
 
   ::selection {
     background-color: var(--color-accent-purple);
-    color: var(--color-text-primary);
+    color: #FFFFFF;
   }
 
   input[type='number']::-webkit-inner-spin-button,
@@ -54,9 +55,9 @@ body {
   .skeleton-shimmer {
     background: linear-gradient(
       90deg,
-      var(--color-bg-secondary) 25%,
-      var(--color-bg-elevated) 50%,
-      var(--color-bg-secondary) 75%
+      var(--color-border) 25%,
+      var(--color-bg-primary) 50%,
+      var(--color-border) 75%
     );
     background-size: 200% 100%;
     animation: shimmer 1.5s linear infinite;
@@ -113,7 +114,7 @@ body {
   }
   .card-hover:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(124, 92, 252, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   }
 
   /* Success confetti particle */
@@ -139,4 +140,28 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Wallet adapter light theme overrides */
+.wallet-adapter-modal-wrapper {
+  background-color: #FFFFFF !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15) !important;
+}
+.wallet-adapter-modal-title {
+  color: var(--color-text-primary) !important;
+}
+.wallet-adapter-modal-list .wallet-adapter-button {
+  color: var(--color-text-primary) !important;
+}
+.wallet-adapter-modal-list-more {
+  color: var(--color-text-secondary) !important;
+  cursor: pointer;
+}
+.wallet-adapter-modal-middle-button {
+  color: var(--color-text-secondary) !important;
+  border-color: var(--color-border) !important;
+  background-color: transparent !important;
+}
+.wallet-adapter-button-trigger {
+  background-color: transparent !important;
 }

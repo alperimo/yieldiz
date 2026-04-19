@@ -12,7 +12,7 @@ export const Header = ({ onMenuToggle }) => {
   const network = import.meta.env.VITE_NETWORK || 'devnet';
 
   return (
-    <header className="sticky top-0 z-40 bg-sg-bg/80 backdrop-blur-md border-b border-sg-border">
+    <header className="sticky top-0 z-40 bg-sg-bg-secondary/80 backdrop-blur-md border-b border-sg-border">
       <div className="flex items-center justify-between h-16 px-4 lg:px-8">
         <div className="flex items-center gap-4">
           <button
@@ -24,7 +24,7 @@ export const Header = ({ onMenuToggle }) => {
           </button>
 
           <NavLink to="/" className="lg:hidden flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-[image:var(--gradient-cta)] flex items-center justify-center text-white font-bold text-xs">
+            <div className="w-7 h-7 rounded-lg bg-[image:var(--gradient-cta)] flex items-center justify-center text-[#163300] font-bold text-xs">
               SG
             </div>
             <span className="text-h3 text-sg-text">{STRINGS.APP_NAME}</span>
@@ -55,7 +55,7 @@ export const Header = ({ onMenuToggle }) => {
               </div>
             </div>
           ) : (
-            <WalletMultiButton className="!bg-[image:var(--gradient-cta)] !rounded-button !text-body !font-semibold !h-10 !px-5" />
+            <WalletMultiButton className="!bg-[image:var(--gradient-cta)] !rounded-button !text-body !font-semibold !h-10 !px-5 !text-[#163300]" />
           )}
         </div>
       </div>

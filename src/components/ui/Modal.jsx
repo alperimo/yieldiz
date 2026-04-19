@@ -36,13 +36,13 @@ export const Modal = ({
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
       onClick={handleOverlayClick}
     >
       <div
         className={`
           bg-sg-bg-secondary border border-sg-border rounded-card
-          w-full max-w-lg max-h-[90vh] overflow-y-auto
+          w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-xl
           animate-[fadeIn_200ms_ease-out]
           ${className}
         `}
