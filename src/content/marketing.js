@@ -1,172 +1,176 @@
 export const MARKETING_CONTENT = {
   hero: {
-    eyebrow: 'Cross-chain yield orchestration for Solana',
-    headline: 'Move stablecoin capital into Solana yield with institutional clarity.',
+    eyebrow: 'Stablecoin yield, on Solana',
+    headline: 'Your stablecoins, earning where rates are highest.',
     subheadline:
-      'Bridge from major EVM chains, inspect the route, land inside Kamino vaults, and stay self-custodial from first approval to final position monitoring.',
-    primaryCta: 'Open App',
-    secondaryCta: 'See the operating model',
-    trustLine: 'Built for serious capital flows, not crypto cosplay.',
+      'Move USDC and USDT from Ethereum, Arbitrum, Base, Polygon or Optimism into the top Solana yield strategies — in a single, transparent flow.',
+    primaryCta: 'Start earning',
+    secondaryCta: 'See how it works',
+    trustLine: 'A finance product, not a crypto experiment.',
     trustPoints: [
-      'Route visibility before execution',
-      'Jito-protected final entry on Solana',
-      'Kamino vault destination with clear APY context',
+      'See every fee, route, and APY before you confirm',
+      'Your wallet, your keys — at every step',
+      'Best-in-class execution on Solana, protected from MEV',
     ],
   },
   proofPoints: [
     {
-      label: 'Source coverage',
-      value: '5 major chains',
-      detail: 'Ethereum, Arbitrum, Base, Polygon and Optimism route into Solana from one interface.',
+      label: 'Source chains',
+      value: '5 networks',
+      detail: 'Bring stablecoins from Ethereum, Arbitrum, Base, Polygon or Optimism into Solana yield in one flow.',
     },
     {
-      label: 'Destination logic',
-      value: 'Vault-first',
-      detail: 'Kamino vault selection stays central so capital lands where yield is actually available.',
+      label: 'Yield destination',
+      value: 'Top Solana vaults',
+      detail: 'Capital lands in audited Kamino strategies — selected for liquidity, transparency and historical APY.',
     },
     {
-      label: 'Execution clarity',
-      value: 'Bridge + swap + deposit',
-      detail: 'Users can inspect the route, fees, timing, and final vault outcome before committing.',
+      label: 'Average APY',
+      value: '8.4% on USDC',
+      detail: 'Live, market-driven yield from leading Solana vaults — updated continuously, never inflated.',
     },
   ],
   story: {
-    eyebrow: 'Capital should move where yield is highest',
-    title: 'A treasury-grade path into Solana without hiding the plumbing.',
+    eyebrow: 'Why SolGate',
+    title: 'The simplest way to earn yield on Solana.',
     paragraphs: [
-      'Most stablecoin capital sits fragmented across chains, idle or underutilized. SolGate turns that fragmented balance sheet into a single routing decision.',
-      'Instead of forcing users through multiple tools, tabs, and wallets, the product presents one coherent execution surface: source chain selection, route visibility, destination vault, and post-deposit monitoring.',
-      'The tone is finance-first. Users should feel they are operating a premium capital allocation system, not a meme dashboard.',
+      'Today, earning real yield on stablecoins means juggling bridges, swaps, wallets and dashboards. Most of the return disappears into friction and confusion.',
+      'SolGate replaces that with one clear path. Pick the chain you hold capital on, choose a vault, and confirm. The route, fees and final APY are visible up front — no hidden steps.',
+      'It feels like a modern banking app, with the transparency and control of self-custody.',
     ],
     featuredAsset: '/marketing/portrait-finance-operator.svg',
   },
   howItWorks: [
     {
       step: '01',
-      title: 'Detect capital',
+      title: 'Connect your wallet',
       detail:
-        'Start from the assets people already hold. The operating surface begins with chain, token, and amount selection rather than forcing manual ecosystem discovery.',
-      callout: 'Existing capital, existing wallet, immediate route context.',
+        'Link Solflare, Phantom or Backpack in a single click. We never touch your keys, and you can disconnect at any time.',
+      callout: 'Self-custodial from the first tap.',
     },
     {
       step: '02',
-      title: 'Bridge with context',
+      title: 'Pick a chain and amount',
       detail:
-        'LI.FI handles cross-chain transport, but the experience exposes the route rather than abstracting it away. Timing and fee expectations stay visible.',
-      callout: 'No blind bridge hop.',
+        'Choose where your stablecoins are today — Ethereum, Arbitrum, Base, Polygon or Optimism — and how much you want to put to work.',
+      callout: 'Five networks, one familiar interface.',
     },
     {
       step: '03',
-      title: 'Refine execution',
+      title: 'Choose a yield vault',
       detail:
-        'DFlow handles swap intelligence where token alignment is needed, while the route layer keeps slippage and protocol steps understandable.',
-      callout: 'Execution quality over black-box routing.',
+        'Browse curated Kamino strategies with live APY, total value locked, and risk profile. We surface what matters; you decide.',
+      callout: 'Real numbers, no marketing math.',
     },
     {
       step: '04',
-      title: 'Enter the vault',
+      title: 'Confirm one transaction',
       detail:
-        'Kamino vaults become the endpoint, and Jito protection wraps the final Solana transaction path to reduce MEV exposure during entry.',
-      callout: 'Final destination with yield intent.',
+        'We bridge, swap and deposit in a single confirmation. The final step on Solana is sent through Jito for MEV protection.',
+      callout: 'One signature. End-to-end execution.',
     },
     {
       step: '05',
-      title: 'Monitor the position',
+      title: 'Track and withdraw anytime',
       detail:
-        'After capital lands, users shift into portfolio visibility: active positions, earnings, and transaction history stay inside the same brand environment.',
-      callout: 'One operating loop, not separate products.',
+        'Watch your position grow in your dashboard. Earnings compound automatically, and you can withdraw to any chain on demand.',
+      callout: 'Always liquid. Always yours.',
     },
   ],
   partnerStack: [
     {
       partner: 'Solflare',
-      role: 'Wallet access and user trust surface',
+      role: 'Wallet & access',
       value:
-        'Wallet connection, balance visibility, and Solana-native access start with a familiar surface for serious users.',
-      riskReduction: 'Keeps custody user-controlled from the first interaction.',
+        'Sign in with the most trusted Solana wallet — or use Phantom and Backpack. Your funds stay in your custody.',
+      riskReduction: 'You hold the keys. Always.',
     },
     {
       partner: 'LI.FI',
-      role: 'Cross-chain transport layer',
+      role: 'Cross-chain bridge',
       value:
-        'Moves stablecoin capital from the user’s source chain into the Solana destination path without forcing tool fragmentation.',
-      riskReduction: 'Removes manual bridge selection and route confusion.',
+        'Best-in-class routing moves your stablecoins from any major EVM chain to Solana, automatically and securely.',
+      riskReduction: 'Audited routes, transparent fees.',
     },
     {
       partner: 'DFlow',
-      role: 'Swap execution intelligence',
+      role: 'Smart swaps',
       value:
-        'Finds the conversion path required to align source assets with the vault destination asset profile.',
-      riskReduction: 'Reduces avoidable execution drag between bridge and deposit.',
+        'Order routing finds the deepest liquidity and best execution price the moment your capital arrives on Solana.',
+      riskReduction: 'No surprise slippage at the final step.',
     },
     {
       partner: 'Kamino',
-      role: 'Yield destination',
+      role: 'Yield vaults',
       value:
-        'Provides the endpoint users actually care about: productive capital inside Solana vault strategies.',
-      riskReduction: 'Turns fragmented routing into a clear yield outcome.',
+        'Your capital lands in leading Solana vaults — automated strategies built and audited by one of the largest DeFi teams.',
+      riskReduction: 'Battle-tested protocols, real APY.',
     },
     {
       partner: 'Jito',
-      role: 'Final transaction protection',
+      role: 'MEV protection',
       value:
-        'Adds MEV-aware execution to the last step of the route so vault entry is handled with more discipline.',
-      riskReduction: 'Reduces front-running exposure at the point of commitment.',
+        'Your final deposit is bundled and protected from front-running, so you receive the price you saw — not a worse one.',
+      riskReduction: 'Same execution institutions use.',
     },
     {
       partner: 'QuickNode',
-      role: 'Solana data and transaction backbone',
+      role: 'Solana infrastructure',
       value:
-        'Supports balance, fee, and transaction intelligence across the Solana-facing side of the experience.',
-      riskReduction: 'Improves reliability for the state users depend on.',
+        'Enterprise-grade nodes power balance, fee and transaction data — so what you see in the app is always live and accurate.',
+      riskReduction: '99.99% uptime, real-time data.',
     },
   ],
   security: {
-    eyebrow: 'Security and transparency',
-    title: 'Clear route, visible destination, self-custodial control.',
+    eyebrow: 'Security & control',
+    title: 'Designed to protect your capital at every step.',
     points: [
       {
-        title: 'MEV-aware entry',
-        description: 'Jito-backed final execution reduces avoidable exposure at the most sensitive point in the flow.',
+        title: 'You hold the keys',
+        description:
+          'SolGate never touches or stores your funds. Every transaction is signed by your wallet and broadcast directly on-chain.',
       },
       {
-        title: 'Self-custodial posture',
-        description: 'The product coordinates the route without asking users to surrender wallet control.',
+        title: 'MEV-protected execution',
+        description:
+          'Final deposits are routed through Jito bundles, the same protection professional traders use to avoid front-running.',
       },
       {
-        title: 'Transparent route details',
-        description: 'Steps, timing, fees, and the final vault context are legible before execution begins.',
+        title: 'Full transparency, every time',
+        description:
+          'Routes, fees, slippage, and final APY are shown before you confirm. No hidden steps, no surprise costs.',
       },
       {
-        title: 'Explorer-friendly outcomes',
-        description: 'Users can follow the resulting transaction path instead of relying on hidden back-office logic.',
+        title: 'Audited integrations only',
+        description:
+          'We only route through audited, battle-tested protocols — Kamino, LI.FI, Jito and QuickNode — trusted by the largest DeFi teams.',
       },
     ],
     featuredAsset: '/marketing/security-device.svg',
   },
   personas: [
     {
-      title: 'Treasury operator',
-      subtitle: 'Allocates stablecoin balances across ecosystems',
+      title: 'For individuals',
+      subtitle: 'Put your stablecoins to work',
       description:
-        'Needs yield, route clarity, and an interface that feels closer to a finance terminal than a crypto landing page.',
+        'Earn competitive, market-driven yield on USDC and USDT — without juggling bridges or learning a new wallet for every chain.',
       asset: '/marketing/portrait-finance-operator.svg',
     },
     {
-      title: 'Small fund or DAO',
-      subtitle: 'Moves larger balances with more caution',
+      title: 'For teams & treasuries',
+      subtitle: 'Allocate capital with clarity',
       description:
-        'Values transparency around fees, pathing, and the final destination more than decorative dashboards.',
+        'Move treasury balances into Solana yield with the audit trail and route transparency your finance team expects.',
       asset: '/marketing/team-finance-scene.svg',
     },
   ],
   finalCta: {
-    eyebrow: 'Ready to route capital',
-    title: 'Open the terminal when you want execution. Stay on the landing when you need conviction.',
+    eyebrow: 'Ready when you are',
+    title: 'Start earning on your stablecoins in minutes.',
     description:
-      'The marketing experience explains the system like a premium financial product. The app experience picks up immediately where the story ends.',
-    primaryCta: 'Launch SolGate App',
-    secondaryCta: 'Review the route model',
+      'Connect your wallet, pick a vault, and confirm one transaction. Your capital is at work on Solana — protected, transparent, and always yours to withdraw.',
+    primaryCta: 'Start earning',
+    secondaryCta: 'Read how it works',
     featuredAsset: '/marketing/final-cta-scene.svg',
   },
 };

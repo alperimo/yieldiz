@@ -3,9 +3,9 @@ import { Link, NavLink } from 'react-router-dom';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 
 const MARKETING_LINKS = [
-  { href: '#product-story', label: 'Story' },
+  { href: '#product-story', label: 'Why SolGate' },
   { href: '#operating-model', label: 'How it works' },
-  { href: '#execution-stack', label: 'Execution stack' },
+  { href: '#execution-stack', label: 'Infrastructure' },
   { href: '#security-layer', label: 'Security' },
 ];
 
@@ -38,7 +38,7 @@ export const MarketingHeader = () => {
             <div>
               <p className="font-display text-lg font-semibold leading-none">SolGate</p>
               <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-sg-text-secondary">
-                Solana Yield Routing
+                Stablecoin yield on Solana
               </p>
             </div>
           </Link>
@@ -56,17 +56,11 @@ export const MarketingHeader = () => {
           </nav>
 
           <div className="hidden items-center gap-3 lg:flex">
-            <a
-              href="#live-preview"
-              className="text-sm font-medium text-sg-text-secondary transition-colors hover:text-[#08111F]"
-            >
-              Live preview
-            </a>
             <NavLink
               to="/app"
               className="inline-flex items-center gap-2 rounded-full bg-[#08111F] px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(8,17,31,0.18)] transition-transform hover:-translate-y-0.5"
             >
-              Open App
+              Start earning
               <ArrowUpRight size={16} />
             </NavLink>
           </div>
@@ -99,7 +93,7 @@ export const MarketingHeader = () => {
                 className="mt-2 inline-flex items-center justify-center gap-2 rounded-2xl bg-[#08111F] px-4 py-3 text-sm font-semibold text-white"
                 onClick={() => setMobileOpen(false)}
               >
-                Open App
+                Start earning
                 <ArrowUpRight size={16} />
               </NavLink>
             </div>

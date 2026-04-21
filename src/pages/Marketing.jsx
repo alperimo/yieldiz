@@ -30,17 +30,19 @@ const StoryStat = ({ label, value, detail }) => (
 );
 
 const PartnerCard = ({ partner, role, value, riskReduction }) => (
-  <article className="rounded-[30px] border border-white/[0.12] bg-white/[0.06] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.16)] backdrop-blur">
-    <div className="flex items-center justify-between gap-4">
-      <h3 className="font-display text-2xl font-semibold text-white">{partner}</h3>
-      <div className="rounded-full border border-white/[0.12] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/60">
-        Load-bearing
+  <article className="flex h-full flex-col justify-between rounded-[30px] border border-white/[0.12] bg-white/[0.06] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.16)] backdrop-blur">
+    <div>
+      <div className="flex items-center justify-between gap-4">
+        <h3 className="font-display text-2xl font-semibold text-white">{partner}</h3>
+        <div className="rounded-full border border-white/[0.12] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/60">
+          Trusted
+        </div>
       </div>
+      <p className="mt-4 text-sm font-semibold uppercase tracking-[0.18em] text-[#14F195]">{role}</p>
+      <p className="mt-4 text-base leading-7 text-white/[0.82]">{value}</p>
     </div>
-    <p className="mt-4 text-sm font-semibold uppercase tracking-[0.18em] text-[#14F195]">{role}</p>
-    <p className="mt-4 text-base leading-7 text-white/[0.82]">{value}</p>
     <div className="mt-6 rounded-[24px] border border-[#14F195]/[0.18] bg-[#14F195]/10 p-4">
-      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#CFFFEF]">Risk reduction</p>
+      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#CFFFEF]">Why it matters</p>
       <p className="mt-2 text-sm leading-6 text-white/80">{riskReduction}</p>
     </div>
   </article>
@@ -106,7 +108,7 @@ export default function Marketing() {
           scrollTrigger: {
             trigger: flowSectionRef.current,
             start: 'top top+=72',
-            end: `+=${steps.length * 360}`,
+            end: `+=${steps.length * 180}`,
             scrub: 0.7,
             pin: flowPinRef.current,
             anticipatePin: 1,
@@ -247,9 +249,9 @@ export default function Marketing() {
                   <Waypoints size={20} />
                 </div>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/50">Operating principle</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/50">Our promise</p>
                   <p className="mt-3 max-w-[48ch] text-base leading-7 text-white/[0.78]">
-                    The brand experience stays editorial and calm, while the product experience stays precise and route-aware. Both surfaces must feel like one system.
+                    Real yield, transparent fees, and full self-custody — wrapped in an interface designed for people who take their money seriously.
                   </p>
                 </div>
               </div>
@@ -261,7 +263,7 @@ export default function Marketing() {
       <section
         id="operating-model"
         ref={flowSectionRef}
-        className={`relative overflow-hidden bg-[#0C1628] px-4 py-20 text-white sm:px-6 lg:px-8 ${prefersReducedMotion ? '' : 'min-h-[280vh]'}`}
+        className={`relative overflow-hidden bg-[#0C1628] px-4 py-20 text-white sm:px-6 lg:px-8 ${prefersReducedMotion ? '' : 'min-h-[180vh]'}`}
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(20,241,149,0.16),transparent_28%),radial-gradient(circle_at_80%_20%,rgba(124,107,255,0.2),transparent_34%),linear-gradient(180deg,#0C1628_0%,#08111F_100%)]" />
         <div
@@ -270,11 +272,11 @@ export default function Marketing() {
         >
           <div className="relative z-10 flex flex-col justify-center">
             <SectionEyebrow dark>How it works</SectionEyebrow>
-            <h2 className="mt-6 max-w-[10ch] font-display text-[42px] font-semibold leading-[0.98] tracking-[-0.04em] sm:text-[58px]">
-              One pinned chapter for the full capital path.
+            <h2 className="mt-6 max-w-[14ch] font-display text-[42px] font-semibold leading-[0.98] tracking-[-0.04em] sm:text-[58px]">
+              From your wallet to Solana yield in five steps.
             </h2>
             <p className="mt-6 max-w-[44ch] text-base leading-8 text-white/[0.68] lg:text-lg">
-              Instead of explaining the product with equal-sized cards, the operating model unfolds like a guided capital workflow: detect, bridge, refine, deposit, monitor.
+              No multi-tab juggling, no manual bridges. Connect, choose a vault, confirm — and watch your stablecoins start earning.
             </p>
 
             <div className="mt-10 flex items-start gap-6">
@@ -319,13 +321,13 @@ export default function Marketing() {
       <section id="live-preview" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
         <div className="mx-auto grid max-w-[1380px] gap-10 lg:grid-cols-[0.92fr_1.08fr]">
           <div className="flex flex-col justify-center space-y-7" data-reveal>
-            <SectionEyebrow>Live product preview</SectionEyebrow>
+            <SectionEyebrow>Try it live</SectionEyebrow>
             <div>
-              <h2 className="max-w-[11ch] font-display text-[40px] font-semibold leading-[0.98] tracking-[-0.04em] text-[#08111F] sm:text-[58px]">
-                The landing explains the system. The app executes it.
+              <h2 className="max-w-[12ch] font-display text-[40px] font-semibold leading-[0.98] tracking-[-0.04em] text-[#08111F] sm:text-[58px]">
+                One screen. One transaction. Real yield.
               </h2>
               <p className="mt-6 max-w-[48ch] text-base leading-8 text-sg-text-secondary lg:text-lg">
-                This is the real deposit interface, styled as part of the editorial story. The fully interactive version lives inside the app route so the marketing narrative never has to carry product complexity alone.
+                Pick a vault, choose your source chain and amount, and confirm. SolGate handles the bridge, swap and deposit in a single, transparent flow.
               </p>
             </div>
             <div className="rounded-[28px] border border-black/[0.08] bg-white/75 p-6 shadow-[0_24px_70px_rgba(8,17,31,0.08)]">
@@ -334,9 +336,9 @@ export default function Marketing() {
                   <CheckCircle2 size={18} />
                 </div>
                 <div>
-                  <p className="font-display text-2xl font-semibold text-[#08111F]">Authentic preview</p>
+                  <p className="font-display text-2xl font-semibold text-[#08111F]">No mockups, no theatre</p>
                   <p className="mt-3 text-sm leading-7 text-sg-text-secondary">
-                    The card below is not a fake illustration. It is the existing execution surface carried into a premium browser shell so the user sees the real product before opening the app.
+                    What you see here is the real SolGate interface. Connect your wallet to use it — or open the full app for the complete experience.
                   </p>
                 </div>
               </div>
@@ -349,7 +351,7 @@ export default function Marketing() {
               <span className="h-3 w-3 rounded-full bg-white/[0.12]" />
               <span className="h-3 w-3 rounded-full bg-white/[0.08]" />
               <div className="ml-3 rounded-full border border-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em]">
-                SolGate terminal preview
+                solgate.app · Earn
               </div>
             </div>
             <div className="overflow-hidden rounded-[28px] bg-[#F5F7F2] px-2 pb-2 pt-5">
@@ -364,18 +366,18 @@ export default function Marketing() {
       <section id="execution-stack" className="bg-[#08111F] px-4 py-24 text-white sm:px-6 lg:px-8">
         <div className="mx-auto max-w-[1380px]">
           <div className="max-w-[760px]" data-reveal>
-            <SectionEyebrow dark>Execution stack</SectionEyebrow>
+            <SectionEyebrow dark>Built on the best of Solana</SectionEyebrow>
             <h2 className="mt-6 font-display text-[42px] font-semibold leading-[0.98] tracking-[-0.04em] sm:text-[60px]">
-              Each partner earns its place in the flow.
+              The infrastructure behind your yield.
             </h2>
             <p className="mt-6 text-base leading-8 text-white/[0.66] lg:text-lg">
-              No decorative logo strip. Each integration exists to remove friction, improve execution quality, or increase confidence at a specific point in the route.
+              SolGate connects the most trusted protocols in Solana DeFi — so your capital moves through audited, institutional-grade infrastructure at every step.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {MARKETING_CONTENT.partnerStack.map((item) => (
-              <div key={item.partner} data-reveal>
+              <div key={item.partner} data-reveal className="h-full">
                 <PartnerCard {...item} />
               </div>
             ))}
@@ -410,9 +412,9 @@ export default function Marketing() {
       <section className="px-4 pb-24 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-[1380px]">
           <div className="max-w-[700px]" data-reveal>
-            <SectionEyebrow>Who it is built for</SectionEyebrow>
+            <SectionEyebrow>Built for everyone with stablecoins</SectionEyebrow>
             <h2 className="mt-6 font-display text-[40px] font-semibold leading-[0.98] tracking-[-0.04em] text-[#08111F] sm:text-[58px]">
-              A corporate-grade visual system with Solana-native intent.
+              Whether it&rsquo;s your savings or your treasury, the path is the same.
             </h2>
           </div>
           <div className="mt-12 grid gap-5 lg:grid-cols-2">

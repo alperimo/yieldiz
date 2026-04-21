@@ -15,12 +15,12 @@ export const MarketingLayout = () => {
           <div>
             <p className="font-display text-xl font-semibold text-[#08111F]">SolGate</p>
             <p className="mt-2 max-w-lg leading-6">
-              A premium Solana-native routing surface for moving stablecoin capital into yield with more clarity.
+              Stablecoin yield on Solana — bridged from any major chain, deposited into audited vaults, always self-custodial.
             </p>
           </div>
           <div className="space-y-1 text-right">
-            <p className="font-medium text-[#08111F]">Routes, execution, and vault visibility in one brand system.</p>
-            <p>Product preview and live terminal available at `/app`.</p>
+            <p className="font-medium text-[#08111F]">© {new Date().getFullYear()} SolGate. All rights reserved.</p>
+            <p>Built on Solana. Self-custodial. Open infrastructure.</p>
           </div>
         </div>
       </footer>

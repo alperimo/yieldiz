@@ -5,7 +5,7 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { Badge } from '../ui/Badge';
 import { STRINGS, NAV_ITEMS } from '../../lib/constants';
 import { abbreviateAddress } from '../../lib/formatters';
-import { LogOut, Menu, ArrowDownToLine, LayoutDashboard, Vault, ArrowUpRight } from 'lucide-react';
+import { LogOut, Menu, ArrowDownToLine, LayoutDashboard, Vault } from 'lucide-react';
 
 const ICON_MAP = { ArrowDownToLine, LayoutDashboard, Vault };
 
@@ -32,7 +32,7 @@ export const Header = ({ onMenuToggle }) => {
             <div>
               <span className="font-display text-[22px] font-semibold leading-none text-sg-text">{STRINGS.APP_NAME}</span>
               <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-sg-text-secondary">
-                App terminal
+                Stablecoin yield
               </p>
             </div>
           </NavLink>
@@ -65,8 +65,7 @@ export const Header = ({ onMenuToggle }) => {
             to="/"
             className="hidden items-center gap-2 rounded-full border border-black/[0.08] bg-white/70 px-4 py-2.5 text-sm font-medium text-sg-text-secondary transition-colors hover:text-sg-text lg:inline-flex"
           >
-            View site
-            <ArrowUpRight size={15} />
+            About
           </Link>
           {connected ? (
             <div className="flex items-center gap-2">
