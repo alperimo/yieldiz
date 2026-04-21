@@ -1,33 +1,33 @@
 export const MARKETING_CONTENT = {
   hero: {
-    eyebrow: 'Stablecoin yield, on Solana',
+    eyebrow: 'Stablecoin yield on Solana',
     headline: 'Your stablecoins, earning where rates are highest.',
     subheadline:
       'Move USDC and USDT from Ethereum, Arbitrum, Base, Polygon or Optimism into the top Solana yield strategies — in a single, transparent flow.',
     primaryCta: 'Start earning',
     secondaryCta: 'See how it works',
-    trustLine: 'A finance product, not a crypto experiment.',
+    trustLine: 'Know the route before your money moves.',
     trustPoints: [
-      'See every fee, route, and APY before you confirm',
-      'Your wallet, your keys — at every step',
-      'Best-in-class execution on Solana, protected from MEV',
+      'See fees, timing, and final APY before you confirm',
+      'Keep custody of your wallet at every step',
+      'Land directly in audited Solana yield vaults',
     ],
   },
   proofPoints: [
     {
       label: 'Source chains',
       value: '5 networks',
-      detail: 'Bring stablecoins from Ethereum, Arbitrum, Base, Polygon or Optimism into Solana yield in one flow.',
+      detail: 'Move stablecoins from Ethereum, Arbitrum, Base, Polygon or Optimism into Solana in one guided route.',
     },
     {
       label: 'Yield destination',
       value: 'Top Solana vaults',
-      detail: 'Capital lands in audited Kamino strategies — selected for liquidity, transparency and historical APY.',
+      detail: 'Capital lands in audited Kamino strategies with live APY visibility before you commit.',
     },
     {
       label: 'Average APY',
       value: '8.4% on USDC',
-      detail: 'Live, market-driven yield from leading Solana vaults — updated continuously, never inflated.',
+      detail: 'Displayed from live vault data and refreshed continuously as market conditions change.',
     },
   ],
   story: {
@@ -36,7 +36,7 @@ export const MARKETING_CONTENT = {
     paragraphs: [
       'Today, earning real yield on stablecoins means juggling bridges, swaps, wallets and dashboards. Most of the return disappears into friction and confusion.',
       'SolGate replaces that with one clear path. Pick the chain you hold capital on, choose a vault, and confirm. The route, fees and final APY are visible up front — no hidden steps.',
-      'It feels like a modern banking app, with the transparency and control of self-custody.',
+      'The result is calm enough for first-time users and clear enough for serious balances.',
     ],
     featuredAsset: '/marketing/portrait-finance-operator.svg',
   },
@@ -46,79 +46,73 @@ export const MARKETING_CONTENT = {
       title: 'Connect your wallet',
       detail:
         'Link Solflare, Phantom or Backpack in a single click. We never touch your keys, and you can disconnect at any time.',
-      callout: 'Self-custodial from the first tap.',
+      callout: 'You stay in control',
     },
     {
       step: '02',
       title: 'Pick a chain and amount',
       detail:
         'Choose where your stablecoins are today — Ethereum, Arbitrum, Base, Polygon or Optimism — and how much you want to put to work.',
-      callout: 'Five networks, one familiar interface.',
+      callout: 'Start from the chain you already use',
     },
     {
       step: '03',
       title: 'Choose a yield vault',
       detail:
-        'Browse curated Kamino strategies with live APY, total value locked, and risk profile. We surface what matters; you decide.',
-      callout: 'Real numbers, no marketing math.',
+        'Browse curated Kamino strategies with live APY, total value locked, and risk profile before you decide where to land.',
+      callout: 'Compare live options',
     },
     {
       step: '04',
       title: 'Confirm one transaction',
       detail:
         'We bridge, swap and deposit in a single confirmation. The final step on Solana is sent through Jito for MEV protection.',
-      callout: 'One signature. End-to-end execution.',
+      callout: 'Approve once',
     },
     {
       step: '05',
       title: 'Track and withdraw anytime',
       detail:
         'Watch your position grow in your dashboard. Earnings compound automatically, and you can withdraw to any chain on demand.',
-      callout: 'Always liquid. Always yours.',
+      callout: 'Leave when you want',
     },
   ],
   partnerStack: [
     {
       partner: 'Solflare',
       role: 'Wallet & access',
-      value:
-        'Sign in with the most trusted Solana wallet — or use Phantom and Backpack. Your funds stay in your custody.',
-      riskReduction: 'You hold the keys. Always.',
+      value: 'Connect with Solflare, Phantom, or Backpack without giving up self-custody.',
+      riskReduction: 'Your wallet stays yours.',
     },
     {
       partner: 'LI.FI',
       role: 'Cross-chain bridge',
-      value:
-        'Best-in-class routing moves your stablecoins from any major EVM chain to Solana, automatically and securely.',
-      riskReduction: 'Audited routes, transparent fees.',
+      value: 'Routes stablecoins from major EVM chains into Solana without manual bridge hopping.',
+      riskReduction: 'See routing and fees before you confirm.',
     },
     {
       partner: 'DFlow',
       role: 'Smart swaps',
-      value:
-        'Order routing finds the deepest liquidity and best execution price the moment your capital arrives on Solana.',
-      riskReduction: 'No surprise slippage at the final step.',
+      value: 'Finds deep liquidity for the final swap as funds arrive on Solana.',
+      riskReduction: 'Better execution at the final step.',
     },
     {
       partner: 'Kamino',
       role: 'Yield vaults',
-      value:
-        'Your capital lands in leading Solana vaults — automated strategies built and audited by one of the largest DeFi teams.',
-      riskReduction: 'Battle-tested protocols, real APY.',
+      value: 'Capital lands in audited Solana vault strategies with live APY visibility.',
+      riskReduction: 'Yield starts where the route ends.',
     },
     {
       partner: 'Jito',
       role: 'MEV protection',
-      value:
-        'Your final deposit is bundled and protected from front-running, so you receive the price you saw — not a worse one.',
-      riskReduction: 'Same execution institutions use.',
+      value: 'Protects the final Solana transaction from front-running and harmful slippage.',
+      riskReduction: 'The quoted route stays closer to the delivered result.',
     },
     {
       partner: 'QuickNode',
       role: 'Solana infrastructure',
-      value:
-        'Enterprise-grade nodes power balance, fee and transaction data — so what you see in the app is always live and accurate.',
-      riskReduction: '99.99% uptime, real-time data.',
+      value: 'Keeps balances, fees, and transaction updates live inside the app.',
+      riskReduction: 'Fresh data while your deposit is in motion.',
     },
   ],
   security: {

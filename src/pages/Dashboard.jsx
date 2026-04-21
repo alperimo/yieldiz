@@ -33,14 +33,14 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="mx-auto max-w-[1280px] px-4 py-8 lg:px-8">
-      <div className="mb-8 rounded-[34px] border border-black/[0.08] bg-white/[0.82] p-8 shadow-[0_24px_70px_rgba(8,17,31,0.06)]">
-        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sg-text-secondary">Portfolio command</p>
+      <div className="mx-auto max-w-[1280px] px-4 py-8 lg:px-8">
+        <div className="mb-8 rounded-[34px] border border-black/[0.08] bg-white/[0.82] p-8 shadow-[0_24px_70px_rgba(8,17,31,0.06)]">
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sg-text-secondary">Your positions</p>
         <h1 className="mt-3 font-display text-[42px] font-semibold leading-[1.02] tracking-[-0.03em] text-sg-text">
           Your Solana yield positions.
         </h1>
         <p className="mt-4 max-w-[52ch] text-base leading-8 text-sg-text-secondary">
-          Monitor deposited capital, earned yield, and recent execution history in the same premium surface as the routing flow.
+          Track deposited capital, earned yield, and the recent routes that brought funds into Solana.
         </p>
       </div>
       <div className="space-y-6">

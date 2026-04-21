@@ -8,7 +8,7 @@ export const STRINGS = {
   // App hero
   HERO_HEADLINE: 'Earn yield on your stablecoins.',
   HERO_SUBHEADLINE: 'Bridge from any major chain into top Solana vaults — in one transparent flow.',
-  HERO_CTA: 'Launch Routing Flow',
+  HERO_CTA: 'Start deposit',
 
   // Navigation
   NAV_DEPOSIT: 'Deposit',

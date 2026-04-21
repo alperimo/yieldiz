@@ -1,0 +1,100 @@
+<svg width="1280" height="900" viewBox="0 0 1280 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="900" rx="36" fill="#0C1628"/>
+  <rect x="36" y="36" width="1208" height="828" rx="30" fill="url(#bgGlow)" fill-opacity="0.72"/>
+
+  <g opacity="0.55">
+    <path d="M290 220C400 230 470 290 560 360" stroke="url(#lineMint)" stroke-width="2"/>
+    <path d="M990 220C890 235 810 290 720 360" stroke="url(#lineBlue)" stroke-width="2"/>
+    <path d="M230 665C370 660 470 590 560 510" stroke="url(#lineMint)" stroke-width="2"/>
+    <path d="M1050 665C920 650 810 595 720 510" stroke="url(#lineBlue)" stroke-width="2"/>
+    <path d="M420 135C510 180 570 240 620 320" stroke="url(#lineViolet)" stroke-width="2"/>
+    <path d="M860 135C760 180 700 240 660 320" stroke="url(#lineViolet)" stroke-width="2"/>
+  </g>
+
+  <g>
+    <circle cx="640" cy="450" r="146" fill="url(#centerFill)"/>
+    <circle cx="640" cy="450" r="146" stroke="url(#ringStroke)" stroke-width="2"/>
+    <circle cx="640" cy="450" r="112" stroke="url(#ringStroke)" stroke-opacity="0.35"/>
+    <ellipse cx="640" cy="450" rx="146" ry="52" stroke="url(#ringStroke)" stroke-opacity="0.4"/>
+    <ellipse cx="640" cy="450" rx="52" ry="146" stroke="url(#ringStroke)" stroke-opacity="0.28"/>
+    <rect x="548" y="418" width="184" height="64" rx="32" fill="#08111F" fill-opacity="0.9"/>
+    <text x="640" y="446" text-anchor="middle" fill="#F7FAF7" font-size="14" font-family="Inter, Arial, sans-serif" letter-spacing="3.2" font-weight="700">SOLGATE</text>
+    <text x="640" y="470" text-anchor="middle" fill="#9BB0C9" font-size="13" font-family="Inter, Arial, sans-serif" letter-spacing="1.4">Visible route to Solana yield</text>
+  </g>
+
+  <g>
+    <rect x="150" y="120" width="216" height="108" rx="28" fill="#121E31"/>
+    <rect x="150" y="120" width="216" height="108" rx="28" stroke="#22304A"/>
+    <circle cx="198" cy="174" r="18" fill="#14F195" fill-opacity="0.14"/>
+    <text x="198" y="180" text-anchor="middle" fill="#14F195" font-size="12" font-family="Inter, Arial, sans-serif" font-weight="700">SF</text>
+    <text x="238" y="168" fill="#F7FAF7" font-size="30" font-family="Inter, Arial, sans-serif" font-weight="700">Solflare</text>
+    <text x="238" y="195" fill="#8FEFD2" font-size="13" font-family="Inter, Arial, sans-serif" letter-spacing="2">ACCESS</text>
+
+    <rect x="914" y="120" width="216" height="108" rx="28" fill="#121E31"/>
+    <rect x="914" y="120" width="216" height="108" rx="28" stroke="#22304A"/>
+    <circle cx="962" cy="174" r="18" fill="#00C2FF" fill-opacity="0.14"/>
+    <text x="962" y="180" text-anchor="middle" fill="#00C2FF" font-size="12" font-family="Inter, Arial, sans-serif" font-weight="700">LF</text>
+    <text x="1002" y="168" fill="#F7FAF7" font-size="30" font-family="Inter, Arial, sans-serif" font-weight="700">LI.FI</text>
+    <text x="1002" y="195" fill="#A9D8FF" font-size="13" font-family="Inter, Arial, sans-serif" letter-spacing="2">ROUTING</text>
+
+    <rect x="90" y="610" width="236" height="108" rx="28" fill="#121E31"/>
+    <rect x="90" y="610" width="236" height="108" rx="28" stroke="#22304A"/>
+    <circle cx="138" cy="664" r="18" fill="#7C6BFF" fill-opacity="0.14"/>
+    <text x="138" y="670" text-anchor="middle" fill="#B9AEFF" font-size="12" font-family="Inter, Arial, sans-serif" font-weight="700">DF</text>
+    <text x="178" y="658" fill="#F7FAF7" font-size="30" font-family="Inter, Arial, sans-serif" font-weight="700">DFlow</text>
+    <text x="178" y="685" fill="#C7BFFF" font-size="13" font-family="Inter, Arial, sans-serif" letter-spacing="2">EXECUTION</text>
+
+    <rect x="954" y="610" width="236" height="108" rx="28" fill="#121E31"/>
+    <rect x="954" y="610" width="236" height="108" rx="28" stroke="#22304A"/>
+    <circle cx="1002" cy="664" r="18" fill="#14F195" fill-opacity="0.14"/>
+    <text x="1002" y="670" text-anchor="middle" fill="#14F195" font-size="12" font-family="Inter, Arial, sans-serif" font-weight="700">KM</text>
+    <text x="1042" y="658" fill="#F7FAF7" font-size="30" font-family="Inter, Arial, sans-serif" font-weight="700">Kamino</text>
+    <text x="1042" y="685" fill="#8FEFD2" font-size="13" font-family="Inter, Arial, sans-serif" letter-spacing="2">VAULT ENTRY</text>
+
+    <rect x="350" y="70" width="240" height="86" rx="24" fill="#121E31"/>
+    <rect x="350" y="70" width="240" height="86" rx="24" stroke="#22304A"/>
+    <text x="382" y="108" fill="#F7FAF7" font-size="22" font-family="Inter, Arial, sans-serif" font-weight="700">Jito</text>
+    <text x="382" y="132" fill="#C7BFFF" font-size="12" font-family="Inter, Arial, sans-serif" letter-spacing="2">MEV PROTECTION</text>
+
+    <rect x="690" y="70" width="240" height="86" rx="24" fill="#121E31"/>
+    <rect x="690" y="70" width="240" height="86" rx="24" stroke="#22304A"/>
+    <text x="722" y="108" fill="#F7FAF7" font-size="22" font-family="Inter, Arial, sans-serif" font-weight="700">QuickNode</text>
+    <text x="722" y="132" fill="#A9D8FF" font-size="12" font-family="Inter, Arial, sans-serif" letter-spacing="2">LIVE DATA</text>
+  </g>
+
+  <g>
+    <rect x="456" y="760" width="368" height="64" rx="32" fill="#101A2D"/>
+    <rect x="456" y="760" width="368" height="64" rx="32" stroke="#25324A"/>
+    <text x="640" y="798" text-anchor="middle" fill="#F7FAF7" font-size="18" font-family="Inter, Arial, sans-serif" font-weight="600">Every step stays visible before you confirm</text>
+  </g>
+
+  <defs>
+    <radialGradient id="bgGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(802 210) rotate(127.659) scale(780 1260)">
+      <stop stop-color="#1D2A44"/>
+      <stop offset="0.5" stop-color="#111C2E"/>
+      <stop offset="1" stop-color="#0C1628"/>
+    </radialGradient>
+    <radialGradient id="centerFill" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(566 372) rotate(43.7) scale(280 296)">
+      <stop stop-color="#F7FAF7"/>
+      <stop offset="0.48" stop-color="#C9F8ED"/>
+      <stop offset="1" stop-color="#C7D3FF" stop-opacity="0.56"/>
+    </radialGradient>
+    <linearGradient id="ringStroke" x1="494" y1="314" x2="786" y2="596" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#14F195"/>
+      <stop offset="0.52" stop-color="#00C2FF"/>
+      <stop offset="1" stop-color="#7C6BFF"/>
+    </linearGradient>
+    <linearGradient id="lineMint" x1="290" y1="220" x2="560" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#14F195" stop-opacity="0"/>
+      <stop offset="1" stop-color="#14F195"/>
+    </linearGradient>
+    <linearGradient id="lineBlue" x1="990" y1="220" x2="720" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00C2FF" stop-opacity="0"/>
+      <stop offset="1" stop-color="#00C2FF"/>
+    </linearGradient>
+    <linearGradient id="lineViolet" x1="420" y1="135" x2="620" y2="320" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7C6BFF" stop-opacity="0"/>
+      <stop offset="1" stop-color="#7C6BFF"/>
+    </linearGradient>
+  </defs>
+</svg>

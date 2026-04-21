@@ -4,7 +4,6 @@ import {
   ArrowRight,
   Landmark,
   Shield,
-  Sparkles,
   Waypoints,
 } from 'lucide-react';
 import { DepositFlow } from '../components/deposit/DepositFlow';
@@ -19,18 +18,18 @@ import { formatPercent, formatNumber } from '../lib/formatters';
 const APP_PILLARS = [
   {
     icon: Waypoints,
-    title: 'Route with context',
-    description: 'Inspect chain, fee, timing, and the final destination instead of trusting a black-box button.',
+    title: 'See the full route',
+    description: 'Review source chain, timing, fees, and destination before money moves.',
   },
   {
     icon: Shield,
-    title: 'Protect final entry',
-    description: 'Jito protection and Solana-native execution discipline matter when capital finally commits.',
+    title: 'Protect the final step',
+    description: 'Jito protection helps preserve the price you were shown when the Solana deposit is sent.',
   },
   {
     icon: Landmark,
-    title: 'Land in yield',
-    description: 'The route exists to finish inside Kamino vaults, not to stop at a bridge confirmation screen.',
+    title: 'Go straight into yield',
+    description: 'Capital finishes inside Kamino vaults, ready to earn as soon as the route settles.',
   },
 ];
 
@@ -44,18 +43,18 @@ const TopVaultRow = ({ vault, onSelect }) => (
       <TokenBadge symbol={vault.token} size="md" />
       <div>
         <p className="text-body font-semibold text-sg-text">{vault.name}</p>
-        <p className="text-caption text-sg-text-tertiary">{vault.token} vault destination</p>
+        <p className="text-caption text-sg-text-tertiary">{vault.token} yield vault</p>
       </div>
     </div>
-    <div className="flex items-center gap-6">
-      <div className="text-left lg:text-right">
-        <p className="text-money-sm text-sg-success">{formatPercent(vault.apy)} APY</p>
-        <p className="text-caption text-sg-text-tertiary">${formatNumber(vault.tvl)} TVL</p>
+      <div className="flex items-center gap-6">
+        <div className="text-left lg:text-right">
+          <p className="text-money-sm text-sg-success">{formatPercent(vault.apy)} APY</p>
+          <p className="text-caption text-sg-text-tertiary">${formatNumber(vault.tvl)} TVL</p>
+        </div>
+        <Button variant="secondary" size="sm">
+          Start deposit <ArrowRight size={14} />
+        </Button>
       </div>
-      <Button variant="secondary" size="sm">
-        Open route <ArrowRight size={14} />
-      </Button>
-    </div>
   </Card>
 );
 
@@ -69,9 +68,9 @@ export default function Deposit() {
       <div className="mx-auto max-w-[1280px] space-y-14">
         <section className="grid gap-8 xl:grid-cols-[0.86fr_0.76fr]">
           <div className="space-y-7">
-            <div className="inline-flex items-center gap-2 rounded-full border border-black/[0.08] bg-white/70 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-sg-text-secondary shadow-[0_14px_30px_rgba(8,17,31,0.04)]">
-              <Sparkles size={13} className="text-sg-accent-green" />
-              App terminal
+            <div className="inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-sg-text-secondary">
+              <span className="h-px w-8 rounded-full bg-black/[0.12]" />
+              Start with a deposit
             </div>
 
             <div>
@@ -98,24 +97,24 @@ export default function Deposit() {
             <Card className="overflow-hidden !rounded-[30px] !p-0">
               <div className="grid gap-px bg-black/[0.06] lg:grid-cols-[0.88fr_1.12fr]">
                 <div className="bg-white/[0.86] p-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sg-text-secondary">Execution note</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sg-text-secondary">Before you confirm</p>
                   <p className="mt-4 max-w-[28ch] font-display text-[28px] font-semibold leading-tight text-sg-text">
-                    The app stays action-first, but never hides what will happen to user capital.
+                    The numbers that matter stay visible.
                   </p>
                 </div>
                 <div className="bg-[#08111F] p-6 text-white">
                   <div className="grid gap-5 md:grid-cols-3">
                     <div>
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/[0.46]">Source intake</p>
-                      <p className="mt-3 text-sm leading-7 text-white/[0.72]">Choose chain, token, and amount from a calm operating surface.</p>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/[0.46]">Source chain</p>
+                      <p className="mt-3 text-sm leading-7 text-white/[0.72]">Choose where funds sit today, then set the token and amount you want to move.</p>
                     </div>
                     <div>
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/[0.46]">Execution layer</p>
-                      <p className="mt-3 text-sm leading-7 text-white/[0.72]">Bridge and swap steps remain visible before the route is committed.</p>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/[0.46]">Route cost</p>
+                      <p className="mt-3 text-sm leading-7 text-white/[0.72]">Bridge, swap, slippage, and estimated time stay visible before you approve.</p>
                     </div>
                     <div>
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/[0.46]">Destination</p>
-                      <p className="mt-3 text-sm leading-7 text-white/[0.72]">The route lands in Kamino vaults and the portfolio pages take over from there.</p>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/[0.46]">Destination vault</p>
+                      <p className="mt-3 text-sm leading-7 text-white/[0.72]">Your deposit finishes inside Kamino so the position can start earning right away.</p>
                     </div>
                   </div>
                 </div>
@@ -130,7 +129,7 @@ export default function Deposit() {
                 <span className="h-2.5 w-2.5 rounded-full bg-[#08111F]/10" />
                 <span className="h-2.5 w-2.5 rounded-full bg-[#08111F]/10" />
                 <div className="ml-3 rounded-full border border-black/[0.08] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-sg-text-secondary">
-                  Live routing surface
+                  Deposit route
                 </div>
               </div>
               <DepositFlow />
@@ -140,12 +139,12 @@ export default function Deposit() {
 
         <section className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr]">
           <Card className="!rounded-[32px] !bg-[#08111F] !p-7 text-white shadow-[0_40px_120px_rgba(8,17,31,0.14)]">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/[0.46]">Open the system</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/[0.46]">After deposit</p>
             <h2 className="mt-5 max-w-[14ch] font-display text-[34px] font-semibold leading-[1.02]">
-              Continue from routing into monitoring.
+              Keep tracking, switch vaults, or withdraw on your schedule.
             </h2>
             <p className="mt-5 text-sm leading-7 text-white/70">
-              Portfolio and vault pages inherit the same brand language so the handoff from marketing to product feels deliberate.
+              Dashboard and vault views keep the same clarity as the deposit flow, so tracking and changes stay simple after the first deposit.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button variant="secondary" onClick={() => navigate('/app/dashboard')}>
@@ -160,7 +159,7 @@ export default function Deposit() {
           <div>
             <div className="mb-6 flex items-center justify-between gap-4">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sg-text-secondary">Destination shortlist</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sg-text-secondary">Available today</p>
                 <h2 className="mt-2 font-display text-[32px] font-semibold leading-tight text-sg-text">
                   Current Kamino vault opportunities
                 </h2>

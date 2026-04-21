@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight, CheckCircle2, Shield, Sparkles, Waypoints } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, CheckCircle2, Shield, Waypoints } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MARKETING_CONTENT } from '../content/marketing';
@@ -11,12 +11,8 @@ import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 gsap.registerPlugin(ScrollTrigger);
 
 const SectionEyebrow = ({ children, dark = false }) => (
-  <div
-    className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.26em] ${
-      dark ? 'border-white/[0.14] bg-white/[0.06] text-white/70' : 'border-black/10 bg-white/70 text-sg-text-secondary'
-    }`}
-  >
-    <Sparkles size={12} />
+  <div className={`inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] ${dark ? 'text-white/58' : 'text-sg-text-secondary'}`}>
+    <span className={`h-px w-8 rounded-full ${dark ? 'bg-white/18' : 'bg-black/[0.12]'}`} />
     {children}
   </div>
 );
@@ -29,20 +25,34 @@ const StoryStat = ({ label, value, detail }) => (
   </div>
 );
 
+const PARTNER_MARKS = {
+  Solflare: 'SF',
+  'LI.FI': 'LI',
+  DFlow: 'DF',
+  Kamino: 'KM',
+  Jito: 'JT',
+  QuickNode: 'QN',
+};
+
 const PartnerCard = ({ partner, role, value, riskReduction }) => (
-  <article className="flex h-full flex-col justify-between rounded-[30px] border border-white/[0.12] bg-white/[0.06] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.16)] backdrop-blur">
+  <article className="flex h-full flex-col justify-between rounded-[30px] border border-white/[0.1] bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.04))] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.16)] backdrop-blur transition-transform duration-300 hover:-translate-y-1">
     <div>
       <div className="flex items-center justify-between gap-4">
-        <h3 className="font-display text-2xl font-semibold text-white">{partner}</h3>
-        <div className="rounded-full border border-white/[0.12] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/60">
-          Trusted
+        <div className="flex items-center gap-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/[0.12] bg-white/[0.08] text-[11px] font-semibold uppercase tracking-[0.2em] text-white/86">
+            {PARTNER_MARKS[partner] || partner.slice(0, 2).toUpperCase()}
+          </div>
+          <div>
+            <h3 className="font-display text-2xl font-semibold text-white">{partner}</h3>
+            <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#8FEFD2]">{role}</p>
+          </div>
         </div>
+        <div className="h-2.5 w-2.5 rounded-full bg-[#14F195] shadow-[0_0_18px_rgba(20,241,149,0.45)]" />
       </div>
-      <p className="mt-4 text-sm font-semibold uppercase tracking-[0.18em] text-[#14F195]">{role}</p>
-      <p className="mt-4 text-base leading-7 text-white/[0.82]">{value}</p>
+      <p className="mt-6 text-base leading-7 text-white/[0.82]">{value}</p>
     </div>
-    <div className="mt-6 rounded-[24px] border border-[#14F195]/[0.18] bg-[#14F195]/10 p-4">
-      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#CFFFEF]">Why it matters</p>
+    <div className="mt-6 border-t border-white/[0.08] pt-4">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/42">What it means for you</p>
       <p className="mt-2 text-sm leading-6 text-white/80">{riskReduction}</p>
     </div>
   </article>
@@ -176,7 +186,7 @@ export default function Marketing() {
 
             <div data-reveal className="grid gap-3 rounded-[32px] border border-black/[0.08] bg-white/72 p-6 shadow-[0_24px_60px_rgba(8,17,31,0.06)] sm:grid-cols-2">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sg-text-secondary">Trust line</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sg-text-secondary">Why people choose SolGate</p>
                 <p className="mt-3 max-w-[28ch] font-display text-2xl font-semibold leading-tight text-[#08111F]">
                   {MARKETING_CONTENT.hero.trustLine}
                 </p>
@@ -237,7 +247,7 @@ export default function Marketing() {
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/50">Our promise</p>
                   <p className="mt-3 max-w-[48ch] text-base leading-7 text-white/[0.78]">
-                    Real yield, transparent fees, and full self-custody — wrapped in an interface designed for people who take their money seriously.
+                    See the route, see the fees, keep your keys, and move into yield without second-guessing the next step.
                   </p>
                 </div>
               </div>
@@ -276,15 +286,15 @@ export default function Marketing() {
                     ref={(node) => {
                       stepRefs.current[index] = node;
                     }}
-                    className={`rounded-[28px] border border-[#14F195]/[0.32] bg-white/[0.06] p-7 shadow-[0_30px_80px_rgba(8,17,31,0.34)] backdrop-blur-sm ${
+                    className={`rounded-[32px] border border-white/[0.1] bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.05))] p-8 shadow-[0_30px_80px_rgba(8,17,31,0.34)] backdrop-blur-sm ${
                       prefersReducedMotion ? 'mt-4 first:mt-0' : 'absolute inset-x-0 top-0'
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="rounded-full border border-[#14F195]/[0.32] bg-[#14F195]/[0.08] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#14F195]">
+                      <div className="rounded-full border border-white/[0.12] bg-white/[0.06] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/90">
                         {step.step}
                       </div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#14F195]">{step.callout}</p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8FEFD2]">{step.callout}</p>
                     </div>
                     <h3 className="mt-5 font-display text-[30px] font-semibold">{step.title}</h3>
                     <p className="mt-3 max-w-[54ch] text-sm leading-7 text-white/[0.78]">{step.detail}</p>
@@ -352,18 +362,39 @@ export default function Marketing() {
       </section>
 
       <section id="execution-stack" className="bg-[#08111F] px-4 py-24 text-white sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[1280px]">
-          <div className="max-w-[760px]" data-reveal>
-            <SectionEyebrow dark>Built on the best of Solana</SectionEyebrow>
-            <h2 className="mt-6 font-display text-[42px] font-semibold leading-[0.98] tracking-[-0.04em] sm:text-[60px]">
-              The infrastructure behind your yield.
-            </h2>
-            <p className="mt-6 text-base leading-8 text-white/[0.66] lg:text-lg">
-              SolGate connects the most trusted protocols in Solana DeFi — so your capital moves through audited, institutional-grade infrastructure at every step.
-            </p>
+        <div className="mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[0.88fr_1.12fr]">
+          <div className="space-y-8">
+            <div className="max-w-[720px]" data-reveal>
+              <SectionEyebrow dark>Execution network</SectionEyebrow>
+              <h2 className="mt-6 font-display text-[42px] font-semibold leading-[0.98] tracking-[-0.04em] sm:text-[60px]">
+                Trusted at every handoff.
+              </h2>
+              <p className="mt-6 text-base leading-8 text-white/[0.66] lg:text-lg">
+                Every deposit moves through established partners for access, routing, execution, and vault entry — so the path from wallet to yield stays visible and controlled.
+              </p>
+            </div>
+
+            <div data-reveal className="overflow-hidden rounded-[34px] border border-white/[0.12] bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-4 shadow-[0_40px_120px_rgba(0,0,0,0.2)] backdrop-blur">
+              <img
+                src="/marketing/execution-network.svg"
+                alt=""
+                className="h-full w-full rounded-[28px] border border-white/10 object-cover"
+              />
+            </div>
+
+            <div className="flex flex-wrap gap-3" data-reveal>
+              {MARKETING_CONTENT.partnerStack.map((item) => (
+                <div
+                  key={item.partner}
+                  className="rounded-full border border-white/[0.12] bg-white/[0.05] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/72"
+                >
+                  {item.partner}
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2">
             {MARKETING_CONTENT.partnerStack.map((item) => (
               <div key={item.partner} data-reveal className="h-full">
                 <PartnerCard {...item} />
