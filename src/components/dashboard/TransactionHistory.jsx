@@ -23,8 +23,8 @@ const statusVariants = {
 export const TransactionHistory = ({ transactions, loading, error }) => {
   if (error) {
     return (
-      <Card>
-        <h2 className="text-h2 text-sg-text mb-4">{STRINGS.DASHBOARD_RECENT_TX}</h2>
+      <Card className="!rounded-[30px]">
+        <h2 className="mb-4 font-display text-[28px] font-semibold text-sg-text">{STRINGS.DASHBOARD_RECENT_TX}</h2>
         <p className="text-body text-sg-error text-center py-4">{STRINGS.STATE_ERROR}</p>
       </Card>
     );
@@ -32,8 +32,8 @@ export const TransactionHistory = ({ transactions, loading, error }) => {
 
   if (loading) {
     return (
-      <Card>
-        <h2 className="text-h2 text-sg-text mb-4">{STRINGS.DASHBOARD_RECENT_TX}</h2>
+      <Card className="!rounded-[30px]">
+        <h2 className="mb-4 font-display text-[28px] font-semibold text-sg-text">{STRINGS.DASHBOARD_RECENT_TX}</h2>
         <div className="space-y-3">
           {Array.from({ length: 3 }).map((_, i) => (
             <Skeleton key={i} height="3.5rem" rounded="rounded-lg" className="w-full" />
@@ -44,8 +44,8 @@ export const TransactionHistory = ({ transactions, loading, error }) => {
   }
 
   return (
-    <Card>
-      <h2 className="text-h2 text-sg-text mb-4">{STRINGS.DASHBOARD_RECENT_TX}</h2>
+    <Card className="!rounded-[30px]">
+      <h2 className="mb-4 font-display text-[28px] font-semibold text-sg-text">{STRINGS.DASHBOARD_RECENT_TX}</h2>
       {!transactions?.length ? (
         <p className="text-body text-sg-text-tertiary py-4">{STRINGS.STATE_EMPTY_TRANSACTIONS}</p>
       ) : (

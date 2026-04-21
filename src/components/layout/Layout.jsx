@@ -4,13 +4,13 @@ import { Header } from './Header';
 import { MobileNav } from './MobileNav';
 import { ToastContainer } from '../ui/Toast';
 
-export const Layout = () => {
+export const AppLayout = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-sg-bg">
+    <div className="app-shell min-h-screen bg-sg-bg text-sg-text">
       <Header onMenuToggle={() => setMobileMenuOpen(!mobileMenuOpen)} />
-      <main className="flex-1 pb-20 lg:pb-0">
+      <main className="flex-1 pb-24 lg:pb-0">
         <Outlet />
       </main>
       <MobileNav />

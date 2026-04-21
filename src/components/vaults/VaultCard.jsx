@@ -23,7 +23,7 @@ export const VaultCard = ({ vault, onDeposit }) => {
     <Card hover className="flex flex-col">
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
-          <TokenBadge symbol={vault.token} size="lg" />
+          <TokenBadge symbol={vault.token} size="lg" className="shadow-[0_12px_30px_rgba(8,17,31,0.06)]" />
           <div>
             <h3 className="text-h3 text-sg-text">{vault.name}</h3>
             <p className="text-caption text-sg-text-tertiary">{vault.token}</p>

@@ -20,7 +20,7 @@ export const VaultFilters = ({
           placeholder={STRINGS.VAULTS_SEARCH_PLACEHOLDER}
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="w-full bg-sg-bg-elevated border border-sg-border rounded-input pl-9 pr-4 py-2.5 text-body text-sg-text placeholder:text-sg-text-tertiary focus:outline-none focus:border-sg-accent-purple transition-colors"
+          className="w-full rounded-input border border-black/[0.08] bg-white/[0.88] pl-9 pr-4 py-3 text-body text-sg-text placeholder:text-sg-text-tertiary shadow-[0_14px_30px_rgba(8,17,31,0.04)] transition-colors focus:outline-none focus:border-sg-accent-purple"
         />
       </div>
 
@@ -30,7 +30,7 @@ export const VaultFilters = ({
         <select
           value={sortBy}
           onChange={(e) => onSortChange(e.target.value)}
-          className="bg-sg-bg-elevated border border-sg-border rounded-input px-3 py-2.5 text-body text-sg-text focus:outline-none focus:border-sg-accent-purple appearance-none cursor-pointer"
+          className="appearance-none cursor-pointer rounded-input border border-black/[0.08] bg-white/[0.88] px-3 py-3 text-body text-sg-text shadow-[0_14px_30px_rgba(8,17,31,0.04)] focus:outline-none focus:border-sg-accent-purple"
         >
           <option value="apy">{STRINGS.VAULTS_SORT_APY}</option>
           <option value="tvl">{STRINGS.VAULTS_SORT_TVL}</option>
@@ -41,7 +41,7 @@ export const VaultFilters = ({
       <select
         value={riskFilter}
         onChange={(e) => onRiskFilterChange(e.target.value)}
-        className="bg-sg-bg-elevated border border-sg-border rounded-input px-3 py-2.5 text-body text-sg-text focus:outline-none focus:border-sg-accent-purple appearance-none cursor-pointer"
+        className="appearance-none cursor-pointer rounded-input border border-black/[0.08] bg-white/[0.88] px-3 py-3 text-body text-sg-text shadow-[0_14px_30px_rgba(8,17,31,0.04)] focus:outline-none focus:border-sg-accent-purple"
       >
         <option value="all">{STRINGS.VAULTS_RISK_ALL}</option>
         <option value="low">{STRINGS.RISK_LOW}</option>

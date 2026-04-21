@@ -13,9 +13,9 @@ export const Input = ({
       ) : null}
       <input
         className={`
-          w-full bg-sg-bg-elevated border border-sg-border rounded-input
+          w-full rounded-input border border-black/[0.08] bg-white/90
           px-4 py-3 text-body text-sg-text placeholder:text-sg-text-tertiary
-          transition-colors duration-150
+          shadow-[0_14px_30px_rgba(8,17,31,0.04)] transition-colors duration-150
           focus:outline-none focus:border-sg-accent-purple
           ${error ? 'border-sg-error' : ''}
           ${className}

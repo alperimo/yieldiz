@@ -2,13 +2,13 @@ export const APP_VERSION = '0.1.0';
 
 export const STRINGS = {
   APP_NAME: 'SolGate',
-  APP_TAGLINE: 'Cross-Chain Smart Yield Terminal',
+  APP_TAGLINE: 'Cross-Chain Yield Routing for Solana',
   APP_LOGO_ABBR: 'SG',
 
-  // Hero
-  HERO_HEADLINE: 'Earn the best Solana yields.',
-  HERO_SUBHEADLINE: 'From any chain. One click.',
-  HERO_CTA: 'Deposit & Earn',
+  // App hero
+  HERO_HEADLINE: 'Route capital into Solana yield.',
+  HERO_SUBHEADLINE: 'Source chain, route context, vault destination, one operating surface.',
+  HERO_CTA: 'Launch Routing Flow',
 
   // Navigation
   NAV_DEPOSIT: 'Deposit',
@@ -57,8 +57,8 @@ export const STRINGS = {
   VAULTS_SORT_APY: 'APY',
   VAULTS_SORT_TVL: 'TVL',
   VAULTS_DEPOSIT: 'Deposit',
-  VAULTS_POWERED_BY: 'Powered by Kamino Finance',
-  VAULTS_DATA_BY: 'Data via Quicknode',
+  VAULTS_POWERED_BY: 'Vault destination via Kamino',
+  VAULTS_DATA_BY: 'Solana state via QuickNode',
   VAULTS_VIEW_ALL: 'View all',
   VAULTS_TOP_TITLE: 'Top Vaults',
   VAULTS_RISK_ALL: 'All Risk',
@@ -93,7 +93,7 @@ export const STRINGS = {
   RISK_HIGH: 'High',
 
   // Partners
-  PARTNERS_FOOTER: 'Built with',
+  PARTNERS_FOOTER: 'Execution stack',
 
   // Stats Labels
   STATS_TVL: 'TVL',
@@ -101,18 +101,18 @@ export const STRINGS = {
   STATS_USERS: 'Users',
 
   // Features section
-  FEATURES_HEADLINE: 'Why SolGate?',
-  FEATURE_CHAINS_TITLE: '5 Chains Supported',
-  FEATURE_CHAINS_DESC: 'Bridge from Ethereum, Arbitrum, Base, Polygon & Optimism to Solana in one click.',
-  FEATURE_MEV_TITLE: 'MEV Protected',
-  FEATURE_MEV_DESC: 'Jito bundles shield your deposits from frontrunning and sandwich attacks.',
-  FEATURE_RATES_TITLE: 'Best Swap Rates',
-  FEATURE_RATES_DESC: 'DFlow smart order routing finds the optimal execution path for every trade.',
-  FEATURE_YIELD_TITLE: 'Institutional Yield',
-  FEATURE_YIELD_DESC: 'Kamino automated vaults deliver optimized DeFi yield strategies on Solana.',
+  FEATURES_HEADLINE: 'Execution, not decoration',
+  FEATURE_CHAINS_TITLE: 'Cross-chain intake',
+  FEATURE_CHAINS_DESC: 'Start with stablecoin balances already sitting on major EVM chains and route them into Solana.',
+  FEATURE_MEV_TITLE: 'Protected final entry',
+  FEATURE_MEV_DESC: 'Jito-backed execution adds discipline to the last step where capital commits to the vault.',
+  FEATURE_RATES_TITLE: 'Route intelligence',
+  FEATURE_RATES_DESC: 'Bridge, swap, fee, and timing context stays visible instead of being hidden behind a button.',
+  FEATURE_YIELD_TITLE: 'Yield destination',
+  FEATURE_YIELD_DESC: 'Kamino vaults give the route a clear productive outcome rather than leaving assets idle.',
 
   // Hero badge
-  HERO_BADGE: 'Powered by Solana • 5 chains supported',
+  HERO_BADGE: 'Solana yield routing • 5 source chains live',
 };
 
 export const CHAINS = [
@@ -174,17 +174,17 @@ export const MOCK_PLATFORM_STATS = {
 
 // Token badge color classes (explicit for Tailwind purge safety)
 export const TOKEN_BADGE_COLORS = {
-  USDC: 'bg-sg-accent-blue/20 text-sg-accent-blue',
-  USDT: 'bg-sg-accent-green/20 text-sg-accent-green',
-  SOL: 'bg-sg-accent-purple/20 text-sg-accent-purple',
-  JitoSOL: 'bg-sg-success/20 text-sg-success',
-  mSOL: 'bg-sg-accent-green/20 text-sg-accent-green',
-  ETH: 'bg-sg-accent-blue/20 text-sg-accent-blue',
+  USDC: 'bg-sg-accent-blue/[0.15] text-sg-accent-blue border border-sg-accent-blue/20',
+  USDT: 'bg-sg-accent-green/[0.15] text-sg-accent-green border border-sg-accent-green/20',
+  SOL: 'bg-sg-accent-purple/[0.15] text-sg-accent-purple border border-sg-accent-purple/20',
+  JitoSOL: 'bg-sg-success/[0.15] text-sg-success border border-sg-success/20',
+  mSOL: 'bg-sg-accent-green/[0.15] text-sg-accent-green border border-sg-accent-green/20',
+  ETH: 'bg-sg-accent-blue/[0.15] text-sg-accent-blue border border-sg-accent-blue/20',
 };
 
 // Shared navigation items
 export const NAV_ITEMS = [
-  { to: '/', label: 'NAV_DEPOSIT', iconName: 'ArrowDownToLine' },
-  { to: '/dashboard', label: 'NAV_DASHBOARD', iconName: 'LayoutDashboard' },
-  { to: '/vaults', label: 'NAV_VAULTS', iconName: 'Vault' },
+  { to: '/app', label: 'NAV_DEPOSIT', iconName: 'ArrowDownToLine' },
+  { to: '/app/dashboard', label: 'NAV_DASHBOARD', iconName: 'LayoutDashboard' },
+  { to: '/app/vaults', label: 'NAV_VAULTS', iconName: 'Vault' },
 ];

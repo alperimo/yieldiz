@@ -33,8 +33,8 @@ export const PortfolioSummary = ({ positions, loading, error }) => {
     : 0;
 
   return (
-    <Card>
-      <h2 className="text-h2 text-sg-text mb-6">{STRINGS.DASHBOARD_TITLE}</h2>
+    <Card className="!rounded-[30px]">
+      <h2 className="mb-6 font-display text-[28px] font-semibold text-sg-text">{STRINGS.DASHBOARD_TITLE}</h2>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div>
           <div className="flex items-center gap-2 mb-2">

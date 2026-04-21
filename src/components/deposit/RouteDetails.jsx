@@ -27,10 +27,10 @@ export const RouteDetails = ({ quote, className = '' }) => {
       </button>
 
       {expanded ? (
-        <div className="mt-3 bg-sg-bg-elevated rounded-xl p-4 space-y-3">
+        <div className="mt-3 space-y-3 rounded-[24px] border border-black/[0.06] bg-white/[0.88] p-4 shadow-[0_16px_35px_rgba(8,17,31,0.04)]">
           {quote.steps.map((step, idx) => (
             <div key={idx} className="flex items-start gap-3">
-              <div className="mt-1 w-5 h-5 rounded-full bg-sg-bg-secondary border border-sg-border flex items-center justify-center text-caption text-sg-text-tertiary shrink-0">
+              <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-black/[0.08] bg-white text-caption text-sg-text-tertiary">
                 {idx + 1}
               </div>
               <div className="flex-1">

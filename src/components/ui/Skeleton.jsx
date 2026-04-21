@@ -15,7 +15,7 @@ export const Skeleton = ({
 };
 
 export const SkeletonCard = () => (
-  <div className="bg-sg-bg-secondary border border-sg-border rounded-card p-6 space-y-4">
+  <div className="rounded-card border border-black/[0.08] bg-white/[0.82] p-6 space-y-4 shadow-[0_24px_60px_rgba(8,17,31,0.06)]">
     <Skeleton width="60%" height="1.25rem" rounded="rounded" />
     <Skeleton width="40%" height="2rem" rounded="rounded" />
     <Skeleton width="80%" height="0.875rem" rounded="rounded" />

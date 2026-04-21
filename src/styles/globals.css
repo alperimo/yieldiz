@@ -13,12 +13,13 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Manrope', system-ui, sans-serif;
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
   min-height: 100vh;
@@ -36,8 +37,8 @@ body {
   }
 
   ::selection {
-    background-color: var(--color-accent-purple);
-    color: #FFFFFF;
+    background-color: rgba(20, 241, 149, 0.28);
+    color: #08111F;
   }
 
   input[type='number']::-webkit-inner-spin-button,
@@ -70,7 +71,7 @@ body {
 
   /* Dropdown/popover animate-in */
   .animate-in {
-    animation: fadeSlideIn 150ms ease-out;
+    animation: fadeSlideIn 180ms ease-out;
   }
 
   @keyframes fadeSlideIn {
@@ -80,7 +81,7 @@ body {
 
   /* Page transition */
   .page-enter {
-    animation: pageEnter 200ms ease-out;
+    animation: pageEnter 240ms ease-out;
   }
 
   @keyframes pageEnter {
@@ -114,7 +115,7 @@ body {
   }
   .card-hover:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 28px 60px rgba(8, 17, 31, 0.12);
   }
 
   /* Success confetti particle */
@@ -133,6 +134,10 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {
@@ -145,7 +150,7 @@ body {
 /* ─── Wallet adapter overrides ─── */
 .wallet-adapter-modal-wrapper {
   background-color: #FFFFFF !important;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 35px 80px rgba(8, 17, 31, 0.18) !important;
   border-radius: var(--radius-card) !important;
 }
 .wallet-adapter-modal-title {
@@ -169,76 +174,43 @@ body {
 
 /* Wallet CTA button — uses background shorthand to override everything */
 .sg-wallet-btn {
-  background: var(--gradient-cta) !important;
-  color: #163300 !important;
-  border: none !important;
+  background: #08111F !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(8, 17, 31, 0.08) !important;
   border-radius: var(--radius-button) !important;
   font-size: 15px !important;
   font-weight: 600 !important;
-  height: 44px !important;
+  height: 46px !important;
   padding: 0 24px !important;
   cursor: pointer !important;
+  box-shadow: 0 18px 40px rgba(8, 17, 31, 0.12) !important;
   transition: opacity 150ms ease-out, transform 150ms ease-out !important;
 }
 .sg-wallet-btn:hover {
-  opacity: 0.9 !important;
+  opacity: 0.96 !important;
   transform: translateY(-1px) !important;
 }
 .sg-wallet-btn:active {
   transform: scale(0.97) !important;
 }
 
-/* ─── Hero section ─── */
-.hero-orb {
-  position: absolute;
-  width: 700px;
-  height: 700px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 30% 40%,
-    rgba(159, 232, 112, 0.35),
-    rgba(15, 118, 110, 0.2) 40%,
-    rgba(37, 99, 235, 0.1) 70%,
-    transparent 100%
-  );
-  filter: blur(80px);
-  animation: orbFloat 14s ease-in-out infinite;
-  pointer-events: none;
+/* Shared premium surfaces */
+.app-shell {
+  background:
+    radial-gradient(circle at top left, rgba(20, 241, 149, 0.12), transparent 30%),
+    radial-gradient(circle at top right, rgba(124, 107, 255, 0.10), transparent 32%),
+    linear-gradient(180deg, #F5F7F2 0%, #EEF2EA 100%);
 }
 
-.hero-orb-secondary {
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 60% 50%,
-    rgba(37, 99, 235, 0.2),
-    rgba(15, 118, 110, 0.1) 50%,
-    transparent 80%
-  );
-  filter: blur(100px);
-  animation: orbFloat 18s ease-in-out infinite reverse;
-  pointer-events: none;
-}
-
-@keyframes orbFloat {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(30px, -20px) scale(1.05); }
-  50% { transform: translate(-15px, 25px) scale(0.97); }
-  75% { transform: translate(-25px, -15px) scale(1.03); }
-}
-
-/* ─── Feature card hover ─── */
 .feature-card {
-  transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out;
 }
+
 .feature-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 24px 60px rgba(8, 17, 31, 0.10);
 }
 
-/* ─── Stat counter animation ─── */
 .stat-highlight {
   display: inline-block;
   animation: statPop 600ms cubic-bezier(0.34, 1.56, 0.64, 1);

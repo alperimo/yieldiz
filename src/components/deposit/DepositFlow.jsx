@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { ArrowDown, Zap } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
@@ -17,6 +18,7 @@ import { STRINGS, DEPOSIT_FLOW_STATES } from '../../lib/constants';
 import { formatPercent, formatCurrency } from '../../lib/formatters';
 
 export const DepositFlow = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { connected, connect, address, balance, signTransaction, signAllTransactions, evmAddress } = useWallet();
   const { data: vaults } = useVaults();
   const { data: quote, loading: quoteLoading, getQuote } = useBridgeQuote();
@@ -27,13 +29,31 @@ export const DepositFlow = () => {
   const [amount, setAmount] = useState('');
   const [selectedVault, setSelectedVault] = useState('');
   const [showTxModal, setShowTxModal] = useState(false);
+  const selectedVaultParam = searchParams.get('vault');
 
-  // Auto-select first vault
+  // Auto-select vault from URL when available, otherwise fall back to the top vault.
   useEffect(() => {
-    if (vaults?.length && !selectedVault) {
+    if (!vaults?.length) return;
+
+    const hasParamMatch = selectedVaultParam && vaults.some((vault) => vault.pubkey === selectedVaultParam);
+
+    if (hasParamMatch) {
+      setSelectedVault(selectedVaultParam);
+      return;
+    }
+
+    if (!selectedVault) {
       setSelectedVault(vaults[0].pubkey);
     }
-  }, [vaults, selectedVault]);
+  }, [vaults, selectedVault, selectedVaultParam]);
+
+  useEffect(() => {
+    if (!selectedVault || searchParams.get('vault') === selectedVault) return;
+
+    const nextParams = new URLSearchParams(searchParams);
+    nextParams.set('vault', selectedVault);
+    setSearchParams(nextParams, { replace: true });
+  }, [selectedVault, searchParams, setSearchParams]);
 
   // Fetch quote when params change
   useEffect(() => {
@@ -71,7 +91,7 @@ export const DepositFlow = () => {
 
   return (
     <>
-      <Card className="max-w-lg mx-auto">
+      <Card className="mx-auto max-w-lg !rounded-[30px] !p-6 lg:!p-7">
         {/* From section */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
@@ -89,7 +109,7 @@ export const DepositFlow = () => {
 
         {/* Arrow divider */}
         <div className="flex justify-center py-3">
-          <div className={`w-10 h-10 rounded-full bg-sg-bg-elevated border border-sg-border flex items-center justify-center ${quoteLoading ? 'pulse-glow' : ''}`}>
+          <div className={`flex h-11 w-11 items-center justify-center rounded-full border border-black/[0.08] bg-white ${quoteLoading ? 'pulse-glow' : ''}`}>
             <ArrowDown size={18} className="text-sg-accent-purple" />
           </div>
         </div>
@@ -100,7 +120,7 @@ export const DepositFlow = () => {
             <span className="text-body text-sg-text-secondary">{STRINGS.DEPOSIT_TO}</span>
             <Badge variant="purple">Solana</Badge>
           </div>
-          <div className="bg-sg-bg-elevated rounded-xl p-4">
+          <div className="rounded-[24px] border border-black/[0.06] bg-[rgba(255,255,255,0.92)] p-4 shadow-[0_16px_35px_rgba(8,17,31,0.04)]">
             <div className="flex items-center justify-between mb-2">
               <VaultSelector
                 vaults={vaults}

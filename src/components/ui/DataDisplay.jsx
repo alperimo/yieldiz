@@ -1,5 +1,5 @@
 import React from 'react';
-import { TOKEN_BADGE_COLORS } from '../../lib/constants';
+import { TOKEN_BADGE_COLORS, STRINGS } from '../../lib/constants';
 
 export const TokenBadge = ({ symbol, name, size = 'md', className = '' }) => {
   const sizes = {

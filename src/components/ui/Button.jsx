@@ -1,16 +1,16 @@
 import React from 'react';
 
 const variants = {
-  primary: 'text-[#163300] font-semibold',
-  secondary: 'bg-sg-bg-secondary text-sg-text border border-sg-border hover:border-sg-accent-purple shadow-sm',
-  ghost: 'bg-transparent text-sg-text-secondary hover:text-sg-text hover:bg-sg-bg-elevated',
+  primary: 'bg-[#08111F] text-white font-semibold shadow-[0_20px_50px_rgba(8,17,31,0.12)] hover:-translate-y-0.5',
+  secondary: 'bg-white/80 text-sg-text border border-black/[0.08] hover:border-sg-accent-purple/[0.35] shadow-[0_16px_35px_rgba(8,17,31,0.06)]',
+  ghost: 'bg-transparent text-sg-text-secondary hover:text-sg-text hover:bg-white/70',
   danger: 'bg-sg-error/10 text-sg-error border border-sg-error/20 hover:bg-sg-error/20',
 };
 
 const sizes = {
-  sm: 'px-3 py-1.5 text-caption',
-  md: 'px-5 py-2.5 text-body',
-  lg: 'px-7 py-3.5 text-body font-semibold',
+  sm: 'px-3.5 py-2 text-caption',
+  md: 'px-5 py-3 text-body',
+  lg: 'px-7 py-4 text-body font-semibold',
 };
 
 export const Button = ({
@@ -31,7 +31,6 @@ export const Button = ({
         transition-all duration-150 ease-out
         disabled:opacity-50 disabled:cursor-not-allowed
         active:scale-[0.97]
-        ${isPrimary ? 'bg-[image:var(--gradient-cta)]' : ''}
         ${variants[variant]}
         ${sizes[size]}
         ${className}

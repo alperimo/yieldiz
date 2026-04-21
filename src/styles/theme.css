@@ -1,30 +1,29 @@
 :root {
-  /* Backgrounds — clean light fintech */
-  --color-bg-primary: #F7F9FC;
+  /* Brand surfaces */
+  --color-bg-primary: #F5F7F2;
   --color-bg-secondary: #FFFFFF;
-  --color-bg-elevated: #F0F3F8;
-  --color-border: #E2E8F0;
+  --color-bg-elevated: #EEF2EA;
+  --color-border: rgba(8, 17, 31, 0.10);
 
-  /* Accents — Wise-inspired green palette */
-  --color-accent-green: #16A34A;
-  --color-accent-purple: #0F766E;
-  --color-accent-blue: #2563EB;
+  /* Core palette */
+  --color-accent-green: #14F195;
+  --color-accent-purple: #7C6BFF;
+  --color-accent-blue: #00C2FF;
 
-  /* Text — high contrast on light */
-  --color-text-primary: #0F172A;
-  --color-text-secondary: #64748B;
-  --color-text-tertiary: #94A3B8;
+  /* Text */
+  --color-text-primary: #08111F;
+  --color-text-secondary: #526071;
+  --color-text-tertiary: #7C8898;
 
   /* Status */
-  --color-success: #16A34A;
-  --color-warning: #D97706;
-  --color-error: #DC2626;
+  --color-success: #0EA56A;
+  --color-warning: #B7791F;
+  --color-error: #D44545;
 
-  /* Radius — generous for modern feel */
-  --radius-card: 16px;
-  --radius-button: 12px;
-  --radius-input: 12px;
+  /* Radius */
+  --radius-card: 24px;
+  --radius-button: 999px;
+  --radius-input: 18px;
 
-  /* CTA — Wise lime green */
-  --gradient-cta: linear-gradient(135deg, #9FE870, #76CC44);
+  --gradient-cta: linear-gradient(135deg, #14F195 0%, #00C2FF 58%, #7C6BFF 100%);
 }

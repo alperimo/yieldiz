@@ -61,8 +61,8 @@ export const PositionsTable = ({ positions, loading, error }) => {
   }
 
   return (
-    <Card>
-      <h2 className="text-h2 text-sg-text mb-4">{STRINGS.DASHBOARD_ACTIVE_POSITIONS}</h2>
+    <Card className="!rounded-[30px]">
+      <h2 className="mb-4 font-display text-[28px] font-semibold text-sg-text">{STRINGS.DASHBOARD_ACTIVE_POSITIONS}</h2>
       <DataTable
         columns={columns}
         data={positions}

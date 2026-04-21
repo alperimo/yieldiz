@@ -17,10 +17,10 @@ const Dashboard = () => {
 
   if (!connected) {
     return (
-      <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-8">
-        <div className="flex flex-col items-center justify-center py-20">
+      <div className="mx-auto max-w-[1280px] px-4 py-8 lg:px-8">
+        <div className="flex flex-col items-center justify-center rounded-[32px] border border-black/[0.08] bg-white/80 py-24 shadow-[0_24px_70px_rgba(8,17,31,0.06)]">
           <Wallet size={48} className="text-sg-text-tertiary mb-4" />
-          <h2 className="text-h2 text-sg-text mb-2">{STRINGS.DASHBOARD_TITLE}</h2>
+          <h2 className="font-display text-[34px] font-semibold text-sg-text mb-2">{STRINGS.DASHBOARD_TITLE}</h2>
           <p className="text-body text-sg-text-secondary mb-6">
             {STRINGS.WALLET_CONNECT_PROMPT}
           </p>
@@ -33,10 +33,21 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="max-w-[1200px] mx-auto px-4 lg:px-8 py-8 space-y-6">
+    <div className="mx-auto max-w-[1280px] px-4 py-8 lg:px-8">
+      <div className="mb-8 rounded-[34px] border border-black/[0.08] bg-white/[0.82] p-8 shadow-[0_24px_70px_rgba(8,17,31,0.06)]">
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sg-text-secondary">Portfolio command</p>
+        <h1 className="mt-3 font-display text-[42px] font-semibold leading-[1.02] tracking-[-0.03em] text-sg-text">
+          Your Solana yield positions.
+        </h1>
+        <p className="mt-4 max-w-[52ch] text-base leading-8 text-sg-text-secondary">
+          Monitor deposited capital, earned yield, and recent execution history in the same premium surface as the routing flow.
+        </p>
+      </div>
+      <div className="space-y-6">
       <PortfolioSummary positions={positions} loading={posLoading} error={posError} />
       <PositionsTable positions={positions} loading={posLoading} error={posError} />
       <TransactionHistory transactions={transactions} loading={txLoading} error={txError} />
+      </div>
     </div>
   );
 };

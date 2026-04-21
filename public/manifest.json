@@ -1,11 +1,11 @@
 {
-  "name": " Cross-Chain Smart Yield Terminal",SolGate 
+  "name": "SolGate — Cross-Chain Yield Routing for Solana",
   "short_name": "SolGate",
-  "description": "Earn the best Solana yields from any chain. One click.",
+  "description": "Move stablecoin capital from major chains into Solana yield with route clarity and self-custodial control.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F7F9FC",
-  "theme_color": "#9FE870",
+  "background_color": "#F5F7F2",
+  "theme_color": "#08111F",
   "icons": [
     {
       "src": "/favicon.svg",

@@ -9,7 +9,7 @@ export const Sidebar = () => {
   return (
     <aside className="hidden lg:flex flex-col w-60 h-screen bg-sg-bg-secondary border-r border-sg-border fixed left-0 top-0">
       <div className="p-6 pb-8">
-        <NavLink to="/" className="flex items-center gap-2">
+        <NavLink to="/app" className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-[image:var(--gradient-cta)] flex items-center justify-center text-[#163300] font-bold text-sm">
             {STRINGS.APP_LOGO_ABBR}
           </div>
