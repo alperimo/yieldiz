@@ -100,54 +100,33 @@ export default function Marketing() {
 
       const steps = stepRefs.current.filter(Boolean);
       if (steps.length && flowPinRef.current && flowSectionRef.current) {
-        gsap.set(steps, { opacity: 0.38, y: 32 });
-        gsap.set(steps[0], { opacity: 1, y: 0 });
-        gsap.set(flowProgressRef.current, { scaleY: 0.18, transformOrigin: 'top center' });
+        // Stacked-cards approach: only the active step is visible & centered
+        gsap.set(steps, { opacity: 0, y: 24, pointerEvents: 'none' });
+        gsap.set(steps[0], { opacity: 1, y: 0, pointerEvents: 'auto' });
+        gsap.set(flowProgressRef.current, { scaleY: 1 / steps.length, transformOrigin: 'top center' });
 
         const timeline = gsap.timeline({
           scrollTrigger: {
             trigger: flowSectionRef.current,
-            start: 'top top+=72',
-            end: `+=${steps.length * 180}`,
-            scrub: 0.7,
+            start: 'top top',
+            end: `+=${(steps.length - 1) * 220}`,
+            scrub: 0.6,
             pin: flowPinRef.current,
             anticipatePin: 1,
+            invalidateOnRefresh: true,
           },
         });
 
         steps.forEach((step, index) => {
-          timeline.to(
-            step,
-            {
-              opacity: 1,
-              y: 0,
-              borderColor: 'rgba(20, 241, 149, 0.42)',
-              boxShadow: '0 30px 80px rgba(8, 17, 31, 0.34)',
-              duration: 0.8,
-            },
-            index,
-          );
-
-          if (index > 0) {
-            timeline.to(
-              steps[index - 1],
-              {
-                opacity: 0.4,
-                borderColor: 'rgba(255,255,255,0.12)',
-                boxShadow: '0 0 0 rgba(0,0,0,0)',
-                duration: 0.8,
-              },
-              index,
-            );
-          }
-
+          if (index === 0) return;
+          const prev = steps[index - 1];
+          const slot = (index - 1) / (steps.length - 1);
+          timeline.to(prev, { opacity: 0, y: -24, duration: 0.5, pointerEvents: 'none' }, slot);
+          timeline.to(step, { opacity: 1, y: 0, duration: 0.5, pointerEvents: 'auto' }, slot);
           timeline.to(
             flowProgressRef.current,
-            {
-              scaleY: (index + 1) / steps.length,
-              duration: 0.8,
-            },
-            index,
+            { scaleY: (index + 1) / steps.length, duration: 0.5 },
+            slot,
           );
         });
       }
@@ -263,12 +242,12 @@ export default function Marketing() {
       <section
         id="operating-model"
         ref={flowSectionRef}
-        className={`relative overflow-hidden bg-[#0C1628] px-4 py-20 text-white sm:px-6 lg:px-8 ${prefersReducedMotion ? '' : 'min-h-[180vh]'}`}
+        className={`relative overflow-hidden bg-[#0C1628] px-4 py-20 text-white sm:px-6 lg:px-8 ${prefersReducedMotion ? '' : 'min-h-screen'}`}
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(20,241,149,0.16),transparent_28%),radial-gradient(circle_at_80%_20%,rgba(124,107,255,0.2),transparent_34%),linear-gradient(180deg,#0C1628_0%,#08111F_100%)]" />
         <div
           ref={flowPinRef}
-          className={`mx-auto grid max-w-[1380px] gap-10 lg:grid-cols-[0.9fr_1.1fr] ${prefersReducedMotion ? '' : 'min-h-screen items-center'}`}
+          className={`mx-auto grid max-w-[1380px] gap-10 lg:grid-cols-[0.9fr_1.1fr] ${prefersReducedMotion ? '' : 'min-h-[calc(100vh-6rem)] items-center'}`}
         >
           <div className="relative z-10 flex flex-col justify-center">
             <SectionEyebrow dark>How it works</SectionEyebrow>
@@ -280,26 +259,28 @@ export default function Marketing() {
             </p>
 
             <div className="mt-10 flex items-start gap-6">
-              <div className="relative hidden h-[360px] w-1 rounded-full bg-white/10 lg:block">
-                <div ref={flowProgressRef} className="absolute inset-x-0 top-0 rounded-full bg-[linear-gradient(180deg,#14F195_0%,#00C2FF_50%,#7C6BFF_100%)]" />
+              <div className="relative hidden h-[280px] w-1 rounded-full bg-white/10 lg:block">
+                <div ref={flowProgressRef} className="absolute inset-x-0 top-0 h-full rounded-full bg-[linear-gradient(180deg,#14F195_0%,#00C2FF_50%,#7C6BFF_100%)]" />
               </div>
-              <div className="space-y-4">
+              <div className="relative w-full" style={{ minHeight: prefersReducedMotion ? 'auto' : '320px' }}>
                 {MARKETING_CONTENT.howItWorks.map((step, index) => (
                   <article
                     key={step.step}
                     ref={(node) => {
                       stepRefs.current[index] = node;
                     }}
-                    className="rounded-[28px] border border-white/[0.12] bg-white/[0.05] p-6 shadow-[0_20px_40px_rgba(0,0,0,0.14)]"
+                    className={`rounded-[28px] border border-[#14F195]/[0.32] bg-white/[0.06] p-7 shadow-[0_30px_80px_rgba(8,17,31,0.34)] backdrop-blur-sm ${
+                      prefersReducedMotion ? 'mt-4 first:mt-0' : 'absolute inset-x-0 top-0'
+                    }`}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="rounded-full border border-white/[0.16] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/[0.56]">
+                      <div className="rounded-full border border-[#14F195]/[0.32] bg-[#14F195]/[0.08] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#14F195]">
                         {step.step}
                       </div>
                       <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#14F195]">{step.callout}</p>
                     </div>
                     <h3 className="mt-5 font-display text-[30px] font-semibold">{step.title}</h3>
-                    <p className="mt-3 max-w-[54ch] text-sm leading-7 text-white/[0.72]">{step.detail}</p>
+                    <p className="mt-3 max-w-[54ch] text-sm leading-7 text-white/[0.78]">{step.detail}</p>
                   </article>
                 ))}
               </div>

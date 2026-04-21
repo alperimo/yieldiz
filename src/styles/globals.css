@@ -172,26 +172,37 @@ body {
   background-color: transparent !important;
 }
 
-/* Wallet CTA button — uses background shorthand to override everything */
-.sg-wallet-btn {
+/* Wallet CTA button — matches marketing CTA, dark pill */
+.sg-wallet-btn,
+.wallet-adapter-button-trigger {
   background: #08111F !important;
+  background-image: none !important;
   color: #FFFFFF !important;
   border: 1px solid rgba(8, 17, 31, 0.08) !important;
-  border-radius: var(--radius-button) !important;
-  font-size: 15px !important;
+  border-radius: 9999px !important;
+  font-family: 'Manrope', system-ui, sans-serif !important;
+  font-size: 14px !important;
   font-weight: 600 !important;
   height: 46px !important;
-  padding: 0 24px !important;
+  padding: 0 22px !important;
   cursor: pointer !important;
-  box-shadow: 0 18px 40px rgba(8, 17, 31, 0.12) !important;
+  box-shadow: 0 18px 40px rgba(8, 17, 31, 0.18) !important;
   transition: opacity 150ms ease-out, transform 150ms ease-out !important;
 }
-.sg-wallet-btn:hover {
-  opacity: 0.96 !important;
+.sg-wallet-btn:hover,
+.wallet-adapter-button-trigger:hover {
+  background: #0E1A30 !important;
+  background-image: none !important;
+  opacity: 1 !important;
   transform: translateY(-1px) !important;
 }
-.sg-wallet-btn:active {
-  transform: scale(0.97) !important;
+.sg-wallet-btn:active,
+.wallet-adapter-button-trigger:active {
+  transform: scale(0.98) !important;
+}
+.sg-wallet-btn .wallet-adapter-button-start-icon,
+.wallet-adapter-button-trigger .wallet-adapter-button-start-icon {
+  display: none !important;
 }
 
 /* Shared premium surfaces */
