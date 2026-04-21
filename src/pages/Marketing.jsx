@@ -12,7 +12,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SectionEyebrow = ({ children, dark = false }) => (
   <div className={`inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] ${dark ? 'text-white/58' : 'text-sg-text-secondary'}`}>
-    <span className={`h-px w-8 rounded-full ${dark ? 'bg-white/18' : 'bg-black/[0.12]'}`} />
+    <span
+      className={`h-px w-10 shrink-0 rounded-full ${
+        dark
+          ? 'bg-[linear-gradient(90deg,rgba(20,241,149,0.75),rgba(0,194,255,0.32))] shadow-[0_0_14px_rgba(20,241,149,0.12)]'
+          : 'bg-black/[0.12]'
+      }`}
+    />
     {children}
   </div>
 );
