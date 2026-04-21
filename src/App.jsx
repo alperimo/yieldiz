@@ -4,6 +4,7 @@ import { AppLayout } from './components/layout/Layout';
 import { MarketingLayout } from './components/layout/MarketingLayout';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Spinner } from './components/ui/Spinner';
+import { ScrollToTop } from './components/layout/ScrollToTop';
 
 const Marketing = lazy(() => import('./pages/Marketing'));
 const Deposit = lazy(() => import('./pages/Deposit'));
@@ -19,6 +20,7 @@ const PageLoader = () => (
 export default function App() {
   return (
     <ErrorBoundary>
+      <ScrollToTop />
       <Routes>
         <Route element={<MarketingLayout />}>
           <Route path="/" element={<Suspense fallback={<PageLoader />}><Marketing /></Suspense>} />

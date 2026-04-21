@@ -25,7 +25,8 @@ export const Header = ({ onMenuToggle }) => {
           : 'border-transparent bg-[rgba(245,247,242,0.6)] backdrop-blur-md'
       }`}
     >
-      <div className="mx-auto flex h-[68px] max-w-[1280px] items-center justify-between gap-4 px-5 lg:px-8">
+      <div className="px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-[68px] max-w-[1280px] items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <button
             onClick={onMenuToggle}
@@ -103,6 +104,7 @@ export const Header = ({ onMenuToggle }) => {
             <WalletMultiButton className="sg-wallet-btn" />
           )}
         </div>
+      </div>
       </div>
     </header>
   );

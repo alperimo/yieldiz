@@ -24,7 +24,8 @@ export const MarketingHeader = () => {
           : 'border-transparent bg-[rgba(245,247,242,0.6)] backdrop-blur-md'
       }`}
     >
-      <div className="mx-auto flex h-[68px] max-w-[1280px] items-center justify-between gap-4 px-5 lg:px-8">
+      <div className="px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-[68px] max-w-[1280px] items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-3 text-[#08111F]">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#08111F] text-[12px] font-black tracking-[0.18em] text-white shadow-[0_14px_30px_rgba(8,17,31,0.18)]">
             SG
@@ -68,9 +69,10 @@ export const MarketingHeader = () => {
           </button>
         </div>
       </div>
+      </div>
 
       {mobileOpen ? (
-        <div className="border-t border-black/[0.06] bg-white/95 px-5 py-4 backdrop-blur-xl lg:hidden">
+        <div className="border-t border-black/[0.06] bg-white/95 px-4 py-4 backdrop-blur-xl sm:px-6 lg:px-8 lg:hidden">
           <div className="mx-auto flex max-w-[1280px] flex-col gap-1">
             {MARKETING_LINKS.map((item) => (
               <a

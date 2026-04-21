@@ -309,13 +309,13 @@ export default function Marketing() {
       <section id="live-preview" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
         <div className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[0.92fr_1.08fr]">
           <div className="flex flex-col justify-center space-y-7" data-reveal>
-            <SectionEyebrow>Try it live</SectionEyebrow>
+            <SectionEyebrow>The earn flow</SectionEyebrow>
             <div>
               <h2 className="max-w-[12ch] font-display text-[40px] font-semibold leading-[0.98] tracking-[-0.04em] text-[#08111F] sm:text-[58px]">
-                One screen. One transaction. Real yield.
+                Three taps. Money working.
               </h2>
               <p className="mt-6 max-w-[48ch] text-base leading-8 text-sg-text-secondary lg:text-lg">
-                Pick a vault, choose your source chain and amount, and confirm. SolGate handles the bridge, swap and deposit in a single, transparent flow.
+                Choose the chain you hold on. Pick a vault. Confirm the amount. SolGate routes your stablecoins across the bridge, swap and deposit — you only sign once.
               </p>
             </div>
             <div className="rounded-[28px] border border-black/[0.08] bg-white/75 p-6 shadow-[0_24px_70px_rgba(8,17,31,0.08)]">
@@ -324,9 +324,9 @@ export default function Marketing() {
                   <CheckCircle2 size={18} />
                 </div>
                 <div>
-                  <p className="font-display text-2xl font-semibold text-[#08111F]">No mockups, no theatre</p>
+                  <p className="font-display text-2xl font-semibold text-[#08111F]">Earning in minutes</p>
                   <p className="mt-3 text-sm leading-7 text-sg-text-secondary">
-                    What you see here is the real SolGate interface. Connect your wallet to use it — or open the full app for the complete experience.
+                    From wallet connect to first yield, the average deposit settles in under three minutes — with full visibility on every step.
                   </p>
                 </div>
               </div>

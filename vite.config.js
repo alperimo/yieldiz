@@ -20,6 +20,8 @@ export default defineConfig({
           'vendor-supabase': ['@supabase/supabase-js'],
           'vendor-lifi': ['@lifi/sdk'],
           'vendor-ui': ['lucide-react'],
+          'vendor-gsap': ['gsap'],
+          'vendor-query': ['@tanstack/react-query'],
         },
       },
     },
