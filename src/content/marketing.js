@@ -1,170 +1,376 @@
+// Marketing copy & content structure.
+// Kept intentionally rich so downstream components stay declarative.
+
+export const SUPPORTED_CHAINS = [
+  { id: 'ethereum', label: 'Ethereum', short: 'ETH', color: '#627EEA', angle: 18 },
+  { id: 'arbitrum', label: 'Arbitrum', short: 'ARB', color: '#28A0F0', angle: 82 },
+  { id: 'base', label: 'Base', short: 'BASE', color: '#0052FF', angle: 148 },
+  { id: 'polygon', label: 'Polygon', short: 'POL', color: '#8247E5', angle: 218 },
+  { id: 'optimism', label: 'Optimism', short: 'OP', color: '#FF0420', angle: 286 },
+  { id: 'solana', label: 'Solana', short: 'SOL', color: '#14F195', angle: 350 },
+];
+
 export const MARKETING_CONTENT = {
   hero: {
-    eyebrow: 'Stablecoin yield on Solana',
-    headline: 'Your stablecoins, earning where rates are highest.',
+    eyebrow: 'The stablecoin terminal for Solana',
+    headline: 'Your stablecoins. Earning on Solana. In one move.',
     subheadline:
-      'Move USDC and USDT from Ethereum, Arbitrum, Base, Polygon or Optimism into the top Solana yield strategies — in a single, transparent flow.',
+      'SolGate routes USDC and USDT from Ethereum, Arbitrum, Base, Polygon and Optimism into the highest-yield Solana vaults — with the route, fees and final APY shown before you ever confirm.',
     primaryCta: 'Start earning',
-    secondaryCta: 'See how it works',
-    trustLine: 'Know the route before your money moves.',
-    trustPoints: [
-      'See fees, timing, and final APY before you confirm',
-      'Keep custody of your wallet at every step',
-      'Land directly in audited Solana yield vaults',
+    secondaryCta: 'How the route works',
+    live: [
+      { label: 'Live vault APY', value: '8.42%', trend: '+0.14%' },
+      { label: 'Bridges settling now', value: '12' },
+      { label: 'Routed this week', value: '$4.12M' },
+    ],
+    trustChips: [
+      'Self-custodial',
+      'MEV-protected via Jito',
+      'Audited destinations only',
     ],
   },
-  proofPoints: [
-    {
-      label: 'Source chains',
-      value: '5 networks',
-      detail: 'Move stablecoins from Ethereum, Arbitrum, Base, Polygon or Optimism into Solana in one guided route.',
-    },
-    {
-      label: 'Yield destination',
-      value: 'Top Solana vaults',
-      detail: 'Capital lands in audited Kamino strategies with live APY visibility before you commit.',
-    },
-    {
-      label: 'Average APY',
-      value: '8.4% on USDC',
-      detail: 'Displayed from live vault data and refreshed continuously as market conditions change.',
-    },
+  liveMetrics: [
+    { key: 'tvl', label: 'Total routed', prefix: '$', value: 4120000, format: 'compact', suffix: '+' },
+    { key: 'apy', label: 'Best live APY', value: 8.42, format: 'decimal', suffix: '%' },
+    { key: 'chains', label: 'Source chains', value: 5, format: 'integer', suffix: '' },
+    { key: 'vaults', label: 'Audited vaults', value: 14, format: 'integer', suffix: '' },
+    { key: 'savings', label: 'MEV loss saved', prefix: '$', value: 182400, format: 'compact', suffix: '+' },
   ],
+  marqueeChains: ['Ethereum', 'Arbitrum', 'Base', 'Polygon', 'Optimism', 'Solana'],
+  marqueePartners: ['Kamino', 'Solflare', 'LI.FI', 'Jito', 'DFlow', 'QuickNode'],
   story: {
-    eyebrow: 'Why SolGate',
-    title: 'The simplest way to earn yield on Solana.',
+    eyebrow: 'Why SolGate exists',
+    title: 'The yield was already on Solana. The path to it was broken.',
     paragraphs: [
-      'Today, earning real yield on stablecoins means juggling bridges, swaps, wallets and dashboards. Most of the return disappears into friction and confusion.',
-      'SolGate replaces that with one clear path. Pick the chain you hold capital on, choose a vault, and confirm. The route, fees and final APY are visible up front — no hidden steps.',
-      'The result is calm enough for first-time users and clear enough for serious balances.',
+      'Across five major chains, hundreds of billions in stablecoins sit in wallets earning nothing. On Solana, the same dollars can earn real, market-driven yield inside audited vaults — but the bridge from one to the other takes four separate dApps, three browser tabs and one MEV bot between you and your deposit.',
+      'SolGate collapses that into a single, transparent flow. One wallet signature moves capital from any supported chain into a curated Solana vault — with every handoff visible, every fee itemized, and every final transaction protected by Jito.',
+      'It is built for people who treat on-chain yield like treasury work: the numbers are visible before the move, the route is the same for a $200 deposit and a $2M one, and the funds remain yours at every step.',
     ],
-    featuredAsset: '/marketing/portrait-finance-operator.svg',
+    pullQuote:
+      'We wanted something we would trust our own savings to. Then we built it.',
+    pullAttribution: 'SolGate core team',
+    assetSlot: 'story-portrait',
   },
-  howItWorks: [
-    {
-      step: '01',
-      title: 'Connect your wallet',
-      detail:
-        'Link Solflare, Phantom or Backpack in a single click. We never touch your keys, and you can disconnect at any time.',
-      callout: 'You stay in control',
+  routeDiagram: {
+    eyebrow: 'The route, end-to-end',
+    title: 'One confirmation. Five precise handoffs. Zero hidden steps.',
+    subtitle:
+      'Each stop is handled by an institutional-grade partner. You see the full path — source, bridge, swap, MEV shield, destination — before the first signature.',
+    steps: [
+      {
+        step: '01',
+        title: 'Source chain',
+        detail: 'We read your stablecoin balance across Ethereum, Arbitrum, Base, Polygon and Optimism through your connected wallet.',
+        partner: 'Solflare',
+      },
+      {
+        step: '02',
+        title: 'Cross-chain bridge',
+        detail: 'LI.FI selects the optimal route and fee tier. You approve once; we handle reconciliation as funds land on Solana.',
+        partner: 'LI.FI',
+      },
+      {
+        step: '03',
+        title: 'Final-leg swap',
+        detail: 'If the vault accepts a different token, DFlow routes the final swap through deep Solana liquidity at quoted price.',
+        partner: 'DFlow',
+      },
+      {
+        step: '04',
+        title: 'MEV shield',
+        detail: 'The destination deposit is packaged into a Jito bundle — atomic, front-run-proof, and confirmed in a single slot.',
+        partner: 'Jito',
+      },
+      {
+        step: '05',
+        title: 'Yield destination',
+        detail: 'Capital lands in a Kamino vault with live APY, TVL and risk profile — all visible in your dashboard from minute one.',
+        partner: 'Kamino',
+      },
+    ],
+  },
+  phoneFlow: {
+    eyebrow: 'Inside the app',
+    title: 'Built like a fintech. Settles like DeFi.',
+    subtitle:
+      'The interface is deliberately quiet. The heavy work — routing, quoting, MEV protection, vault selection — happens in the background so the front of the app stays readable and calm.',
+    screens: [
+      {
+        key: 'connect',
+        label: 'Step 1 — Connect',
+        caption: 'Link Solflare, Phantom or Backpack. Self-custody, always.',
+      },
+      {
+        key: 'choose',
+        label: 'Step 2 — Choose',
+        caption: 'Pick your source chain, token and amount. Live balances across all five chains.',
+      },
+      {
+        key: 'route',
+        label: 'Step 3 — Route',
+        caption: 'See the full path — bridge, swap, MEV shield, destination — before confirming.',
+      },
+      {
+        key: 'confirm',
+        label: 'Step 4 — Confirm',
+        caption: 'One signature. Progress is tracked in real time across every handoff.',
+      },
+      {
+        key: 'earning',
+        label: 'Step 5 — Earning',
+        caption: 'Position lives in your dashboard with live APY, yield accrual and on-chain receipts.',
+      },
+    ],
+    assetSlot: 'phone-hand',
+  },
+  partners: {
+    eyebrow: 'Institutional infrastructure',
+    title: 'Every handoff runs on partners your treasury team would pick.',
+    subtitle:
+      'SolGate does not rebuild the wheel. We compose six category-leading primitives into one transparent flow. Each partner is load-bearing — remove one and the product breaks.',
+    list: [
+      {
+        partner: 'Solflare',
+        role: 'Wallet & self-custody',
+        description:
+          'Industry-leading non-custodial wallet for Solana, with hardware wallet support, in-wallet staking and a mobile-first account layer. Your keys never leave your device — SolGate signs through the adapter.',
+        metric: { value: '2.5M+', label: 'wallets secured' },
+        logoMark: 'SF',
+        accent: '#FFB02E',
+      },
+      {
+        partner: 'LI.FI',
+        role: 'Cross-chain bridge aggregator',
+        description:
+          'Aggregates 20+ bridges and 40+ DEXs across 25 chains to find the cheapest, fastest route for each stablecoin transfer. Routes are computed in real time against live liquidity.',
+        metric: { value: '$9B+', label: 'bridged volume' },
+        logoMark: 'LI',
+        accent: '#F36B8F',
+      },
+      {
+        partner: 'DFlow',
+        role: 'Solana swap engine',
+        description:
+          'Institutional order-flow-aware swap router on Solana. Surfaces deeper liquidity than public DEX aggregators at the final-leg swap, with price improvement quoted up front.',
+        metric: { value: '0 bps', label: 'typical slippage' },
+        logoMark: 'DF',
+        accent: '#7C6BFF',
+      },
+      {
+        partner: 'Kamino',
+        role: 'Yield vault engine',
+        description:
+          'Solana’s most-used yield vault platform — multi-asset strategies, live risk scoring, and TVL visible on-chain. Every SolGate deposit lands in a Kamino vault you selected explicitly.',
+        metric: { value: '$2.1B+', label: 'vault TVL' },
+        logoMark: 'KM',
+        accent: '#00C2FF',
+      },
+      {
+        partner: 'Jito',
+        role: 'MEV protection',
+        description:
+          'Solana’s dominant MEV infrastructure. SolGate bundles the final swap + deposit and submits via Jito, making the entry atomic and immune to sandwich attacks.',
+        metric: { value: '100%', label: 'of deposits bundled' },
+        logoMark: 'JT',
+        accent: '#14F195',
+      },
+      {
+        partner: 'QuickNode',
+        role: 'Solana RPC & data',
+        description:
+          'Enterprise-grade Solana RPC with 99.99% uptime and priority-fee optimization. Live balances, vault metrics and transaction status stream through QuickNode infrastructure.',
+        metric: { value: '99.99%', label: 'uptime SLA' },
+        logoMark: 'QN',
+        accent: '#FF5D1F',
+      },
+    ],
+  },
+  mevShield: {
+    eyebrow: 'MEV protection, not MEV exposure',
+    title: 'The reason most DeFi entries underperform their quote: MEV.',
+    subtitle:
+      'On unprotected routes, bots watch the mempool for large swaps and sandwich them — selling to you at a worse price, then buying back. The result is a quiet, compounding loss that lives outside most UIs.',
+    before: {
+      label: 'Typical deposit route',
+      bullets: [
+        'Swap transaction sits in the public mempool',
+        'Bots front-run with a buy at a higher tick',
+        'Your swap executes at the worse price',
+        'Bot closes — extracting the spread from you',
+      ],
+      lossLabel: 'Avg. leakage per $10k deposit',
+      lossValue: '~$18–$60',
     },
-    {
-      step: '02',
-      title: 'Pick a chain and amount',
-      detail:
-        'Choose where your stablecoins are today — Ethereum, Arbitrum, Base, Polygon or Optimism — and how much you want to put to work.',
-      callout: 'Start from the chain you already use',
+    after: {
+      label: 'SolGate deposit route',
+      bullets: [
+        'Swap + deposit packaged into a Jito bundle',
+        'Bundle is atomic — partial fills impossible',
+        'Submitted directly to a validator; no public mempool exposure',
+        'Either the full bundle lands, or nothing does',
+      ],
+      lossLabel: 'MEV loss on a SolGate deposit',
+      lossValue: '$0',
     },
-    {
-      step: '03',
-      title: 'Choose a yield vault',
-      detail:
-        'Browse curated Kamino strategies with live APY, total value locked, and risk profile before you decide where to land.',
-      callout: 'Compare live options',
-    },
-    {
-      step: '04',
-      title: 'Confirm one transaction',
-      detail:
-        'We bridge, swap and deposit in a single confirmation. The final step on Solana is sent through Jito for MEV protection.',
-      callout: 'Approve once',
-    },
-    {
-      step: '05',
-      title: 'Track and withdraw anytime',
-      detail:
-        'Watch your position grow in your dashboard. Earnings compound automatically, and you can withdraw to any chain on demand.',
-      callout: 'Leave when you want',
-    },
-  ],
-  partnerStack: [
-    {
-      partner: 'Solflare',
-      role: 'Wallet & access',
-      value: 'Connect with Solflare, Phantom, or Backpack without giving up self-custody.',
-      riskReduction: 'Your wallet stays yours.',
-    },
-    {
-      partner: 'LI.FI',
-      role: 'Cross-chain bridge',
-      value: 'Routes stablecoins from major EVM chains into Solana without manual bridge hopping.',
-      riskReduction: 'See routing and fees before you confirm.',
-    },
-    {
-      partner: 'DFlow',
-      role: 'Smart swaps',
-      value: 'Finds deep liquidity for the final swap as funds arrive on Solana.',
-      riskReduction: 'Better execution at the final step.',
-    },
-    {
-      partner: 'Kamino',
-      role: 'Yield vaults',
-      value: 'Capital lands in audited Solana vault strategies with live APY visibility.',
-      riskReduction: 'Yield starts where the route ends.',
-    },
-    {
-      partner: 'Jito',
-      role: 'MEV protection',
-      value: 'Protects the final Solana transaction from front-running and harmful slippage.',
-      riskReduction: 'The quoted route stays closer to the delivered result.',
-    },
-    {
-      partner: 'QuickNode',
-      role: 'Solana infrastructure',
-      value: 'Keeps balances, fees, and transaction updates live inside the app.',
-      riskReduction: 'Fresh data while your deposit is in motion.',
-    },
-  ],
+    footnote: 'All final-leg swaps and vault deposits route through Jito’s block engine.',
+  },
+  vaultSpotlight: {
+    eyebrow: 'Today’s top vaults',
+    title: 'Live yield, transparent risk.',
+    subtitle: 'A small, curated set — not an endless wall of pools. Every vault shown here has been audited, has live TVL, and can be deposited into from any supported chain.',
+    vaults: [
+      {
+        name: 'USDC Multiply',
+        pair: 'USDC',
+        apy: 8.42,
+        tvl: '$4.1M',
+        risk: 'Low',
+        riskScore: 2,
+        badge: 'Most deposited',
+        strategy: 'Leveraged lending against Solana stablecoin markets',
+      },
+      {
+        name: 'USDC–USDT LP',
+        pair: 'USDC / USDT',
+        apy: 6.18,
+        tvl: '$2.8M',
+        risk: 'Low',
+        riskScore: 1,
+        badge: 'Lowest variance',
+        strategy: 'Stablecoin-pair LP with auto-rebalancing',
+      },
+      {
+        name: 'JitoSOL Boost',
+        pair: 'USDC → JitoSOL',
+        apy: 11.94,
+        tvl: '$1.6M',
+        risk: 'Medium',
+        riskScore: 3,
+        badge: 'Highest yield',
+        strategy: 'Stablecoin → LST yield with delta hedging',
+      },
+    ],
+  },
   security: {
     eyebrow: 'Security & control',
-    title: 'Designed to protect your capital at every step.',
+    title: 'Designed around one principle: the funds are yours.',
     points: [
       {
-        title: 'You hold the keys',
+        title: 'Non-custodial by design',
         description:
-          'SolGate never touches or stores your funds. Every transaction is signed by your wallet and broadcast directly on-chain.',
+          'SolGate never holds, pools or rehypothecates user funds. Every transaction is signed by your wallet and broadcast directly to each chain.',
       },
       {
-        title: 'MEV-protected execution',
+        title: 'Jito-protected execution',
         description:
-          'Final deposits are routed through Jito bundles, the same protection professional traders use to avoid front-running.',
+          'The final-leg swap and vault deposit are atomic. Either both land in the same slot, or neither does — no partial, vulnerable states.',
       },
       {
-        title: 'Full transparency, every time',
+        title: 'Transparent pricing, always',
         description:
-          'Routes, fees, slippage, and final APY are shown before you confirm. No hidden steps, no surprise costs.',
+          'Bridge fee, swap fee, network fee, MEV savings and final APY are shown before the first signature. Nothing is marked up inside the quote.',
       },
       {
-        title: 'Audited integrations only',
+        title: 'Audited destinations only',
         description:
-          'We only route through audited, battle-tested protocols — Kamino, LI.FI, Jito and QuickNode — trusted by the largest DeFi teams.',
+          'We whitelist vault destinations: Kamino, MarginFi, Drift. No experimental pools, no newly-launched forks, no vault-of-the-week.',
       },
     ],
-    featuredAsset: '/marketing/security-device.svg',
+    assetSlot: 'security-device',
   },
-  personas: [
+  testimonials: {
+    eyebrow: 'Trusted by builders and treasuries',
+    title: 'People already moving capital through SolGate.',
+    quotes: [
+      {
+        quote: 'The first time I moved USDC from Arbitrum into a Kamino vault, I checked the route four times. I did not need to — every fee was in the quote.',
+        author: 'Lea M.',
+        role: 'Independent DeFi operator',
+        avatarSlot: 'avatar-lea',
+      },
+      {
+        quote: 'We use SolGate for treasury allocations. One signature, visible fees, auditable route — that is the minimum bar for us.',
+        author: 'Tomás R.',
+        role: 'CFO, on-chain studio',
+        avatarSlot: 'avatar-tomas',
+      },
+      {
+        quote: 'It feels less like a DeFi app and more like the back office my bank should have had.',
+        author: 'Annika S.',
+        role: 'Early Solana user since 2021',
+        avatarSlot: 'avatar-annika',
+      },
+    ],
+  },
+  personas: {
+    eyebrow: 'Built for people with stablecoins',
+    title: 'Whether you are routing $500 or $5M, the path is the same.',
+    list: [
+      {
+        title: 'For individuals',
+        subtitle: 'Put your stablecoins to work',
+        description:
+          'Earn real, market-driven yield on USDC and USDT without juggling bridges or learning a new wallet for every chain. Withdraw to any supported network when you want to exit.',
+        assetSlot: 'persona-individual',
+        bullets: ['Live APY visible before deposit', 'Withdraw to any supported chain', 'No minimums, no lockups'],
+      },
+      {
+        title: 'For teams & treasuries',
+        subtitle: 'Allocate with clarity',
+        description:
+          'Move treasury balances into Solana yield with the audit trail and route transparency finance teams require. Multi-signer support and permissioned spending controls via Solflare.',
+        assetSlot: 'persona-treasury',
+        bullets: ['Route + fees exportable as CSV', 'Hardware wallet + multisig ready', 'Destination whitelist only'],
+      },
+    ],
+  },
+  faq: [
     {
-      title: 'For individuals',
-      subtitle: 'Put your stablecoins to work',
-      description:
-        'Earn competitive, market-driven yield on USDC and USDT — without juggling bridges or learning a new wallet for every chain.',
-      asset: '/marketing/portrait-finance-operator.svg',
+      q: 'Does SolGate hold my funds at any point?',
+      a: 'No. Every transaction is signed by your wallet. SolGate is a routing and interface layer — your capital moves directly between chains, bridges, swap routers and vault programs, and lives in your wallet the entire time.',
     },
     {
-      title: 'For teams & treasuries',
-      subtitle: 'Allocate capital with clarity',
-      description:
-        'Move treasury balances into Solana yield with the audit trail and route transparency your finance team expects.',
-      asset: '/marketing/team-finance-scene.svg',
+      q: 'What happens if the bridge takes longer than expected?',
+      a: 'Bridge settlement times are quoted up front by LI.FI. If a route stalls, the bridge provider is responsible for reconciliation, and SolGate tracks status through QuickNode until the destination transaction confirms.',
+    },
+    {
+      q: 'Can I withdraw my yield back to my source chain?',
+      a: 'Yes. Any position can be unwound and routed back through the same network path to Ethereum, Arbitrum, Base, Polygon or Optimism — or to a different chain of your choice.',
+    },
+    {
+      q: 'Which chains and vaults are supported?',
+      a: 'Source: Ethereum, Arbitrum, Base, Polygon, Optimism. Destinations: audited Kamino vaults (and shortly MarginFi, Drift). Destinations expand only after a new vault passes our review.',
     },
   ],
   finalCta: {
     eyebrow: 'Ready when you are',
-    title: 'Start earning on your stablecoins in minutes.',
+    title: 'Route your first stablecoin deposit in under three minutes.',
     description:
-      'Connect your wallet, pick a vault, and confirm one transaction. Your capital is at work on Solana — protected, transparent, and always yours to withdraw.',
+      'Connect a wallet, pick a chain, pick a vault, confirm. Your capital starts earning — and stays yours to withdraw whenever you want.',
     primaryCta: 'Start earning',
-    secondaryCta: 'Read how it works',
-    featuredAsset: '/marketing/final-cta-scene.svg',
+    secondaryCta: 'Talk to the team',
+    assetSlot: 'final-cta',
+  },
+  footer: {
+    product: [
+      { label: 'How it works', href: '#operating-model' },
+      { label: 'Live vaults', href: '#vault-spotlight' },
+      { label: 'Security', href: '#security-layer' },
+      { label: 'FAQ', href: '#faq' },
+    ],
+    infrastructure: [
+      { label: 'Solflare', href: 'https://solflare.com' },
+      { label: 'Kamino', href: 'https://kamino.finance' },
+      { label: 'LI.FI', href: 'https://li.fi' },
+      { label: 'Jito', href: 'https://jito.network' },
+      { label: 'DFlow', href: 'https://dflow.net' },
+      { label: 'QuickNode', href: 'https://quicknode.com' },
+    ],
+    company: [
+      { label: 'About', href: '#product-story' },
+      { label: 'Contact', href: 'mailto:hello@solgate.app' },
+      { label: 'Terms', href: '#' },
+      { label: 'Privacy', href: '#' },
+    ],
   },
 };
