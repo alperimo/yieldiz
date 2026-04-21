@@ -6,8 +6,8 @@ export const STRINGS = {
   APP_LOGO_ABBR: 'SG',
 
   // App hero
-  HERO_HEADLINE: 'Route capital into Solana yield.',
-  HERO_SUBHEADLINE: 'Source chain, route context, vault destination, one operating surface.',
+  HERO_HEADLINE: 'Earn yield on your stablecoins.',
+  HERO_SUBHEADLINE: 'Bridge from any major chain into top Solana vaults — in one transparent flow.',
   HERO_CTA: 'Launch Routing Flow',
 
   // Navigation
@@ -101,15 +101,15 @@ export const STRINGS = {
   STATS_USERS: 'Users',
 
   // Features section
-  FEATURES_HEADLINE: 'Execution, not decoration',
-  FEATURE_CHAINS_TITLE: 'Cross-chain intake',
-  FEATURE_CHAINS_DESC: 'Start with stablecoin balances already sitting on major EVM chains and route them into Solana.',
-  FEATURE_MEV_TITLE: 'Protected final entry',
-  FEATURE_MEV_DESC: 'Jito-backed execution adds discipline to the last step where capital commits to the vault.',
-  FEATURE_RATES_TITLE: 'Route intelligence',
-  FEATURE_RATES_DESC: 'Bridge, swap, fee, and timing context stays visible instead of being hidden behind a button.',
-  FEATURE_YIELD_TITLE: 'Yield destination',
-  FEATURE_YIELD_DESC: 'Kamino vaults give the route a clear productive outcome rather than leaving assets idle.',
+  FEATURES_HEADLINE: 'Built for serious capital',
+  FEATURE_CHAINS_TITLE: 'Five chains, one app',
+  FEATURE_CHAINS_DESC: 'Move USDC and USDT from Ethereum, Arbitrum, Base, Polygon and Optimism into Solana yield.',
+  FEATURE_MEV_TITLE: 'MEV-protected entry',
+  FEATURE_MEV_DESC: 'Final deposits route through Jito so you get the price you saw — never a worse one.',
+  FEATURE_RATES_TITLE: 'Transparent every step',
+  FEATURE_RATES_DESC: 'Fees, route, and final APY are visible before you confirm. No hidden costs.',
+  FEATURE_YIELD_TITLE: 'Audited Kamino vaults',
+  FEATURE_YIELD_DESC: 'Capital lands in battle-tested strategies built by one of the largest DeFi teams.',
 
   // Hero badge
   HERO_BADGE: 'Solana yield routing • 5 source chains live',

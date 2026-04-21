@@ -11,7 +11,7 @@ export const MarketingLayout = () => {
         <Outlet />
       </main>
       <footer className="border-t border-black/[0.08] px-4 py-10">
-        <div className="mx-auto flex max-w-[1380px] flex-col gap-4 text-sm text-sg-text-secondary md:flex-row md:items-end md:justify-between">
+        <div className="mx-auto flex max-w-[1280px] flex-col gap-4 text-sm text-sg-text-secondary md:flex-row md:items-end md:justify-between">
           <div>
             <p className="font-display text-xl font-semibold text-[#08111F]">SolGate</p>
             <p className="mt-2 max-w-lg leading-6">

@@ -100,8 +100,7 @@ export default function Marketing() {
 
       const steps = stepRefs.current.filter(Boolean);
       if (steps.length && flowPinRef.current && flowSectionRef.current) {
-        // Stacked-cards approach: only the active step is visible & centered
-        gsap.set(steps, { opacity: 0, y: 24, pointerEvents: 'none' });
+        gsap.set(steps, { opacity: 0, y: 20, pointerEvents: 'none' });
         gsap.set(steps[0], { opacity: 1, y: 0, pointerEvents: 'auto' });
         gsap.set(flowProgressRef.current, { scaleY: 1 / steps.length, transformOrigin: 'top center' });
 
@@ -109,8 +108,8 @@ export default function Marketing() {
           scrollTrigger: {
             trigger: flowSectionRef.current,
             start: 'top top',
-            end: `+=${(steps.length - 1) * 220}`,
-            scrub: 0.6,
+            end: `+=${(steps.length - 1) * 260}`,
+            scrub: 0.5,
             pin: flowPinRef.current,
             anticipatePin: 1,
             invalidateOnRefresh: true,
@@ -120,12 +119,20 @@ export default function Marketing() {
         steps.forEach((step, index) => {
           if (index === 0) return;
           const prev = steps[index - 1];
-          const slot = (index - 1) / (steps.length - 1);
-          timeline.to(prev, { opacity: 0, y: -24, duration: 0.5, pointerEvents: 'none' }, slot);
-          timeline.to(step, { opacity: 1, y: 0, duration: 0.5, pointerEvents: 'auto' }, slot);
+          const slot = (index - 1) * 1.0;
+          // 1) Fade prev OUT first (no overlap)
+          timeline.to(prev, { opacity: 0, y: -16, duration: 0.4, pointerEvents: 'none', ease: 'power2.in' }, slot);
+          // 2) Then fade NEW in
+          timeline.fromTo(
+            step,
+            { opacity: 0, y: 20, pointerEvents: 'none' },
+            { opacity: 1, y: 0, duration: 0.4, pointerEvents: 'auto', ease: 'power2.out' },
+            slot + 0.4,
+          );
+          // Progress bar grows in sync with new card arriving
           timeline.to(
             flowProgressRef.current,
-            { scaleY: (index + 1) / steps.length, duration: 0.5 },
+            { scaleY: (index + 1) / steps.length, duration: 0.8, ease: 'none' },
             slot,
           );
         });
@@ -138,7 +145,7 @@ export default function Marketing() {
   return (
     <div ref={pageRef}>
       <section className="px-4 pb-24 pt-8 sm:px-6 lg:px-8 lg:pb-32 lg:pt-10">
-        <div className="mx-auto grid max-w-[1380px] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="mx-auto grid max-w-[1280px] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="space-y-8">
             <SectionEyebrow>{MARKETING_CONTENT.hero.eyebrow}</SectionEyebrow>
             <div data-reveal>
@@ -192,7 +199,7 @@ export default function Marketing() {
       </section>
 
       <section className="px-4 pb-24 sm:px-6 lg:px-8 lg:pb-28">
-        <div className="mx-auto grid max-w-[1380px] gap-5 lg:grid-cols-3">
+        <div className="mx-auto grid max-w-[1280px] gap-5 lg:grid-cols-3">
           {MARKETING_CONTENT.proofPoints.map((point) => (
             <StoryStat key={point.label} {...point} />
           ))}
@@ -200,7 +207,7 @@ export default function Marketing() {
       </section>
 
       <section id="product-story" className="px-4 pb-28 sm:px-6 lg:px-8">
-        <div className="mx-auto grid max-w-[1380px] gap-12 lg:grid-cols-[0.94fr_1.06fr]">
+        <div className="mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[0.94fr_1.06fr]">
           <div className="relative overflow-hidden rounded-[38px] border border-black/[0.08] bg-[#0C1628] p-6 shadow-[0_40px_120px_rgba(8,17,31,0.16)] sm:p-8" data-reveal>
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(20,241,149,0.22),transparent_34%),radial-gradient(circle_at_bottom_left,rgba(0,194,255,0.24),transparent_36%)]" />
             <img
@@ -247,7 +254,7 @@ export default function Marketing() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(20,241,149,0.16),transparent_28%),radial-gradient(circle_at_80%_20%,rgba(124,107,255,0.2),transparent_34%),linear-gradient(180deg,#0C1628_0%,#08111F_100%)]" />
         <div
           ref={flowPinRef}
-          className={`mx-auto grid max-w-[1380px] gap-10 lg:grid-cols-[0.9fr_1.1fr] ${prefersReducedMotion ? '' : 'min-h-[calc(100vh-6rem)] items-center'}`}
+          className={`mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[0.9fr_1.1fr] ${prefersReducedMotion ? '' : 'min-h-[calc(100vh-6rem)] items-center'}`}
         >
           <div className="relative z-10 flex flex-col justify-center">
             <SectionEyebrow dark>How it works</SectionEyebrow>
@@ -300,7 +307,7 @@ export default function Marketing() {
       </section>
 
       <section id="live-preview" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
-        <div className="mx-auto grid max-w-[1380px] gap-10 lg:grid-cols-[0.92fr_1.08fr]">
+        <div className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[0.92fr_1.08fr]">
           <div className="flex flex-col justify-center space-y-7" data-reveal>
             <SectionEyebrow>Try it live</SectionEyebrow>
             <div>
@@ -345,7 +352,7 @@ export default function Marketing() {
       </section>
 
       <section id="execution-stack" className="bg-[#08111F] px-4 py-24 text-white sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[1380px]">
+        <div className="mx-auto max-w-[1280px]">
           <div className="max-w-[760px]" data-reveal>
             <SectionEyebrow dark>Built on the best of Solana</SectionEyebrow>
             <h2 className="mt-6 font-display text-[42px] font-semibold leading-[0.98] tracking-[-0.04em] sm:text-[60px]">
@@ -367,7 +374,7 @@ export default function Marketing() {
       </section>
 
       <section id="security-layer" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-28">
-        <div className="mx-auto grid max-w-[1380px] gap-10 lg:grid-cols-[1fr_0.95fr]">
+        <div className="mx-auto grid max-w-[1280px] gap-10 lg:grid-cols-[1fr_0.95fr]">
           <div className="order-2 flex flex-col justify-center lg:order-1" data-reveal>
             <SectionEyebrow>{MARKETING_CONTENT.security.eyebrow}</SectionEyebrow>
             <h2 className="mt-6 max-w-[12ch] font-display text-[40px] font-semibold leading-[0.98] tracking-[-0.04em] text-[#08111F] sm:text-[58px]">
@@ -391,7 +398,7 @@ export default function Marketing() {
       </section>
 
       <section className="px-4 pb-24 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-[1380px]">
+        <div className="mx-auto max-w-[1280px]">
           <div className="max-w-[700px]" data-reveal>
             <SectionEyebrow>Built for everyone with stablecoins</SectionEyebrow>
             <h2 className="mt-6 font-display text-[40px] font-semibold leading-[0.98] tracking-[-0.04em] text-[#08111F] sm:text-[58px]">
@@ -409,7 +416,7 @@ export default function Marketing() {
       </section>
 
       <section className="px-4 pb-24 sm:px-6 lg:px-8 lg:pb-32">
-        <div className="mx-auto grid max-w-[1380px] gap-10 overflow-hidden rounded-[42px] bg-[#08111F] px-6 py-8 text-white shadow-[0_40px_120px_rgba(8,17,31,0.2)] sm:px-8 sm:py-10 lg:grid-cols-[1.08fr_0.92fr]">
+        <div className="mx-auto grid max-w-[1280px] gap-10 overflow-hidden rounded-[42px] bg-[#08111F] px-6 py-8 text-white shadow-[0_40px_120px_rgba(8,17,31,0.2)] sm:px-8 sm:py-10 lg:grid-cols-[1.08fr_0.92fr]">
           <div className="flex flex-col justify-center space-y-8" data-reveal>
             <SectionEyebrow dark>{MARKETING_CONTENT.finalCta.eyebrow}</SectionEyebrow>
             <div>
