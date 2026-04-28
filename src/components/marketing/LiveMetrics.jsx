@@ -1,8 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import React from 'react';
 
 const formatValue = (value, format) => {
   if (format === 'compact') {
@@ -14,28 +10,11 @@ const formatValue = (value, format) => {
   return Math.round(value).toString();
 };
 
-const MetricTile = ({ metric, reducedMotion }) => {
-  const ref = useRef(null);
-  const [display, setDisplay] = useState(
-    reducedMotion ? formatValue(metric.value, metric.format) : formatValue(0, metric.format),
-  );
-
-  useEffect(() => {
-    if (reducedMotion || !ref.current) return undefined;
-    const obj = { v: 0 };
-    const anim = gsap.to(obj, {
-      v: metric.value,
-      duration: 2.4,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: ref.current, start: 'top 88%' },
-      onUpdate: () => setDisplay(formatValue(obj.v, metric.format)),
-    });
-    return () => anim.kill();
-  }, [metric, reducedMotion]);
+const MetricTile = ({ metric }) => {
+  const display = formatValue(metric.value, metric.format);
 
   return (
     <div
-      ref={ref}
       className="group relative flex flex-col gap-3 rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))] px-6 py-7 backdrop-blur-md transition-all duration-500 hover:-translate-y-0.5 hover:border-white/20"
     >
       <div className="flex items-center gap-2">
@@ -54,10 +33,10 @@ const MetricTile = ({ metric, reducedMotion }) => {
   );
 };
 
-export const LiveMetrics = ({ metrics, reducedMotion = false }) => (
+export const LiveMetrics = ({ metrics }) => (
   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
     {metrics.map((metric) => (
-      <MetricTile key={metric.key} metric={metric} reducedMotion={reducedMotion} />
+      <MetricTile key={metric.key} metric={metric} />
     ))}
   </div>
 );

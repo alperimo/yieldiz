@@ -11,6 +11,12 @@ export const SUPPORTED_CHAINS = [
 ];
 
 export const MARKETING_CONTENT = {
+  dataSourceNotes: {
+    marketingMetrics:
+      'Marketing numbers are kept in this content module so production can replace them with API-fed metrics without editing presentation components.',
+    appPreview:
+      'Phone mockup values mirror the deposit flow state shape and can be replaced by live quote, vault, wallet and portfolio data.',
+  },
   hero: {
     eyebrow: 'The stablecoin terminal for Solana',
     headline: 'Your stablecoins. Earning on Solana. In one move.',
@@ -50,6 +56,8 @@ export const MARKETING_CONTENT = {
       'We wanted something we would trust our own savings to. Then we built it.',
     pullAttribution: 'SolGate core team',
     assetSlot: 'story-portrait',
+    asset: '/marketing/portrait-finance-operator.svg',
+    assetAlt: 'SolGate route preview shown in a calm finance workspace',
   },
   routeDiagram: {
     eyebrow: 'The route, end-to-end',
@@ -122,6 +130,52 @@ export const MARKETING_CONTENT = {
       },
     ],
     assetSlot: 'phone-hand',
+    appPreview: {
+      wallets: [
+        { name: 'Solflare', tag: 'Recommended', color: '#FFB02E' },
+        { name: 'Phantom', tag: 'Popular', color: '#AB9FF2' },
+        { name: 'Backpack', tag: 'Developer-ready', color: '#E33E3E' },
+      ],
+      sourceBalances: {
+        ethereum: '2,450.32',
+        arbitrum: '840.10',
+        base: '212.44',
+        polygon: '1,092.87',
+        optimism: '0.00',
+      },
+      amount: {
+        display: '$1,000',
+        decimals: '.00 USDC',
+        quickActions: ['25%', '50%', 'MAX'],
+      },
+      routePreview: [
+        { step: 'Bridge', via: 'LI.FI · Stargate', time: '~35s', value: '$0.80' },
+        { step: 'Swap', via: 'DFlow · Solana', time: '~2s', value: '$0.04' },
+        { step: 'Shield', via: 'Jito bundle', time: '~0.4s', value: 'MEV $0' },
+        { step: 'Deposit', via: 'Kamino USDC Multiply', time: '~1s', value: '8.42%' },
+      ],
+      quote: {
+        receive: '999.12 USDC',
+        annualized: '≈ $82/yr at current 8.42% APY',
+      },
+      progress: [
+        { step: 'Bridge · Ethereum → Solana', status: 'done' },
+        { step: 'Final swap · DFlow', status: 'done' },
+        { step: 'Jito bundle submitted', status: 'live' },
+        { step: 'Deposit · Kamino vault', status: 'queued' },
+      ],
+      settlementEstimate: '0:42 remaining',
+      portfolio: {
+        total: '$5,230.00',
+        earned: '+$42.18',
+        bestApy: '8.42',
+        activeVault: 'Kamino USDC Multiply · Low risk',
+        positions: [
+          { name: 'USDC Multiply', value: '$3,000', apy: '8.4%' },
+          { name: 'SOL-USDC LP', value: '$2,230', apy: '12.1%' },
+        ],
+      },
+    },
   },
   partners: {
     eyebrow: 'Institutional infrastructure',
@@ -312,6 +366,8 @@ export const MARKETING_CONTENT = {
         description:
           'Earn real, market-driven yield on USDC and USDT without juggling bridges or learning a new wallet for every chain. Withdraw to any supported network when you want to exit.',
         assetSlot: 'persona-individual',
+        asset: '/marketing/portrait-finance-operator.svg',
+        assetAlt: 'Individual SolGate user reviewing a deposit route',
         bullets: ['Live APY visible before deposit', 'Withdraw to any supported chain', 'No minimums, no lockups'],
       },
       {
@@ -320,6 +376,8 @@ export const MARKETING_CONTENT = {
         description:
           'Move treasury balances into Solana yield with the audit trail and route transparency finance teams require. Multi-signer support and permissioned spending controls via Solflare.',
         assetSlot: 'persona-treasury',
+        asset: '/marketing/execution-network.svg',
+        assetAlt: 'SolGate execution network for treasury route review',
         bullets: ['Route + fees exportable as CSV', 'Hardware wallet + multisig ready', 'Destination whitelist only'],
       },
     ],
@@ -350,6 +408,8 @@ export const MARKETING_CONTENT = {
     primaryCta: 'Start earning',
     secondaryCta: 'Talk to the team',
     assetSlot: 'final-cta',
+    asset: '/marketing/final-cta-scene.svg',
+    assetAlt: 'SolGate deposit terminal in a premium finance scene',
   },
   footer: {
     product: [

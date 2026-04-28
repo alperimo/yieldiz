@@ -23,7 +23,7 @@ const ScreenChrome = ({ children }) => (
   </div>
 );
 
-const ConnectScreen = () => (
+const ConnectScreen = ({ preview }) => (
   <ScreenChrome>
     <div>
       <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#526071]">SolGate</p>
@@ -35,11 +35,7 @@ const ConnectScreen = () => (
       </p>
 
       <div className="mt-5 space-y-2.5">
-        {[
-          { name: 'Solflare', tag: 'Recommended', color: '#FFB02E' },
-          { name: 'Phantom', tag: 'Popular', color: '#AB9FF2' },
-          { name: 'Backpack', tag: 'Developer-ready', color: '#E33E3E' },
-        ].map((w) => (
+        {preview.wallets.map((w) => (
           <div
             key={w.name}
             className="flex items-center justify-between rounded-2xl border border-black/[0.08] bg-white p-3 shadow-[0_4px_14px_rgba(8,17,31,0.05)]"
@@ -69,7 +65,7 @@ const ConnectScreen = () => (
   </ScreenChrome>
 );
 
-const ChooseScreen = () => (
+const ChooseScreen = ({ preview }) => (
   <ScreenChrome>
     <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#526071]">Step 2 of 4</p>
     <h3 className="mt-1 font-display text-[20px] font-semibold leading-tight text-[#08111F]">
@@ -89,7 +85,7 @@ const ChooseScreen = () => (
             <p className="text-[11px] font-semibold">{chain.label}</p>
           </div>
           <p className={`mt-2 text-[14px] font-semibold ${i === 0 ? 'text-white' : 'text-[#08111F]'}`}>
-            {['2,450.32', '840.10', '212.44', '1,092.87', '0.00'][i] || '0.00'} USDC
+            {preview.sourceBalances[chain.id] || '0.00'} USDC
           </p>
         </div>
       ))}
@@ -98,11 +94,11 @@ const ChooseScreen = () => (
     <div className="mt-4 rounded-2xl border border-black/[0.08] bg-white p-3">
       <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#526071]">Amount</p>
       <div className="mt-1 flex items-baseline gap-1">
-        <span className="font-display text-[26px] font-semibold text-[#08111F]">$1,000</span>
-        <span className="text-[12px] text-[#7C8898]">.00 USDC</span>
+        <span className="font-display text-[26px] font-semibold text-[#08111F]">{preview.amount.display}</span>
+        <span className="text-[12px] text-[#7C8898]">{preview.amount.decimals}</span>
       </div>
       <div className="mt-2 flex gap-1">
-        {['25%', '50%', 'MAX'].map((p) => (
+        {preview.amount.quickActions.map((p) => (
           <span
             key={p}
             className="rounded-full border border-black/[0.08] bg-[#EEF2EA] px-2 py-1 text-[10px] font-semibold text-[#08111F]"
@@ -115,7 +111,7 @@ const ChooseScreen = () => (
   </ScreenChrome>
 );
 
-const RouteScreen = () => (
+const RouteScreen = ({ preview }) => (
   <ScreenChrome>
     <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#526071]">Preview</p>
     <h3 className="mt-1 font-display text-[20px] font-semibold leading-tight text-[#08111F]">
@@ -123,12 +119,7 @@ const RouteScreen = () => (
     </h3>
 
     <div className="mt-4 space-y-2">
-      {[
-        { step: 'Bridge', via: 'LI.FI · Stargate', time: '~35s', tick: '$0.80' },
-        { step: 'Swap', via: 'DFlow · Solana', time: '~2s', tick: '$0.04' },
-        { step: 'Shield', via: 'Jito bundle', time: '~0.4s', tick: 'MEV $0' },
-        { step: 'Deposit', via: 'Kamino USDC Multiply', time: '~1s', tick: '8.42%' },
-      ].map((r, i) => (
+      {preview.routePreview.map((r, i) => (
         <div
           key={r.step}
           className="flex items-center gap-3 rounded-2xl border border-black/[0.08] bg-white p-3 shadow-[0_3px_10px_rgba(8,17,31,0.04)]"
@@ -141,7 +132,7 @@ const RouteScreen = () => (
             <p className="text-[10px] text-[#7C8898]">{r.via}</p>
           </div>
           <div className="text-right">
-            <p className="text-[10px] font-semibold text-[#08111F]">{r.tick}</p>
+            <p className="text-[10px] font-semibold text-[#08111F]">{r.value}</p>
             <p className="text-[9px] text-[#7C8898]">{r.time}</p>
           </div>
         </div>
@@ -150,13 +141,13 @@ const RouteScreen = () => (
 
     <div className="mt-4 rounded-2xl bg-[#08111F] p-3 text-white">
       <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/60">You will receive</p>
-      <p className="mt-1 font-display text-[22px] font-semibold">999.12 USDC</p>
-      <p className="text-[10px] text-white/60">≈ $82/yr at current 8.42% APY</p>
+      <p className="mt-1 font-display text-[22px] font-semibold">{preview.quote.receive}</p>
+      <p className="text-[10px] text-white/60">{preview.quote.annualized}</p>
     </div>
   </ScreenChrome>
 );
 
-const ConfirmScreen = () => (
+const ConfirmScreen = ({ preview }) => (
   <ScreenChrome>
     <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#526071]">In progress</p>
     <h3 className="mt-1 font-display text-[20px] font-semibold leading-tight text-[#08111F]">
@@ -164,12 +155,7 @@ const ConfirmScreen = () => (
     </h3>
 
     <div className="mt-4 space-y-2">
-      {[
-        { step: 'Bridge · Ethereum → Solana', status: 'done' },
-        { step: 'Final swap · DFlow', status: 'done' },
-        { step: 'Jito bundle submitted', status: 'live' },
-        { step: 'Deposit · Kamino vault', status: 'queued' },
-      ].map((r) => (
+      {preview.progress.map((r) => (
         <div key={r.step} className="flex items-center gap-3 rounded-2xl border border-black/[0.08] bg-white p-3">
           <div
             className={`flex h-6 w-6 items-center justify-center rounded-full ${
@@ -192,18 +178,18 @@ const ConfirmScreen = () => (
 
     <div className="mt-4 rounded-2xl bg-[#14F195]/[0.14] p-3">
       <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#08111F]">Estimated settlement</p>
-      <p className="mt-1 font-display text-[18px] font-semibold text-[#08111F]">0:42 remaining</p>
+      <p className="mt-1 font-display text-[18px] font-semibold text-[#08111F]">{preview.settlementEstimate}</p>
     </div>
   </ScreenChrome>
 );
 
-const EarningScreen = () => (
+const EarningScreen = ({ preview }) => (
   <ScreenChrome>
     <div className="flex items-center justify-between">
       <div>
         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#526071]">Portfolio</p>
-        <p className="mt-1 font-display text-[26px] font-semibold text-[#08111F]">$5,230.00</p>
-        <p className="text-[11px] text-[#0EA56A]">+$42.18 <span className="text-[#7C8898]">earned</span></p>
+        <p className="mt-1 font-display text-[26px] font-semibold text-[#08111F]">{preview.portfolio.total}</p>
+        <p className="text-[11px] text-[#0EA56A]">{preview.portfolio.earned} <span className="text-[#7C8898]">earned</span></p>
       </div>
       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#08111F] text-white">
         <Wallet size={16} />
@@ -213,28 +199,25 @@ const EarningScreen = () => (
     <div className="mt-4 rounded-2xl bg-[#08111F] p-4 text-white">
       <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/60">Best live APY</p>
       <div className="mt-1 flex items-baseline gap-1">
-        <span className="font-display text-[28px] font-semibold">8.42</span>
+        <span className="font-display text-[28px] font-semibold">{preview.portfolio.bestApy}</span>
         <span className="text-[14px] text-white/70">%</span>
       </div>
       <div className="mt-3 flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/80">
         <span className="h-1.5 w-1.5 rounded-full bg-[#14F195]" />
-        Kamino USDC Multiply · Low risk
+        {preview.portfolio.activeVault}
       </div>
     </div>
 
     <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#526071]">Active positions</p>
     <div className="mt-2 space-y-2">
-      {[
-        { n: 'USDC Multiply', v: '$3,000', a: '8.4%' },
-        { n: 'SOL-USDC LP', v: '$2,230', a: '12.1%' },
-      ].map((r) => (
-        <div key={r.n} className="flex items-center justify-between rounded-2xl border border-black/[0.08] bg-white p-3">
+      {preview.portfolio.positions.map((r) => (
+        <div key={r.name} className="flex items-center justify-between rounded-2xl border border-black/[0.08] bg-white p-3">
           <div>
-            <p className="text-[12px] font-semibold text-[#08111F]">{r.n}</p>
-            <p className="text-[10px] text-[#7C8898]">{r.v} deposited</p>
+            <p className="text-[12px] font-semibold text-[#08111F]">{r.name}</p>
+            <p className="text-[10px] text-[#7C8898]">{r.value} deposited</p>
           </div>
           <div className="text-right">
-            <p className="text-[12px] font-semibold text-[#0EA56A]">{r.a}</p>
+            <p className="text-[12px] font-semibold text-[#0EA56A]">{r.apy}</p>
             <p className="text-[10px] text-[#7C8898]">APY</p>
           </div>
         </div>
@@ -251,7 +234,7 @@ const SCREENS = [
   { key: 'earning', Component: EarningScreen },
 ];
 
-export const PhoneMockup = ({ reducedMotion = false, activeKey, onRotateChange }) => {
+export const PhoneMockup = ({ reducedMotion = false, activeKey, onRotateChange, previewData }) => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -293,7 +276,7 @@ export const PhoneMockup = ({ reducedMotion = false, activeKey, onRotateChange }
                 pointerEvents: i === index ? 'auto' : 'none',
               }}
             >
-              <s.Component />
+              <s.Component preview={previewData} />
             </div>
           ))}
         </div>

@@ -5,14 +5,11 @@ import {
   ArrowUpRight,
   CheckCircle2,
   ChevronDown,
-  Layers,
   Shield,
-  Sparkles,
-  Zap,
 } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { MARKETING_CONTENT } from '../content/marketing';
+import { MARKETING_CONTENT, SUPPORTED_CHAINS } from '../content/marketing';
 import { SolanaGlobe } from '../components/marketing/SolanaGlobe';
 import { LiveMetrics } from '../components/marketing/LiveMetrics';
 import { ChainMarquee } from '../components/marketing/ChainMarquee';
@@ -43,44 +40,31 @@ const Eyebrow = ({ children, dark = false }) => (
   </div>
 );
 
-const PlaceholderImage = ({ slot, caption, aspect = 'aspect-[4/5]', dark = false }) => (
+const MarketingAsset = ({ slot, src, alt, aspect = 'aspect-[4/5]', dark = false, fit = 'cover' }) => (
   <div
     data-asset-slot={slot}
     className={`relative overflow-hidden rounded-[28px] ${aspect} ${
       dark ? 'border border-white/10 bg-[#0B1322]' : 'border border-black/[0.08] bg-[#EEF2EA]'
     }`}
   >
-    <div
-      className="absolute inset-0"
-      style={{
-        backgroundImage: dark
-          ? 'radial-gradient(circle at 30% 30%, rgba(153,69,255,0.24), transparent 45%), radial-gradient(circle at 70% 80%, rgba(20,241,149,0.18), transparent 45%), linear-gradient(135deg,#0B1322,#050A14)'
-          : 'radial-gradient(circle at 30% 30%, rgba(153,69,255,0.18), transparent 45%), radial-gradient(circle at 70% 80%, rgba(20,241,149,0.18), transparent 45%), linear-gradient(135deg,#EEF2EA,#F5F7F2)',
-      }}
-    />
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_30%,rgba(0,0,0,0.02)_80%)]" />
-    <div
-      className={`absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center ${
-        dark ? 'text-white' : 'text-[#08111F]'
-      }`}
-    >
+    {src ? (
+      <img
+        src={src}
+        alt={alt || ''}
+        className={`h-full w-full ${fit === 'contain' ? 'object-contain p-3' : 'object-cover'}`}
+        loading="eager"
+      />
+    ) : (
       <div
-        className={`flex h-14 w-14 items-center justify-center rounded-2xl ${
-          dark ? 'bg-white/[0.08]' : 'bg-[#08111F]/[0.06]'
-        }`}
-      >
-        <Sparkles size={22} className={dark ? 'text-[#14F195]' : 'text-[#08111F]'} />
-      </div>
-      <p className={`text-[11px] font-semibold uppercase tracking-[0.26em] ${dark ? 'text-white/60' : 'text-[#526071]'}`}>
-        Asset slot · {slot}
-      </p>
-      {caption ? <p className="max-w-[28ch] text-[13px] leading-6 opacity-80">{caption}</p> : null}
-    </div>
-    {/* corner brackets */}
-    <span className="absolute left-4 top-4 h-4 w-4 border-l border-t border-current opacity-30" />
-    <span className="absolute right-4 top-4 h-4 w-4 border-r border-t border-current opacity-30" />
-    <span className="absolute bottom-4 left-4 h-4 w-4 border-b border-l border-current opacity-30" />
-    <span className="absolute bottom-4 right-4 h-4 w-4 border-b border-r border-current opacity-30" />
+        className="absolute inset-0"
+        style={{
+          backgroundImage: dark
+            ? 'radial-gradient(circle at 30% 30%, rgba(153,69,255,0.24), transparent 45%), radial-gradient(circle at 70% 80%, rgba(20,241,149,0.18), transparent 45%), linear-gradient(135deg,#0B1322,#050A14)'
+            : 'radial-gradient(circle at 30% 30%, rgba(153,69,255,0.18), transparent 45%), radial-gradient(circle at 70% 80%, rgba(20,241,149,0.18), transparent 45%), linear-gradient(135deg,#EEF2EA,#F5F7F2)',
+        }}
+      />
+    )}
+    <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10" />
   </div>
 );
 
@@ -124,6 +108,7 @@ export default function Marketing() {
           duration: 1,
           delay: index === 0 ? 0.08 : 0,
           ease: 'power3.out',
+          immediateRender: false,
           scrollTrigger: { trigger: element, start: 'top bottom-=12%' },
         });
       });
@@ -241,9 +226,10 @@ export default function Marketing() {
       <section id="product-story" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
         <div className="mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[0.92fr_1.08fr]">
           <div data-reveal>
-            <PlaceholderImage
+            <MarketingAsset
               slot={MARKETING_CONTENT.story.assetSlot}
-              caption="Portrait: professional founder at laptop, soft daylight, understated European interior, calm composure — MUST feel like Wise's editorial photography."
+              src={MARKETING_CONTENT.story.asset}
+              alt={MARKETING_CONTENT.story.assetAlt}
               aspect="aspect-[4/5]"
             />
           </div>
@@ -366,6 +352,7 @@ export default function Marketing() {
               reducedMotion={prefersReducedMotion}
               activeKey={phoneKey}
               onRotateChange={setPhoneKey}
+              previewData={MARKETING_CONTENT.phoneFlow.appPreview}
             />
           </div>
         </div>
@@ -505,14 +492,12 @@ export default function Marketing() {
                 data-reveal
                 className="overflow-hidden rounded-[36px] border border-black/[0.08] bg-white shadow-[0_30px_80px_rgba(8,17,31,0.08)]"
               >
-                <PlaceholderImage
+                <MarketingAsset
                   slot={p.assetSlot}
-                  caption={
-                    p.assetSlot === 'persona-individual'
-                      ? 'Human holding phone showing SolGate — natural daylight, cafe setting, European creative style, 35–40y.'
-                      : 'Team reviewing dashboard on screen — corporate yet modern, laptops visible, real office, treasury/CFO atmosphere.'
-                  }
+                  src={p.asset}
+                  alt={p.assetAlt}
                   aspect="aspect-[16/10]"
+                  fit="contain"
                 />
                 <div className="p-8">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#526071]">{p.subtitle}</p>
@@ -589,24 +574,26 @@ export default function Marketing() {
               </a>
             </div>
             <div className="flex flex-wrap items-center gap-3 pt-2">
-              {['Ethereum', 'Arbitrum', 'Base', 'Polygon', 'Optimism', 'Solana'].map((c) => (
+              {SUPPORTED_CHAINS.map((c) => (
                 <span
-                  key={c}
+                  key={c.id}
                   className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/70"
                 >
-                  <span className="h-1 w-1 rounded-full bg-[#14F195]" />
-                  {c}
+                  <span className="h-1 w-1 rounded-full" style={{ background: c.color }} />
+                  {c.label}
                 </span>
               ))}
             </div>
           </div>
 
           <div data-reveal className="relative flex items-center justify-center">
-            <PlaceholderImage
+            <MarketingAsset
               slot={MARKETING_CONTENT.finalCta.assetSlot}
-              caption="Looping 6-second cinemagraph: hands holding a phone with SolGate earn screen, subtle APY counter animation, warm desk lighting, Wise-style calm."
+              src={MARKETING_CONTENT.finalCta.asset}
+              alt={MARKETING_CONTENT.finalCta.assetAlt}
               aspect="aspect-[4/5]"
               dark
+              fit="contain"
             />
           </div>
         </div>

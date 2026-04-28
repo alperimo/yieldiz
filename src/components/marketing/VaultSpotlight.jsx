@@ -1,9 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { ArrowUpRight, TrendingUp } from 'lucide-react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const RiskDots = ({ score }) => (
   <div className="flex items-center gap-1">
@@ -41,22 +37,8 @@ const SparkLine = () => (
   </svg>
 );
 
-const VaultCard = ({ vault, reducedMotion }) => {
-  const apyRef = useRef(null);
-  const [display, setDisplay] = useState(reducedMotion ? vault.apy.toFixed(2) : '0.00');
-
-  useEffect(() => {
-    if (reducedMotion || !apyRef.current) return undefined;
-    const obj = { v: 0 };
-    const anim = gsap.to(obj, {
-      v: vault.apy,
-      duration: 2.2,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: apyRef.current, start: 'top 88%' },
-      onUpdate: () => setDisplay(obj.v.toFixed(2)),
-    });
-    return () => anim.kill();
-  }, [reducedMotion, vault]);
+const VaultCard = ({ vault }) => {
+  const display = vault.apy.toFixed(2);
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-[32px] border border-black/[0.08] bg-white p-7 shadow-[0_24px_60px_rgba(8,17,31,0.08)] transition-all duration-400 hover:-translate-y-1 hover:shadow-[0_40px_90px_rgba(8,17,31,0.14)]">
@@ -77,7 +59,7 @@ const VaultCard = ({ vault, reducedMotion }) => {
         </h3>
       </div>
 
-      <div ref={apyRef} className="mt-6 flex items-baseline gap-1">
+      <div className="mt-6 flex items-baseline gap-1">
         <span className="font-display text-[52px] font-semibold leading-none tracking-[-0.04em] text-[#08111F]">
           {display}
         </span>
@@ -118,10 +100,10 @@ const VaultCard = ({ vault, reducedMotion }) => {
   );
 };
 
-export const VaultSpotlight = ({ vaults, reducedMotion = false }) => (
+export const VaultSpotlight = ({ vaults }) => (
   <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
     {vaults.map((v) => (
-      <VaultCard key={v.name} vault={v} reducedMotion={reducedMotion} />
+      <VaultCard key={v.name} vault={v} />
     ))}
   </div>
 );
