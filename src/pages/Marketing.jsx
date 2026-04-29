@@ -357,13 +357,6 @@ export default function Marketing() {
           <div data-reveal className="flex flex-col justify-center">
             <div className="relative overflow-hidden rounded-[34px] border border-[#F8E6B6]/30 bg-[#F8E6B6] p-6">
               <RouteDiagram reducedMotion={prefersReducedMotion} />
-              <div className="mt-4 flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.22em] text-[#7E4D22]/70">
-                <span className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#7E4D22]" />
-                  Live signal
-                </span>
-                <span>1 confirmation · 5 handoffs</span>
-              </div>
             </div>
           </div>
         </div>

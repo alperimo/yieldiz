@@ -8,11 +8,6 @@ export const PartnerSpotlight = ({ partners }) => (
         key={p.partner}
         className="group relative flex h-full flex-col justify-between overflow-hidden rounded-[28px] border border-[#7E4D22]/15 bg-white/55 p-7 transition-all duration-500 hover:-translate-y-0.5 hover:border-[#7E4D22]/30"
       >
-        <div
-          className="pointer-events-none absolute right-6 top-6 h-2 w-2 rounded-full opacity-70 transition-opacity duration-500 group-hover:opacity-100"
-          style={{ backgroundColor: p.accent }}
-        />
-
         <div className="relative">
           <div className="flex h-12 w-12 items-center justify-center text-[#7E4D22]">
             <BrandMark name={p.partner} size={36} />
