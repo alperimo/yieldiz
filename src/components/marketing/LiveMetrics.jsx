@@ -18,7 +18,7 @@ const MetricTile = ({ metric }) => {
       className="group relative flex flex-col gap-3 rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))] px-6 py-7 backdrop-blur-md transition-all duration-500 hover:-translate-y-0.5 hover:border-white/20"
     >
       <div className="flex items-center gap-2">
-        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#14F195] shadow-[0_0_10px_#14F195]" />
+        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#D6A84F] shadow-[0_0_10px_#D6A84F]" />
         <span className="text-[10px] font-semibold uppercase tracking-[0.26em] text-white/60">
           {metric.label}
         </span>
@@ -28,7 +28,7 @@ const MetricTile = ({ metric }) => {
         <span>{display}</span>
         {metric.suffix ? <span className="text-white/70">{metric.suffix}</span> : null}
       </div>
-      <div className="h-px w-full bg-[linear-gradient(90deg,transparent,rgba(20,241,149,0.55),transparent)] opacity-60 transition-opacity group-hover:opacity-100" />
+      <div className="h-px w-full bg-[linear-gradient(90deg,transparent,rgba(214,168,79,0.55),transparent)] opacity-60 transition-opacity group-hover:opacity-100" />
     </div>
   );
 };

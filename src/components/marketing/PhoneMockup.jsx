@@ -57,7 +57,7 @@ const ConnectScreen = ({ preview }) => (
         ))}
       </div>
 
-      <div className="mt-5 flex items-center gap-2 rounded-2xl bg-[#14F195]/[0.12] p-3 text-[10px] leading-[1.5] text-[#08111F]">
+      <div className="mt-5 flex items-center gap-2 rounded-2xl bg-[#D6A84F]/[0.12] p-3 text-[10px] leading-[1.5] text-[#08111F]">
         <Shield size={13} className="shrink-0" />
         <span>We never store keys or seed phrases. Disconnect anytime.</span>
       </div>
@@ -160,9 +160,9 @@ const ConfirmScreen = ({ preview }) => (
           <div
             className={`flex h-6 w-6 items-center justify-center rounded-full ${
               r.status === 'done'
-                ? 'bg-[#14F195] text-[#08111F]'
+                ? 'bg-[#D6A84F] text-[#08111F]'
                 : r.status === 'live'
-                  ? 'bg-[#9945FF] text-white'
+                  ? 'bg-[#7E4D22] text-white'
                   : 'bg-[#EEF2EA] text-[#7C8898]'
             }`}
           >
@@ -176,7 +176,7 @@ const ConfirmScreen = ({ preview }) => (
       ))}
     </div>
 
-    <div className="mt-4 rounded-2xl bg-[#14F195]/[0.14] p-3">
+    <div className="mt-4 rounded-2xl bg-[#D6A84F]/[0.14] p-3">
       <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#08111F]">Estimated settlement</p>
       <p className="mt-1 font-display text-[18px] font-semibold text-[#08111F]">{preview.settlementEstimate}</p>
     </div>
@@ -203,7 +203,7 @@ const EarningScreen = ({ preview }) => (
         <span className="text-[14px] text-white/70">%</span>
       </div>
       <div className="mt-3 flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/80">
-        <span className="h-1.5 w-1.5 rounded-full bg-[#14F195]" />
+        <span className="h-1.5 w-1.5 rounded-full bg-[#D6A84F]" />
         {preview.portfolio.activeVault}
       </div>
     </div>
@@ -271,7 +271,7 @@ export const PhoneMockup = ({ reducedMotion = false, activeKey, onRotateChange, 
     >
       {/* Phone body */}
       <div
-        className="relative aspect-[9/19] w-full rounded-[48px] bg-[#08111F] p-2 shadow-[0_60px_120px_rgba(8,17,31,0.32),0_20px_40px_rgba(153,69,255,0.18)]"
+        className="relative aspect-[9/19] w-full rounded-[48px] bg-[#08111F] p-2 shadow-[0_60px_120px_rgba(8,17,31,0.32),0_20px_40px_rgba(214,168,79,0.18)]"
         style={{
           backgroundImage:
             'linear-gradient(160deg,#11192B 0%,#08111F 60%,#050A14 100%)',
@@ -300,7 +300,7 @@ export const PhoneMockup = ({ reducedMotion = false, activeKey, onRotateChange, 
         className="pointer-events-none absolute inset-[-20%] -z-10 rounded-full opacity-70 blur-3xl"
         style={{
           background:
-            'radial-gradient(circle at 30% 30%, rgba(153,69,255,0.38), rgba(20,241,149,0.22) 50%, transparent 72%)',
+            'radial-gradient(circle at 30% 30%, rgba(214,168,79,0.34), rgba(126,77,34,0.20) 50%, transparent 72%)',
         }}
       />
     </div>

@@ -32,8 +32,8 @@ const Eyebrow = ({ children, dark = false }) => (
     <span
       className={`h-px w-10 shrink-0 rounded-full ${
         dark
-          ? 'bg-[linear-gradient(90deg,rgba(20,241,149,0.75),rgba(153,69,255,0.32))]'
-          : 'bg-[linear-gradient(90deg,rgba(153,69,255,0.5),rgba(20,241,149,0.5))]'
+          ? 'bg-[linear-gradient(90deg,rgba(214,168,79,0.78),rgba(126,77,34,0.36))]'
+          : 'bg-[linear-gradient(90deg,rgba(126,77,34,0.46),rgba(214,168,79,0.58))]'
       }`}
     />
     {children}
@@ -59,8 +59,8 @@ const MarketingAsset = ({ slot, src, alt, aspect = 'aspect-[4/5]', dark = false,
         className="absolute inset-0"
         style={{
           backgroundImage: dark
-            ? 'radial-gradient(circle at 30% 30%, rgba(153,69,255,0.24), transparent 45%), radial-gradient(circle at 70% 80%, rgba(20,241,149,0.18), transparent 45%), linear-gradient(135deg,#0B1322,#050A14)'
-            : 'radial-gradient(circle at 30% 30%, rgba(153,69,255,0.18), transparent 45%), radial-gradient(circle at 70% 80%, rgba(20,241,149,0.18), transparent 45%), linear-gradient(135deg,#EEF2EA,#F5F7F2)',
+            ? 'radial-gradient(circle at 30% 30%, rgba(214,168,79,0.24), transparent 45%), radial-gradient(circle at 70% 80%, rgba(126,77,34,0.16), transparent 45%), linear-gradient(135deg,#0B1322,#050A14)'
+            : 'radial-gradient(circle at 30% 30%, rgba(214,168,79,0.16), transparent 45%), radial-gradient(circle at 70% 80%, rgba(126,77,34,0.12), transparent 45%), linear-gradient(135deg,#EEF2EA,#F5F7F2)',
         }}
       />
     )}
@@ -129,7 +129,10 @@ export default function Marketing() {
   }, [prefersReducedMotion]);
 
   // Route diagram: highlight the matching left-side step card based on scroll
-  // position so the section feels alive without locking the page.
+  // position so the section feels alive without locking the page. We start
+  // when the section is roughly centered (top 35%) and end when its bottom
+  // is well past the viewport, so each card has time to read before the
+  // next one lights up.
   useLayoutEffect(() => {
     if (!routeSectionRef.current) return undefined;
     if (prefersReducedMotion) return undefined;
@@ -137,11 +140,14 @@ export default function Marketing() {
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: routeSectionRef.current,
-        start: 'top 70%',
-        end: 'bottom 60%',
-        scrub: 0.4,
+        start: 'top 30%',
+        end: 'bottom 80%',
+        scrub: 0.6,
         onUpdate: (self) => {
-          const idx = Math.min(stepCount - 1, Math.floor(self.progress * stepCount));
+          // Slight inner margin so 0.0..0.1 stays on step 0 and 0.9..1 stays
+          // on the last step rather than flipping mid-gesture.
+          const t = Math.max(0, Math.min(1, (self.progress - 0.05) / 0.9));
+          const idx = Math.min(stepCount - 1, Math.floor(t * stepCount));
           setRouteActiveStep((prev) => (prev === idx ? prev : idx));
         },
       });
@@ -202,7 +208,7 @@ export default function Marketing() {
             <div data-reveal className="flex flex-col gap-3 sm:flex-row">
               <Link
                 to="/app"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#08111F] px-6 py-4 text-[14px] font-semibold text-white shadow-[0_24px_60px_rgba(8,17,31,0.22)] transition-all hover:-translate-y-0.5 hover:bg-[linear-gradient(135deg,#9945FF,#14F195)] hover:shadow-[0_24px_60px_rgba(153,69,255,0.28)]"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#08111F] px-6 py-4 text-[14px] font-semibold text-white shadow-[0_24px_60px_rgba(8,17,31,0.22)] transition-all hover:-translate-y-0.5 hover:bg-[linear-gradient(135deg,#D6A84F,#7E4D22)] hover:shadow-[0_24px_60px_rgba(214,168,79,0.28)]"
               >
                 {MARKETING_CONTENT.hero.primaryCta}
                 <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -221,7 +227,7 @@ export default function Marketing() {
               <div data-reveal className="grid gap-3 rounded-[24px] border border-black/[0.08] bg-white/80 p-4 shadow-[0_24px_60px_rgba(8,17,31,0.06)] sm:grid-cols-3 sm:p-5">
                 {heroLive.map((item) => (
                   <div key={item.label} className="flex items-start gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 animate-pulse rounded-full bg-[#14F195] shadow-[0_0_10px_#14F195]" />
+                    <span className="mt-2 h-1.5 w-1.5 animate-pulse rounded-full bg-[#D6A84F] shadow-[0_0_10px_#D6A84F]" />
                     <div>
                       <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#7C8898]">
                         {item.label}
@@ -254,13 +260,13 @@ export default function Marketing() {
       {/* ─────────────────  LIVE METRICS (DARK) — only when wired to a real metrics endpoint  ───────────────── */}
       {metricsLive ? (
         <section className="relative mt-4 overflow-hidden bg-[#08111F] px-4 py-24 text-white sm:px-6 lg:px-8 lg:py-28">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(153,69,255,0.16),transparent_40%),radial-gradient(circle_at_85%_90%,rgba(20,241,149,0.12),transparent_42%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(214,168,79,0.16),transparent_40%),radial-gradient(circle_at_85%_90%,rgba(126,77,34,0.10),transparent_42%)]" />
           <div className="relative mx-auto max-w-[1360px]">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <div data-reveal className="max-w-[640px]">
                 <Eyebrow dark>Live on Solana right now</Eyebrow>
                 <h2 className="mt-5 font-display text-[40px] font-semibold leading-[0.98] tracking-[-0.035em] sm:text-[52px]">
-                  Real capital. Real yield. <span className="text-[#14F195]">Real time.</span>
+                  Real capital. Real yield. <span className="text-[#D6A84F]">Real time.</span>
                 </h2>
               </div>
               <p data-reveal className="max-w-[420px] text-[15px] leading-[1.7] text-white/60">
@@ -307,7 +313,7 @@ export default function Marketing() {
         ref={routeSectionRef}
         className="relative overflow-hidden bg-[#08111F] px-4 py-24 text-white sm:px-6 lg:px-8 lg:py-32"
       >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(153,69,255,0.22),transparent_40%),radial-gradient(circle_at_90%_60%,rgba(20,241,149,0.12),transparent_44%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(214,168,79,0.20),transparent_40%),radial-gradient(circle_at_90%_60%,rgba(126,77,34,0.12),transparent_44%)]" />
         <div className="relative mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="flex flex-col justify-center">
             <Eyebrow dark>{MARKETING_CONTENT.routeDiagram.eyebrow}</Eyebrow>
@@ -326,14 +332,14 @@ export default function Marketing() {
                     key={s.step}
                     className={`group flex items-start gap-4 rounded-2xl border p-5 transition-all duration-500 ${
                       isActive
-                        ? 'border-[#14F195]/40 bg-white/[0.06] shadow-[0_20px_60px_rgba(20,241,149,0.12)]'
+                        ? 'border-[#D6A84F]/40 bg-white/[0.06] shadow-[0_20px_60px_rgba(214,168,79,0.12)]'
                         : 'border-white/[0.08] bg-white/[0.03] hover:border-white/[0.16]'
                     }`}
                   >
                     <div
                       className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-[11px] font-bold tracking-[0.18em] transition-colors duration-500 ${
                         isActive
-                          ? 'border-[#14F195]/60 bg-[#14F195]/[0.14] text-[#14F195]'
+                          ? 'border-[#D6A84F]/60 bg-[#D6A84F]/[0.14] text-[#D6A84F]'
                           : 'border-white/[0.1] bg-white/[0.04] text-white'
                       }`}
                     >
@@ -342,7 +348,7 @@ export default function Marketing() {
                     <div className="flex-1">
                       <div className="flex items-baseline gap-3">
                         <h3 className="font-display text-[18px] font-semibold text-white">{s.title}</h3>
-                        <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#14F195]">
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#D6A84F]">
                           {s.partner}
                         </span>
                       </div>
@@ -359,7 +365,7 @@ export default function Marketing() {
               <RouteDiagram reducedMotion={prefersReducedMotion} />
               <div className="mt-4 flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.22em] text-white/50">
                 <span className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#14F195]" />
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#D6A84F]" />
                   Live signal
                 </span>
                 <span>1 confirmation · 5 handoffs</span>
@@ -400,7 +406,7 @@ export default function Marketing() {
                     >
                       <span
                         className={`mt-1 h-2 w-2 shrink-0 rounded-full ${
-                          isActive ? 'bg-[#14F195] shadow-[0_0_10px_#14F195]' : 'bg-[#08111F]/30'
+                          isActive ? 'bg-[#D6A84F] shadow-[0_0_10px_#D6A84F]' : 'bg-[#08111F]/30'
                         }`}
                       />
                       <div>
@@ -427,7 +433,7 @@ export default function Marketing() {
 
       {/* ─────────────────  PARTNERS (DARK)  ───────────────── */}
       <section id="execution-stack" className="relative overflow-hidden bg-[#08111F] px-4 py-24 text-white sm:px-6 lg:px-8 lg:py-32">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(153,69,255,0.14),transparent_38%),radial-gradient(circle_at_10%_80%,rgba(20,241,149,0.1),transparent_42%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(214,168,79,0.12),transparent_38%),radial-gradient(circle_at_10%_80%,rgba(126,77,34,0.09),transparent_42%)]" />
         <div className="relative mx-auto max-w-[1360px]">
           <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
             <div>
@@ -483,7 +489,7 @@ export default function Marketing() {
 
       {/* ─────────────────  MEV SHIELD (DARK)  ───────────────── */}
       <section id="security-layer" className="relative overflow-hidden bg-[#08111F] px-4 py-24 text-white sm:px-6 lg:px-8 lg:py-32">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(239,68,68,0.08),transparent_38%),radial-gradient(circle_at_20%_80%,rgba(20,241,149,0.12),transparent_44%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(239,68,68,0.08),transparent_38%),radial-gradient(circle_at_20%_80%,rgba(214,168,79,0.12),transparent_44%)]" />
         <div className="relative mx-auto max-w-[1360px]">
           <div className="max-w-[720px]">
             <Eyebrow dark>{MARKETING_CONTENT.mevShield.eyebrow}</Eyebrow>
@@ -511,7 +517,7 @@ export default function Marketing() {
                 data-reveal
                 className="rounded-[24px] border border-white/[0.08] bg-white/[0.03] p-6 backdrop-blur"
               >
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#14F195]/[0.14] text-[#14F195]">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#D6A84F]/[0.14] text-[#D6A84F]">
                   <Shield size={18} />
                 </div>
                 <h3 className="mt-5 font-display text-[18px] font-semibold text-white">{pt.title}</h3>
@@ -559,7 +565,7 @@ export default function Marketing() {
                   <ul className="mt-6 space-y-2">
                     {p.bullets.map((b) => (
                       <li key={b} className="flex items-start gap-2 text-[13px] leading-[1.6] text-[#08111F]">
-                        <CheckCircle2 size={14} className="mt-1 shrink-0 text-[#14F195]" />
+                        <CheckCircle2 size={14} className="mt-1 shrink-0 text-[#D6A84F]" />
                         {b}
                       </li>
                     ))}
@@ -597,7 +603,7 @@ export default function Marketing() {
           className="relative mx-auto grid max-w-[1360px] overflow-hidden rounded-[42px] px-6 py-10 text-white shadow-[0_40px_120px_rgba(8,17,31,0.22)] sm:px-10 sm:py-14 lg:grid-cols-[1.1fr_0.9fr]"
           style={{
             background:
-              'radial-gradient(circle at 20% 20%, rgba(153,69,255,0.34), transparent 40%), radial-gradient(circle at 90% 80%, rgba(20,241,149,0.22), transparent 40%), linear-gradient(135deg,#0B1322 0%,#08111F 60%,#030711 100%)',
+              'radial-gradient(circle at 20% 20%, rgba(214,168,79,0.30), transparent 40%), radial-gradient(circle at 90% 80%, rgba(126,77,34,0.20), transparent 40%), linear-gradient(135deg,#0B1322 0%,#08111F 60%,#030711 100%)',
           }}
         >
           <div className="relative flex flex-col justify-center space-y-8" data-reveal>
@@ -611,7 +617,7 @@ export default function Marketing() {
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link
                 to="/app"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#14F195] px-6 py-4 text-[14px] font-semibold text-[#08111F] shadow-[0_24px_60px_rgba(20,241,149,0.28)] transition-transform hover:-translate-y-0.5"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#D6A84F] px-6 py-4 text-[14px] font-semibold text-[#08111F] shadow-[0_24px_60px_rgba(214,168,79,0.28)] transition-transform hover:-translate-y-0.5"
               >
                 {MARKETING_CONTENT.finalCta.primaryCta}
                 <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

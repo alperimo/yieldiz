@@ -25,29 +25,29 @@
   <g>
     <rect x="150" y="120" width="216" height="108" rx="28" fill="#121E31"/>
     <rect x="150" y="120" width="216" height="108" rx="28" stroke="#22304A"/>
-    <circle cx="198" cy="174" r="18" fill="#14F195" fill-opacity="0.14"/>
-    <text x="198" y="180" text-anchor="middle" fill="#14F195" font-size="12" font-family="Inter, Arial, sans-serif" font-weight="700">SF</text>
+    <circle cx="198" cy="174" r="18" fill="#D6A84F" fill-opacity="0.14"/>
+    <text x="198" y="180" text-anchor="middle" fill="#D6A84F" font-size="12" font-family="Inter, Arial, sans-serif" font-weight="700">SF</text>
     <text x="238" y="168" fill="#F7FAF7" font-size="30" font-family="Inter, Arial, sans-serif" font-weight="700">Solflare</text>
     <text x="238" y="195" fill="#8FEFD2" font-size="13" font-family="Inter, Arial, sans-serif" letter-spacing="2">ACCESS</text>
 
     <rect x="914" y="120" width="216" height="108" rx="28" fill="#121E31"/>
     <rect x="914" y="120" width="216" height="108" rx="28" stroke="#22304A"/>
-    <circle cx="962" cy="174" r="18" fill="#00C2FF" fill-opacity="0.14"/>
-    <text x="962" y="180" text-anchor="middle" fill="#00C2FF" font-size="12" font-family="Inter, Arial, sans-serif" font-weight="700">LF</text>
+    <circle cx="962" cy="174" r="18" fill="#F1D27A" fill-opacity="0.14"/>
+    <text x="962" y="180" text-anchor="middle" fill="#F1D27A" font-size="12" font-family="Inter, Arial, sans-serif" font-weight="700">LF</text>
     <text x="1002" y="168" fill="#F7FAF7" font-size="30" font-family="Inter, Arial, sans-serif" font-weight="700">LI.FI</text>
     <text x="1002" y="195" fill="#A9D8FF" font-size="13" font-family="Inter, Arial, sans-serif" letter-spacing="2">ROUTING</text>
 
     <rect x="90" y="610" width="236" height="108" rx="28" fill="#121E31"/>
     <rect x="90" y="610" width="236" height="108" rx="28" stroke="#22304A"/>
-    <circle cx="138" cy="664" r="18" fill="#7C6BFF" fill-opacity="0.14"/>
+    <circle cx="138" cy="664" r="18" fill="#7E4D22" fill-opacity="0.14"/>
     <text x="138" y="670" text-anchor="middle" fill="#B9AEFF" font-size="12" font-family="Inter, Arial, sans-serif" font-weight="700">DF</text>
     <text x="178" y="658" fill="#F7FAF7" font-size="30" font-family="Inter, Arial, sans-serif" font-weight="700">DFlow</text>
     <text x="178" y="685" fill="#C7BFFF" font-size="13" font-family="Inter, Arial, sans-serif" letter-spacing="2">EXECUTION</text>
 
     <rect x="954" y="610" width="236" height="108" rx="28" fill="#121E31"/>
     <rect x="954" y="610" width="236" height="108" rx="28" stroke="#22304A"/>
-    <circle cx="1002" cy="664" r="18" fill="#14F195" fill-opacity="0.14"/>
-    <text x="1002" y="670" text-anchor="middle" fill="#14F195" font-size="12" font-family="Inter, Arial, sans-serif" font-weight="700">KM</text>
+    <circle cx="1002" cy="664" r="18" fill="#D6A84F" fill-opacity="0.14"/>
+    <text x="1002" y="670" text-anchor="middle" fill="#D6A84F" font-size="12" font-family="Inter, Arial, sans-serif" font-weight="700">KM</text>
     <text x="1042" y="658" fill="#F7FAF7" font-size="30" font-family="Inter, Arial, sans-serif" font-weight="700">Kamino</text>
     <text x="1042" y="685" fill="#8FEFD2" font-size="13" font-family="Inter, Arial, sans-serif" letter-spacing="2">VAULT ENTRY</text>
 
@@ -80,21 +80,21 @@
       <stop offset="1" stop-color="#C7D3FF" stop-opacity="0.56"/>
     </radialGradient>
     <linearGradient id="ringStroke" x1="494" y1="314" x2="786" y2="596" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#14F195"/>
-      <stop offset="0.52" stop-color="#00C2FF"/>
-      <stop offset="1" stop-color="#7C6BFF"/>
+      <stop stop-color="#F8E6B6"/>
+      <stop offset="0.52" stop-color="#D6A84F"/>
+      <stop offset="1" stop-color="#7E4D22"/>
     </linearGradient>
     <linearGradient id="lineMint" x1="290" y1="220" x2="560" y2="360" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#14F195" stop-opacity="0"/>
-      <stop offset="1" stop-color="#14F195"/>
+      <stop stop-color="#D6A84F" stop-opacity="0"/>
+      <stop offset="1" stop-color="#D6A84F"/>
     </linearGradient>
     <linearGradient id="lineBlue" x1="990" y1="220" x2="720" y2="360" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#00C2FF" stop-opacity="0"/>
-      <stop offset="1" stop-color="#00C2FF"/>
+      <stop stop-color="#F1D27A" stop-opacity="0"/>
+      <stop offset="1" stop-color="#F1D27A"/>
     </linearGradient>
     <linearGradient id="lineViolet" x1="420" y1="135" x2="620" y2="320" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#7C6BFF" stop-opacity="0"/>
-      <stop offset="1" stop-color="#7C6BFF"/>
+      <stop stop-color="#7E4D22" stop-opacity="0"/>
+      <stop offset="1" stop-color="#7E4D22"/>
     </linearGradient>
   </defs>
 </svg>

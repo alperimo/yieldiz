@@ -6,9 +6,9 @@ import { Quote } from 'lucide-react';
 
 const gradientFor = (i) =>
   [
-    'linear-gradient(135deg,#9945FF 0%,#14F195 100%)',
-    'linear-gradient(135deg,#00C2FF 0%,#9945FF 100%)',
-    'linear-gradient(135deg,#14F195 0%,#00C2FF 100%)',
+    'linear-gradient(135deg,#7E4D22 0%,#D6A84F 100%)',
+    'linear-gradient(135deg,#F1D27A 0%,#7E4D22 100%)',
+    'linear-gradient(135deg,#D6A84F 0%,#F8E6B6 100%)',
   ][i % 3];
 
 export const Testimonials = ({ quotes }) => (
@@ -24,7 +24,7 @@ export const Testimonials = ({ quotes }) => (
           key={t.author}
           className="relative flex h-full flex-col gap-6 rounded-[32px] border border-black/[0.08] bg-white/90 p-7 shadow-[0_24px_60px_rgba(8,17,31,0.08)] backdrop-blur"
         >
-          <Quote size={22} className="text-[#9945FF]/60" />
+          <Quote size={22} className="text-[#D6A84F]/60" />
           <p className="font-display text-[20px] leading-[1.4] text-[#08111F]">
             &ldquo;{t.quote}&rdquo;
           </p>

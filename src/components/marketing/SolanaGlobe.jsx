@@ -183,7 +183,7 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
       <div
         ref={glowRef}
         aria-hidden
-        className="absolute inset-[6%] rounded-full bg-[radial-gradient(circle_at_30%_28%,rgba(153,69,255,0.45),rgba(20,241,149,0.28)_44%,rgba(0,194,255,0.16)_68%,rgba(153,69,255,0)_88%)] blur-3xl"
+        className="absolute inset-[6%] rounded-full bg-[radial-gradient(circle_at_30%_28%,rgba(214,168,79,0.42),rgba(241,210,122,0.24)_44%,rgba(126,77,34,0.14)_68%,rgba(126,77,34,0)_88%)] blur-3xl"
       />
 
       {/* Outer pulse rings */}
@@ -194,10 +194,10 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
             ringRefs.current[i] = el;
           }}
           aria-hidden
-          className="absolute inset-[4%] rounded-full border border-[#9945FF]/30"
+          className="absolute inset-[4%] rounded-full border border-[#D6A84F]/30"
           style={{
             boxShadow:
-              '0 0 60px rgba(153,69,255,0.16), inset 0 0 80px rgba(20,241,149,0.08)',
+              '0 0 60px rgba(214,168,79,0.16), inset 0 0 80px rgba(126,77,34,0.08)',
           }}
         />
       ))}
@@ -211,19 +211,19 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
         <defs>
           <radialGradient id="sgSphere" cx="0.32" cy="0.28" r="0.9">
             <stop offset="0%" stopColor="rgba(255,255,255,0.94)" />
-            <stop offset="38%" stopColor="rgba(201,186,255,0.42)" />
-            <stop offset="72%" stopColor="rgba(153,69,255,0.18)" />
+            <stop offset="38%" stopColor="rgba(248,230,182,0.48)" />
+            <stop offset="72%" stopColor="rgba(214,168,79,0.18)" />
             <stop offset="100%" stopColor="rgba(8,17,31,0.08)" />
           </radialGradient>
           <linearGradient id="sgGrid" x1="-240" y1="-240" x2="240" y2="240" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#9945FF" stopOpacity="0.55" />
-            <stop offset="50%" stopColor="#00C2FF" stopOpacity="0.45" />
-            <stop offset="100%" stopColor="#14F195" stopOpacity="0.55" />
+            <stop offset="0%" stopColor="#F8E6B6" stopOpacity="0.58" />
+            <stop offset="50%" stopColor="#D6A84F" stopOpacity="0.48" />
+            <stop offset="100%" stopColor="#7E4D22" stopOpacity="0.55" />
           </linearGradient>
           <linearGradient id="sgBeam" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#14F195" stopOpacity="0" />
-            <stop offset="50%" stopColor="#14F195" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#9945FF" stopOpacity="0" />
+            <stop offset="0%" stopColor="#D6A84F" stopOpacity="0" />
+            <stop offset="50%" stopColor="#D6A84F" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#7E4D22" stopOpacity="0" />
           </linearGradient>
           <filter id="sgSoft" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="1.4" />
@@ -260,12 +260,12 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
           style={{ transformBox: 'fill-box', transformOrigin: '50% 50%' }}
         >
           {/* Primary meridian highlights */}
-          <g stroke="#9945FF" fill="none" strokeWidth="1.1" opacity="0.38">
+          <g stroke="#D6A84F" fill="none" strokeWidth="1.1" opacity="0.38">
             <ellipse cx="0" cy="0" rx="30" ry="240" />
             <ellipse cx="0" cy="0" rx="120" ry="240" />
             <ellipse cx="0" cy="0" rx="200" ry="240" />
           </g>
-          <g stroke="#14F195" fill="none" strokeWidth="1.1" opacity="0.28">
+          <g stroke="#7E4D22" fill="none" strokeWidth="1.1" opacity="0.28">
             <ellipse cx="0" cy="0" rx="80" ry="240" />
             <ellipse cx="0" cy="0" rx="160" ry="240" />
           </g>
@@ -279,7 +279,7 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
               cx={d.x}
               cy={d.y}
               r={Math.max(0.6, d.r)}
-              fill={d.z > 0.3 ? '#9945FF' : '#14F195'}
+              fill={d.z > 0.3 ? '#D6A84F' : '#7E4D22'}
               opacity={0.35 + d.z * 0.55}
             />
           ))}
@@ -324,7 +324,7 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
         <g>
           <circle cx="0" cy="0" r="24" fill="#08111F" />
           <circle cx="0" cy="0" r="24" fill="url(#sgGrid)" opacity="0.9" />
-          <circle cx="0" cy="0" r="30" fill="none" stroke="#14F195" strokeWidth="1.2" opacity="0.7" />
+          <circle cx="0" cy="0" r="30" fill="none" stroke="#D6A84F" strokeWidth="1.2" opacity="0.7" />
           <text
             x="0"
             y="4"
@@ -375,14 +375,14 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
 
       {/* Floating annotation chips — corporate context pills */}
       <div className="absolute left-[-2%] top-[62%] rounded-full border border-white/50 bg-white/90 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#08111F] shadow-[0_20px_50px_rgba(8,17,31,0.12)] backdrop-blur">
-        <span className="mr-2 inline-flex h-1.5 w-1.5 rounded-full bg-[#14F195] shadow-[0_0_10px_#14F195]" />
+        <span className="mr-2 inline-flex h-1.5 w-1.5 rounded-full bg-[#D6A84F] shadow-[0_0_10px_#D6A84F]" />
         Route visible before execution
       </div>
-      <div className="absolute right-[-4%] top-[14%] rounded-full border border-[#9945FF]/30 bg-[#08111F] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_24px_50px_rgba(8,17,31,0.28)]">
-        <span className="mr-2 inline-flex h-1.5 w-1.5 rounded-full bg-[#9945FF] shadow-[0_0_10px_#9945FF]" />
+      <div className="absolute right-[-4%] top-[14%] rounded-full border border-[#D6A84F]/30 bg-[#08111F] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_24px_50px_rgba(8,17,31,0.28)]">
+        <span className="mr-2 inline-flex h-1.5 w-1.5 rounded-full bg-[#D6A84F] shadow-[0_0_10px_#D6A84F]" />
         Jito-protected entry
       </div>
-      <div className="absolute bottom-[6%] right-[8%] rounded-full border border-[#14F195]/40 bg-[#14F195]/[0.14] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#08111F] shadow-[0_20px_50px_rgba(20,241,149,0.18)] backdrop-blur">
+      <div className="absolute bottom-[6%] right-[8%] rounded-full border border-[#D6A84F]/40 bg-[#D6A84F]/[0.14] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#08111F] shadow-[0_20px_50px_rgba(214,168,79,0.18)] backdrop-blur">
         Destination · Kamino
       </div>
     </div>

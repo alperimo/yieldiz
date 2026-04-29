@@ -34,7 +34,7 @@ export const ChainMarquee = ({ items, variant = 'light' }) => {
           >
             <span
               className={`h-1 w-1 rounded-full ${
-                isDark ? 'bg-[#14F195] shadow-[0_0_10px_#14F195]' : 'bg-[#9945FF]'
+                isDark ? 'bg-[#D6A84F] shadow-[0_0_10px_#D6A84F]' : 'bg-[#A86F24]'
               }`}
             />
             {item}

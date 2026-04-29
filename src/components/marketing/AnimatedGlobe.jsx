@@ -79,7 +79,7 @@ export const AnimatedGlobe = ({ reducedMotion = false }) => {
     <div ref={rootRef} className="relative aspect-square w-full max-w-[760px]">
       <div
         ref={glowRef}
-        className="absolute inset-[10%] rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(20,241,149,0.4),rgba(0,194,255,0.18)_42%,rgba(124,107,255,0.14)_68%,rgba(124,107,255,0)_82%)] blur-3xl"
+        className="absolute inset-[10%] rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(214,168,79,0.36),rgba(241,210,122,0.20)_42%,rgba(126,77,34,0.14)_68%,rgba(126,77,34,0)_82%)] blur-3xl"
       />
 
       {COINS.map((coin, index) => (
@@ -112,9 +112,9 @@ export const AnimatedGlobe = ({ reducedMotion = false }) => {
       >
         <defs>
           <linearGradient id="solgateGlobeStroke" x1="0" y1="0" x2="640" y2="640">
-            <stop stopColor="#14F195" />
-            <stop offset="0.52" stopColor="#00C2FF" />
-            <stop offset="1" stopColor="#7C6BFF" />
+            <stop stopColor="#F8E6B6" />
+            <stop offset="0.52" stopColor="#D6A84F" />
+            <stop offset="1" stopColor="#7E4D22" />
           </linearGradient>
           <radialGradient id="solgateGlobeFill" cx="0" cy="0" r="1" gradientTransform="translate(250 210) rotate(47) scale(390 420)" gradientUnits="userSpaceOnUse">
             <stop stopColor="rgba(255,255,255,0.96)" />
@@ -158,7 +158,7 @@ export const AnimatedGlobe = ({ reducedMotion = false }) => {
         ref={(node) => {
           ribbonRefs.current[2] = node;
         }}
-        className="absolute bottom-[7%] right-[14%] rounded-full border border-[#14F195]/30 bg-[#14F195]/[0.12] px-4 py-2 text-xs font-medium text-[#08111F] shadow-[0_24px_60px_rgba(20,241,149,0.16)]"
+        className="absolute bottom-[7%] right-[14%] rounded-full border border-[#D6A84F]/30 bg-[#D6A84F]/[0.12] px-4 py-2 text-xs font-medium text-[#08111F] shadow-[0_24px_60px_rgba(214,168,79,0.16)]"
       >
         Destination: Kamino vaults
       </div>

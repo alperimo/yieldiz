@@ -5,10 +5,19 @@
   --color-bg-elevated: #EEF2EA;
   --color-border: rgba(8, 17, 31, 0.10);
 
-  /* Core palette */
-  --color-accent-green: #14F195;
-  --color-accent-purple: #7C6BFF;
-  --color-accent-blue: #00C2FF;
+  /* SolGate brand palette
+     Aurum is the signature colour: a premium gold/copper family that signals
+     capital, stability and yield without borrowing Solana's neon identity. */
+  --color-brand-aurum: #D6A84F;
+  --color-brand-aurum-light: #F1D27A;
+  --color-brand-aurum-deep: #A86F24;
+  --color-brand-copper: #7E4D22;
+  --color-brand-champagne: #F8E6B6;
+
+  /* Backwards-compatible aliases — prefer the names above for new code.    */
+  --color-accent-green: #D6A84F;
+  --color-accent-purple: #A86F24;
+  --color-accent-blue: #F1D27A;
 
   /* Text */
   --color-text-primary: #08111F;
@@ -25,5 +34,6 @@
   --radius-button: 999px;
   --radius-input: 18px;
 
-  --gradient-cta: linear-gradient(135deg, #14F195 0%, #00C2FF 58%, #7C6BFF 100%);
+  --gradient-cta: linear-gradient(135deg, #F1D27A 0%, #D6A84F 54%, #7E4D22 100%);
+  --gradient-brand: linear-gradient(135deg, #F8E6B6 0%, #D6A84F 48%, #7E4D22 100%);
 }

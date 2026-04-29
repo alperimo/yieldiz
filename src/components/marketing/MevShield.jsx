@@ -99,11 +99,11 @@ export const MevShield = ({ before, after, footnote, reducedMotion = false }) =>
       <article className="relative overflow-hidden rounded-[28px] border border-white/[0.06] bg-white/[0.02] p-7">
         <div
           data-mev-bundle-glow
-          className="pointer-events-none absolute -top-20 right-[-10%] h-60 w-60 rounded-full bg-[radial-gradient(circle,rgba(20,241,149,0.18),transparent_70%)] blur-3xl"
+          className="pointer-events-none absolute -top-20 right-[-10%] h-60 w-60 rounded-full bg-[radial-gradient(circle,rgba(214,168,79,0.18),transparent_70%)] blur-3xl"
         />
 
         <div className="relative flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55">
-          <ShieldCheck size={14} className="text-[#14F195]" />
+          <ShieldCheck size={14} className="text-[#D6A84F]" />
           {after.label}
         </div>
 
@@ -115,11 +115,11 @@ export const MevShield = ({ before, after, footnote, reducedMotion = false }) =>
         <div className="relative mt-7 h-[148px] rounded-2xl bg-white/[0.03] p-5">
           <div className="relative flex h-full flex-col justify-center gap-2">
             <div className="flex items-center gap-2 rounded-full bg-white/[0.05] px-3 py-1.5 text-[10px] font-semibold text-white">
-              <CheckCircle2 size={12} className="text-[#14F195]" />
+              <CheckCircle2 size={12} className="text-[#D6A84F]" />
               Swap · routed on Solana
             </div>
             <div className="flex items-center gap-2 rounded-full bg-white/[0.05] px-3 py-1.5 text-[10px] font-semibold text-white">
-              <CheckCircle2 size={12} className="text-[#14F195]" />
+              <CheckCircle2 size={12} className="text-[#D6A84F]" />
               Deposit · audited vault
             </div>
             <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/55">
@@ -131,7 +131,7 @@ export const MevShield = ({ before, after, footnote, reducedMotion = false }) =>
         <ul className="mt-6 space-y-2">
           {after.bullets.map((b) => (
             <li key={b} className="flex gap-3 text-[13px] leading-[1.65] text-white/80">
-              <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-[#14F195]" />
+              <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-[#D6A84F]" />
               {b}
             </li>
           ))}
@@ -139,7 +139,7 @@ export const MevShield = ({ before, after, footnote, reducedMotion = false }) =>
 
         <div className="mt-6 border-t border-white/[0.06] pt-4">
           <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/45">{after.lossLabel}</p>
-          <p className="mt-1 font-display text-[28px] font-semibold text-[#14F195]">{after.lossValue}</p>
+          <p className="mt-1 font-display text-[28px] font-semibold text-[#D6A84F]">{after.lossValue}</p>
         </div>
       </article>
 

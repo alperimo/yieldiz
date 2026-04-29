@@ -7,6 +7,7 @@ import { STRINGS, NAV_ITEMS } from '../../lib/constants';
 import { abbreviateAddress } from '../../lib/formatters';
 import { LogOut, Menu, ArrowDownToLine, LayoutDashboard, Vault } from 'lucide-react';
 import { useHideOnScroll } from '../../hooks/useHideOnScroll';
+import { SolGateLogo } from '../brand/SolGateLogo';
 
 const ICON_MAP = { ArrowDownToLine, LayoutDashboard, Vault };
 
@@ -37,9 +38,7 @@ export const Header = ({ onMenuToggle }) => {
           </button>
 
           <NavLink to="/app" className="flex items-center gap-3 text-[#08111F]">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#08111F] text-[12px] font-black tracking-[0.18em] text-white shadow-[0_14px_30px_rgba(8,17,31,0.18)]">
-              {STRINGS.APP_LOGO_ABBR}
-            </div>
+            <SolGateLogo size={36} className="rounded-xl bg-[#08111F] p-1.5 shadow-[0_14px_30px_rgba(8,17,31,0.18)]" />
             <div>
               <p className="font-display text-[17px] font-semibold leading-none">{STRINGS.APP_NAME}</p>
               <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-sg-text-secondary">

@@ -8,7 +8,7 @@ export const COINGECKO_PRICE_URL = 'https://api.coingecko.com/api/v3/simple/pric
 export const DEXSCREENER_URL = 'https://api.dexscreener.com/latest/dex';
 
 export const TOKENS = {
-  SOL: { symbol: 'SOL', name: 'Solana', color: '#9945FF', decimals: 9 },
+  SOL: { symbol: 'SOL', name: 'Solana', color: '#D6A84F', decimals: 9 },
   USDC: { symbol: 'USDC', name: 'USD Coin', color: '#2775CA', decimals: 6 },
   mSOL: { symbol: 'mSOL', name: 'Marinade SOL', color: '#308D86', decimals: 9 },
   JTO: { symbol: 'JTO', name: 'Jito', color: '#45BF6F', decimals: 9 },

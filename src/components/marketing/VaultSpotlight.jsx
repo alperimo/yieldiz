@@ -7,7 +7,7 @@ const RiskDots = ({ score }) => (
       <span
         key={i}
         className={`h-1.5 w-5 rounded-full transition-colors ${
-          i <= score ? 'bg-[#14F195]' : 'bg-white/10'
+          i <= score ? 'bg-[#D6A84F]' : 'bg-white/10'
         }`}
       />
     ))}
@@ -18,8 +18,8 @@ const SparkLine = () => (
   <svg viewBox="0 0 160 48" className="h-10 w-full" aria-hidden="true">
     <defs>
       <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#14F195" stopOpacity="0.4" />
-        <stop offset="100%" stopColor="#14F195" stopOpacity="0" />
+        <stop offset="0%" stopColor="#D6A84F" stopOpacity="0.4" />
+        <stop offset="100%" stopColor="#D6A84F" stopOpacity="0" />
       </linearGradient>
     </defs>
     <path
@@ -29,7 +29,7 @@ const SparkLine = () => (
     <path
       d="M 0 36 L 15 32 L 30 30 L 45 24 L 60 26 L 75 18 L 90 20 L 105 14 L 120 16 L 140 8 L 160 10"
       fill="none"
-      stroke="#14F195"
+      stroke="#D6A84F"
       strokeWidth="1.6"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -46,8 +46,8 @@ const VaultCard = ({ vault }) => {
         <span className="rounded-full border border-[#08111F]/10 bg-[#08111F]/[0.04] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#08111F]">
           {vault.badge}
         </span>
-        <div className="flex items-center gap-1.5 rounded-full bg-[#14F195]/[0.14] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#0EA56A]">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#14F195]" />
+        <div className="flex items-center gap-1.5 rounded-full bg-[#D6A84F]/[0.14] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#7E4D22]">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#D6A84F]" />
           Live
         </div>
       </div>

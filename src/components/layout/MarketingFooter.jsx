@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { MARKETING_CONTENT } from '../../content/marketing';
+import { SolGateLogo } from '../brand/SolGateLogo';
 
 const LinkList = ({ title, items }) => (
   <div>
@@ -28,14 +29,12 @@ const LinkList = ({ title, items }) => (
 
 export const MarketingFooter = () => (
   <footer className="relative overflow-hidden bg-[#08111F] text-white">
-    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(153,69,255,0.18),transparent_40%),radial-gradient(circle_at_90%_10%,rgba(20,241,149,0.12),transparent_38%)]" />
+    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(214,168,79,0.18),transparent_40%),radial-gradient(circle_at_90%_10%,rgba(126,77,34,0.12),transparent_38%)]" />
     <div className="relative mx-auto max-w-[1360px] px-4 py-20 sm:px-6 lg:px-8">
       <div className="grid gap-14 lg:grid-cols-[1.2fr_2fr]">
         <div>
           <Link to="/" className="inline-flex items-center gap-3 text-white">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#9945FF_0%,#14F195_100%)] text-[12px] font-black tracking-[0.18em] text-[#08111F] shadow-[0_18px_40px_rgba(153,69,255,0.4)]">
-              SG
-            </div>
+            <SolGateLogo size={44} className="rounded-2xl bg-white/[0.06] p-2 shadow-[0_18px_40px_rgba(214,168,79,0.25)]" />
             <div>
               <p className="font-display text-[18px] font-semibold leading-none">SolGate</p>
               <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-white/50">
@@ -71,7 +70,7 @@ export const MarketingFooter = () => (
       <div className="mt-16 flex flex-col gap-4 border-t border-white/[0.08] pt-8 text-[12px] text-white/50 md:flex-row md:items-center md:justify-between">
         <p>© {new Date().getFullYear()} SolGate. Stablecoin yield routing with self-custody.</p>
         <p className="flex items-center gap-2">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#14F195] shadow-[0_0_10px_#14F195]" />
+          <span className="h-1.5 w-1.5 rounded-full bg-[#D6A84F] shadow-[0_0_10px_#D6A84F]" />
           Live routes · Transparent fees · Audited vaults
         </p>
       </div>

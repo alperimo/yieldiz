@@ -8,14 +8,14 @@
   <rect x="88" y="408" width="1024" height="404" rx="36" fill="#08111F"/>
   <rect x="132" y="460" width="314" height="272" rx="28" fill="#F5F7F2"/>
   <rect x="472" y="460" width="596" height="272" rx="28" fill="#101C32"/>
-  <rect x="500" y="490" width="126" height="20" rx="10" fill="#14F195" fill-opacity="0.42"/>
+  <rect x="500" y="490" width="126" height="20" rx="10" fill="#D6A84F" fill-opacity="0.42"/>
   <rect x="500" y="534" width="338" height="18" rx="9" fill="white" fill-opacity="0.16"/>
   <rect x="500" y="570" width="286" height="18" rx="9" fill="white" fill-opacity="0.1"/>
   <path d="M580 626C580 580.713 616.713 544 662 544H748C793.287 544 830 580.713 830 626V686H580V626Z" fill="#16263C"/>
   <circle cx="708" cy="516" r="64" fill="#D6E7DF"/>
   <path d="M202 620C202 563.667 247.667 518 304 518C360.333 518 406 563.667 406 620V670H202V620Z" fill="#0C1628"/>
   <circle cx="304" cy="482" r="78" fill="#C8DFD4"/>
-  <path d="M272 620C272 575.817 307.817 540 352 540C396.183 540 432 575.817 432 620V678H272V620Z" fill="#14F195" fill-opacity="0.18"/>
+  <path d="M272 620C272 575.817 307.817 540 352 540C396.183 540 432 575.817 432 620V678H272V620Z" fill="#D6A84F" fill-opacity="0.18"/>
   <circle cx="352" cy="510" r="62" fill="#E9F0EE"/>
   <rect x="162" y="662" width="200" height="30" rx="15" fill="#D8FCEF"/>
   <rect x="162" y="708" width="150" height="18" rx="9" fill="#DDE9E4"/>

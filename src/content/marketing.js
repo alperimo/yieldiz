@@ -2,12 +2,12 @@
 // Kept intentionally rich so downstream components stay declarative.
 
 export const SUPPORTED_CHAINS = [
-  { id: 'ethereum', label: 'Ethereum', short: 'ETH', color: '#627EEA', angle: 18 },
-  { id: 'arbitrum', label: 'Arbitrum', short: 'ARB', color: '#28A0F0', angle: 82 },
-  { id: 'base', label: 'Base', short: 'BASE', color: '#0052FF', angle: 148 },
-  { id: 'polygon', label: 'Polygon', short: 'POL', color: '#8247E5', angle: 218 },
-  { id: 'optimism', label: 'Optimism', short: 'OP', color: '#FF0420', angle: 286 },
-  { id: 'solana', label: 'Solana', short: 'SOL', color: '#14F195', angle: 350 },
+  { id: 'ethereum', label: 'Ethereum', short: 'ETH', color: '#7E4D22', angle: 18 },
+  { id: 'arbitrum', label: 'Arbitrum', short: 'ARB', color: '#A86F24', angle: 82 },
+  { id: 'base', label: 'Base', short: 'BASE', color: '#C58B35', angle: 148 },
+  { id: 'polygon', label: 'Polygon', short: 'POL', color: '#D6A84F', angle: 218 },
+  { id: 'optimism', label: 'Optimism', short: 'OP', color: '#E8C46C', angle: 286 },
+  { id: 'solana', label: 'Solana', short: 'SOL', color: '#F8E6B6', angle: 350 },
 ];
 
 export const MARKETING_CONTENT = {
@@ -204,7 +204,7 @@ export const MARKETING_CONTENT = {
           'Institutional order-flow-aware swap router on Solana. Surfaces deeper liquidity than public DEX aggregators at the final-leg swap, with price improvement quoted up front.',
         metric: { value: '0 bps', label: 'typical slippage' },
         logoMark: 'DF',
-        accent: '#7C6BFF',
+        accent: '#A86F24',
       },
       {
         partner: 'Kamino',
@@ -213,7 +213,7 @@ export const MARKETING_CONTENT = {
           'Solana’s most-used yield vault platform — multi-asset strategies, live risk scoring, and TVL visible on-chain. Every SolGate deposit lands in a Kamino vault you selected explicitly.',
         metric: { value: '$2.1B+', label: 'vault TVL' },
         logoMark: 'KM',
-        accent: '#00C2FF',
+        accent: '#D6A84F',
       },
       {
         partner: 'Jito',
@@ -222,7 +222,7 @@ export const MARKETING_CONTENT = {
           'Solana’s dominant MEV infrastructure. SolGate bundles the final swap + deposit and submits via Jito, making the entry atomic and immune to sandwich attacks.',
         metric: { value: '100%', label: 'of deposits bundled' },
         logoMark: 'JT',
-        accent: '#14F195',
+        accent: '#F1D27A',
       },
       {
         partner: 'QuickNode',

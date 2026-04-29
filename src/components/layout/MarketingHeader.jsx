@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { useHideOnScroll } from '../../hooks/useHideOnScroll';
+import { SolGateLogo } from '../brand/SolGateLogo';
 
 const MARKETING_LINKS = [
   { href: '#product-story', label: 'Why SolGate' },
@@ -25,9 +26,7 @@ export const MarketingHeader = () => {
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="mx-auto flex h-[68px] max-w-[1360px] items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-3 text-[#08111F]">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#08111F] text-[12px] font-black tracking-[0.18em] text-white shadow-[0_14px_30px_rgba(8,17,31,0.18)]">
-            SG
-          </div>
+          <SolGateLogo size={36} className="rounded-xl bg-[#08111F] p-1.5 shadow-[0_14px_30px_rgba(8,17,31,0.18)]" />
           <div>
             <p className="font-display text-[17px] font-semibold leading-none">SolGate</p>
             <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-sg-text-secondary">

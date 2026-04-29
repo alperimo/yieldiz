@@ -59,18 +59,18 @@ export const RouteDiagram = ({ reducedMotion = false }) => {
       <svg viewBox="0 0 840 560" className="w-full" aria-hidden="true">
         <defs>
           <linearGradient id="rdLine" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#9945FF" stopOpacity="0.9" />
-            <stop offset="60%" stopColor="#00C2FF" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#14F195" stopOpacity="0.95" />
+            <stop offset="0%" stopColor="#F8E6B6" stopOpacity="0.92" />
+            <stop offset="55%" stopColor="#D6A84F" stopOpacity="0.92" />
+            <stop offset="100%" stopColor="#7E4D22" stopOpacity="0.95" />
           </linearGradient>
           <linearGradient id="rdFill" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor="#1A2436" />
             <stop offset="100%" stopColor="#0B1322" />
           </linearGradient>
           <radialGradient id="rdSolGlow" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0%" stopColor="rgba(20,241,149,0.55)" />
-            <stop offset="60%" stopColor="rgba(153,69,255,0.22)" />
-            <stop offset="100%" stopColor="rgba(20,241,149,0)" />
+            <stop offset="0%" stopColor="rgba(214,168,79,0.52)" />
+            <stop offset="60%" stopColor="rgba(126,77,34,0.18)" />
+            <stop offset="100%" stopColor="rgba(214,168,79,0)" />
           </radialGradient>
           <filter id="rdGlow" x="-40%" y="-40%" width="180%" height="180%">
             <feGaussianBlur stdDeviation="2" />
@@ -100,7 +100,7 @@ export const RouteDiagram = ({ reducedMotion = false }) => {
 
           <rect x="410" y="306" width="180" height="58" rx="14" fill="url(#rdFill)" stroke="rgba(255,255,255,0.12)" />
           <text x="500" y="334" textAnchor="middle" fill="#FFFFFF" fontFamily="Manrope, sans-serif" fontSize="12" fontWeight="700" letterSpacing="2">JITO</text>
-          <text x="500" y="352" textAnchor="middle" fill="#14F195" opacity="0.9" fontFamily="Manrope, sans-serif" fontSize="10" letterSpacing="1.5">MEV-PROTECTED BUNDLE</text>
+          <text x="500" y="352" textAnchor="middle" fill="#D6A84F" opacity="0.9" fontFamily="Manrope, sans-serif" fontSize="10" letterSpacing="1.5">MEV-PROTECTED BUNDLE</text>
         </g>
 
         {/* Sources with paths into routing layer */}
@@ -133,7 +133,7 @@ export const RouteDiagram = ({ reducedMotion = false }) => {
                 }}
                 d={pathFor(y)}
                 fill="none"
-                stroke="#14F195"
+                stroke="#D6A84F"
                 strokeWidth="1.8"
                 strokeLinecap="round"
                 opacity="0.9"
@@ -146,9 +146,9 @@ export const RouteDiagram = ({ reducedMotion = false }) => {
         {/* Destination */}
         <g>
           <circle cx="740" cy="280" r="60" fill="url(#rdSolGlow)" />
-          <circle cx="740" cy="280" r="32" fill="#08111F" stroke="#14F195" strokeWidth="1.6" />
+          <circle cx="740" cy="280" r="32" fill="#08111F" stroke="#D6A84F" strokeWidth="1.6" />
           <text x="740" y="274" textAnchor="middle" fill="#FFFFFF" fontFamily="Sora, Manrope, sans-serif" fontSize="11" fontWeight="700" letterSpacing="2">SOLANA</text>
-          <text x="740" y="290" textAnchor="middle" fill="#14F195" fontFamily="Manrope, sans-serif" fontSize="9" letterSpacing="1.5">KAMINO VAULT</text>
+          <text x="740" y="290" textAnchor="middle" fill="#D6A84F" fontFamily="Manrope, sans-serif" fontSize="9" letterSpacing="1.5">KAMINO VAULT</text>
         </g>
 
         {/* Routing → destination connectors */}
