@@ -33,7 +33,7 @@ export const MarketingFooter = () => (
       <div className="grid gap-14 lg:grid-cols-[1.2fr_2fr]">
         <div>
           <Link to="/" className="inline-flex items-center gap-3 text-[#2A1A0B]">
-            <SolGateLogo size={44} className="rounded-2xl bg-[#7E4D22] p-2 shadow-[0_18px_40px_rgba(126,77,34,0.16)]" />
+            <SolGateLogo size={34} />
             <div>
               <p className="font-display text-[18px] font-semibold leading-none">SolGate</p>
               <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-[#8B6A3A]">

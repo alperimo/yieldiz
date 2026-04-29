@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useRef } from 'react';
-import { AlertTriangle, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { AlertTriangle, ShieldCheck, CheckCircle2, ArrowRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -31,19 +31,6 @@ export const MevShield = ({ before, after, footnote, reducedMotion = false }) =>
         delay: 0.4,
         scrollTrigger: { trigger: rootRef.current, start: 'top 75%' },
       });
-      gsap.fromTo(
-        '[data-mev-bundle-glow]',
-        { opacity: 0.3, scale: 0.96 },
-        {
-          opacity: 0.9,
-          scale: 1.04,
-          duration: 2.4,
-          ease: 'sine.inOut',
-          yoyo: true,
-          repeat: -1,
-          scrollTrigger: { trigger: rootRef.current, start: 'top 75%' },
-        },
-      );
     }, rootRef);
     return () => ctx.revert();
   }, [reducedMotion]);
@@ -51,21 +38,21 @@ export const MevShield = ({ before, after, footnote, reducedMotion = false }) =>
   return (
     <div ref={rootRef} className="grid gap-5 lg:grid-cols-2">
       {/* BEFORE */}
-      <article className="relative overflow-hidden rounded-[28px] border border-white/[0.06] bg-white/[0.02] p-7">
+      <article className="relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.045] p-7 opacity-90">
         <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55">
-          <AlertTriangle size={14} className="text-[#F87171]" />
+          <AlertTriangle size={14} className="text-white/55" />
           {before.label}
         </div>
 
         <h3 className="mt-4 font-display text-[26px] font-semibold leading-tight text-white">
-          Public mempool, unprotected.
+          Quote exposed before it lands.
         </h3>
 
         {/* Sandwich attack visualization */}
-        <div className="relative mt-7 h-[148px] rounded-2xl bg-white/[0.03] p-5">
-          <div className="flex items-center gap-3">
-            <div data-mev-front className="rounded-full bg-white/[0.05] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/70">
-              MEV bot · buy
+        <div className="relative mt-7 h-[148px] rounded-2xl border border-white/10 bg-white/[0.035] p-5">
+          <div className="flex items-center gap-3 opacity-60">
+            <div data-mev-front className="rounded-full bg-white/[0.06] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/70">
+              Reorder
             </div>
           </div>
           <div className="my-3 flex items-center gap-3">
@@ -73,9 +60,9 @@ export const MevShield = ({ before, after, footnote, reducedMotion = false }) =>
               Your swap · 1,000 USDC
             </div>
           </div>
-          <div className="flex items-center justify-end gap-3">
-            <div data-mev-back className="rounded-full bg-white/[0.05] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/70">
-              MEV bot · sell
+          <div className="flex items-center justify-end gap-3 opacity-60">
+            <div data-mev-back className="rounded-full bg-white/[0.06] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/70">
+              Extract
             </div>
           </div>
         </div>
@@ -96,31 +83,28 @@ export const MevShield = ({ before, after, footnote, reducedMotion = false }) =>
       </article>
 
       {/* AFTER */}
-      <article className="relative overflow-hidden rounded-[28px] border border-white/[0.06] bg-white/[0.02] p-7">
-        <div
-          data-mev-bundle-glow
-          className="pointer-events-none absolute -top-20 right-[-10%] h-60 w-60 rounded-full bg-[#D6A84F]/20 blur-3xl"
-        />
-
+      <article className="relative overflow-hidden rounded-[28px] border border-[#F8E6B6]/25 bg-[#F8E6B6]/10 p-7">
         <div className="relative flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55">
           <ShieldCheck size={14} className="text-[#D6A84F]" />
           {after.label}
         </div>
 
         <h3 className="relative mt-4 font-display text-[26px] font-semibold leading-tight text-white">
-          Atomic. Private. Single slot.
+          Bundle lands complete — or not at all.
         </h3>
 
         {/* Bundle visualization */}
-        <div className="relative mt-7 h-[148px] rounded-2xl bg-white/[0.03] p-5">
+        <div className="relative mt-7 h-[148px] rounded-2xl border border-[#F8E6B6]/20 bg-[#F8E6B6]/10 p-5">
           <div className="relative flex h-full flex-col justify-center gap-2">
-            <div className="flex items-center gap-2 rounded-full bg-white/[0.05] px-3 py-1.5 text-[10px] font-semibold text-white">
+            <div className="flex items-center gap-2 rounded-full bg-[#7E4D22]/35 px-3 py-1.5 text-[10px] font-semibold text-white">
               <CheckCircle2 size={12} className="text-[#D6A84F]" />
-              Swap · routed on Solana
+              Swap
+              <ArrowRight size={12} className="text-white/45" />
+              Vault deposit
             </div>
-            <div className="flex items-center gap-2 rounded-full bg-white/[0.05] px-3 py-1.5 text-[10px] font-semibold text-white">
+            <div className="flex items-center gap-2 rounded-full bg-[#7E4D22]/35 px-3 py-1.5 text-[10px] font-semibold text-white">
               <CheckCircle2 size={12} className="text-[#D6A84F]" />
-              Deposit · audited vault
+              Atomic bundle submitted directly
             </div>
             <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/55">
               All-or-nothing in a single block

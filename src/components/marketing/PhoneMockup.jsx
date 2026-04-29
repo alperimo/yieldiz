@@ -271,11 +271,7 @@ export const PhoneMockup = ({ reducedMotion = false, activeKey, onRotateChange, 
     >
       {/* Phone body */}
       <div
-        className="relative aspect-[9/19] w-full rounded-[48px] bg-[#2A1A0B] p-2 shadow-[0_60px_120px_rgba(126,77,34,0.32),0_20px_40px_rgba(214,168,79,0.18)]"
-        style={{
-          backgroundImage:
-            'linear-gradient(160deg,#11192B 0%,#2A1A0B 60%,#050A14 100%)',
-        }}
+        className="relative aspect-[9/19] w-full rounded-[48px] bg-[#2A1A0B] p-2 shadow-[0_36px_90px_rgba(126,77,34,0.18)]"
       >
         <div className="absolute inset-[6px] rounded-[42px] border border-white/10" />
         <div className="relative h-full w-full overflow-hidden rounded-[42px] bg-[#F5F7F2]">
@@ -294,15 +290,6 @@ export const PhoneMockup = ({ reducedMotion = false, activeKey, onRotateChange, 
           ))}
         </div>
       </div>
-
-      {/* Ambient glow behind phone */}
-      <div
-        className="pointer-events-none absolute inset-[-20%] -z-10 rounded-full opacity-70 blur-3xl"
-        style={{
-          background:
-            'radial-gradient(circle at 30% 30%, rgba(214,168,79,0.34), rgba(126,77,34,0.20) 50%, transparent 72%)',
-        }}
-      />
     </div>
   );
 };

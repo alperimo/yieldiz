@@ -326,8 +326,8 @@ export default function Marketing() {
                     key={s.step}
                     className={`group flex items-start gap-4 rounded-2xl border p-5 transition-colors duration-300 ${
                       isActive
-                        ? 'border-[#F8E6B6]/40 bg-[#F8E6B6] text-[#2A1A0B]'
-                        : 'border-white/15 bg-white/10 text-white hover:border-white/25'
+                        ? 'border-transparent bg-[#F8E6B6] text-[#2A1A0B]'
+                        : 'border-transparent bg-white/[0.075] text-white hover:bg-white/[0.11]'
                     }`}
                   >
                     <div
@@ -614,13 +614,11 @@ export default function Marketing() {
           </div>
 
           <div data-reveal className="relative flex items-center justify-center">
-            <MarketingAsset
-              slot={MARKETING_CONTENT.finalCta.assetSlot}
+            <img
               src={MARKETING_CONTENT.finalCta.asset}
               alt={MARKETING_CONTENT.finalCta.assetAlt}
-              aspect="aspect-[4/5]"
-              dark
-              fit="contain"
+              className="h-auto w-full max-w-[520px] object-contain"
+              loading="lazy"
             />
           </div>
         </div>

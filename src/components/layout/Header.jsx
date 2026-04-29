@@ -38,7 +38,7 @@ export const Header = ({ onMenuToggle }) => {
           </button>
 
           <NavLink to="/app" className="flex items-center gap-3 text-[#2A1A0B]">
-            <SolGateLogo size={36} className="rounded-xl bg-[#7E4D22] p-1.5 shadow-[0_14px_30px_rgba(126,77,34,0.18)]" />
+            <SolGateLogo size={32} />
             <div>
               <p className="font-display text-[17px] font-semibold leading-none">{STRINGS.APP_NAME}</p>
               <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-sg-text-secondary">

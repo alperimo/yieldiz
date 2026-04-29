@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowUpRight, TrendingUp } from 'lucide-react';
 
 const RiskDots = ({ score }) => (
@@ -91,10 +92,13 @@ const VaultCard = ({ vault }) => {
           <TrendingUp size={13} className="text-[#0EA56A]" />
           Audited · Kamino
         </div>
-        <span className="inline-flex items-center gap-1 rounded-full bg-[#7E4D22] px-4 py-2 text-[11px] font-semibold text-[#F8E6B6] shadow-[0_14px_30px_rgba(126,77,34,0.18)] transition-transform group-hover:-translate-y-0.5">
+        <Link
+          to="/app"
+          className="inline-flex items-center gap-1 rounded-full bg-[#7E4D22] px-4 py-2 text-[11px] font-semibold text-[#F8E6B6] shadow-[0_14px_30px_rgba(126,77,34,0.18)] transition-transform group-hover:-translate-y-0.5"
+        >
           Deposit
           <ArrowUpRight size={13} />
-        </span>
+        </Link>
       </div>
     </article>
   );
