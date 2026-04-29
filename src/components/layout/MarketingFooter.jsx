@@ -29,7 +29,7 @@ const LinkList = ({ title, items }) => (
 export const MarketingFooter = () => (
   <footer className="relative overflow-hidden bg-[#08111F] text-white">
     <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(153,69,255,0.18),transparent_40%),radial-gradient(circle_at_90%_10%,rgba(20,241,149,0.12),transparent_38%)]" />
-    <div className="relative mx-auto max-w-[1280px] px-4 py-20 sm:px-6 lg:px-8">
+    <div className="relative mx-auto max-w-[1360px] px-4 py-20 sm:px-6 lg:px-8">
       <div className="grid gap-14 lg:grid-cols-[1.2fr_2fr]">
         <div>
           <Link to="/" className="inline-flex items-center gap-3 text-white">

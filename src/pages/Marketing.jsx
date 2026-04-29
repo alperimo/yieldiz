@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { MARKETING_CONTENT, SUPPORTED_CHAINS } from '../content/marketing';
+import { MARKETING_CONTENT } from '../content/marketing';
 import { SolanaGlobe } from '../components/marketing/SolanaGlobe';
 import { LiveMetrics } from '../components/marketing/LiveMetrics';
 import { ChainMarquee } from '../components/marketing/ChainMarquee';
@@ -98,6 +98,8 @@ export default function Marketing() {
   const pageRef = useRef(null);
   const phoneFlowRef = useRef(null);
   const [phoneKey, setPhoneKey] = useState(PHONE_SCREEN_KEYS[0]);
+  const [routeActiveStep, setRouteActiveStep] = useState(0);
+  const routeSectionRef = useRef(null);
   const platformMetrics = usePlatformMetrics();
   const metricsLive = platformMetrics.status === 'live';
   const heroLive = platformMetrics.hero;
@@ -123,6 +125,27 @@ export default function Marketing() {
       });
       ScrollTrigger.refresh();
     }, pageRef);
+    return () => ctx.revert();
+  }, [prefersReducedMotion]);
+
+  // Route diagram: highlight the matching left-side step card based on scroll
+  // position so the section feels alive without locking the page.
+  useLayoutEffect(() => {
+    if (!routeSectionRef.current) return undefined;
+    if (prefersReducedMotion) return undefined;
+    const stepCount = MARKETING_CONTENT.routeDiagram.steps.length;
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: routeSectionRef.current,
+        start: 'top 70%',
+        end: 'bottom 60%',
+        scrub: 0.4,
+        onUpdate: (self) => {
+          const idx = Math.min(stepCount - 1, Math.floor(self.progress * stepCount));
+          setRouteActiveStep((prev) => (prev === idx ? prev : idx));
+        },
+      });
+    }, routeSectionRef);
     return () => ctx.revert();
   }, [prefersReducedMotion]);
 
@@ -163,7 +186,7 @@ export default function Marketing() {
     <div ref={pageRef}>
       {/* ─────────────────  HERO  ───────────────── */}
       <section className="relative px-4 pb-16 pt-6 sm:px-6 lg:px-8 lg:pb-24 lg:pt-10">
-        <div className="mx-auto grid max-w-[1280px] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="mx-auto grid max-w-[1360px] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="space-y-6 lg:space-y-7">
             <Eyebrow>{MARKETING_CONTENT.hero.eyebrow}</Eyebrow>
 
@@ -215,17 +238,6 @@ export default function Marketing() {
               </div>
             ) : null}
 
-            <div data-reveal className="flex flex-wrap items-center gap-2.5">
-              {MARKETING_CONTENT.hero.trustChips.map((c) => (
-                <span
-                  key={c}
-                  className="inline-flex items-center gap-2 rounded-full border border-black/[0.08] bg-white/70 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#08111F]"
-                >
-                  <CheckCircle2 size={13} className="text-[#14F195]" />
-                  {c}
-                </span>
-              ))}
-            </div>
           </div>
 
           <div data-reveal className="relative flex items-center justify-center">
@@ -243,7 +255,7 @@ export default function Marketing() {
       {metricsLive ? (
         <section className="relative mt-4 overflow-hidden bg-[#08111F] px-4 py-24 text-white sm:px-6 lg:px-8 lg:py-28">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(153,69,255,0.16),transparent_40%),radial-gradient(circle_at_85%_90%,rgba(20,241,149,0.12),transparent_42%)]" />
-          <div className="relative mx-auto max-w-[1280px]">
+          <div className="relative mx-auto max-w-[1360px]">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <div data-reveal className="max-w-[640px]">
                 <Eyebrow dark>Live on Solana right now</Eyebrow>
@@ -265,7 +277,7 @@ export default function Marketing() {
 
       {/* ─────────────────  STORY  ───────────────── */}
       <section id="product-story" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
-        <div className="mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[0.92fr_1.08fr]">
+        <div className="mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[0.92fr_1.08fr]">
           <div data-reveal>
             <MarketingAsset
               slot={MARKETING_CONTENT.story.assetSlot}
@@ -290,9 +302,13 @@ export default function Marketing() {
       </section>
 
       {/* ─────────────────  ROUTE DIAGRAM (DARK)  ───────────────── */}
-      <section id="operating-model" className="relative overflow-hidden bg-[#08111F] px-4 py-24 text-white sm:px-6 lg:px-8 lg:py-32">
+      <section
+        id="operating-model"
+        ref={routeSectionRef}
+        className="relative overflow-hidden bg-[#08111F] px-4 py-24 text-white sm:px-6 lg:px-8 lg:py-32"
+      >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(153,69,255,0.22),transparent_40%),radial-gradient(circle_at_90%_60%,rgba(20,241,149,0.12),transparent_44%)]" />
-        <div className="relative mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[0.95fr_1.05fr]">
+        <div className="relative mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="flex flex-col justify-center">
             <Eyebrow dark>{MARKETING_CONTENT.routeDiagram.eyebrow}</Eyebrow>
             <h2 data-reveal className="mt-6 max-w-[16ch] font-display text-[40px] font-semibold leading-[0.98] tracking-[-0.035em] sm:text-[54px]">
@@ -303,25 +319,38 @@ export default function Marketing() {
             </p>
 
             <ol data-reveal className="mt-10 space-y-4">
-              {MARKETING_CONTENT.routeDiagram.steps.map((s) => (
-                <li
-                  key={s.step}
-                  className="group flex items-start gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 transition-all hover:-translate-y-0.5 hover:border-white/[0.16] hover:bg-white/[0.05]"
-                >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.04] text-[11px] font-bold tracking-[0.18em] text-white">
-                    {s.step}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-baseline gap-3">
-                      <h3 className="font-display text-[18px] font-semibold text-white">{s.title}</h3>
-                      <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#14F195]">
-                        {s.partner}
-                      </span>
+              {MARKETING_CONTENT.routeDiagram.steps.map((s, i) => {
+                const isActive = i === routeActiveStep;
+                return (
+                  <li
+                    key={s.step}
+                    className={`group flex items-start gap-4 rounded-2xl border p-5 transition-all duration-500 ${
+                      isActive
+                        ? 'border-[#14F195]/40 bg-white/[0.06] shadow-[0_20px_60px_rgba(20,241,149,0.12)]'
+                        : 'border-white/[0.08] bg-white/[0.03] hover:border-white/[0.16]'
+                    }`}
+                  >
+                    <div
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-[11px] font-bold tracking-[0.18em] transition-colors duration-500 ${
+                        isActive
+                          ? 'border-[#14F195]/60 bg-[#14F195]/[0.14] text-[#14F195]'
+                          : 'border-white/[0.1] bg-white/[0.04] text-white'
+                      }`}
+                    >
+                      {s.step}
                     </div>
-                    <p className="mt-1 text-[13px] leading-[1.65] text-white/70">{s.detail}</p>
-                  </div>
-                </li>
-              ))}
+                    <div className="flex-1">
+                      <div className="flex items-baseline gap-3">
+                        <h3 className="font-display text-[18px] font-semibold text-white">{s.title}</h3>
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#14F195]">
+                          {s.partner}
+                        </span>
+                      </div>
+                      <p className="mt-1 text-[13px] leading-[1.65] text-white/70">{s.detail}</p>
+                    </div>
+                  </li>
+                );
+              })}
             </ol>
           </div>
 
@@ -345,7 +374,7 @@ export default function Marketing() {
         ref={phoneFlowRef}
         className="relative px-4 py-24 sm:px-6 lg:px-8 lg:py-32"
       >
-        <div className="mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[0.95fr_1.05fr]">
+        <div className="mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="flex flex-col justify-center space-y-8" data-reveal>
             <Eyebrow>{MARKETING_CONTENT.phoneFlow.eyebrow}</Eyebrow>
             <h2 className="max-w-[14ch] font-display text-[40px] font-semibold leading-[0.98] tracking-[-0.04em] text-[#08111F] sm:text-[56px]">
@@ -399,7 +428,7 @@ export default function Marketing() {
       {/* ─────────────────  PARTNERS (DARK)  ───────────────── */}
       <section id="execution-stack" className="relative overflow-hidden bg-[#08111F] px-4 py-24 text-white sm:px-6 lg:px-8 lg:py-32">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(153,69,255,0.14),transparent_38%),radial-gradient(circle_at_10%_80%,rgba(20,241,149,0.1),transparent_42%)]" />
-        <div className="relative mx-auto max-w-[1280px]">
+        <div className="relative mx-auto max-w-[1360px]">
           <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
             <div>
               <Eyebrow dark>{MARKETING_CONTENT.partners.eyebrow}</Eyebrow>
@@ -420,7 +449,7 @@ export default function Marketing() {
 
       {/* ─────────────────  VAULT SPOTLIGHT  ───────────────── */}
       <section id="vault-spotlight" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
-        <div className="mx-auto max-w-[1280px]">
+        <div className="mx-auto max-w-[1360px]">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div data-reveal className="max-w-[640px]">
               <Eyebrow>{MARKETING_CONTENT.vaultSpotlight.eyebrow}</Eyebrow>
@@ -455,7 +484,7 @@ export default function Marketing() {
       {/* ─────────────────  MEV SHIELD (DARK)  ───────────────── */}
       <section id="security-layer" className="relative overflow-hidden bg-[#08111F] px-4 py-24 text-white sm:px-6 lg:px-8 lg:py-32">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(239,68,68,0.08),transparent_38%),radial-gradient(circle_at_20%_80%,rgba(20,241,149,0.12),transparent_44%)]" />
-        <div className="relative mx-auto max-w-[1280px]">
+        <div className="relative mx-auto max-w-[1360px]">
           <div className="max-w-[720px]">
             <Eyebrow dark>{MARKETING_CONTENT.mevShield.eyebrow}</Eyebrow>
             <h2 data-reveal className="mt-6 font-display text-[40px] font-semibold leading-[0.98] tracking-[-0.035em] sm:text-[54px]">
@@ -499,7 +528,7 @@ export default function Marketing() {
 
       {/* ─────────────────  PERSONAS  ───────────────── */}
       <section className="px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
-        <div className="mx-auto max-w-[1280px]">
+        <div className="mx-auto max-w-[1360px]">
           <div className="max-w-[720px]" data-reveal>
             <Eyebrow>{MARKETING_CONTENT.personas.eyebrow}</Eyebrow>
             <h2 className="mt-6 font-display text-[40px] font-semibold leading-[0.98] tracking-[-0.04em] text-[#08111F] sm:text-[54px]">
@@ -544,7 +573,7 @@ export default function Marketing() {
 
       {/* ─────────────────  FAQ  ───────────────── */}
       <section id="faq" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
-        <div className="mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+        <div className="mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div data-reveal>
             <Eyebrow>Questions, answered</Eyebrow>
             <h2 className="mt-6 font-display text-[36px] font-semibold leading-[0.98] tracking-[-0.035em] text-[#08111F] sm:text-[44px]">
@@ -565,7 +594,7 @@ export default function Marketing() {
       {/* ─────────────────  FINAL CTA  ───────────────── */}
       <section className="px-4 pb-24 sm:px-6 lg:px-8 lg:pb-32">
         <div
-          className="relative mx-auto grid max-w-[1280px] overflow-hidden rounded-[42px] px-6 py-10 text-white shadow-[0_40px_120px_rgba(8,17,31,0.22)] sm:px-10 sm:py-14 lg:grid-cols-[1.1fr_0.9fr]"
+          className="relative mx-auto grid max-w-[1360px] overflow-hidden rounded-[42px] px-6 py-10 text-white shadow-[0_40px_120px_rgba(8,17,31,0.22)] sm:px-10 sm:py-14 lg:grid-cols-[1.1fr_0.9fr]"
           style={{
             background:
               'radial-gradient(circle at 20% 20%, rgba(153,69,255,0.34), transparent 40%), radial-gradient(circle at 90% 80%, rgba(20,241,149,0.22), transparent 40%), linear-gradient(135deg,#0B1322 0%,#08111F 60%,#030711 100%)',
@@ -594,17 +623,6 @@ export default function Marketing() {
                 {MARKETING_CONTENT.finalCta.secondaryCta}
                 <ArrowRight size={16} />
               </a>
-            </div>
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              {SUPPORTED_CHAINS.map((c) => (
-                <span
-                  key={c.id}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/70"
-                >
-                  <span className="h-1 w-1 rounded-full" style={{ background: c.color }} />
-                  {c.label}
-                </span>
-              ))}
             </div>
           </div>
 

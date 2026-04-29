@@ -21,7 +21,7 @@ const Vaults = () => {
   };
 
   return (
-    <div className="mx-auto max-w-[1280px] px-4 py-8 lg:px-8 space-y-6">
+    <div className="mx-auto max-w-[1360px] px-4 py-8 lg:px-8 space-y-6">
       <div className="rounded-[34px] border border-black/[0.08] bg-white/[0.82] p-8 shadow-[0_24px_70px_rgba(8,17,31,0.06)]">
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sg-text-secondary">Choose a destination</p>
         <h1 className="mt-3 font-display text-[42px] font-semibold leading-[1.02] tracking-[-0.03em] text-sg-text">

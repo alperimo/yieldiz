@@ -65,7 +65,7 @@ export default function Deposit() {
 
   return (
     <div className="px-4 pb-14 pt-6 sm:px-6 lg:px-8 lg:pb-20 lg:pt-10">
-      <div className="mx-auto max-w-[1280px] space-y-14">
+      <div className="mx-auto max-w-[1360px] space-y-14">
         <section className="grid gap-8 xl:grid-cols-[0.86fr_0.76fr]">
           <div className="space-y-7">
             <div className="inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-sg-text-secondary">
