@@ -21,7 +21,7 @@ export const MARKETING_CONTENT = {
     eyebrow: 'Stablecoin yield on Solana',
     headline: 'Move stablecoins into Solana yield with clarity.',
     subheadline:
-      'Route USDC and USDT from Ethereum, Arbitrum, Base, Polygon or Optimism into audited Solana vaults. See the destination, fees, protection layer and expected APY before you sign.',
+      'Route USDC and USDT from Ethereum, Arbitrum, Base, Polygon or Optimism into audited Solana vaults — destination, fees and APY visible before you sign.',
     primaryCta: 'Start earning',
     secondaryCta: 'How the route works',
     live: [
@@ -48,13 +48,9 @@ export const MARKETING_CONTENT = {
     eyebrow: 'A clearer path to yield',
     title: 'Keep control from the first quote to the final receipt.',
     paragraphs: [
-      'Stablecoins often sit idle because moving them into yield takes too many tools, too many approvals and too little price certainty. SolGate turns that journey into one quoted route you can review before committing capital.',
-      'Choose the source chain, amount and vault. The quote shows bridge cost, swap cost, network fees, MEV protection and the final amount expected on Solana.',
-      'The route is designed for repeatable treasury-grade execution: visible pricing, audited destinations and self-custody at every step.',
+      'Stablecoins sit idle when moving them into yield takes too many tools, too many approvals and too little price certainty.',
+      'SolGate turns that journey into one quoted route — bridge cost, swap cost, MEV protection and final APY are visible before you sign.',
     ],
-    pullQuote:
-      'Review the full path, confirm once, and keep the receipt for every handoff.',
-    pullAttribution: 'SolGate route standard',
     assetSlot: 'story-portrait',
     asset: '/marketing/portrait-finance-operator.svg',
     assetAlt: 'SolGate route preview shown in a calm finance workspace',
@@ -315,11 +311,6 @@ export const MARKETING_CONTENT = {
           'SolGate never holds, pools or rehypothecates user funds. Every transaction is signed by your wallet and broadcast directly to each chain.',
       },
       {
-        title: 'Jito-protected execution',
-        description:
-          'The final-leg swap and vault deposit are atomic. Either both land in the same slot, or neither does — no partial, vulnerable states.',
-      },
-      {
         title: 'Transparent pricing, always',
         description:
           'Bridge fee, swap fee, network fee, MEV savings and final APY are shown before the first signature. Nothing is marked up inside the quote.',
@@ -332,49 +323,27 @@ export const MARKETING_CONTENT = {
     ],
     assetSlot: 'security-device',
   },
-  testimonials: {
-    eyebrow: 'User perspective',
-    title: 'Clear routes make repeat deposits easier to trust.',
-    quotes: [
-      {
-        quote: 'The first time I moved USDC from Arbitrum into a Kamino vault, I checked the route four times. I did not need to — every fee was in the quote.',
-        author: 'Lea M.',
-        role: 'Independent DeFi operator',
-        avatarSlot: 'avatar-lea',
-      },
-      {
-        quote: 'We use SolGate for treasury allocations. One signature, visible fees, auditable route — that is the minimum bar for us.',
-        author: 'Tomás R.',
-        role: 'CFO, on-chain studio',
-        avatarSlot: 'avatar-tomas',
-      },
-      {
-        quote: 'It feels less like a DeFi app and more like the back office my bank should have had.',
-        author: 'Annika S.',
-        role: 'Early Solana user since 2021',
-        avatarSlot: 'avatar-annika',
-      },
-    ],
-  },
+  // Note: testimonials data is intentionally omitted from the live build.
+  // Re-add only when real, attributed user quotes are available.
   personas: {
-    eyebrow: 'For stablecoin holders',
-    title: 'The same clear route for personal balances and treasury capital.',
+    eyebrow: 'Who SolGate is for',
+    title: 'The same clear route, for personal balances and treasury capital.',
     list: [
       {
-        title: 'For individuals',
+        title: 'Individuals',
         subtitle: 'Put your stablecoins to work',
         description:
-          'Earn real, market-driven yield on USDC and USDT without juggling bridges or learning a new wallet for every chain. Withdraw to any of the five source chains whenever you want to exit.',
+          'Earn market-driven yield on USDC and USDT without juggling bridges or learning a new wallet. Withdraw to any source chain, any time.',
         assetSlot: 'persona-individual',
         asset: '/marketing/portrait-finance-operator.svg',
         assetAlt: 'Individual SolGate user reviewing a deposit route',
-        bullets: ['Live APY visible before deposit', 'Withdraw to any source chain', 'No minimums, no lockups'],
+        bullets: ['Live APY before you sign', 'Withdraw to any source chain', 'No minimums, no lockups'],
       },
       {
-        title: 'For teams & treasuries',
+        title: 'Teams & treasuries',
         subtitle: 'Allocate with clarity',
         description:
-          'Move treasury balances into Solana yield with the audit trail and route transparency finance teams require. Multi-signer support and permissioned spending controls via Solflare.',
+          'Move treasury balances into Solana yield with the audit trail finance teams require. Multisig and hardware wallet ready via Solflare.',
         assetSlot: 'persona-treasury',
         asset: '/marketing/execution-network.svg',
         assetAlt: 'SolGate execution network for treasury route review',

@@ -18,7 +18,6 @@ import { PhoneMockup, PHONE_SCREEN_KEYS } from '../components/marketing/PhoneMoc
 import { PartnerSpotlight } from '../components/marketing/PartnerSpotlight';
 import { MevShield } from '../components/marketing/MevShield';
 import { VaultSpotlight } from '../components/marketing/VaultSpotlight';
-import { Testimonials } from '../components/marketing/Testimonials';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import { usePlatformMetrics } from '../hooks/usePlatformMetrics';
 
@@ -235,12 +234,9 @@ export default function Marketing() {
         </div>
       </section>
 
-      {/* ─────────────────  TRUST ROW  ───────────────── */}
+      {/* ─────────────────  TRUST ROW (chains only — SDKs are detailed in Infrastructure section) ───────────────── */}
       <section>
-        <ChainMarquee
-          items={[...MARKETING_CONTENT.marqueeChains, ...MARKETING_CONTENT.marqueePartners]}
-          variant="light"
-        />
+        <ChainMarquee items={MARKETING_CONTENT.marqueeChains} variant="light" />
       </section>
 
       {/* ─────────────────  LIVE METRICS (DARK) — only when wired to a real metrics endpoint  ───────────────── */}
@@ -289,15 +285,6 @@ export default function Marketing() {
                 <p key={p}>{p}</p>
               ))}
             </div>
-            <figure className="rounded-[30px] border border-black/[0.08] bg-[#08111F] p-7 text-white shadow-[0_26px_80px_rgba(8,17,31,0.16)]">
-              <blockquote className="font-display text-[22px] leading-[1.4] text-white">
-                &ldquo;{MARKETING_CONTENT.story.pullQuote}&rdquo;
-              </blockquote>
-              <figcaption className="mt-5 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/60">
-                <span className="h-px w-8 bg-[#14F195]" />
-                {MARKETING_CONTENT.story.pullAttribution}
-              </figcaption>
-            </figure>
           </div>
         </div>
       </section>
@@ -488,7 +475,7 @@ export default function Marketing() {
             />
           </div>
 
-          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid gap-4 md:grid-cols-3">
             {MARKETING_CONTENT.security.points.map((pt) => (
               <div
                 key={pt.title}
@@ -506,21 +493,9 @@ export default function Marketing() {
         </div>
       </section>
 
-      {/* ─────────────────  TESTIMONIALS  ───────────────── */}
-      <section className="px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
-        <div className="mx-auto max-w-[1280px]">
-          <div className="max-w-[640px]" data-reveal>
-            <Eyebrow>{MARKETING_CONTENT.testimonials.eyebrow}</Eyebrow>
-            <h2 className="mt-6 font-display text-[40px] font-semibold leading-[0.98] tracking-[-0.04em] text-[#08111F] sm:text-[54px]">
-              {MARKETING_CONTENT.testimonials.title}
-            </h2>
-          </div>
-
-          <div data-reveal className="mt-12">
-            <Testimonials quotes={MARKETING_CONTENT.testimonials.quotes} />
-          </div>
-        </div>
-      </section>
+      {/* Testimonials section removed — fictitious quotes and avatars carry
+          consumer-deception risk under FTC, EU UCPD and similar rules. Will
+          be reintroduced only with real, attributed user statements. */}
 
       {/* ─────────────────  PERSONAS  ───────────────── */}
       <section className="px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
@@ -576,7 +551,7 @@ export default function Marketing() {
               What people ask us before their first deposit.
             </h2>
             <p className="mt-6 text-[15px] leading-[1.7] text-[#526071]">
-              If you cannot find what you need, reach the team directly. We answer every deposit question before you sign.
+              The most-asked questions before a first deposit.
             </p>
           </div>
           <div data-reveal className="space-y-3">
