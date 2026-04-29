@@ -11,14 +11,12 @@ const MARKETING_LINKS = [
 ];
 
 export const MarketingHeader = () => {
-  const { hidden, scrolled } = useHideOnScroll();
+  const { scrolled } = useHideOnScroll();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b transition-all duration-300 ease-out ${
-        hidden && !mobileOpen ? '-translate-y-full' : 'translate-y-0'
-      } ${
+      className={`sticky top-0 z-50 translate-y-0 border-b transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-out ${
         scrolled
           ? 'border-black/[0.06] bg-[rgba(245,247,242,0.92)] backdrop-blur-xl shadow-[0_8px_30px_rgba(8,17,31,0.06)]'
           : 'border-transparent bg-[rgba(245,247,242,0.6)] backdrop-blur-md'

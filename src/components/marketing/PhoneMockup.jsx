@@ -234,28 +234,41 @@ const SCREENS = [
   { key: 'earning', Component: EarningScreen },
 ];
 
-export const PhoneMockup = ({ reducedMotion = false, activeKey, onRotateChange, previewData }) => {
-  const [index, setIndex] = useState(0);
+const AUTO_ADVANCE_MS = 10_000;
 
+export const PhoneMockup = ({ reducedMotion = false, activeKey, onRotateChange, previewData, autoAdvance = false }) => {
+  const [index, setIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Sync visible screen with controlled activeKey.
   useEffect(() => {
-    if (activeKey) {
-      const i = SCREENS.findIndex((s) => s.key === activeKey);
-      if (i >= 0) setIndex(i);
-      return undefined;
-    }
-    if (reducedMotion) return undefined;
+    if (!activeKey) return;
+    const i = SCREENS.findIndex((s) => s.key === activeKey);
+    if (i >= 0) setIndex(i);
+  }, [activeKey]);
+
+  // Optional time-based auto-advance. Off by default — Marketing.jsx drives
+  // the visible step through scroll-pinning, so the phone should not advance
+  // on its own when it isn't in view.
+  useEffect(() => {
+    if (!autoAdvance || reducedMotion || isPaused) return undefined;
     const id = setInterval(() => {
-      setIndex((prev) => {
-        const next = (prev + 1) % SCREENS.length;
-        if (onRotateChange) onRotateChange(SCREENS[next].key);
-        return next;
-      });
-    }, 3600);
+      const currentIndex = activeKey
+        ? Math.max(0, SCREENS.findIndex((s) => s.key === activeKey))
+        : index;
+      const nextKey = SCREENS[(currentIndex + 1) % SCREENS.length].key;
+      if (onRotateChange) onRotateChange(nextKey);
+      else setIndex((prev) => (prev + 1) % SCREENS.length);
+    }, AUTO_ADVANCE_MS);
     return () => clearInterval(id);
-  }, [activeKey, reducedMotion, onRotateChange]);
+  }, [activeKey, index, reducedMotion, isPaused, onRotateChange, autoAdvance]);
 
   return (
-    <div className="relative mx-auto w-full max-w-[340px]">
+    <div
+      className="relative mx-auto w-full max-w-[340px]"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       {/* Phone body */}
       <div
         className="relative aspect-[9/19] w-full rounded-[48px] bg-[#08111F] p-2 shadow-[0_60px_120px_rgba(8,17,31,0.32),0_20px_40px_rgba(153,69,255,0.18)]"

@@ -20,6 +20,7 @@ import { MevShield } from '../components/marketing/MevShield';
 import { VaultSpotlight } from '../components/marketing/VaultSpotlight';
 import { Testimonials } from '../components/marketing/Testimonials';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
+import { usePlatformMetrics } from '../hooks/usePlatformMetrics';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -96,39 +97,81 @@ const FaqItem = ({ q, a }) => {
 export default function Marketing() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const pageRef = useRef(null);
+  const phoneFlowRef = useRef(null);
   const [phoneKey, setPhoneKey] = useState(PHONE_SCREEN_KEYS[0]);
+  const platformMetrics = usePlatformMetrics();
+  const heroLive = platformMetrics.hero;
+  const liveMetricsTiles = platformMetrics.liveGrid;
 
   useLayoutEffect(() => {
     if (prefersReducedMotion || !pageRef.current) return undefined;
     const ctx = gsap.context(() => {
-      gsap.utils.toArray('[data-reveal]').forEach((element, index) => {
-        gsap.from(element, {
-          y: 48,
-          autoAlpha: 0,
-          duration: 1,
-          delay: index === 0 ? 0.08 : 0,
-          ease: 'power3.out',
-          immediateRender: false,
-          scrollTrigger: { trigger: element, start: 'top bottom-=12%' },
-        });
+      const targets = gsap.utils.toArray('[data-reveal]');
+      gsap.set(targets, { y: 48, autoAlpha: 0 });
+      ScrollTrigger.batch(targets, {
+        start: 'top 86%',
+        once: true,
+        onEnter: (batch) =>
+          gsap.to(batch, {
+            y: 0,
+            autoAlpha: 1,
+            duration: 0.9,
+            ease: 'power3.out',
+            stagger: 0.06,
+            overwrite: 'auto',
+          }),
       });
+      ScrollTrigger.refresh();
     }, pageRef);
+    return () => ctx.revert();
+  }, [prefersReducedMotion]);
+
+  // Phone flow scroll-pin: while the section is in view, lock it and let the
+  // wheel advance the visible app step. Releases naturally after the last step.
+  useLayoutEffect(() => {
+    if (!phoneFlowRef.current) return undefined;
+    if (prefersReducedMotion || window.matchMedia('(max-width: 1023px)').matches) {
+      return undefined;
+    }
+    const stepCount = PHONE_SCREEN_KEYS.length;
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: phoneFlowRef.current,
+        start: 'top top',
+        end: () => `+=${(stepCount - 1) * window.innerHeight * 0.9}`,
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        snap: {
+          snapTo: (value) => Math.round(value * (stepCount - 1)) / (stepCount - 1),
+          duration: { min: 0.18, max: 0.35 },
+          ease: 'power2.out',
+        },
+        onUpdate: (self) => {
+          const idx = Math.min(stepCount - 1, Math.round(self.progress * (stepCount - 1)));
+          const nextKey = PHONE_SCREEN_KEYS[idx];
+          setPhoneKey((prev) => (prev === nextKey ? prev : nextKey));
+        },
+      });
+      ScrollTrigger.refresh();
+    }, phoneFlowRef);
     return () => ctx.revert();
   }, [prefersReducedMotion]);
 
   return (
     <div ref={pageRef}>
       {/* ─────────────────  HERO  ───────────────── */}
-      <section className="relative px-4 pb-20 pt-8 sm:px-6 lg:px-8 lg:pb-28 lg:pt-12">
-        <div className="mx-auto grid max-w-[1280px] items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="space-y-8">
+      <section className="relative px-4 pb-16 pt-6 sm:px-6 lg:px-8 lg:pb-24 lg:pt-10">
+        <div className="mx-auto grid max-w-[1280px] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="space-y-6 lg:space-y-7">
             <Eyebrow>{MARKETING_CONTENT.hero.eyebrow}</Eyebrow>
 
             <div data-reveal>
-              <h1 className="max-w-[18ch] font-display text-[54px] font-semibold leading-[0.96] tracking-[-0.045em] text-[#08111F] sm:text-[72px] lg:text-[88px]">
+              <h1 className="max-w-[18ch] font-display text-[48px] font-semibold leading-[0.96] tracking-[-0.045em] text-[#08111F] sm:text-[64px] lg:text-[78px]">
                 {MARKETING_CONTENT.hero.headline}
               </h1>
-              <p className="mt-6 max-w-[58ch] text-[17px] leading-[1.7] text-[#526071] lg:text-[19px]">
+              <p className="mt-5 max-w-[56ch] text-[16px] leading-[1.65] text-[#526071] lg:text-[18px]">
                 {MARKETING_CONTENT.hero.subheadline}
               </p>
             </div>
@@ -151,15 +194,15 @@ export default function Marketing() {
             </div>
 
             {/* Live data chips */}
-            <div data-reveal className="grid gap-3 rounded-[26px] border border-black/[0.08] bg-white/80 p-5 shadow-[0_24px_60px_rgba(8,17,31,0.06)] sm:grid-cols-3">
-              {MARKETING_CONTENT.hero.live.map((item) => (
+            <div data-reveal className="grid gap-3 rounded-[24px] border border-black/[0.08] bg-white/80 p-4 shadow-[0_24px_60px_rgba(8,17,31,0.06)] sm:grid-cols-3 sm:p-5">
+              {heroLive.map((item) => (
                 <div key={item.label} className="flex items-start gap-3">
                   <span className="mt-2 h-1.5 w-1.5 animate-pulse rounded-full bg-[#14F195] shadow-[0_0_10px_#14F195]" />
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#7C8898]">
                       {item.label}
                     </p>
-                    <p className="mt-1 font-display text-[22px] font-semibold leading-none text-[#08111F]">
+                    <p className="mt-1 font-display text-[20px] font-semibold leading-none text-[#08111F] sm:text-[22px]">
                       {item.value}
                       {item.trend ? (
                         <span className="ml-2 text-[12px] font-semibold text-[#0EA56A]">{item.trend}</span>
@@ -170,7 +213,7 @@ export default function Marketing() {
               ))}
             </div>
 
-            <div data-reveal className="flex flex-wrap items-center gap-3">
+            <div data-reveal className="flex flex-wrap items-center gap-2.5">
               {MARKETING_CONTENT.hero.trustChips.map((c) => (
                 <span
                   key={c}
@@ -189,13 +232,10 @@ export default function Marketing() {
         </div>
       </section>
 
-      {/* ─────────────────  CHAIN MARQUEE  ───────────────── */}
+      {/* ─────────────────  TRUST ROW  ───────────────── */}
       <section>
         <ChainMarquee
-          items={[
-            ...MARKETING_CONTENT.marqueeChains.map((c) => `${c} · supported`),
-            ...MARKETING_CONTENT.marqueePartners.map((p) => `${p} · integrated`),
-          ]}
+          items={[...MARKETING_CONTENT.marqueeChains, ...MARKETING_CONTENT.marqueePartners]}
           variant="light"
         />
       </section>
@@ -212,12 +252,12 @@ export default function Marketing() {
               </h2>
             </div>
             <p data-reveal className="max-w-[420px] text-[15px] leading-[1.7] text-white/60">
-              Figures below stream from live vaults and bridge providers. Nothing rounded, nothing staged — this is the state of the network the moment you load the page.
+              Numbers below reflect the current state of the network — total routed, best live APY, audited destinations and MEV losses prevented.
             </p>
           </div>
 
           <div data-reveal className="mt-12">
-            <LiveMetrics metrics={MARKETING_CONTENT.liveMetrics} reducedMotion={prefersReducedMotion} />
+            <LiveMetrics metrics={liveMetricsTiles} reducedMotion={prefersReducedMotion} />
           </div>
         </div>
       </section>
@@ -308,8 +348,11 @@ export default function Marketing() {
         </div>
       </section>
 
-      {/* ─────────────────  PHONE FLOW  ───────────────── */}
-      <section className="relative px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+      {/* ─────────────────  PHONE FLOW (PINNED)  ───────────────── */}
+      <section
+        ref={phoneFlowRef}
+        className="relative px-4 py-24 sm:px-6 lg:px-8 lg:py-32"
+      >
         <div className="mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="flex flex-col justify-center space-y-8" data-reveal>
             <Eyebrow>{MARKETING_CONTENT.phoneFlow.eyebrow}</Eyebrow>
@@ -321,29 +364,32 @@ export default function Marketing() {
             </p>
 
             <ol className="mt-2 space-y-3">
-              {MARKETING_CONTENT.phoneFlow.screens.map((s) => (
-                <li key={s.key}>
-                  <button
-                    type="button"
-                    onClick={() => setPhoneKey(s.key)}
-                    className={`flex w-full items-start gap-4 rounded-2xl border px-5 py-4 text-left transition-all ${
-                      phoneKey === s.key
-                        ? 'border-[#08111F] bg-[#08111F] text-white shadow-[0_20px_40px_rgba(8,17,31,0.22)]'
-                        : 'border-black/[0.08] bg-white/70 text-[#08111F] hover:-translate-y-0.5'
-                    }`}
-                  >
-                    <span
-                      className={`mt-1 h-2 w-2 shrink-0 rounded-full ${
-                        phoneKey === s.key ? 'bg-[#14F195] shadow-[0_0_10px_#14F195]' : 'bg-[#08111F]/30'
+              {MARKETING_CONTENT.phoneFlow.screens.map((s) => {
+                const isActive = phoneKey === s.key;
+                return (
+                  <li key={s.key}>
+                    <button
+                      type="button"
+                      onClick={() => setPhoneKey(s.key)}
+                      className={`flex w-full items-start gap-4 rounded-2xl border px-5 py-4 text-left transition-all ${
+                        isActive
+                          ? 'border-[#08111F] bg-[#08111F] text-white shadow-[0_20px_40px_rgba(8,17,31,0.22)]'
+                          : 'border-black/[0.08] bg-white/70 text-[#08111F] hover:-translate-y-0.5'
                       }`}
-                    />
-                    <div>
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.22em] opacity-70">{s.label}</p>
-                      <p className="mt-1 text-[14px] leading-[1.55]">{s.caption}</p>
-                    </div>
-                  </button>
-                </li>
-              ))}
+                    >
+                      <span
+                        className={`mt-1 h-2 w-2 shrink-0 rounded-full ${
+                          isActive ? 'bg-[#14F195] shadow-[0_0_10px_#14F195]' : 'bg-[#08111F]/30'
+                        }`}
+                      />
+                      <div>
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] opacity-70">{s.label}</p>
+                        <p className="mt-1 text-[14px] leading-[1.55]">{s.caption}</p>
+                      </div>
+                    </button>
+                  </li>
+                );
+              })}
             </ol>
           </div>
 
@@ -376,10 +422,6 @@ export default function Marketing() {
 
           <div data-reveal className="mt-14">
             <PartnerSpotlight partners={MARKETING_CONTENT.partners.list} />
-          </div>
-
-          <div className="mt-14">
-            <ChainMarquee items={MARKETING_CONTENT.marqueePartners.map((p) => `${p} · partner`)} variant="dark" />
           </div>
         </div>
       </section>

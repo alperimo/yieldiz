@@ -18,10 +18,10 @@ export const MARKETING_CONTENT = {
       'Phone mockup values mirror the deposit flow state shape and can be replaced by live quote, vault, wallet and portfolio data.',
   },
   hero: {
-    eyebrow: 'The stablecoin terminal for Solana',
-    headline: 'Your stablecoins. Earning on Solana. In one move.',
+    eyebrow: 'Stablecoin yield on Solana',
+    headline: 'Move stablecoins into Solana yield with clarity.',
     subheadline:
-      'SolGate routes USDC and USDT from Ethereum, Arbitrum, Base, Polygon and Optimism into the highest-yield Solana vaults — with the route, fees and final APY shown before you ever confirm.',
+      'Route USDC and USDT from Ethereum, Arbitrum, Base, Polygon or Optimism into audited Solana vaults. See the destination, fees, protection layer and expected APY before you sign.',
     primaryCta: 'Start earning',
     secondaryCta: 'How the route works',
     live: [
@@ -45,25 +45,25 @@ export const MARKETING_CONTENT = {
   marqueeChains: ['Ethereum', 'Arbitrum', 'Base', 'Polygon', 'Optimism', 'Solana'],
   marqueePartners: ['Kamino', 'Solflare', 'LI.FI', 'Jito', 'DFlow', 'QuickNode'],
   story: {
-    eyebrow: 'Why SolGate exists',
-    title: 'The yield was already on Solana. The path to it was broken.',
+    eyebrow: 'A clearer path to yield',
+    title: 'Keep control from the first quote to the final receipt.',
     paragraphs: [
-      'Across five major chains, hundreds of billions in stablecoins sit in wallets earning nothing. On Solana, the same dollars can earn real, market-driven yield inside audited vaults — but the bridge from one to the other takes four separate dApps, three browser tabs and one MEV bot between you and your deposit.',
-      'SolGate collapses that into a single, transparent flow. One wallet signature moves capital from any supported chain into a curated Solana vault — with every handoff visible, every fee itemized, and every final transaction protected by Jito.',
-      'It is built for people who treat on-chain yield like treasury work: the numbers are visible before the move, the route is the same for a $200 deposit and a $2M one, and the funds remain yours at every step.',
+      'Stablecoins often sit idle because moving them into yield takes too many tools, too many approvals and too little price certainty. SolGate turns that journey into one quoted route you can review before committing capital.',
+      'Choose the source chain, amount and vault. The quote shows bridge cost, swap cost, network fees, MEV protection and the final amount expected on Solana.',
+      'The route is designed for repeatable treasury-grade execution: visible pricing, audited destinations and self-custody at every step.',
     ],
     pullQuote:
-      'We wanted something we would trust our own savings to. Then we built it.',
-    pullAttribution: 'SolGate core team',
+      'Review the full path, confirm once, and keep the receipt for every handoff.',
+    pullAttribution: 'SolGate route standard',
     assetSlot: 'story-portrait',
     asset: '/marketing/portrait-finance-operator.svg',
     assetAlt: 'SolGate route preview shown in a calm finance workspace',
   },
   routeDiagram: {
-    eyebrow: 'The route, end-to-end',
-    title: 'One confirmation. Five precise handoffs. Zero hidden steps.',
+    eyebrow: 'How a deposit travels',
+    title: 'One signature moves capital across five chains.',
     subtitle:
-      'Each stop is handled by an institutional-grade partner. You see the full path — source, bridge, swap, MEV shield, destination — before the first signature.',
+      'The route is the same every time — your balance is read on the source chain, bridged to Solana, swapped at quoted price, executed atomically and deposited into a vault you chose. Five precise handoffs, one signature.',
     steps: [
       {
         step: '01',
@@ -99,14 +99,14 @@ export const MARKETING_CONTENT = {
   },
   phoneFlow: {
     eyebrow: 'Inside the app',
-    title: 'Built like a fintech. Settles like DeFi.',
+    title: 'Five taps from your wallet to live yield.',
     subtitle:
-      'The interface is deliberately quiet. The heavy work — routing, quoting, MEV protection, vault selection — happens in the background so the front of the app stays readable and calm.',
+      'Connect, choose, review, confirm, earn — the same five steps every time, with the destination and the cost visible from the first tap.',
     screens: [
       {
         key: 'connect',
         label: 'Step 1 — Connect',
-        caption: 'Link Solflare, Phantom or Backpack. Self-custody, always.',
+        caption: 'Link Solflare, Phantom or Backpack. Your wallet remains in control.',
       },
       {
         key: 'choose',
@@ -121,7 +121,7 @@ export const MARKETING_CONTENT = {
       {
         key: 'confirm',
         label: 'Step 4 — Confirm',
-        caption: 'One signature. Progress is tracked in real time across every handoff.',
+        caption: 'Confirm the quoted route and track settlement across every handoff.',
       },
       {
         key: 'earning',
@@ -134,7 +134,7 @@ export const MARKETING_CONTENT = {
       wallets: [
         { name: 'Solflare', tag: 'Recommended', color: '#FFB02E' },
         { name: 'Phantom', tag: 'Popular', color: '#AB9FF2' },
-        { name: 'Backpack', tag: 'Developer-ready', color: '#E33E3E' },
+        { name: 'Backpack', tag: 'Secure option', color: '#E33E3E' },
       ],
       sourceBalances: {
         ethereum: '2,450.32',
@@ -178,10 +178,10 @@ export const MARKETING_CONTENT = {
     },
   },
   partners: {
-    eyebrow: 'Institutional infrastructure',
-    title: 'Every handoff runs on partners your treasury team would pick.',
+    eyebrow: 'Infrastructure',
+    title: 'Built on the most trusted services on Solana.',
     subtitle:
-      'SolGate does not rebuild the wheel. We compose six category-leading primitives into one transparent flow. Each partner is load-bearing — remove one and the product breaks.',
+      'Every layer of the deposit — wallet signing, cross-chain transfer, on-chain liquidity, vault execution, MEV protection and live data — runs on the leading service for that job. SolGate is the layer that makes them work as one route.',
     list: [
       {
         partner: 'Solflare',
@@ -271,7 +271,7 @@ export const MARKETING_CONTENT = {
   vaultSpotlight: {
     eyebrow: 'Today’s top vaults',
     title: 'Live yield, transparent risk.',
-    subtitle: 'A small, curated set — not an endless wall of pools. Every vault shown here has been audited, has live TVL, and can be deposited into from any supported chain.',
+    subtitle: 'A small, curated set — not an endless wall of pools. Every vault shown here has been audited, has live TVL, and accepts deposits from any of the five source chains.',
     vaults: [
       {
         name: 'USDC Multiply',
@@ -333,8 +333,8 @@ export const MARKETING_CONTENT = {
     assetSlot: 'security-device',
   },
   testimonials: {
-    eyebrow: 'Trusted by builders and treasuries',
-    title: 'People already moving capital through SolGate.',
+    eyebrow: 'User perspective',
+    title: 'Clear routes make repeat deposits easier to trust.',
     quotes: [
       {
         quote: 'The first time I moved USDC from Arbitrum into a Kamino vault, I checked the route four times. I did not need to — every fee was in the quote.',
@@ -357,18 +357,18 @@ export const MARKETING_CONTENT = {
     ],
   },
   personas: {
-    eyebrow: 'Built for people with stablecoins',
-    title: 'Whether you are routing $500 or $5M, the path is the same.',
+    eyebrow: 'For stablecoin holders',
+    title: 'The same clear route for personal balances and treasury capital.',
     list: [
       {
         title: 'For individuals',
         subtitle: 'Put your stablecoins to work',
         description:
-          'Earn real, market-driven yield on USDC and USDT without juggling bridges or learning a new wallet for every chain. Withdraw to any supported network when you want to exit.',
+          'Earn real, market-driven yield on USDC and USDT without juggling bridges or learning a new wallet for every chain. Withdraw to any of the five source chains whenever you want to exit.',
         assetSlot: 'persona-individual',
         asset: '/marketing/portrait-finance-operator.svg',
         assetAlt: 'Individual SolGate user reviewing a deposit route',
-        bullets: ['Live APY visible before deposit', 'Withdraw to any supported chain', 'No minimums, no lockups'],
+        bullets: ['Live APY visible before deposit', 'Withdraw to any source chain', 'No minimums, no lockups'],
       },
       {
         title: 'For teams & treasuries',
@@ -385,7 +385,7 @@ export const MARKETING_CONTENT = {
   faq: [
     {
       q: 'Does SolGate hold my funds at any point?',
-      a: 'No. Every transaction is signed by your wallet. SolGate is a routing and interface layer — your capital moves directly between chains, bridges, swap routers and vault programs, and lives in your wallet the entire time.',
+      a: 'No. Every transaction is signed by your wallet, and funds move directly through the selected bridge, swap route and vault program. SolGate does not pool, custody or rehypothecate user balances.',
     },
     {
       q: 'What happens if the bridge takes longer than expected?',

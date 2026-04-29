@@ -69,10 +69,10 @@ export const MarketingFooter = () => (
       </div>
 
       <div className="mt-16 flex flex-col gap-4 border-t border-white/[0.08] pt-8 text-[12px] text-white/50 md:flex-row md:items-center md:justify-between">
-        <p>© {new Date().getFullYear()} SolGate. Built for the Solana Frontier Hackathon.</p>
+        <p>© {new Date().getFullYear()} SolGate. Stablecoin yield routing with self-custody.</p>
         <p className="flex items-center gap-2">
           <span className="h-1.5 w-1.5 rounded-full bg-[#14F195] shadow-[0_0_10px_#14F195]" />
-          Solana mainnet · Agave 2.x · Firedancer ready
+          Live routes · Transparent fees · Audited vaults
         </p>
       </div>
     </div>
