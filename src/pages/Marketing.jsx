@@ -100,6 +100,7 @@ export default function Marketing() {
   const phoneFlowRef = useRef(null);
   const [phoneKey, setPhoneKey] = useState(PHONE_SCREEN_KEYS[0]);
   const platformMetrics = usePlatformMetrics();
+  const metricsLive = platformMetrics.status === 'live';
   const heroLive = platformMetrics.hero;
   const liveMetricsTiles = platformMetrics.liveGrid;
 
@@ -193,25 +194,27 @@ export default function Marketing() {
               </a>
             </div>
 
-            {/* Live data chips */}
-            <div data-reveal className="grid gap-3 rounded-[24px] border border-black/[0.08] bg-white/80 p-4 shadow-[0_24px_60px_rgba(8,17,31,0.06)] sm:grid-cols-3 sm:p-5">
-              {heroLive.map((item) => (
-                <div key={item.label} className="flex items-start gap-3">
-                  <span className="mt-2 h-1.5 w-1.5 animate-pulse rounded-full bg-[#14F195] shadow-[0_0_10px_#14F195]" />
-                  <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#7C8898]">
-                      {item.label}
-                    </p>
-                    <p className="mt-1 font-display text-[20px] font-semibold leading-none text-[#08111F] sm:text-[22px]">
-                      {item.value}
-                      {item.trend ? (
-                        <span className="ml-2 text-[12px] font-semibold text-[#0EA56A]">{item.trend}</span>
-                      ) : null}
-                    </p>
+            {/* Live data chips — only render when a real metrics endpoint is wired. */}
+            {metricsLive ? (
+              <div data-reveal className="grid gap-3 rounded-[24px] border border-black/[0.08] bg-white/80 p-4 shadow-[0_24px_60px_rgba(8,17,31,0.06)] sm:grid-cols-3 sm:p-5">
+                {heroLive.map((item) => (
+                  <div key={item.label} className="flex items-start gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 animate-pulse rounded-full bg-[#14F195] shadow-[0_0_10px_#14F195]" />
+                    <div>
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#7C8898]">
+                        {item.label}
+                      </p>
+                      <p className="mt-1 font-display text-[20px] font-semibold leading-none text-[#08111F] sm:text-[22px]">
+                        {item.value}
+                        {item.trend ? (
+                          <span className="ml-2 text-[12px] font-semibold text-[#0EA56A]">{item.trend}</span>
+                        ) : null}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : null}
 
             <div data-reveal className="flex flex-wrap items-center gap-2.5">
               {MARKETING_CONTENT.hero.trustChips.map((c) => (
@@ -240,27 +243,29 @@ export default function Marketing() {
         />
       </section>
 
-      {/* ─────────────────  LIVE METRICS (DARK)  ───────────────── */}
-      <section className="relative mt-4 overflow-hidden bg-[#08111F] px-4 py-24 text-white sm:px-6 lg:px-8 lg:py-28">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(153,69,255,0.16),transparent_40%),radial-gradient(circle_at_85%_90%,rgba(20,241,149,0.12),transparent_42%)]" />
-        <div className="relative mx-auto max-w-[1280px]">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div data-reveal className="max-w-[640px]">
-              <Eyebrow dark>Live on Solana right now</Eyebrow>
-              <h2 className="mt-5 font-display text-[40px] font-semibold leading-[0.98] tracking-[-0.035em] sm:text-[52px]">
-                Real capital. Real yield. <span className="text-[#14F195]">Real time.</span>
-              </h2>
+      {/* ─────────────────  LIVE METRICS (DARK) — only when wired to a real metrics endpoint  ───────────────── */}
+      {metricsLive ? (
+        <section className="relative mt-4 overflow-hidden bg-[#08111F] px-4 py-24 text-white sm:px-6 lg:px-8 lg:py-28">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(153,69,255,0.16),transparent_40%),radial-gradient(circle_at_85%_90%,rgba(20,241,149,0.12),transparent_42%)]" />
+          <div className="relative mx-auto max-w-[1280px]">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+              <div data-reveal className="max-w-[640px]">
+                <Eyebrow dark>Live on Solana right now</Eyebrow>
+                <h2 className="mt-5 font-display text-[40px] font-semibold leading-[0.98] tracking-[-0.035em] sm:text-[52px]">
+                  Real capital. Real yield. <span className="text-[#14F195]">Real time.</span>
+                </h2>
+              </div>
+              <p data-reveal className="max-w-[420px] text-[15px] leading-[1.7] text-white/60">
+                Numbers below reflect the current state of the network — total routed, best live APY, audited destinations and MEV losses prevented.
+              </p>
             </div>
-            <p data-reveal className="max-w-[420px] text-[15px] leading-[1.7] text-white/60">
-              Numbers below reflect the current state of the network — total routed, best live APY, audited destinations and MEV losses prevented.
-            </p>
-          </div>
 
-          <div data-reveal className="mt-12">
-            <LiveMetrics metrics={liveMetricsTiles} reducedMotion={prefersReducedMotion} />
+            <div data-reveal className="mt-12">
+              <LiveMetrics metrics={liveMetricsTiles} reducedMotion={prefersReducedMotion} />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       {/* ─────────────────  STORY  ───────────────── */}
       <section id="product-story" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
