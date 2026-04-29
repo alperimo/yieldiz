@@ -8,17 +8,17 @@ import { SUPPORTED_CHAINS } from '../../content/marketing';
 const ScreenChrome = ({ children }) => (
   <div className="flex h-full flex-col overflow-hidden rounded-[38px] bg-[#F5F7F2]">
     {/* Status bar */}
-    <div className="flex items-center justify-between px-7 pb-1 pt-4 text-[11px] font-semibold text-[#08111F]">
+    <div className="flex items-center justify-between px-7 pb-1 pt-4 text-[11px] font-semibold text-[#2A1A0B]">
       <span>9:41</span>
       <div className="flex items-center gap-1">
-        <span className="h-[7px] w-[7px] rounded-full bg-[#08111F]/70" />
-        <span className="h-[7px] w-[7px] rounded-full bg-[#08111F]/50" />
-        <span className="h-[7px] w-[7px] rounded-full bg-[#08111F]/30" />
-        <span className="ml-2 h-2.5 w-5 rounded-sm border border-[#08111F]/70" />
+        <span className="h-[7px] w-[7px] rounded-full bg-[#2A1A0B]/70" />
+        <span className="h-[7px] w-[7px] rounded-full bg-[#2A1A0B]/50" />
+        <span className="h-[7px] w-[7px] rounded-full bg-[#2A1A0B]/30" />
+        <span className="ml-2 h-2.5 w-5 rounded-sm border border-[#2A1A0B]/70" />
       </div>
     </div>
     {/* Notch */}
-    <div className="mx-auto -mt-6 h-5 w-24 rounded-full bg-[#08111F]" />
+    <div className="mx-auto -mt-6 h-5 w-24 rounded-full bg-[#2A1A0B]" />
     <div className="flex-1 px-5 pt-5">{children}</div>
   </div>
 );
@@ -26,11 +26,11 @@ const ScreenChrome = ({ children }) => (
 const ConnectScreen = ({ preview }) => (
   <ScreenChrome>
     <div>
-      <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#526071]">SolGate</p>
-      <h3 className="mt-1 font-display text-[22px] font-semibold leading-tight text-[#08111F]">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#654B2B]">SolGate</p>
+      <h3 className="mt-1 font-display text-[22px] font-semibold leading-tight text-[#2A1A0B]">
         Connect your wallet to begin.
       </h3>
-      <p className="mt-2 text-[11px] leading-[1.5] text-[#526071]">
+      <p className="mt-2 text-[11px] leading-[1.5] text-[#654B2B]">
         Self-custodial from the first tap. Your keys stay on your device.
       </p>
 
@@ -38,7 +38,7 @@ const ConnectScreen = ({ preview }) => (
         {preview.wallets.map((w) => (
           <div
             key={w.name}
-            className="flex items-center justify-between rounded-2xl border border-black/[0.08] bg-white p-3 shadow-[0_4px_14px_rgba(8,17,31,0.05)]"
+            className="flex items-center justify-between rounded-2xl border border-black/[0.08] bg-white p-3 shadow-[0_4px_14px_rgba(126,77,34,0.05)]"
           >
             <div className="flex items-center gap-3">
               <div
@@ -48,16 +48,16 @@ const ConnectScreen = ({ preview }) => (
                 {w.name.slice(0, 1)}
               </div>
               <div>
-                <p className="text-[13px] font-semibold text-[#08111F]">{w.name}</p>
-                <p className="text-[10px] text-[#7C8898]">{w.tag}</p>
+                <p className="text-[13px] font-semibold text-[#2A1A0B]">{w.name}</p>
+                <p className="text-[10px] text-[#8B6A3A]">{w.tag}</p>
               </div>
             </div>
-            <ArrowRight size={14} className="text-[#08111F]/50" />
+            <ArrowRight size={14} className="text-[#2A1A0B]/50" />
           </div>
         ))}
       </div>
 
-      <div className="mt-5 flex items-center gap-2 rounded-2xl bg-[#D6A84F]/[0.12] p-3 text-[10px] leading-[1.5] text-[#08111F]">
+      <div className="mt-5 flex items-center gap-2 rounded-2xl bg-[#D6A84F]/[0.12] p-3 text-[10px] leading-[1.5] text-[#2A1A0B]">
         <Shield size={13} className="shrink-0" />
         <span>We never store keys or seed phrases. Disconnect anytime.</span>
       </div>
@@ -67,8 +67,8 @@ const ConnectScreen = ({ preview }) => (
 
 const ChooseScreen = ({ preview }) => (
   <ScreenChrome>
-    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#526071]">Step 2 of 4</p>
-    <h3 className="mt-1 font-display text-[20px] font-semibold leading-tight text-[#08111F]">
+    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#654B2B]">Step 2 of 4</p>
+    <h3 className="mt-1 font-display text-[20px] font-semibold leading-tight text-[#2A1A0B]">
       From which chain?
     </h3>
 
@@ -77,14 +77,14 @@ const ChooseScreen = ({ preview }) => (
         <div
           key={chain.id}
           className={`rounded-2xl border p-3 ${
-            i === 0 ? 'border-[#08111F] bg-[#08111F] text-white' : 'border-black/[0.08] bg-white text-[#08111F]'
+            i === 0 ? 'border-[#2A1A0B] bg-[#2A1A0B] text-white' : 'border-black/[0.08] bg-white text-[#2A1A0B]'
           }`}
         >
           <div className="flex items-center gap-2">
             <span className="h-5 w-5 rounded-full" style={{ background: chain.color }} />
             <p className="text-[11px] font-semibold">{chain.label}</p>
           </div>
-          <p className={`mt-2 text-[14px] font-semibold ${i === 0 ? 'text-white' : 'text-[#08111F]'}`}>
+          <p className={`mt-2 text-[14px] font-semibold ${i === 0 ? 'text-white' : 'text-[#2A1A0B]'}`}>
             {preview.sourceBalances[chain.id] || '0.00'} USDC
           </p>
         </div>
@@ -92,16 +92,16 @@ const ChooseScreen = ({ preview }) => (
     </div>
 
     <div className="mt-4 rounded-2xl border border-black/[0.08] bg-white p-3">
-      <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#526071]">Amount</p>
+      <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#654B2B]">Amount</p>
       <div className="mt-1 flex items-baseline gap-1">
-        <span className="font-display text-[26px] font-semibold text-[#08111F]">{preview.amount.display}</span>
-        <span className="text-[12px] text-[#7C8898]">{preview.amount.decimals}</span>
+        <span className="font-display text-[26px] font-semibold text-[#2A1A0B]">{preview.amount.display}</span>
+        <span className="text-[12px] text-[#8B6A3A]">{preview.amount.decimals}</span>
       </div>
       <div className="mt-2 flex gap-1">
         {preview.amount.quickActions.map((p) => (
           <span
             key={p}
-            className="rounded-full border border-black/[0.08] bg-[#EEF2EA] px-2 py-1 text-[10px] font-semibold text-[#08111F]"
+            className="rounded-full border border-black/[0.08] bg-[#EEF2EA] px-2 py-1 text-[10px] font-semibold text-[#2A1A0B]"
           >
             {p}
           </span>
@@ -113,8 +113,8 @@ const ChooseScreen = ({ preview }) => (
 
 const RouteScreen = ({ preview }) => (
   <ScreenChrome>
-    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#526071]">Preview</p>
-    <h3 className="mt-1 font-display text-[20px] font-semibold leading-tight text-[#08111F]">
+    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#654B2B]">Preview</p>
+    <h3 className="mt-1 font-display text-[20px] font-semibold leading-tight text-[#2A1A0B]">
       Your route to yield.
     </h3>
 
@@ -122,24 +122,24 @@ const RouteScreen = ({ preview }) => (
       {preview.routePreview.map((r, i) => (
         <div
           key={r.step}
-          className="flex items-center gap-3 rounded-2xl border border-black/[0.08] bg-white p-3 shadow-[0_3px_10px_rgba(8,17,31,0.04)]"
+          className="flex items-center gap-3 rounded-2xl border border-black/[0.08] bg-white p-3 shadow-[0_3px_10px_rgba(126,77,34,0.04)]"
         >
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#08111F] text-[10px] font-bold text-white">
+          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#2A1A0B] text-[10px] font-bold text-white">
             {i + 1}
           </div>
           <div className="flex-1">
-            <p className="text-[12px] font-semibold text-[#08111F]">{r.step}</p>
-            <p className="text-[10px] text-[#7C8898]">{r.via}</p>
+            <p className="text-[12px] font-semibold text-[#2A1A0B]">{r.step}</p>
+            <p className="text-[10px] text-[#8B6A3A]">{r.via}</p>
           </div>
           <div className="text-right">
-            <p className="text-[10px] font-semibold text-[#08111F]">{r.value}</p>
-            <p className="text-[9px] text-[#7C8898]">{r.time}</p>
+            <p className="text-[10px] font-semibold text-[#2A1A0B]">{r.value}</p>
+            <p className="text-[9px] text-[#8B6A3A]">{r.time}</p>
           </div>
         </div>
       ))}
     </div>
 
-    <div className="mt-4 rounded-2xl bg-[#08111F] p-3 text-white">
+    <div className="mt-4 rounded-2xl bg-[#2A1A0B] p-3 text-white">
       <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/60">You will receive</p>
       <p className="mt-1 font-display text-[22px] font-semibold">{preview.quote.receive}</p>
       <p className="text-[10px] text-white/60">{preview.quote.annualized}</p>
@@ -149,8 +149,8 @@ const RouteScreen = ({ preview }) => (
 
 const ConfirmScreen = ({ preview }) => (
   <ScreenChrome>
-    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#526071]">In progress</p>
-    <h3 className="mt-1 font-display text-[20px] font-semibold leading-tight text-[#08111F]">
+    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#654B2B]">In progress</p>
+    <h3 className="mt-1 font-display text-[20px] font-semibold leading-tight text-[#2A1A0B]">
       Routing $1,000 USDC…
     </h3>
 
@@ -160,16 +160,16 @@ const ConfirmScreen = ({ preview }) => (
           <div
             className={`flex h-6 w-6 items-center justify-center rounded-full ${
               r.status === 'done'
-                ? 'bg-[#D6A84F] text-[#08111F]'
+                ? 'bg-[#D6A84F] text-[#2A1A0B]'
                 : r.status === 'live'
                   ? 'bg-[#7E4D22] text-white'
-                  : 'bg-[#EEF2EA] text-[#7C8898]'
+                  : 'bg-[#EEF2EA] text-[#8B6A3A]'
             }`}
           >
             {r.status === 'done' ? <CheckCircle2 size={13} /> : <Sparkles size={13} />}
           </div>
-          <p className="flex-1 text-[11px] font-semibold text-[#08111F]">{r.step}</p>
-          <span className="text-[10px] text-[#7C8898]">
+          <p className="flex-1 text-[11px] font-semibold text-[#2A1A0B]">{r.step}</p>
+          <span className="text-[10px] text-[#8B6A3A]">
             {r.status === 'done' ? '✓' : r.status === 'live' ? 'live' : '—'}
           </span>
         </div>
@@ -177,8 +177,8 @@ const ConfirmScreen = ({ preview }) => (
     </div>
 
     <div className="mt-4 rounded-2xl bg-[#D6A84F]/[0.14] p-3">
-      <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#08111F]">Estimated settlement</p>
-      <p className="mt-1 font-display text-[18px] font-semibold text-[#08111F]">{preview.settlementEstimate}</p>
+      <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#2A1A0B]">Estimated settlement</p>
+      <p className="mt-1 font-display text-[18px] font-semibold text-[#2A1A0B]">{preview.settlementEstimate}</p>
     </div>
   </ScreenChrome>
 );
@@ -187,16 +187,16 @@ const EarningScreen = ({ preview }) => (
   <ScreenChrome>
     <div className="flex items-center justify-between">
       <div>
-        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#526071]">Portfolio</p>
-        <p className="mt-1 font-display text-[26px] font-semibold text-[#08111F]">{preview.portfolio.total}</p>
-        <p className="text-[11px] text-[#0EA56A]">{preview.portfolio.earned} <span className="text-[#7C8898]">earned</span></p>
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#654B2B]">Portfolio</p>
+        <p className="mt-1 font-display text-[26px] font-semibold text-[#2A1A0B]">{preview.portfolio.total}</p>
+        <p className="text-[11px] text-[#0EA56A]">{preview.portfolio.earned} <span className="text-[#8B6A3A]">earned</span></p>
       </div>
-      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#08111F] text-white">
+      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#2A1A0B] text-white">
         <Wallet size={16} />
       </div>
     </div>
 
-    <div className="mt-4 rounded-2xl bg-[#08111F] p-4 text-white">
+    <div className="mt-4 rounded-2xl bg-[#2A1A0B] p-4 text-white">
       <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/60">Best live APY</p>
       <div className="mt-1 flex items-baseline gap-1">
         <span className="font-display text-[28px] font-semibold">{preview.portfolio.bestApy}</span>
@@ -208,17 +208,17 @@ const EarningScreen = ({ preview }) => (
       </div>
     </div>
 
-    <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#526071]">Active positions</p>
+    <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#654B2B]">Active positions</p>
     <div className="mt-2 space-y-2">
       {preview.portfolio.positions.map((r) => (
         <div key={r.name} className="flex items-center justify-between rounded-2xl border border-black/[0.08] bg-white p-3">
           <div>
-            <p className="text-[12px] font-semibold text-[#08111F]">{r.name}</p>
-            <p className="text-[10px] text-[#7C8898]">{r.value} deposited</p>
+            <p className="text-[12px] font-semibold text-[#2A1A0B]">{r.name}</p>
+            <p className="text-[10px] text-[#8B6A3A]">{r.value} deposited</p>
           </div>
           <div className="text-right">
             <p className="text-[12px] font-semibold text-[#0EA56A]">{r.apy}</p>
-            <p className="text-[10px] text-[#7C8898]">APY</p>
+            <p className="text-[10px] text-[#8B6A3A]">APY</p>
           </div>
         </div>
       ))}
@@ -271,10 +271,10 @@ export const PhoneMockup = ({ reducedMotion = false, activeKey, onRotateChange, 
     >
       {/* Phone body */}
       <div
-        className="relative aspect-[9/19] w-full rounded-[48px] bg-[#08111F] p-2 shadow-[0_60px_120px_rgba(8,17,31,0.32),0_20px_40px_rgba(214,168,79,0.18)]"
+        className="relative aspect-[9/19] w-full rounded-[48px] bg-[#2A1A0B] p-2 shadow-[0_60px_120px_rgba(126,77,34,0.32),0_20px_40px_rgba(214,168,79,0.18)]"
         style={{
           backgroundImage:
-            'linear-gradient(160deg,#11192B 0%,#08111F 60%,#050A14 100%)',
+            'linear-gradient(160deg,#11192B 0%,#2A1A0B 60%,#050A14 100%)',
         }}
       >
         <div className="absolute inset-[6px] rounded-[42px] border border-white/10" />

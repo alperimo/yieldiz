@@ -22,7 +22,7 @@ export const Header = ({ onMenuToggle }) => {
         hidden ? '-translate-y-full' : 'translate-y-0'
       } ${
         scrolled
-          ? 'border-black/[0.06] bg-[rgba(245,247,242,0.92)] backdrop-blur-xl shadow-[0_8px_30px_rgba(8,17,31,0.06)]'
+          ? 'border-black/[0.06] bg-[rgba(245,247,242,0.92)] backdrop-blur-xl shadow-[0_8px_30px_rgba(126,77,34,0.06)]'
           : 'border-transparent bg-[rgba(245,247,242,0.6)] backdrop-blur-md'
       }`}
     >
@@ -37,8 +37,8 @@ export const Header = ({ onMenuToggle }) => {
             <Menu size={20} strokeWidth={1.5} />
           </button>
 
-          <NavLink to="/app" className="flex items-center gap-3 text-[#08111F]">
-            <SolGateLogo size={36} className="rounded-xl bg-[#08111F] p-1.5 shadow-[0_14px_30px_rgba(8,17,31,0.18)]" />
+          <NavLink to="/app" className="flex items-center gap-3 text-[#2A1A0B]">
+            <SolGateLogo size={36} className="rounded-xl bg-[#7E4D22] p-1.5 shadow-[0_14px_30px_rgba(126,77,34,0.18)]" />
             <div>
               <p className="font-display text-[17px] font-semibold leading-none">{STRINGS.APP_NAME}</p>
               <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-sg-text-secondary">
@@ -59,8 +59,8 @@ export const Header = ({ onMenuToggle }) => {
                 className={({ isActive }) => `
                   flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all duration-150
                   ${isActive
-                    ? 'bg-[#08111F] text-white shadow-[0_10px_24px_rgba(8,17,31,0.18)]'
-                    : 'text-sg-text-secondary hover:text-[#08111F]'}
+                    ? 'bg-[#7E4D22] text-[#F8E6B6] shadow-[0_10px_24px_rgba(126,77,34,0.18)]'
+                    : 'text-sg-text-secondary hover:text-[#2A1A0B]'}
                 `}
               >
                 <Icon size={16} strokeWidth={1.6} />
@@ -73,7 +73,7 @@ export const Header = ({ onMenuToggle }) => {
         <div className="flex items-center gap-2">
           <Link
             to="/"
-            className="hidden rounded-full px-3 py-2 text-sm font-medium text-sg-text-secondary transition-colors hover:text-[#08111F] lg:inline-flex"
+            className="hidden rounded-full px-3 py-2 text-sm font-medium text-sg-text-secondary transition-colors hover:text-[#2A1A0B] lg:inline-flex"
           >
             About
           </Link>
@@ -83,7 +83,7 @@ export const Header = ({ onMenuToggle }) => {
                 <span className="w-1.5 h-1.5 rounded-full bg-sg-success" />
                 {network === 'mainnet-beta' ? STRINGS.NETWORK_MAINNET : STRINGS.NETWORK_DEVNET}
               </Badge>
-              <div className="flex items-center gap-2 rounded-full border border-black/[0.08] bg-white/80 px-3 py-2 shadow-[0_10px_24px_rgba(8,17,31,0.06)]">
+              <div className="flex items-center gap-2 rounded-full border border-black/[0.08] bg-white/80 px-3 py-2 shadow-[0_10px_24px_rgba(126,77,34,0.06)]">
                 <span className="hidden text-caption text-sg-text-secondary sm:inline">
                   {balance != null ? `${Number(balance).toFixed(2)} SOL` : ''}
                 </span>

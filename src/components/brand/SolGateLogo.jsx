@@ -15,8 +15,7 @@ export const SolGateLogo = ({
   className = '',
   ...rest
 }) => {
-  const gradientId = React.useId();
-  const stroke = monochrome ? 'currentColor' : `url(#${gradientId})`;
+  const stroke = monochrome ? 'currentColor' : '#D6A84F';
   return (
     <svg
       role="img"
@@ -27,15 +26,6 @@ export const SolGateLogo = ({
       className={className}
       {...rest}
     >
-      {!monochrome && (
-        <defs>
-          <linearGradient id={gradientId} x1="4" y1="6" x2="28" y2="28" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#F8E6B6" />
-            <stop offset="52%" stopColor="#D6A84F" />
-            <stop offset="100%" stopColor="#7E4D22" />
-          </linearGradient>
-        </defs>
-      )}
       <path
         d="M22.4 8.6 a10 10 0 1 0 3.0 9.6 H17"
         fill="none"

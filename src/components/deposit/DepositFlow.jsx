@@ -120,7 +120,7 @@ export const DepositFlow = () => {
             <span className="text-body text-sg-text-secondary">{STRINGS.DEPOSIT_TO}</span>
             <Badge variant="purple">Solana</Badge>
           </div>
-          <div className="rounded-[24px] border border-black/[0.06] bg-[rgba(255,255,255,0.92)] p-4 shadow-[0_16px_35px_rgba(8,17,31,0.04)]">
+          <div className="rounded-[24px] border border-black/[0.06] bg-[rgba(255,255,255,0.92)] p-4 shadow-[0_16px_35px_rgba(126,77,34,0.04)]">
             <div className="flex items-center justify-between mb-2">
               <VaultSelector
                 vaults={vaults}

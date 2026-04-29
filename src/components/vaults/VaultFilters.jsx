@@ -20,7 +20,7 @@ export const VaultFilters = ({
           placeholder={STRINGS.VAULTS_SEARCH_PLACEHOLDER}
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="w-full rounded-input border border-black/[0.08] bg-white/[0.88] pl-9 pr-4 py-3 text-body text-sg-text placeholder:text-sg-text-tertiary shadow-[0_14px_30px_rgba(8,17,31,0.04)] transition-colors focus:outline-none focus:border-sg-accent-purple"
+          className="w-full rounded-input border border-black/[0.08] bg-white/[0.88] pl-9 pr-4 py-3 text-body text-sg-text placeholder:text-sg-text-tertiary shadow-[0_14px_30px_rgba(126,77,34,0.04)] transition-colors focus:outline-none focus:border-sg-accent-purple"
         />
       </div>
 
@@ -30,7 +30,7 @@ export const VaultFilters = ({
         <select
           value={sortBy}
           onChange={(e) => onSortChange(e.target.value)}
-          className="appearance-none cursor-pointer rounded-input border border-black/[0.08] bg-white/[0.88] px-3 py-3 text-body text-sg-text shadow-[0_14px_30px_rgba(8,17,31,0.04)] focus:outline-none focus:border-sg-accent-purple"
+          className="appearance-none cursor-pointer rounded-input border border-black/[0.08] bg-white/[0.88] px-3 py-3 text-body text-sg-text shadow-[0_14px_30px_rgba(126,77,34,0.04)] focus:outline-none focus:border-sg-accent-purple"
         >
           <option value="apy">{STRINGS.VAULTS_SORT_APY}</option>
           <option value="tvl">{STRINGS.VAULTS_SORT_TVL}</option>
@@ -41,7 +41,7 @@ export const VaultFilters = ({
       <select
         value={riskFilter}
         onChange={(e) => onRiskFilterChange(e.target.value)}
-        className="appearance-none cursor-pointer rounded-input border border-black/[0.08] bg-white/[0.88] px-3 py-3 text-body text-sg-text shadow-[0_14px_30px_rgba(8,17,31,0.04)] focus:outline-none focus:border-sg-accent-purple"
+        className="appearance-none cursor-pointer rounded-input border border-black/[0.08] bg-white/[0.88] px-3 py-3 text-body text-sg-text shadow-[0_14px_30px_rgba(126,77,34,0.04)] focus:outline-none focus:border-sg-accent-purple"
       >
         <option value="all">{STRINGS.VAULTS_RISK_ALL}</option>
         <option value="low">{STRINGS.RISK_LOW}</option>

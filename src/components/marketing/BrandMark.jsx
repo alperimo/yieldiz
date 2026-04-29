@@ -46,7 +46,7 @@ const Kamino = () => (
 const Jito = () => (
   <Mark>
     <rect x="12" y="12" width="40" height="40" rx="10" />
-    <rect x="22" y="22" width="20" height="20" rx="4" fill="#08111F" />
+    <rect x="22" y="22" width="20" height="20" rx="4" fill="#2A1A0B" />
   </Mark>
 );
 

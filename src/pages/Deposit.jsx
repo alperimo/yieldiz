@@ -85,7 +85,7 @@ export default function Deposit() {
             <div className="grid gap-4 md:grid-cols-3">
               {APP_PILLARS.map(({ icon: Icon, title, description }) => (
                 <Card key={title} className="feature-card h-full !rounded-[28px] !p-6">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#08111F] text-sg-accent-green shadow-[0_18px_40px_rgba(8,17,31,0.12)]">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#7E4D22] text-sg-accent-green shadow-[0_18px_40px_rgba(126,77,34,0.12)]">
                     <Icon size={18} />
                   </div>
                   <h2 className="mt-5 font-display text-[24px] font-semibold leading-tight text-sg-text">{title}</h2>
@@ -102,7 +102,7 @@ export default function Deposit() {
                     The numbers that matter stay visible.
                   </p>
                 </div>
-                <div className="bg-[#08111F] p-6 text-white">
+                <div className="bg-[#7E4D22] p-6 text-white">
                   <div className="grid gap-5 md:grid-cols-3">
                     <div>
                       <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/[0.46]">Source chain</p>
@@ -123,11 +123,11 @@ export default function Deposit() {
           </div>
 
           <div className="xl:sticky xl:top-28 xl:self-start">
-            <div className="rounded-[34px] border border-black/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.78),rgba(255,255,255,0.94))] p-3 shadow-[0_40px_120px_rgba(8,17,31,0.10)] backdrop-blur">
+            <div className="rounded-[34px] border border-black/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.78),rgba(255,255,255,0.94))] p-3 shadow-[0_40px_120px_rgba(126,77,34,0.10)] backdrop-blur">
               <div className="mb-4 flex items-center gap-2 px-3 pt-2 text-sg-text-tertiary">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#08111F]/10" />
-                <span className="h-2.5 w-2.5 rounded-full bg-[#08111F]/10" />
-                <span className="h-2.5 w-2.5 rounded-full bg-[#08111F]/10" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#7E4D22]/10" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#7E4D22]/10" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#7E4D22]/10" />
                 <div className="ml-3 rounded-full border border-black/[0.08] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-sg-text-secondary">
                   Deposit route
                 </div>
@@ -138,7 +138,7 @@ export default function Deposit() {
         </section>
 
         <section className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr]">
-          <Card className="!rounded-[32px] !bg-[#08111F] !p-7 text-white shadow-[0_40px_120px_rgba(8,17,31,0.14)]">
+          <Card className="!rounded-[32px] !bg-[#7E4D22] !p-7 text-white shadow-[0_40px_120px_rgba(126,77,34,0.14)]">
             <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/[0.46]">After deposit</p>
             <h2 className="mt-5 max-w-[14ch] font-display text-[34px] font-semibold leading-[1.02]">
               Keep tracking, switch vaults, or withdraw on your schedule.
@@ -166,7 +166,7 @@ export default function Deposit() {
               </div>
               <button
                 onClick={() => navigate('/app/vaults')}
-                className="inline-flex items-center gap-2 rounded-full border border-black/[0.08] bg-white/80 px-4 py-2.5 text-sm font-medium text-sg-text-secondary shadow-[0_14px_30px_rgba(8,17,31,0.04)] transition-colors hover:text-sg-text"
+                className="inline-flex items-center gap-2 rounded-full border border-black/[0.08] bg-white/80 px-4 py-2.5 text-sm font-medium text-sg-text-secondary shadow-[0_14px_30px_rgba(126,77,34,0.04)] transition-colors hover:text-sg-text"
               >
                 View all vaults
                 <ArrowRight size={15} />

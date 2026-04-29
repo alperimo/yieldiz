@@ -7,7 +7,7 @@ const ICON_MAP = { ArrowDownToLine, LayoutDashboard, Vault };
 
 export const MobileNav = () => {
   return (
-    <nav className="fixed bottom-3 left-3 right-3 z-50 rounded-[24px] border border-white/50 bg-[rgba(245,247,242,0.88)] shadow-[0_24px_50px_rgba(8,17,31,0.12)] backdrop-blur lg:hidden">
+    <nav className="fixed bottom-3 left-3 right-3 z-50 rounded-[24px] border border-white/50 bg-[rgba(245,247,242,0.88)] shadow-[0_24px_50px_rgba(126,77,34,0.12)] backdrop-blur lg:hidden">
       <div className="flex h-[72px] items-center justify-around px-2">
         {NAV_ITEMS.map(({ to, label, iconName }) => {
           const Icon = ICON_MAP[iconName];
@@ -19,7 +19,7 @@ export const MobileNav = () => {
               className={({ isActive }) => `
                 flex min-w-[76px] flex-col items-center gap-1 rounded-2xl px-3 py-2 transition-all duration-150
                 ${isActive
-                  ? 'bg-[#08111F] text-white shadow-[0_14px_30px_rgba(8,17,31,0.12)]'
+                  ? 'bg-[#2A1A0B] text-white shadow-[0_14px_30px_rgba(126,77,34,0.12)]'
                   : 'text-sg-text-tertiary hover:text-sg-text-secondary'}
               `}
             >

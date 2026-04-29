@@ -27,7 +27,7 @@ export const RouteDetails = ({ quote, className = '' }) => {
       </button>
 
       {expanded ? (
-        <div className="mt-3 space-y-3 rounded-[24px] border border-black/[0.06] bg-white/[0.88] p-4 shadow-[0_16px_35px_rgba(8,17,31,0.04)]">
+        <div className="mt-3 space-y-3 rounded-[24px] border border-black/[0.06] bg-white/[0.88] p-4 shadow-[0_16px_35px_rgba(126,77,34,0.04)]">
           {quote.steps.map((step, idx) => (
             <div key={idx} className="flex items-start gap-3">
               <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-black/[0.08] bg-white text-caption text-sg-text-tertiary">

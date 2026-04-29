@@ -19,14 +19,14 @@ export const MarketingHeader = () => {
     <header
       className={`sticky top-0 z-50 translate-y-0 border-b transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-out ${
         scrolled
-          ? 'border-black/[0.06] bg-[rgba(245,247,242,0.92)] backdrop-blur-xl shadow-[0_8px_30px_rgba(8,17,31,0.06)]'
+          ? 'border-black/[0.06] bg-[rgba(245,247,242,0.92)] backdrop-blur-xl shadow-[0_8px_30px_rgba(126,77,34,0.06)]'
           : 'border-transparent bg-[rgba(245,247,242,0.6)] backdrop-blur-md'
       }`}
     >
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="mx-auto flex h-[68px] max-w-[1360px] items-center justify-between gap-4">
-        <Link to="/" className="flex items-center gap-3 text-[#08111F]">
-          <SolGateLogo size={36} className="rounded-xl bg-[#08111F] p-1.5 shadow-[0_14px_30px_rgba(8,17,31,0.18)]" />
+        <Link to="/" className="flex items-center gap-3 text-[#2A1A0B]">
+          <SolGateLogo size={36} className="rounded-xl bg-[#7E4D22] p-1.5 shadow-[0_14px_30px_rgba(126,77,34,0.18)]" />
           <div>
             <p className="font-display text-[17px] font-semibold leading-none">SolGate</p>
             <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-sg-text-secondary">
@@ -40,7 +40,7 @@ export const MarketingHeader = () => {
             <a
               key={item.href}
               href={item.href}
-              className="rounded-full px-4 py-2 text-sm font-medium text-sg-text-secondary transition-colors hover:text-[#08111F]"
+              className="rounded-full px-4 py-2 text-sm font-medium text-sg-text-secondary transition-colors hover:text-[#2A1A0B]"
             >
               {item.label}
             </a>
@@ -50,7 +50,7 @@ export const MarketingHeader = () => {
         <div className="flex items-center gap-2">
           <NavLink
             to="/app"
-            className="hidden items-center gap-2 rounded-full bg-[#08111F] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_14px_30px_rgba(8,17,31,0.18)] transition-transform hover:-translate-y-0.5 lg:inline-flex"
+            className="hidden items-center gap-2 rounded-full bg-[#7E4D22] px-5 py-2.5 text-sm font-semibold text-[#F8E6B6] shadow-[0_14px_30px_rgba(126,77,34,0.18)] transition-transform hover:-translate-y-0.5 lg:inline-flex"
           >
             Start earning
             <ArrowUpRight size={15} />
@@ -58,7 +58,7 @@ export const MarketingHeader = () => {
 
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/[0.08] bg-white/70 text-[#08111F] shadow-[0_8px_20px_rgba(8,17,31,0.06)] lg:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/[0.08] bg-white/70 text-[#2A1A0B] shadow-[0_8px_20px_rgba(126,77,34,0.06)] lg:hidden"
             onClick={() => setMobileOpen((value) => !value)}
             aria-label="Toggle navigation"
           >
@@ -75,7 +75,7 @@ export const MarketingHeader = () => {
               <a
                 key={item.href}
                 href={item.href}
-                className="rounded-2xl px-4 py-3 text-sm font-medium text-[#08111F] transition-colors hover:bg-sg-bg"
+                className="rounded-2xl px-4 py-3 text-sm font-medium text-[#2A1A0B] transition-colors hover:bg-sg-bg"
                 onClick={() => setMobileOpen(false)}
               >
                 {item.label}
@@ -83,7 +83,7 @@ export const MarketingHeader = () => {
             ))}
             <NavLink
               to="/app"
-              className="mt-2 inline-flex items-center justify-center gap-2 rounded-2xl bg-[#08111F] px-4 py-3 text-sm font-semibold text-white"
+              className="mt-2 inline-flex items-center justify-center gap-2 rounded-2xl bg-[#7E4D22] px-4 py-3 text-sm font-semibold text-[#F8E6B6]"
               onClick={() => setMobileOpen(false)}
             >
               Start earning

@@ -58,49 +58,35 @@ export const RouteDiagram = ({ reducedMotion = false }) => {
     <div ref={rootRef} className="relative">
       <svg viewBox="0 0 840 560" className="w-full" aria-hidden="true">
         <defs>
-          <linearGradient id="rdLine" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#F8E6B6" stopOpacity="0.92" />
-            <stop offset="55%" stopColor="#D6A84F" stopOpacity="0.92" />
-            <stop offset="100%" stopColor="#7E4D22" stopOpacity="0.95" />
-          </linearGradient>
-          <linearGradient id="rdFill" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#1A2436" />
-            <stop offset="100%" stopColor="#0B1322" />
-          </linearGradient>
-          <radialGradient id="rdSolGlow" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0%" stopColor="rgba(214,168,79,0.52)" />
-            <stop offset="60%" stopColor="rgba(126,77,34,0.18)" />
-            <stop offset="100%" stopColor="rgba(214,168,79,0)" />
-          </radialGradient>
           <filter id="rdGlow" x="-40%" y="-40%" width="180%" height="180%">
             <feGaussianBlur stdDeviation="2" />
           </filter>
         </defs>
 
         {/* Column labels */}
-        <text x="130" y="44" fill="#FFFFFF" opacity="0.55" fontFamily="Manrope, sans-serif" fontSize="10" letterSpacing="3" fontWeight="600">
+        <text x="130" y="44" fill="#7E4D22" opacity="0.68" fontFamily="Manrope, sans-serif" fontSize="10" letterSpacing="3" fontWeight="700">
           SOURCE CHAINS
         </text>
-        <text x="420" y="44" fill="#FFFFFF" opacity="0.55" fontFamily="Manrope, sans-serif" fontSize="10" letterSpacing="3" fontWeight="600">
+        <text x="420" y="44" fill="#7E4D22" opacity="0.68" fontFamily="Manrope, sans-serif" fontSize="10" letterSpacing="3" fontWeight="700">
           ROUTING LAYER
         </text>
-        <text x="700" y="44" fill="#FFFFFF" opacity="0.55" fontFamily="Manrope, sans-serif" fontSize="10" letterSpacing="3" fontWeight="600">
+        <text x="700" y="44" fill="#7E4D22" opacity="0.68" fontFamily="Manrope, sans-serif" fontSize="10" letterSpacing="3" fontWeight="700">
           DESTINATION
         </text>
 
         {/* Routing layer cards */}
         <g>
-          <rect x="410" y="150" width="180" height="58" rx="14" fill="url(#rdFill)" stroke="rgba(255,255,255,0.12)" />
-          <text x="500" y="178" textAnchor="middle" fill="#FFFFFF" fontFamily="Manrope, sans-serif" fontSize="12" fontWeight="700" letterSpacing="2">LI.FI</text>
-          <text x="500" y="196" textAnchor="middle" fill="#FFFFFF" opacity="0.6" fontFamily="Manrope, sans-serif" fontSize="10" letterSpacing="1.5">BRIDGE · OPTIMAL ROUTE</text>
+          <rect x="410" y="150" width="180" height="58" rx="14" fill="#FFF7DE" stroke="rgba(126,77,34,0.18)" />
+          <text x="500" y="178" textAnchor="middle" fill="#2A1A0B" fontFamily="Manrope, sans-serif" fontSize="12" fontWeight="700" letterSpacing="2">LI.FI</text>
+          <text x="500" y="196" textAnchor="middle" fill="#7E4D22" opacity="0.72" fontFamily="Manrope, sans-serif" fontSize="10" letterSpacing="1.5">BRIDGE · OPTIMAL ROUTE</text>
 
-          <rect x="410" y="228" width="180" height="58" rx="14" fill="url(#rdFill)" stroke="rgba(255,255,255,0.12)" />
-          <text x="500" y="256" textAnchor="middle" fill="#FFFFFF" fontFamily="Manrope, sans-serif" fontSize="12" fontWeight="700" letterSpacing="2">DFLOW</text>
-          <text x="500" y="274" textAnchor="middle" fill="#FFFFFF" opacity="0.6" fontFamily="Manrope, sans-serif" fontSize="10" letterSpacing="1.5">FINAL-LEG SWAP</text>
+          <rect x="410" y="228" width="180" height="58" rx="14" fill="#FFF7DE" stroke="rgba(126,77,34,0.18)" />
+          <text x="500" y="256" textAnchor="middle" fill="#2A1A0B" fontFamily="Manrope, sans-serif" fontSize="12" fontWeight="700" letterSpacing="2">DFLOW</text>
+          <text x="500" y="274" textAnchor="middle" fill="#7E4D22" opacity="0.72" fontFamily="Manrope, sans-serif" fontSize="10" letterSpacing="1.5">FINAL-LEG SWAP</text>
 
-          <rect x="410" y="306" width="180" height="58" rx="14" fill="url(#rdFill)" stroke="rgba(255,255,255,0.12)" />
-          <text x="500" y="334" textAnchor="middle" fill="#FFFFFF" fontFamily="Manrope, sans-serif" fontSize="12" fontWeight="700" letterSpacing="2">JITO</text>
-          <text x="500" y="352" textAnchor="middle" fill="#D6A84F" opacity="0.9" fontFamily="Manrope, sans-serif" fontSize="10" letterSpacing="1.5">MEV-PROTECTED BUNDLE</text>
+          <rect x="410" y="306" width="180" height="58" rx="14" fill="#FFF7DE" stroke="rgba(126,77,34,0.18)" />
+          <text x="500" y="334" textAnchor="middle" fill="#2A1A0B" fontFamily="Manrope, sans-serif" fontSize="12" fontWeight="700" letterSpacing="2">JITO</text>
+          <text x="500" y="352" textAnchor="middle" fill="#7E4D22" opacity="0.9" fontFamily="Manrope, sans-serif" fontSize="10" letterSpacing="1.5">MEV-PROTECTED BUNDLE</text>
         </g>
 
         {/* Sources with paths into routing layer */}
@@ -108,9 +94,9 @@ export const RouteDiagram = ({ reducedMotion = false }) => {
           const y = 100 + i * 78;
           return (
             <g key={chain.id}>
-              <rect x="12" y={y - 18} width="118" height="36" rx="18" fill="url(#rdFill)" stroke="rgba(255,255,255,0.14)" />
+              <rect x="12" y={y - 18} width="118" height="36" rx="18" fill="#FFF7DE" stroke="rgba(126,77,34,0.18)" />
               <circle cx="32" cy={y} r="7" fill={chain.color} />
-              <text x="46" y={y + 4} fill="#FFFFFF" fontFamily="Manrope, sans-serif" fontSize="12" fontWeight="600">
+              <text x="46" y={y + 4} fill="#2A1A0B" fontFamily="Manrope, sans-serif" fontSize="12" fontWeight="700">
                 {chain.label}
               </text>
 
@@ -121,7 +107,7 @@ export const RouteDiagram = ({ reducedMotion = false }) => {
                 }}
                 d={pathFor(y)}
                 fill="none"
-                stroke="url(#rdLine)"
+                stroke="#7E4D22"
                 strokeWidth="1.3"
                 strokeLinecap="round"
                 opacity="0.7"
@@ -133,7 +119,7 @@ export const RouteDiagram = ({ reducedMotion = false }) => {
                 }}
                 d={pathFor(y)}
                 fill="none"
-                stroke="#D6A84F"
+                stroke="#7E4D22"
                 strokeWidth="1.8"
                 strokeLinecap="round"
                 opacity="0.9"
@@ -145,16 +131,16 @@ export const RouteDiagram = ({ reducedMotion = false }) => {
 
         {/* Destination */}
         <g>
-          <circle cx="740" cy="280" r="60" fill="url(#rdSolGlow)" />
-          <circle cx="740" cy="280" r="32" fill="#08111F" stroke="#D6A84F" strokeWidth="1.6" />
-          <text x="740" y="274" textAnchor="middle" fill="#FFFFFF" fontFamily="Sora, Manrope, sans-serif" fontSize="11" fontWeight="700" letterSpacing="2">SOLANA</text>
-          <text x="740" y="290" textAnchor="middle" fill="#D6A84F" fontFamily="Manrope, sans-serif" fontSize="9" letterSpacing="1.5">KAMINO VAULT</text>
+          <circle cx="740" cy="280" r="60" fill="#D6A84F" opacity="0.18" />
+          <circle cx="740" cy="280" r="32" fill="#7E4D22" stroke="#7E4D22" strokeWidth="1.6" />
+          <text x="740" y="274" textAnchor="middle" fill="#F8E6B6" fontFamily="Sora, Manrope, sans-serif" fontSize="11" fontWeight="700" letterSpacing="2">SOLANA</text>
+          <text x="740" y="290" textAnchor="middle" fill="#F8E6B6" fontFamily="Manrope, sans-serif" fontSize="9" letterSpacing="1.5">KAMINO VAULT</text>
         </g>
 
         {/* Routing → destination connectors */}
-        <path d="M 590 179 C 640 179, 680 240, 708 268" fill="none" stroke="url(#rdLine)" strokeWidth="1.3" opacity="0.55" />
-        <path d="M 590 257 C 640 257, 680 270, 708 278" fill="none" stroke="url(#rdLine)" strokeWidth="1.3" opacity="0.7" />
-        <path d="M 590 335 C 640 335, 680 310, 708 290" fill="none" stroke="url(#rdLine)" strokeWidth="1.3" opacity="0.55" />
+        <path d="M 590 179 C 640 179, 680 240, 708 268" fill="none" stroke="#7E4D22" strokeWidth="1.3" opacity="0.42" />
+        <path d="M 590 257 C 640 257, 680 270, 708 278" fill="none" stroke="#7E4D22" strokeWidth="1.3" opacity="0.62" />
+        <path d="M 590 335 C 640 335, 680 310, 708 290" fill="none" stroke="#7E4D22" strokeWidth="1.3" opacity="0.42" />
       </svg>
     </div>
   );

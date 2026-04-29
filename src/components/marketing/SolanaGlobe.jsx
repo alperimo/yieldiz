@@ -2,9 +2,9 @@ import React, { useLayoutEffect, useMemo, useRef } from 'react';
 import { gsap } from 'gsap';
 import { SUPPORTED_CHAINS } from '../../content/marketing';
 
-// Premium Solana-branded globe.
-// Build: SVG wireframe (latitude/longitude) rotating on Y, dot-map continents,
-// Solana gradient glow, orbiting chain coins, converging energy beams, pulse rings.
+// Premium SolGate globe.
+// Build: SVG wireframe rotating on its own axis, dot-map continents,
+// orbiting chain coins, converging energy beams, pulse rings.
 
 const GRID_LONG = 10;
 const GRID_LAT = 6;
@@ -77,10 +77,9 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
     if (reducedMotion || !rootRef.current) return undefined;
 
     const ctx = gsap.context(() => {
-      // Sphere rotates on Y (simulate earth spin)
       gsap.to(sphereRef.current, {
-        rotateY: 360,
-        duration: 42,
+        rotate: 360,
+        duration: 84,
         ease: 'none',
         repeat: -1,
         transformOrigin: '50% 50%',
@@ -89,40 +88,13 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
       // Dot-map rotates in sync but slightly offset for depth
       if (dotMapRef.current) {
         gsap.to(dotMapRef.current, {
-          rotateY: 360,
-          duration: 42,
+          rotate: -360,
+          duration: 96,
           ease: 'none',
           repeat: -1,
           transformOrigin: '50% 50%',
         });
       }
-
-      // Ambient glow breathing
-      gsap.to(glowRef.current, {
-        scale: 1.06,
-        opacity: 0.92,
-        duration: 5.4,
-        ease: 'sine.inOut',
-        repeat: -1,
-        yoyo: true,
-      });
-
-      // Pulse rings expanding outward
-      ringRefs.current.forEach((ring, index) => {
-        if (!ring) return;
-        gsap.fromTo(
-          ring,
-          { scale: 0.82, opacity: 0.55 },
-          {
-            scale: 1.4,
-            opacity: 0,
-            duration: 3.6,
-            ease: 'power2.out',
-            repeat: -1,
-            delay: index * 1.2,
-          },
-        );
-      });
 
       // Chain orbits — each circles at own speed, coin counter-rotates to stay upright
       orbitRefs.current.forEach((orbit, index) => {
@@ -177,7 +149,6 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
     <div
       ref={rootRef}
       className="relative aspect-square w-full max-w-[720px]"
-      style={{ perspective: '1400px' }}
     >
       {/* Ambient halo */}
       <div
@@ -213,7 +184,7 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
             <stop offset="0%" stopColor="rgba(255,255,255,0.94)" />
             <stop offset="38%" stopColor="rgba(248,230,182,0.48)" />
             <stop offset="72%" stopColor="rgba(214,168,79,0.18)" />
-            <stop offset="100%" stopColor="rgba(8,17,31,0.08)" />
+            <stop offset="100%" stopColor="rgba(126,77,34,0.08)" />
           </radialGradient>
           <linearGradient id="sgGrid" x1="-240" y1="-240" x2="240" y2="240" gradientUnits="userSpaceOnUse">
             <stop offset="0%" stopColor="#F8E6B6" stopOpacity="0.58" />
@@ -322,7 +293,7 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
 
         {/* Center Solana node */}
         <g>
-          <circle cx="0" cy="0" r="24" fill="#08111F" />
+          <circle cx="0" cy="0" r="24" fill="#2A1A0B" />
           <circle cx="0" cy="0" r="24" fill="url(#sgGrid)" opacity="0.9" />
           <circle cx="0" cy="0" r="30" fill="none" stroke="#D6A84F" strokeWidth="1.2" opacity="0.7" />
           <text
@@ -332,7 +303,7 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
             fontFamily="Sora, Manrope, sans-serif"
             fontSize="10"
             fontWeight="700"
-            fill="#08111F"
+            fill="#2A1A0B"
             letterSpacing="0.12em"
           >
             SOL
@@ -357,7 +328,7 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
             style={{ transform: `rotate(${-chain.angle}deg)` }}
           >
             <div
-              className="flex items-center gap-2 rounded-full border border-white/50 bg-white/95 px-3 py-1.5 shadow-[0_18px_40px_rgba(8,17,31,0.14)] backdrop-blur"
+              className="flex items-center gap-2 rounded-full border border-white/50 bg-white/95 px-3 py-1.5 shadow-[0_18px_40px_rgba(126,77,34,0.14)] backdrop-blur"
             >
               <span
                 className="inline-flex h-5 w-5 items-center justify-center rounded-full text-[9px] font-black text-white"
@@ -365,7 +336,7 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
               >
                 {chain.short.charAt(0)}
               </span>
-              <span className="text-[11px] font-semibold tracking-[0.14em] text-[#08111F]">
+              <span className="text-[11px] font-semibold tracking-[0.14em] text-[#2A1A0B]">
                 {chain.short}
               </span>
             </div>
@@ -373,18 +344,6 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
         </div>
       ))}
 
-      {/* Floating annotation chips — corporate context pills */}
-      <div className="absolute left-[-2%] top-[62%] rounded-full border border-white/50 bg-white/90 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#08111F] shadow-[0_20px_50px_rgba(8,17,31,0.12)] backdrop-blur">
-        <span className="mr-2 inline-flex h-1.5 w-1.5 rounded-full bg-[#D6A84F] shadow-[0_0_10px_#D6A84F]" />
-        Route visible before execution
-      </div>
-      <div className="absolute right-[-4%] top-[14%] rounded-full border border-[#D6A84F]/30 bg-[#08111F] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white shadow-[0_24px_50px_rgba(8,17,31,0.28)]">
-        <span className="mr-2 inline-flex h-1.5 w-1.5 rounded-full bg-[#D6A84F] shadow-[0_0_10px_#D6A84F]" />
-        Jito-protected entry
-      </div>
-      <div className="absolute bottom-[6%] right-[8%] rounded-full border border-[#D6A84F]/40 bg-[#D6A84F]/[0.14] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#08111F] shadow-[0_20px_50px_rgba(214,168,79,0.18)] backdrop-blur">
-        Destination · Kamino
-      </div>
     </div>
   );
 };

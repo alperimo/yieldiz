@@ -99,7 +99,7 @@ export const MevShield = ({ before, after, footnote, reducedMotion = false }) =>
       <article className="relative overflow-hidden rounded-[28px] border border-white/[0.06] bg-white/[0.02] p-7">
         <div
           data-mev-bundle-glow
-          className="pointer-events-none absolute -top-20 right-[-10%] h-60 w-60 rounded-full bg-[radial-gradient(circle,rgba(214,168,79,0.18),transparent_70%)] blur-3xl"
+          className="pointer-events-none absolute -top-20 right-[-10%] h-60 w-60 rounded-full bg-[#D6A84F]/20 blur-3xl"
         />
 
         <div className="relative flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55">

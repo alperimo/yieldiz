@@ -15,11 +15,11 @@ export const ChainMarquee = ({ items, variant = 'light' }) => {
     >
       <div
         className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-[linear-gradient(90deg,var(--fade),transparent)]"
-        style={{ ['--fade']: isDark ? '#08111F' : '#F5F7F2' }}
+        style={{ ['--fade']: isDark ? '#2A1A0B' : '#F5F7F2' }}
       />
       <div
         className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-[linear-gradient(270deg,var(--fade),transparent)]"
-        style={{ ['--fade']: isDark ? '#08111F' : '#F5F7F2' }}
+        style={{ ['--fade']: isDark ? '#2A1A0B' : '#F5F7F2' }}
       />
       <div
         className="flex min-w-max items-center gap-14 whitespace-nowrap"
@@ -29,7 +29,7 @@ export const ChainMarquee = ({ items, variant = 'light' }) => {
           <div
             key={`${item}-${i}`}
             className={`inline-flex items-center gap-3 text-[13px] font-semibold uppercase tracking-[0.3em] ${
-              isDark ? 'text-white/70' : 'text-[#08111F]/70'
+              isDark ? 'text-white/70' : 'text-[#2A1A0B]/70'
             }`}
           >
             <span

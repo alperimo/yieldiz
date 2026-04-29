@@ -41,9 +41,9 @@ const VaultCard = ({ vault }) => {
   const display = vault.apy.toFixed(2);
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[32px] border border-black/[0.08] bg-white p-7 shadow-[0_24px_60px_rgba(8,17,31,0.08)] transition-all duration-400 hover:-translate-y-1 hover:shadow-[0_40px_90px_rgba(8,17,31,0.14)]">
+    <article className="group flex h-full flex-col overflow-hidden rounded-[32px] border border-black/[0.08] bg-white p-7 shadow-[0_24px_60px_rgba(126,77,34,0.08)] transition-all duration-400 hover:-translate-y-1 hover:shadow-[0_40px_90px_rgba(126,77,34,0.14)]">
       <div className="flex items-center justify-between">
-        <span className="rounded-full border border-[#08111F]/10 bg-[#08111F]/[0.04] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#08111F]">
+        <span className="rounded-full border border-[#7E4D22]/10 bg-[#7E4D22]/[0.04] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#2A1A0B]">
           {vault.badge}
         </span>
         <div className="flex items-center gap-1.5 rounded-full bg-[#D6A84F]/[0.14] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#7E4D22]">
@@ -53,18 +53,18 @@ const VaultCard = ({ vault }) => {
       </div>
 
       <div className="mt-6">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#526071]">{vault.pair}</p>
-        <h3 className="mt-1 font-display text-[26px] font-semibold leading-tight text-[#08111F]">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#654B2B]">{vault.pair}</p>
+        <h3 className="mt-1 font-display text-[26px] font-semibold leading-tight text-[#2A1A0B]">
           {vault.name}
         </h3>
       </div>
 
       <div className="mt-6 flex items-baseline gap-1">
-        <span className="font-display text-[52px] font-semibold leading-none tracking-[-0.04em] text-[#08111F]">
+        <span className="font-display text-[52px] font-semibold leading-none tracking-[-0.04em] text-[#2A1A0B]">
           {display}
         </span>
-        <span className="font-display text-[22px] font-semibold text-[#08111F]/50">%</span>
-        <span className="ml-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#526071]">APY</span>
+        <span className="font-display text-[22px] font-semibold text-[#2A1A0B]/50">%</span>
+        <span className="ml-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#654B2B]">APY</span>
       </div>
 
       <div className="mt-4">
@@ -73,25 +73,25 @@ const VaultCard = ({ vault }) => {
 
       <div className="mt-5 grid grid-cols-2 gap-3 border-t border-black/[0.06] pt-4">
         <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#526071]">TVL</p>
-          <p className="mt-1 font-display text-[18px] font-semibold text-[#08111F]">{vault.tvl}</p>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#654B2B]">TVL</p>
+          <p className="mt-1 font-display text-[18px] font-semibold text-[#2A1A0B]">{vault.tvl}</p>
         </div>
         <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#526071]">Risk · {vault.risk}</p>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#654B2B]">Risk · {vault.risk}</p>
           <div className="mt-2">
             <RiskDots score={vault.riskScore} />
           </div>
         </div>
       </div>
 
-      <p className="mt-4 text-[12px] leading-[1.6] text-[#526071]">{vault.strategy}</p>
+      <p className="mt-4 text-[12px] leading-[1.6] text-[#654B2B]">{vault.strategy}</p>
 
       <div className="mt-6 flex items-center justify-between border-t border-black/[0.06] pt-5">
-        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#08111F]">
+        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#2A1A0B]">
           <TrendingUp size={13} className="text-[#0EA56A]" />
           Audited · Kamino
         </div>
-        <span className="inline-flex items-center gap-1 rounded-full bg-[#08111F] px-4 py-2 text-[11px] font-semibold text-white shadow-[0_14px_30px_rgba(8,17,31,0.18)] transition-transform group-hover:-translate-y-0.5">
+        <span className="inline-flex items-center gap-1 rounded-full bg-[#7E4D22] px-4 py-2 text-[11px] font-semibold text-[#F8E6B6] shadow-[0_14px_30px_rgba(126,77,34,0.18)] transition-transform group-hover:-translate-y-0.5">
           Deposit
           <ArrowUpRight size={13} />
         </span>

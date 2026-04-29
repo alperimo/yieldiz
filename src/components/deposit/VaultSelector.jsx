@@ -27,7 +27,7 @@ export const VaultSelector = ({ vaults, value, onChange, className = '' }) => {
     <div className={`relative ${className}`} ref={ref}>
       <button
         type="button"
-        className="flex w-full items-center justify-between gap-2 rounded-input border border-black/[0.08] bg-white/[0.88] px-3 py-2.5 text-body text-sg-text shadow-[0_14px_30px_rgba(8,17,31,0.04)] transition-colors hover:border-sg-accent-purple/50"
+        className="flex w-full items-center justify-between gap-2 rounded-input border border-black/[0.08] bg-white/[0.88] px-3 py-2.5 text-body text-sg-text shadow-[0_14px_30px_rgba(126,77,34,0.04)] transition-colors hover:border-sg-accent-purple/50"
         onClick={() => setOpen(!open)}
         aria-haspopup="listbox"
         aria-expanded={open}
@@ -41,7 +41,7 @@ export const VaultSelector = ({ vaults, value, onChange, className = '' }) => {
       {open && vaults?.length > 0 && (
         <ul
           role="listbox"
-          className="absolute left-0 top-full z-50 mt-2 max-h-[240px] w-full min-w-[260px] overflow-y-auto rounded-card border border-black/[0.08] bg-white/[0.96] py-1 shadow-[0_24px_60px_rgba(8,17,31,0.12)] animate-in"
+          className="absolute left-0 top-full z-50 mt-2 max-h-[240px] w-full min-w-[260px] overflow-y-auto rounded-card border border-black/[0.08] bg-white/[0.96] py-1 shadow-[0_24px_60px_rgba(126,77,34,0.12)] animate-in"
         >
           {vaults.map((vault) => (
             <li key={vault.pubkey}>

@@ -13,7 +13,7 @@ export const AmountInput = ({
   className = '',
 }) => {
   return (
-    <div className={`rounded-[24px] border border-black/[0.06] bg-[rgba(255,255,255,0.92)] p-4 shadow-[0_16px_35px_rgba(8,17,31,0.04)] ${className}`}>
+    <div className={`rounded-[24px] border border-black/[0.06] bg-[rgba(255,255,255,0.92)] p-4 shadow-[0_16px_35px_rgba(126,77,34,0.04)] ${className}`}>
       {label ? (
         <div className="flex items-center justify-between mb-2">
           <span className="text-caption text-sg-text-secondary">{label}</span>
@@ -46,7 +46,7 @@ export const AmountInput = ({
             <button
               type="button"
               onClick={onMax}
-              className="rounded-full bg-[#08111F] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition-transform hover:-translate-y-0.5"
+              className="rounded-full bg-[#7E4D22] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#F8E6B6] transition-transform hover:-translate-y-0.5"
             >
               {STRINGS.DEPOSIT_MAX}
             </button>
