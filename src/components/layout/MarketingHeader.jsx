@@ -13,7 +13,7 @@ const MARKETING_LINKS = [
 
 const HEADER_THEMES = {
   light: {
-    header: 'border-black/[0.025] bg-[rgba(245,247,242,0.92)] text-[#2A1A0B] backdrop-blur-2xl shadow-[0_8px_30px_rgba(126,77,34,0.045)]',
+    header: 'border-black/[0.018] bg-[rgba(245,247,242,0.92)] text-[#2A1A0B] backdrop-blur-2xl shadow-[0_8px_30px_rgba(126,77,34,0.045)]',
     logo: 'text-[#2A1A0B]',
     sub: 'text-[#8B6A3A]',
     nav: 'text-[#654B2B] hover:text-[#2A1A0B] hover:bg-white/55',
@@ -23,7 +23,7 @@ const HEADER_THEMES = {
     mobileLink: 'text-[#2A1A0B] hover:bg-[#F8E6B6]/45',
   },
   champagne: {
-    header: 'border-[#7E4D22]/[0.04] bg-[rgba(248,230,182,0.9)] text-[#2A1A0B] backdrop-blur-2xl shadow-[0_8px_30px_rgba(126,77,34,0.04)]',
+    header: 'border-[#7E4D22]/[0.025] bg-[rgba(248,230,182,0.9)] text-[#2A1A0B] backdrop-blur-2xl shadow-[0_8px_30px_rgba(126,77,34,0.04)]',
     logo: 'text-[#2A1A0B]',
     sub: 'text-[#8B6A3A]',
     nav: 'text-[#654B2B] hover:text-[#2A1A0B] hover:bg-white/35',
@@ -33,17 +33,27 @@ const HEADER_THEMES = {
     mobileLink: 'text-[#2A1A0B] hover:bg-white/35',
   },
   copper: {
-    header: 'border-[#F8E6B6]/[0.08] bg-[rgba(126,77,34,0.94)] text-[#F8E6B6] backdrop-blur-2xl shadow-[0_10px_36px_rgba(42,26,11,0.14)]',
+    header: 'border-[#F8E6B6]/10 bg-[rgba(126,77,34,0.94)] text-[#F8E6B6] backdrop-blur-2xl shadow-[0_10px_36px_rgba(42,26,11,0.18)]',
     logo: 'text-[#F8E6B6]',
-    sub: 'text-[#F8E6B6]/68',
-    nav: 'text-[#F8E6B6]/78 hover:text-white hover:bg-white/10',
+    sub: 'text-[#F8E6B6]/78',
+    nav: 'text-[#F8E6B6]/86 hover:text-white hover:bg-white/10',
     menu: 'border-white/15 bg-white/10 text-[#F8E6B6]',
     cta: 'bg-[#F8E6B6] text-[#7E4D22] shadow-[0_14px_30px_rgba(42,26,11,0.18)] hover:bg-white',
     mobile: 'border-[#F8E6B6]/15 bg-[rgba(126,77,34,0.96)]',
     mobileLink: 'text-[#F8E6B6] hover:bg-white/10',
   },
+  deepCopper: {
+    header: 'border-[#F8E6B6]/10 bg-[rgba(92,52,24,0.94)] text-[#F8E6B6] backdrop-blur-2xl shadow-[0_10px_36px_rgba(42,26,11,0.22)]',
+    logo: 'text-[#F8E6B6]',
+    sub: 'text-[#F8E6B6]/78',
+    nav: 'text-[#F8E6B6]/86 hover:text-white hover:bg-white/10',
+    menu: 'border-white/15 bg-white/10 text-[#F8E6B6]',
+    cta: 'bg-[#F8E6B6] text-[#5C3418] shadow-[0_14px_30px_rgba(42,26,11,0.2)] hover:bg-white',
+    mobile: 'border-[#F8E6B6]/15 bg-[rgba(92,52,24,0.96)]',
+    mobileLink: 'text-[#F8E6B6] hover:bg-white/10',
+  },
   gold: {
-    header: 'border-[#7E4D22]/[0.07] bg-[rgba(214,168,79,0.92)] text-[#2A1A0B] backdrop-blur-2xl shadow-[0_10px_36px_rgba(126,77,34,0.08)]',
+    header: 'border-[#7E4D22]/[0.045] bg-[rgba(214,168,79,0.92)] text-[#2A1A0B] backdrop-blur-2xl shadow-[0_10px_36px_rgba(126,77,34,0.08)]',
     logo: 'text-[#2A1A0B]',
     sub: 'text-[#654B2B]',
     nav: 'text-[#4A3218]/80 hover:text-[#2A1A0B] hover:bg-[#F8E6B6]/30',
@@ -59,6 +69,7 @@ export const MarketingHeader = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [theme, setTheme] = useState('light');
   const activeTheme = HEADER_THEMES[theme];
+  const useMonochromeLogo = !['light', 'champagne'].includes(theme);
 
   useEffect(() => {
     let retry;
@@ -119,14 +130,14 @@ export const MarketingHeader = () => {
 
   return (
     <header
-      className={`sticky top-0 z-50 translate-y-0 border-b transition-shadow duration-200 ease-out ${
+      className={`sticky top-0 z-50 translate-y-0 border-b transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-out ${
         scrolled ? activeTheme.header : `${activeTheme.header} shadow-none`
       }`}
     >
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="mx-auto flex h-[68px] max-w-[1360px] items-center justify-between gap-4">
         <Link to="/" className={`flex items-center gap-3 ${activeTheme.logo}`}>
-          <SolGateLogo size={32} />
+          <SolGateLogo size={32} monochrome={useMonochromeLogo} />
           <div>
             <p className="font-display text-[17px] font-semibold leading-none">SolGate</p>
             <p className={`mt-1 text-[10px] font-semibold uppercase tracking-[0.26em] ${activeTheme.sub}`}>
@@ -170,13 +181,13 @@ export const MarketingHeader = () => {
       </div>
 
       {mobileOpen ? (
-        <div className={`border-t px-4 py-4 backdrop-blur-xl transition-colors duration-300 sm:px-6 lg:px-8 lg:hidden ${activeTheme.mobile}`}>
+        <div className={`border-t px-4 py-4 backdrop-blur-xl transition-[background-color,border-color,backdrop-filter] duration-300 sm:px-6 lg:px-8 lg:hidden ${activeTheme.mobile}`}>
           <div className="mx-auto flex max-w-[1360px] flex-col gap-1">
             {MARKETING_LINKS.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className={`rounded-2xl px-4 py-3 text-sm font-medium transition-colors ${activeTheme.mobileLink}`}
+                className={`rounded-2xl px-4 py-3 text-sm font-medium ${activeTheme.mobileLink}`}
                 onClick={(event) => handleAnchorClick(event, item.href)}
               >
                 {item.label}

@@ -620,29 +620,32 @@ export default function Marketing() {
       </section>
 
       {/* ─────────────────  FINAL CTA  ───────────────── */}
-      <section data-header-theme="gold" className="bg-[#D6A84F] px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+      <section
+        data-header-theme="deepCopper"
+        className="bg-[#5C3418] px-4 py-24 text-[#F8E6B6] sm:px-6 lg:px-8 lg:py-32"
+      >
         <div
-          className="relative mx-auto grid max-w-[1360px] gap-10 text-[#2A1A0B] lg:grid-cols-[1.1fr_0.9fr]"
+          className="relative mx-auto grid max-w-[1360px] gap-10 lg:grid-cols-[1.05fr_0.95fr]"
         >
           <div className="relative flex flex-col justify-center space-y-8" data-reveal>
-            <Eyebrow>{MARKETING_CONTENT.finalCta.eyebrow}</Eyebrow>
+            <Eyebrow dark>{MARKETING_CONTENT.finalCta.eyebrow}</Eyebrow>
             <h2 className="max-w-[16ch] font-display text-[42px] font-semibold leading-[0.98] tracking-[-0.035em] sm:text-[56px]">
               {MARKETING_CONTENT.finalCta.title}
             </h2>
-            <p className="max-w-[52ch] text-[16px] leading-[1.75] text-[#3B2A16]/75 lg:text-[17px]">
+            <p className="max-w-[52ch] text-[16px] font-medium leading-[1.75] text-[#F8E6B6]/82 lg:text-[17px]">
               {MARKETING_CONTENT.finalCta.description}
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link
                 to="/app"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#7E4D22] px-6 py-4 text-[14px] font-semibold text-[#F8E6B6] shadow-[0_24px_60px_rgba(126,77,34,0.18)] transition-transform hover:-translate-y-0.5"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#F8E6B6] px-6 py-4 text-[14px] font-semibold text-[#5C3418] shadow-[0_24px_60px_rgba(42,26,11,0.28)] transition-transform hover:-translate-y-0.5 hover:bg-white"
               >
                 {MARKETING_CONTENT.finalCta.primaryCta}
                 <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
               <a
                 href="mailto:hello@solgate.app"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#7E4D22]/25 bg-[#F8E6B6]/75 px-6 py-4 text-[14px] font-semibold text-[#2A1A0B] transition-colors hover:bg-[#F8E6B6]"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#F8E6B6]/30 bg-white/8 px-6 py-4 text-[14px] font-semibold text-[#F8E6B6] transition-colors hover:bg-white/12"
               >
                 {MARKETING_CONTENT.finalCta.secondaryCta}
                 <ArrowRight size={16} />
