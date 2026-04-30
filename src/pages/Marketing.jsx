@@ -357,7 +357,7 @@ export default function Marketing() {
         data-header-theme="copper"
         className="relative overflow-hidden bg-[#7E4D22] px-4 py-24 text-white sm:px-6 lg:px-8 lg:py-32"
       >
-        <div className="relative mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[0.95fr_1.05fr]">
+        <div className="relative mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
           <div className="flex flex-col justify-center">
             <Eyebrow dark>{MARKETING_CONTENT.routeDiagram.eyebrow}</Eyebrow>
             <h2 data-reveal className="mt-6 max-w-[16ch] font-display text-[40px] font-semibold leading-[0.98] tracking-[-0.035em] sm:text-[54px]">

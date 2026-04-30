@@ -41,20 +41,8 @@ const TOKEN_BY_MINT = {
   },
 };
 
-const CURATED_VAULTS = new Set([
-  'HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E', // Steakhouse USDC
-  'BEEfo7xwgK2ZP13Pxo7qqTPzAteKJmXjVWtMWcXSvbn2', // Steakhouse High Yield USDC
-  'EPC2N3AAv84P9TKsnDt2x41p6T7c5vTewBhQbh4RVx4r', // MEV Capital USDC
-  'A1USdT5BhSBpWiH4W6oZeykCDr9vq56qXVkMFhZjN48o', // Allez USDT
-  'GFXX24s8VKbyxtQMx7pUDmK2sMFCnorQhtKuVoGqEdTZ', // Elemental USDT Optimizer
-  '5SGXWx2fX6bvkqipCciT3TYzKVPJXU1Ww7kLkeUhJfaC', // Core++ USDT Vault
-  'A1USdsC4kypCgPw5dHAwmqDjfFKrtdVHtXLhDY9QvHQ3', // Allez USDS
-  '8wDtedCoYq2dH9UT1CoDC21v6kPHe32UNydhcvA8U9VS', // Elemental USDS Optimizer
-  'A2wsxhA7pF4B2UKVfXocb6TAAP9ipfPJam6oMKgDE5BK', // Sentora PYUSD
-  'BoZDRc1RDY9FzUZZ19WT4GbtTnnbXQ8AGSU5ByEw3ut5', // Steakhouse High Yield USDG
-  'DJbRxuBckoJpFVUNtWx94NghcthfGaRV5NRmEazUaddE', // Elemental USDG Optimizer
-  'A1so1bPD3W1TfeFwboDh8yfAAVaVtcdAYBYCjhg2mJQ', // Allez SOL
-]);
+const MIN_PUBLIC_TVL_USD = 1_000;
+const EXCLUDED_NAME_PATTERN = /\b(test|testing|stg|staging|dev|transfer|crank|bull)\b|aut-t|888|555/i;
 
 const parseNumber = (value) => {
   const parsed = Number(value);
@@ -88,6 +76,39 @@ const describeVault = (name, token) => {
     return `Live Kamino ${token} vault with private-credit oriented allocation.`;
   }
   return `Live Kamino ${token} vault with APY and TVL pulled directly from Kamino.`;
+};
+
+const tokenPriority = (token) => ({ USDC: 0, USDT: 1, USDS: 2, USDG: 3, PYUSD: 4, CASH: 5, SOL: 6 }[token] ?? 9);
+
+const mapWithConcurrency = async (items, limit, mapper) => {
+  const results = new Array(items.length);
+  let cursor = 0;
+
+  const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
+    while (cursor < items.length) {
+      const index = cursor;
+      cursor += 1;
+      try {
+        results[index] = { status: 'fulfilled', value: await mapper(items[index], index) };
+      } catch (reason) {
+        results[index] = { status: 'rejected', reason };
+      }
+    }
+  });
+
+  await Promise.all(workers);
+  return results;
+};
+
+const isSupportedVaultCandidate = (vault) => {
+  const state = vault?.state;
+  const name = state?.name?.trim();
+  return Boolean(
+    vault?.address &&
+      name &&
+      TOKEN_BY_MINT[state.tokenMint] &&
+      !EXCLUDED_NAME_PATTERN.test(name)
+  );
 };
 
 const normalizeVault = (vault, metrics = {}) => {
@@ -125,37 +146,35 @@ const fetchJson = async (path, options) => {
 
 export async function getEarnVaults() {
   const rawVaults = await fetchJson('/kvaults/vaults');
-  const curated = rawVaults.filter((vault) => CURATED_VAULTS.has(vault.address));
+  const candidates = rawVaults.filter(isSupportedVaultCandidate);
 
-  if (!curated.length) {
-    throw new Error('Kamino API returned no curated SolGate vaults');
+  if (!candidates.length) {
+    throw new Error('Kamino API returned no supported SolGate vault candidates');
   }
 
-  const settled = await Promise.allSettled(
-    curated.map(async (vault) => {
-      const metrics = await getVaultMetrics(vault.address);
-      return normalizeVault(vault, metrics);
-    })
-  );
+  const settled = await mapWithConcurrency(candidates, 8, async (vault) => {
+    const metrics = await getVaultMetrics(vault.address);
+    return normalizeVault(vault, metrics);
+  });
 
   const vaults = settled
     .filter((result) => result.status === 'fulfilled')
     .map((result) => result.value)
+    .filter((vault) => vault.apy > 0 && vault.tvl >= MIN_PUBLIC_TVL_USD)
     .sort((a, b) => {
-      const tokenPriority = (token) => ({ USDC: 0, USDT: 1, USDS: 2, USDG: 3, PYUSD: 4, SOL: 5 }[token] ?? 9);
       const priorityDiff = tokenPriority(a.token) - tokenPriority(b.token);
       if (priorityDiff !== 0) return priorityDiff;
       return b.tvl - a.tvl;
     });
 
-  const failedCount = settled.length - vaults.length;
+  const failedCount = settled.filter((result) => result.status === 'rejected').length;
   if (failedCount > 0) {
-    console.warn(`Kamino metrics unavailable for ${failedCount} curated vault(s)`);
+    console.warn(`Kamino metrics unavailable for ${failedCount} supported vault candidate(s)`);
   }
 
   if (!vaults.length) {
     const reason = settled.find((result) => result.status === 'rejected')?.reason;
-    throw new Error(reason?.message || 'Kamino metrics unavailable for curated SolGate vaults');
+    throw new Error(reason?.message || 'Kamino metrics unavailable for supported SolGate vaults');
   }
 
   return vaults;
