@@ -190,7 +190,7 @@ export const DepositFlow = () => {
 
   return (
     <>
-      <Card className="mx-auto max-w-lg !rounded-[30px] !p-6 lg:!p-7">
+      <Card className="relative mx-auto max-w-lg overflow-hidden !rounded-[30px] !p-6 lg:!p-7">
         {/* From section */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
@@ -315,45 +315,47 @@ export const DepositFlow = () => {
         </Button>
 
         {showTxModal ? (
-          <div
-            ref={txPanelRef}
-            className="mt-5 rounded-[26px] border border-black/[0.08] bg-white/[0.94] p-4 shadow-[0_24px_70px_rgba(126,77,34,0.10)]"
-            aria-live="polite"
-          >
-            <div className="mb-4 flex items-center justify-between gap-3">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sg-text-secondary">Deposit status</p>
-                <h2 className="mt-1 font-display text-[22px] font-semibold text-sg-text">{STRINGS.TX_IN_PROGRESS}</h2>
+          <div className="absolute inset-0 z-20 overflow-y-auto rounded-[30px] bg-white/62 p-4 backdrop-blur-[10px]">
+            <div
+              ref={txPanelRef}
+              className="mx-auto my-4 max-w-[440px] rounded-[26px] border border-black/[0.08] bg-white/[0.96] p-4 shadow-[0_28px_90px_rgba(42,26,11,0.20)]"
+              aria-live="polite"
+            >
+              <div className="mb-4 flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sg-text-secondary">Deposit status</p>
+                  <h2 className="mt-1 font-display text-[22px] font-semibold text-sg-text">{STRINGS.TX_IN_PROGRESS}</h2>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowTxModal(false);
+                    depositFlow.reset();
+                  }}
+                  disabled={depositFlow.isActive}
+                  className="rounded-full border border-black/[0.08] bg-white p-2 text-sg-text-tertiary transition-colors hover:text-sg-text disabled:cursor-not-allowed disabled:opacity-40"
+                  aria-label="Close deposit status"
+                >
+                  <X size={16} />
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={() => {
-                  setShowTxModal(false);
-                  depositFlow.reset();
+              <TransactionTracker
+                flowState={depositFlow.state}
+                currentStep={depositFlow.currentStep}
+                steps={depositFlow.steps}
+                txHashes={depositFlow.txHashes}
+                depositInfo={{
+                  fromChain,
+                  amount: Number(amount),
+                  token: fromToken,
+                  privacyMode,
+                  totalFees: quote ? quote.bridgeFee + quote.networkFee : 0,
+                  apy: vault?.apy || 0,
+                  steps: quote?.steps || [],
                 }}
-                disabled={depositFlow.isActive}
-                className="rounded-full border border-black/[0.08] bg-white p-2 text-sg-text-tertiary transition-colors hover:text-sg-text disabled:cursor-not-allowed disabled:opacity-40"
-                aria-label="Close deposit status"
-              >
-                <X size={16} />
-              </button>
+                error={depositFlow.error}
+              />
             </div>
-            <TransactionTracker
-              flowState={depositFlow.state}
-              currentStep={depositFlow.currentStep}
-              steps={depositFlow.steps}
-              txHashes={depositFlow.txHashes}
-              depositInfo={{
-                fromChain,
-                amount: Number(amount),
-                token: fromToken,
-                privacyMode,
-                totalFees: quote ? quote.bridgeFee + quote.networkFee : 0,
-                apy: vault?.apy || 0,
-                steps: quote?.steps || [],
-              }}
-              error={depositFlow.error}
-            />
           </div>
         ) : null}
       </Card>

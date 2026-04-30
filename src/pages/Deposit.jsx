@@ -67,7 +67,7 @@ export default function Deposit() {
     <div className="px-4 pb-14 pt-6 sm:px-6 lg:px-8 lg:pb-20 lg:pt-10">
       <div className="mx-auto max-w-[1360px] space-y-14">
         <section className="grid items-start gap-8 xl:grid-cols-[0.86fr_0.76fr]">
-          <div className="space-y-7 xl:sticky xl:top-28 xl:self-start">
+          <div className="space-y-6 xl:sticky xl:top-20 xl:max-h-[calc(100vh-5rem)] xl:self-start xl:overflow-y-auto xl:pb-4 xl:pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <div className="inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-sg-text-secondary">
               <span className="h-px w-8 rounded-full bg-black/[0.12]" />
               Start with a deposit
@@ -122,7 +122,7 @@ export default function Deposit() {
             </Card>
           </div>
 
-          <div className="xl:sticky xl:top-28 xl:self-start">
+          <div className="xl:sticky xl:top-20 xl:self-start">
             <div className="rounded-[34px] border border-black/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.78),rgba(255,255,255,0.94))] p-3 shadow-[0_40px_120px_rgba(126,77,34,0.10)] backdrop-blur">
               <div className="mb-4 flex items-center gap-2 px-3 pt-2 text-sg-text-tertiary">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#7E4D22]/10" />
