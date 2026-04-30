@@ -52,7 +52,7 @@ export const MARKETING_CONTENT = {
       'SolGate turns that journey into one quoted route — bridge cost, swap cost, MEV protection and final APY are visible before you sign.',
     ],
     assetSlot: 'story-portrait',
-    asset: '/marketing/portrait-finance-operator.svg',
+    asset: '/marketing/optimized/story-portrait.webp',
     assetAlt: 'SolGate route preview shown in a calm finance workspace',
   },
   routeDiagram: {
@@ -367,7 +367,7 @@ export const MARKETING_CONTENT = {
         description:
           'Earn market-driven yield on USDC and USDT without juggling bridges or learning a new wallet. Withdraw to any source chain, any time.',
         assetSlot: 'persona-individual',
-        asset: '/marketing/portrait-finance-operator.svg',
+        asset: '/marketing/optimized/persona-individual.webp',
         assetAlt: 'Individual SolGate user reviewing a deposit route',
         bullets: ['Live APY before you sign', 'Withdraw to any source chain', 'No minimums, no lockups'],
       },
@@ -377,7 +377,7 @@ export const MARKETING_CONTENT = {
         description:
           'Move treasury balances into Solana yield with the audit trail finance teams require. Multisig and hardware wallet ready via Solflare.',
         assetSlot: 'persona-treasury',
-        asset: '/marketing/execution-network.svg',
+        asset: '/marketing/optimized/persona-treasury.webp',
         assetAlt: 'SolGate execution network for treasury route review',
         bullets: ['Route + fees exportable as CSV', 'Hardware wallet + multisig ready', 'Destination whitelist only'],
       },
@@ -409,7 +409,7 @@ export const MARKETING_CONTENT = {
     primaryCta: 'Start earning',
     secondaryCta: 'Talk to the team',
     assetSlot: 'final-cta',
-    asset: '/marketing/final-cta-scene.svg',
+    asset: '/marketing/optimized/final-cta.webp',
     assetAlt: 'SolGate deposit terminal in a premium finance scene',
   },
   footer: {

@@ -38,7 +38,16 @@ const Eyebrow = ({ children, dark = false }) => (
   </div>
 );
 
-const MarketingAsset = ({ slot, src, alt, aspect = 'aspect-[4/5]', dark = false, fit = 'cover' }) => (
+const MarketingAsset = ({
+  slot,
+  src,
+  alt,
+  aspect = 'aspect-[4/5]',
+  dark = false,
+  fit = 'cover',
+  loading = 'lazy',
+  sizes = '(min-width: 1024px) 44vw, 100vw',
+}) => (
   <div
     data-asset-slot={slot}
     className={`relative overflow-hidden rounded-[28px] ${aspect} ${
@@ -50,7 +59,9 @@ const MarketingAsset = ({ slot, src, alt, aspect = 'aspect-[4/5]', dark = false,
         src={src}
         alt={alt || ''}
         className={`h-full w-full ${fit === 'contain' ? 'object-contain p-3' : 'object-cover'}`}
-        loading="eager"
+        loading={loading}
+        decoding="async"
+        sizes={sizes}
       />
     ) : (
       <div
@@ -284,7 +295,7 @@ export default function Marketing() {
               slot={MARKETING_CONTENT.story.assetSlot}
               src={MARKETING_CONTENT.story.asset}
               alt={MARKETING_CONTENT.story.assetAlt}
-              aspect="aspect-[4/5]"
+              aspect="aspect-[2/3]"
             />
           </div>
 
@@ -576,7 +587,7 @@ export default function Marketing() {
                   src={p.asset}
                   alt={p.assetAlt}
                   aspect="aspect-[16/10]"
-                  fit="contain"
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                 />
                 <div className="p-8">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#654B2B]">{p.subtitle}</p>
@@ -653,13 +664,18 @@ export default function Marketing() {
             </div>
           </div>
 
-          <div data-reveal className="relative flex items-center justify-center">
-            <img
-              src={MARKETING_CONTENT.finalCta.asset}
-              alt={MARKETING_CONTENT.finalCta.assetAlt}
-              className="h-auto w-full max-w-[520px] object-contain"
-              loading="lazy"
-            />
+          <div data-reveal className="relative flex items-center justify-center lg:justify-end">
+            <div className="relative w-full max-w-[430px] overflow-hidden rounded-[34px] border border-[#F8E6B6]/18 bg-[#F8E6B6]/8 p-3 shadow-[0_36px_90px_rgba(42,26,11,0.34)]">
+              <img
+                src={MARKETING_CONTENT.finalCta.asset}
+                alt={MARKETING_CONTENT.finalCta.assetAlt}
+                className="aspect-[2/3] w-full rounded-[26px] object-cover"
+                loading="lazy"
+                decoding="async"
+                sizes="(min-width: 1024px) 430px, 100vw"
+              />
+              <div className="pointer-events-none absolute inset-3 rounded-[26px] ring-1 ring-inset ring-white/12" />
+            </div>
           </div>
         </div>
       </section>
