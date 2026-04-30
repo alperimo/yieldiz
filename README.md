@@ -92,7 +92,7 @@ The reviewer runs locally at `http://127.0.0.1:8787` by default. It uses determi
    - Create a free Supabase project.
    - Enable anonymous sign-ins in Supabase Auth.
    - Run `supabase/schema.sql` in the SQL editor.
-   - Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
+   - Set `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, and `VITE_SUPABASE_AUTH_MODE=anonymous`.
    - Complete a deposit flow; confirmed deposits are stored in `positions` and `transactions` when Supabase auth is active.
 
 3. **Real provider validation**
@@ -116,7 +116,7 @@ Copy `.env.example` to `.env.local` and configure only the providers you intend 
 
 Key groups:
 
-- Supabase: auth, positions, transactions.
+- Supabase: optional anonymous auth, positions, transactions.
 - Quicknode: Solana RPC and WebSocket subscriptions.
 - LI.FI and DFlow: route quote, bridge, and swap execution.
 - Jito: bundle submission.
@@ -133,7 +133,7 @@ Run `supabase/schema.sql` in Supabase to create:
 - `positions`
 - `transactions`
 
-Row Level Security is enabled for user-owned data. The app uses Supabase anonymous auth with wallet metadata, then persists confirmed deposit snapshots and transaction history for the dashboard. If Supabase is not configured, the app still runs, but dashboard persistence is disabled.
+Row Level Security is enabled for user-owned data. By default, the app uses a local wallet session so projects without Supabase anonymous auth do not emit auth errors. Set `VITE_SUPABASE_AUTH_MODE=anonymous` after enabling anonymous sign-ins to persist confirmed deposit snapshots and transaction history for the dashboard.
 
 ## Documentation
 

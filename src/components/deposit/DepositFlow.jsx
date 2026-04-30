@@ -31,7 +31,7 @@ import { formatPercent, formatCurrency } from '../../lib/formatters';
 
 export const DepositFlow = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { connected, connect, address, signTransaction, signAllTransactions, evmAddress, walletAdapter, connection } = useWallet();
+  const { connected, connect, address, signTransaction, signAllTransactions, evmAddress, connectEVM, hasEVM, walletAdapter, connection } = useWallet();
   const { supabase, isAuthenticated } = useSupabase();
   const { data: vaults } = useVaults();
   const { data: quote, loading: quoteLoading, error: quoteError, getQuote } = useBridgeQuote();
@@ -56,12 +56,14 @@ export const DepositFlow = () => {
   const vault = vaults?.find((v) => v.pubkey === selectedVault);
   const toToken = vault?.depositToken || 'USDC';
 
-  // Auto-select vault from URL when available, otherwise fall back to the top vault.
+  // Auto-select vault from URL on first load, otherwise preserve explicit user selection.
   useEffect(() => {
     if (!vaults?.length) return;
 
-    const hasParamMatch = selectedVaultParam && vaults.some((vault) => vault.pubkey === selectedVaultParam);
+    const selectedVaultStillExists = selectedVault && vaults.some((vault) => vault.pubkey === selectedVault);
+    if (selectedVaultStillExists) return;
 
+    const hasParamMatch = selectedVaultParam && vaults.some((vault) => vault.pubkey === selectedVaultParam);
     if (hasParamMatch) {
       setSelectedVault(selectedVaultParam);
       return;
@@ -82,20 +84,23 @@ export const DepositFlow = () => {
 
   // Fetch quote when params change
   useEffect(() => {
-    if (amount && Number(amount) > 0 && fromChain) {
-      const timer = setTimeout(() => {
-        getQuote({
-          fromChain,
-          fromToken,
-          toChain: 'solana',
-          toToken: vault?.depositToken || 'USDC',
-          amount,
-          fromAddress: evmAddress,
-          toAddress: address,
-        });
-      }, 500);
-      return () => clearTimeout(timer);
+    if (!amount || Number(amount) <= 0 || !fromChain) {
+      getQuote({ fromChain, amount });
+      return undefined;
     }
+
+    const timer = setTimeout(() => {
+      getQuote({
+        fromChain,
+        fromToken,
+        toChain: 'solana',
+        toToken: vault?.depositToken || 'USDC',
+        amount,
+        fromAddress: evmAddress,
+        toAddress: address,
+      });
+    }, 500);
+    return () => clearTimeout(timer);
   }, [address, amount, evmAddress, fromChain, fromToken, getQuote, toToken]);
   const routeIntent = createRouteIntent({
     fromChain,
@@ -138,10 +143,13 @@ export const DepositFlow = () => {
     await privacyProvider.loadProvider(mode);
   }, [connected, privacyProvider]);
 
-  const handleConfidenceCheck = useCallback(() => {
-    const walletAddress = fromChain === 'solana' ? address : evmAddress;
+  const handleConfidenceCheck = useCallback(async () => {
+    let walletAddress = fromChain === 'solana' ? address : evmAddress;
+    if (fromChain !== 'solana' && !walletAddress && hasEVM) {
+      walletAddress = await connectEVM();
+    }
     routeConfidence.checkRoute({ chain: fromChain, walletAddress, tokenSymbol: fromToken });
-  }, [address, evmAddress, fromChain, fromToken, routeConfidence]);
+  }, [address, connectEVM, evmAddress, fromChain, fromToken, hasEVM, routeConfidence]);
 
   const handleLocalReview = useCallback(() => {
     localRouteReview.review(routeIntent);
@@ -274,14 +282,14 @@ export const DepositFlow = () => {
             confidence={routeConfidence.data}
             loading={routeConfidence.loading}
             onCheck={handleConfidenceCheck}
-            disabled={!amount || !(fromChain === 'solana' ? address : evmAddress)}
+            disabled={!amount || (fromChain === 'solana' ? !address : !hasEVM)}
           />
           <LocalRouteReview
             review={localRouteReview.data}
             loading={localRouteReview.loading}
             error={localRouteReview.error}
             onReview={handleLocalReview}
-            disabled={!quote || !amount}
+            disabled={!amount}
           />
         </div>
 

@@ -14,6 +14,17 @@ export const SUPPORTED_CHAINS = {
   polygon: 137,
 };
 
+async function readLifiError(res, fallbackLabel) {
+  try {
+    const body = await res.json();
+    const message = body?.message || body?.error?.message || body?.error || fallbackLabel;
+    const code = body?.code ? ` (${body.code})` : '';
+    return `${fallbackLabel}: ${message}${code}`;
+  } catch {
+    return `${fallbackLabel}: ${res.status}`;
+  }
+}
+
 export async function getBridgeQuote({ fromChainId, fromToken, toToken, fromAmount, fromAddress, toAddress }) {
   const params = new URLSearchParams({
     fromChain: String(fromChainId),
@@ -27,7 +38,7 @@ export async function getBridgeQuote({ fromChainId, fromToken, toToken, fromAmou
   });
 
   const res = await fetch(`${LIFI_API}/quote?${params}`);
-  if (!res.ok) throw new Error(`LI.FI quote error: ${res.status}`);
+  if (!res.ok) throw new Error(await readLifiError(res, 'LI.FI quote error'));
   const quote = await res.json();
 
   return {
@@ -58,19 +69,19 @@ export async function getRoutes({ fromChainId, fromToken, toToken, fromAmount, f
       },
     }),
   });
-  if (!res.ok) throw new Error(`LI.FI routes error: ${res.status}`);
+  if (!res.ok) throw new Error(await readLifiError(res, 'LI.FI routes error'));
   return res.json();
 }
 
 export async function getChainTokens(chainId) {
   const res = await fetch(`${LIFI_API}/tokens?chains=${chainId}`);
-  if (!res.ok) throw new Error(`LI.FI tokens error: ${res.status}`);
+  if (!res.ok) throw new Error(await readLifiError(res, 'LI.FI tokens error'));
   return res.json();
 }
 
 export async function getTransactionStatus(txHash, fromChain, toChain) {
   const params = new URLSearchParams({ txHash, fromChain: String(fromChain), toChain: String(toChain) });
   const res = await fetch(`${LIFI_API}/status?${params}`);
-  if (!res.ok) throw new Error(`LI.FI status error: ${res.status}`);
+  if (!res.ok) throw new Error(await readLifiError(res, 'LI.FI status error'));
   return res.json();
 }

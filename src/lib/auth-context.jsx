@@ -4,6 +4,7 @@ import { useWallet } from '../context/WalletContext';
 import bs58 from 'bs58';
 
 const AuthContext = createContext(null);
+const SUPABASE_AUTH_MODE = import.meta.env.VITE_SUPABASE_AUTH_MODE || 'local';
 
 export const AuthProvider = ({ children }) => {
   const { connected, address, publicKey, signMessage } = useWallet();
@@ -31,7 +32,7 @@ export const AuthProvider = ({ children }) => {
         }
       }
 
-      if (!isSupabaseConfigured) {
+      if (!isSupabaseConfigured || SUPABASE_AUTH_MODE !== 'anonymous') {
         const localSession = {
           access_token: `local_${walletAddress}_${Date.now()}`,
           user: { id: walletAddress, wallet: walletAddress, signed: !!signature },
@@ -57,7 +58,7 @@ export const AuthProvider = ({ children }) => {
       setSession(authData.session);
       setUser({ ...authData.session.user, wallet: walletAddress });
     } catch (err) {
-      console.error('Auth sign-in failed:', err);
+      console.warn('Supabase auth unavailable; using a local wallet session:', err);
       // Graceful fallback: still set a local session
       const localSession = {
         access_token: `local_${walletAddress}_${Date.now()}`,

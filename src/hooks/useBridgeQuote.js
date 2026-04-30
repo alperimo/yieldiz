@@ -22,6 +22,7 @@ export function useBridgeQuote() {
   const getQuote = useCallback(async ({ fromChain, fromToken = 'USDC', toChain, toToken = 'USDC', amount, fromAddress, toAddress }) => {
     if (!fromChain || !amount || Number(amount) <= 0) {
       setData(null);
+      setError(null);
       return;
     }
 
@@ -81,6 +82,16 @@ export function useBridgeQuote() {
       // Real LI.FI quote
       const chainId = SUPPORTED_CHAINS[fromChain];
       if (!chainId) throw new Error(`Unsupported chain: ${fromChain}`);
+      if (!fromAddress) {
+        setData(null);
+        setError('Connect an EVM wallet to fetch a live LI.FI quote for this route.');
+        return;
+      }
+      if (!toAddress) {
+        setData(null);
+        setError('Connect your Solana wallet to receive the live route quote.');
+        return;
+      }
 
       const fromTokenAddr = getTokenAddress(fromToken, fromChain);
       if (!fromTokenAddr) throw new Error(`${fromToken} is not available on ${fromChain} in SolGate yet.`);
@@ -92,8 +103,8 @@ export function useBridgeQuote() {
         fromToken: fromTokenAddr,
         toToken: destinationMint,
         fromAmount: amountInBaseUnits,
-        fromAddress: fromAddress || '0x0000000000000000000000000000000000000000',
-        toAddress: toAddress || '',
+        fromAddress,
+        toAddress,
       });
 
       // Parse LI.FI response into our format

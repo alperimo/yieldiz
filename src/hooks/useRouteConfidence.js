@@ -10,8 +10,12 @@ export function useRouteConfidence() {
 
   const checkRoute = useCallback(async ({ chain, walletAddress, tokenSymbol }) => {
     if (!walletAddress || !chain) {
-      setData(null);
-      return null;
+      const missingInput = {
+        status: 'unavailable',
+        reason: !walletAddress ? 'Connect the source wallet to check route confidence.' : 'Select a source chain to check route confidence.',
+      };
+      setData(missingInput);
+      return missingInput;
     }
 
     if (!goldrush.isGoldRushConfigured()) {

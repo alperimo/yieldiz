@@ -1,12 +1,19 @@
 import React, { createContext, useContext, useState, useCallback, useEffect, useMemo } from 'react';
 import { ConnectionProvider, WalletProvider as SolanaWalletProvider, useWallet as useSolanaWallet, useConnection } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { SolflareWalletAdapter } from '@solflare-wallet/wallet-adapter';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 const WalletContext = createContext(null);
 
 const QUICKNODE_RPC = import.meta.env.VITE_QUICKNODE_RPC_URL || 'https://api.devnet.solana.com';
+
+function parseEvmChainId(chainId) {
+  if (!chainId) return null;
+  const parsed = typeof chainId === 'string' && chainId.startsWith('0x')
+    ? Number.parseInt(chainId, 16)
+    : Number(chainId);
+  return Number.isFinite(parsed) ? parsed : null;
+}
 
 // EVM wallet detection for cross-chain bridging
 function useEVMWallet() {
@@ -19,9 +26,10 @@ function useEVMWallet() {
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       const chainId = await window.ethereum.request({ method: 'eth_chainId' });
       setEvmAddress(accounts[0] || null);
-      setEvmChainId(Number(chainId));
+      setEvmChainId(parseEvmChainId(chainId));
       return accounts[0] || null;
-    } catch {
+    } catch (error) {
+      console.warn('EVM wallet connection failed:', error);
       return null;
     }
   }, []);
@@ -34,9 +42,18 @@ function useEVMWallet() {
   useEffect(() => {
     if (typeof window === 'undefined' || !window.ethereum) return;
     const handleAccountsChanged = (accounts) => setEvmAddress(accounts[0] || null);
-    const handleChainChanged = (chainId) => setEvmChainId(Number(chainId));
+    const handleChainChanged = (chainId) => setEvmChainId(parseEvmChainId(chainId));
     window.ethereum.on('accountsChanged', handleAccountsChanged);
     window.ethereum.on('chainChanged', handleChainChanged);
+    Promise.all([
+      window.ethereum.request({ method: 'eth_accounts' }),
+      window.ethereum.request({ method: 'eth_chainId' }),
+    ]).then(([accounts, chainId]) => {
+      setEvmAddress(accounts[0] || null);
+      setEvmChainId(parseEvmChainId(chainId));
+    }).catch((error) => {
+      console.warn('EVM wallet state could not be read:', error);
+    });
     return () => {
       window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
       window.ethereum.removeListener('chainChanged', handleChainChanged);
@@ -109,7 +126,7 @@ const WalletContextBridge = ({ children }) => {
 };
 
 export const WalletProvider = ({ children }) => {
-  const wallets = useMemo(() => [new SolflareWalletAdapter()], []);
+  const wallets = useMemo(() => [], []);
   const endpoint = QUICKNODE_RPC;
 
   return (
