@@ -1,112 +1,100 @@
-# SolGate — Cross-Chain Smart Yield Terminal
+# SolGate
 
-> Bridge stablecoins from any chain to Solana's best yield vaults. One wallet. One click. Maximum yield. Zero MEV loss.
+SolGate is a stablecoin yield terminal for moving capital into Solana vaults with clear routing, MEV-aware execution, optional privacy, and local route review before signing.
 
-## The Problem
+## Product
 
-Users hold stablecoins across multiple blockchains earning 0% yield. Moving them to Solana's best vaults requires 4+ manual steps — each exposing users to MEV attacks, slippage, and friction.
+Users choose a source chain, stablecoin, vault, and privacy preference. SolGate quotes the route, explains the movement in plain language, checks route confidence, then executes bridge, swap, and vault deposit steps through the configured providers.
 
-## The Solution
+## Current capabilities
 
-SolGate is a single-screen terminal that:
+- Cross-chain stablecoin quotes and bridging through LI.FI.
+- Stablecoin conversion through DFlow before vault entry when needed.
+- Kamino vault discovery and deposit preparation.
+- Jito bundle submission for MEV-aware Solana execution.
+- Solflare-first Solana wallet connection with EVM wallet support for source-chain transactions.
+- USDC, USDT, and Palm USD route metadata, including Palm USD public circulation data.
+- GoldRush route confidence checks for balances, recent activity, and EVM approvals.
+- Optional Cloak and Umbra privacy modes, lazy-loaded only when selected.
+- Local QVAC route reviewer through a user-run local service.
+- Supabase-backed user data, positions, and transaction history.
 
-1. **Detects** cross-chain stablecoin balances
-2. **Bridges** from any EVM chain to Solana via optimal route (LI.FI)
-3. **Routes** into the highest-yield Kamino vault
-4. **Executes** everything MEV-protected via Jito Bundles
+## Tech stack
 
-## Architecture
+- React 18, Vite 6, Tailwind CSS, React Router.
+- Supabase for auth and persistence.
+- Solana wallet adapter, Solflare adapter, `@solana/web3.js`, and SPL token utilities.
+- LI.FI, DFlow, Kamino, Jito, Quicknode, Palm USD, GoldRush, Cloak, Umbra, and QVAC integrations.
 
-```
+## Project structure
+
+```text
 src/
-├── components/
-│   ├── ui/          # Button, Card, Input, Badge, Spinner, Toast, Modal, DataTable
-│   ├── layout/      # Layout, Sidebar, Header, MobileNav
-│   ├── deposit/     # DepositFlow, AmountInput, ChainSelector, VaultSelector
-│   ├── dashboard/   # PortfolioSummary, PositionsTable, TransactionHistory
-│   └── vaults/      # VaultCard, VaultList, VaultFilters
-├── pages/           # Deposit (home), Dashboard, Vaults
-├── hooks/           # useVaults, usePositions, useTransactions, useBridgeQuote, useDepositFlow, usePrices
-├── services/        # kamino, dflow, lifi, jito, quicknode
-├── lib/             # Supabase client, auth context, formatters, constants
-├── context/         # WalletContext
-├── types/           # JSDoc typedefs
-└── styles/          # theme.css (CSS custom properties), globals.css
+  components/      UI, layout, deposit, dashboard, and vault components
+  context/         Wallet connection state
+  hooks/           App data and execution hooks
+  lib/             Constants, formatters, stablecoin and route models
+  pages/           Marketing, deposit, dashboard, and vault pages
+  services/        Provider/API clients
+  styles/          Global styles and theme
+scripts/
+  qvac-route-reviewer.mjs
+supabase/
+  schema.sql
 ```
 
-## Partner Integrations
-
-| Partner | Integration | Where in Code |
-|---------|------------|---------------|
-| **Solflare** | Primary wallet adapter, portfolio view, tx simulation | `src/context/WalletContext.jsx`, `src/components/layout/Header.jsx` |
-| **Kamino** | Vault listing, deposit/withdraw via KTX API, position tracking | `src/services/kamino.js`, `src/hooks/useVaults.js`, `src/hooks/usePositions.js` |
-| **DFlow** | Swap routing for stablecoin conversion, MEV-resistant execution | `src/services/dflow.js`, `src/hooks/useBridgeQuote.js` |
-| **LI.FI** | Cross-chain bridging from EVM chains to Solana | `src/services/lifi.js`, `src/hooks/useBridgeQuote.js` |
-| **Jito** | Bundle API for atomic tx composition, MEV protection | `src/services/jito.js`, `src/hooks/useDepositFlow.js` |
-| **Quicknode** | RPC backbone, WebSocket subscriptions, priority fee API | `src/services/quicknode.js` |
-| **Supabase** | Wallet-based auth, portfolio persistence, real-time subscriptions | `src/lib/supabase.js`, `src/lib/auth-context.jsx` |
-
-## Tech Stack
-
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| Vite | 6.x | Build tool |
-| React | 18.x | UI framework |
-| Tailwind CSS | 3.4 | Utility-first styling |
-| React Router | 6.x | Client-side routing |
-| Supabase | 2.x | Backend (auth, DB, real-time) |
-| lucide-react | latest | Icons (20px, 1.5px stroke) |
-
-## Quick Start
+## Setup
 
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/solgate.git
-cd solgate
-
-# Install dependencies
 npm install
-
-# Set up environment variables
 cp .env.example .env.local
-# Edit .env.local with your API keys
-
-# Start development server
 npm run dev
+```
 
-# Build for production
+Production build:
+
+```bash
 npm run build
 ```
 
-## Environment Variables
+Local QVAC reviewer:
 
-See [.env.example](.env.example) for all required variables:
+```bash
+npm run qvac:reviewer
+```
 
-- `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` — Supabase project
-- `VITE_QUICKNODE_RPC_URL` / `VITE_QUICKNODE_WSS_URL` — Quicknode Solana RPC
-- `VITE_DFLOW_API_KEY` — DFlow swap API (optional for dev)
-- `VITE_LIFI_INTEGRATOR` — LI.FI integrator ID
-- `VITE_JITO_BLOCK_ENGINE_URL` — Jito block engine
-- `VITE_NETWORK` — `devnet` or `mainnet-beta`
-- `VITE_USE_MOCK_DATA` — `true` for mock data, `false` for real APIs
+The reviewer runs locally at `http://127.0.0.1:8787` by default. It uses deterministic local review unless `QVAC_REVIEWER_ENABLE_MODEL=true` is set, in which case it loads QVAC locally. Deposits still work without the reviewer; the UI shows the local review as unavailable instead of using fake output.
 
-## Database Setup
+## Environment
 
-Run the SQL in `supabase/schema.sql` in your Supabase SQL editor to create:
-- `user_settings` — wallet preferences
-- `positions` — vault position snapshots
-- `transactions` — transaction history log
+Copy `.env.example` to `.env.local` and configure only the providers you intend to use. Real production routes require provider API keys/RPC URLs and `VITE_USE_MOCK_DATA=false`.
 
-All tables have Row Level Security (RLS) enabled.
+Key groups:
 
-## Design System
+- Supabase: auth, positions, transactions.
+- Quicknode: Solana RPC and WebSocket subscriptions.
+- LI.FI and DFlow: route quote, bridge, and swap execution.
+- Jito: bundle submission.
+- Palm USD: public circulation API.
+- GoldRush: route confidence API.
+- Cloak and Umbra: optional privacy modes.
+- QVAC: local route reviewer URL.
 
-- **Dark mode only** — `#0A0E1A` primary background
-- **CSS custom properties** — all colors in `src/styles/theme.css`, zero hardcoded hex
-- **Tailwind tokens** — `sg-*` prefix (e.g., `bg-sg-bg`, `text-sg-accent-green`)
-- **Typography** — Inter for all text, JetBrains Mono for addresses/hashes
-- **Icons** — lucide-react, 20px default, 1.5px stroke
-- **Cards** — 12px border radius, `rounded-card`
+## Database
+
+Run `supabase/schema.sql` in Supabase to create:
+
+- `user_settings`
+- `positions`
+- `transactions`
+
+Row Level Security is enabled for user-owned data.
+
+## Documentation
+
+- `.docs/SOLGATE_MASTER_PLAN.md` — current product and track strategy.
+- `.docs/SOLGATE_TRACK_IMPLEMENTATION_PLAN.md` — implementation plan for Palm USD, GoldRush, Cloak, Umbra, and QVAC.
+- `.docs/SOLGATE_FRONTIER_SIDE_TRACK_REPORT.md` — side-track fit analysis.
 
 ## License
 

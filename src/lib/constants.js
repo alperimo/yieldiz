@@ -127,6 +127,7 @@ export const CHAINS = [
 export const TOKENS = {
   USDC: { symbol: 'USDC', name: 'USD Coin', decimals: 6, mint: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v' },
   USDT: { symbol: 'USDT', name: 'Tether USD', decimals: 6, mint: 'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB' },
+  PUSD: { symbol: 'PUSD', name: 'Palm USD', decimals: 6, mint: 'CZzgUBvxaMLwMhVSLgqJn3npmxoTo6nzMNQPAnwtHF3s' },
   SOL: { symbol: 'SOL', name: 'Solana', decimals: 9, mint: 'So11111111111111111111111111111111111111112' },
   JITOSOL: { symbol: 'JitoSOL', name: 'Jito Staked SOL', decimals: 9, mint: 'J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn' },
   MSOL: { symbol: 'mSOL', name: 'Marinade SOL', decimals: 9, mint: 'mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So' },
@@ -176,6 +177,7 @@ export const MOCK_PLATFORM_STATS = {
 export const TOKEN_BADGE_COLORS = {
   USDC: 'bg-sg-accent-blue/[0.15] text-sg-accent-blue border border-sg-accent-blue/20',
   USDT: 'bg-sg-accent-green/[0.15] text-sg-accent-green border border-sg-accent-green/20',
+  PUSD: 'bg-[#D6A84F]/20 text-[#7E4D22] border border-[#D6A84F]/30',
   SOL: 'bg-sg-accent-purple/[0.15] text-sg-accent-purple border border-sg-accent-purple/20',
   JitoSOL: 'bg-sg-success/[0.15] text-sg-success border border-sg-success/20',
   mSOL: 'bg-sg-accent-green/[0.15] text-sg-accent-green border border-sg-accent-green/20',

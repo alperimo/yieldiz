@@ -6,6 +6,7 @@ import * as kamino from '../services/kamino';
 import * as jito from '../services/jito';
 import { SUPPORTED_CHAINS } from '../services/lifi';
 import { TOKENS } from '../lib/constants';
+import { getSolanaMint, toBaseUnits } from '../lib/stablecoins';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK_DATA !== 'false';
 
@@ -67,7 +68,19 @@ export function useDepositFlow() {
   };
 
   // Real execution using LI.FI, DFlow, Kamino, and Jito
-  const executeReal = async ({ fromChain, amount, vault, needsSwap, walletAddress, signTransaction, signAllTransactions, evmAddress, rawRoute }) => {
+  const executeReal = async ({
+    fromChain,
+    fromToken = 'USDC',
+    toToken = 'USDC',
+    amount,
+    vault,
+    needsSwap,
+    walletAddress,
+    signTransaction,
+    signAllTransactions,
+    evmAddress,
+    rawRoute,
+  }) => {
     // Step 1: Get quote / prepare
     setState(DEPOSIT_FLOW_STATES.QUOTING);
     if (abortRef.current) return;
@@ -157,9 +170,9 @@ export function useDepositFlow() {
 
       try {
         const swapResult = await dflow.getSwapTransaction({
-          inputMint: TOKENS.USDC.mint,
-          outputMint: TOKENS.USDT.mint,
-          amount: String(Math.floor(amount * 1e6)),
+          inputMint: getSolanaMint(fromToken) || TOKENS[fromToken]?.mint,
+          outputMint: getSolanaMint(toToken) || TOKENS[toToken]?.mint,
+          amount: toBaseUnits(amount, TOKENS[fromToken]?.decimals || 6),
           userPublicKey: walletAddress,
         });
 

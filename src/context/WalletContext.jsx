@@ -48,7 +48,7 @@ function useEVMWallet() {
 
 // Inner provider that wraps Solana wallet adapter hooks with our context API
 const WalletContextBridge = ({ children }) => {
-  const { publicKey, connected, connecting, disconnect, select, wallets, signMessage, signTransaction, signAllTransactions } = useSolanaWallet();
+  const { publicKey, connected, connecting, disconnect, select, wallets, wallet, signMessage, signTransaction, signAllTransactions } = useSolanaWallet();
   const { connection } = useConnection();
   const [balance, setBalance] = useState(null);
   const evm = useEVMWallet();
@@ -90,6 +90,7 @@ const WalletContextBridge = ({ children }) => {
         connect,
         disconnect,
         publicKey,
+        walletAdapter: wallet?.adapter || null,
         connection,
         signMessage,
         signTransaction,

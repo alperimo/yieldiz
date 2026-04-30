@@ -10,26 +10,46 @@ import { ChainSelector } from './ChainSelector';
 import { VaultSelector } from './VaultSelector';
 import { RouteDetails } from './RouteDetails';
 import { TransactionTracker } from './TransactionTracker';
+import { StablecoinSelector } from './StablecoinSelector';
+import { PrivacySelector } from './PrivacySelector';
+import { RouteConfidence } from './RouteConfidence';
+import { LocalRouteReview } from './LocalRouteReview';
 import { useVaults } from '../../hooks/useVaults';
 import { useBridgeQuote } from '../../hooks/useBridgeQuote';
 import { useDepositFlow } from '../../hooks/useDepositFlow';
+import { usePalmUsdCirculation } from '../../hooks/usePalmUsd';
+import { useRouteConfidence } from '../../hooks/useRouteConfidence';
+import { usePrivacyProvider } from '../../hooks/usePrivacyProvider';
+import { useLocalRouteReview } from '../../hooks/useLocalRouteReview';
 import { useWallet } from '../../context/WalletContext';
 import { STRINGS, DEPOSIT_FLOW_STATES } from '../../lib/constants';
+import { createRouteIntent } from '../../lib/routeIntent';
+import { getPrivacyBoundary, PRIVACY_MODES } from '../../lib/stablecoins';
 import { formatPercent, formatCurrency } from '../../lib/formatters';
 
 export const DepositFlow = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { connected, connect, address, balance, signTransaction, signAllTransactions, evmAddress } = useWallet();
+  const { connected, connect, address, signTransaction, signAllTransactions, evmAddress, walletAdapter, connection } = useWallet();
   const { data: vaults } = useVaults();
   const { data: quote, loading: quoteLoading, getQuote } = useBridgeQuote();
   const depositFlow = useDepositFlow();
 
   const [fromChain, setFromChain] = useState('ethereum');
-  const [fromToken] = useState('USDC');
+  const [fromToken, setFromToken] = useState('USDC');
   const [amount, setAmount] = useState('');
   const [selectedVault, setSelectedVault] = useState('');
+  const [privacyMode, setPrivacyMode] = useState(PRIVACY_MODES.STANDARD);
   const [showTxModal, setShowTxModal] = useState(false);
   const selectedVaultParam = searchParams.get('vault');
+  const routeConfidence = useRouteConfidence();
+  const localRouteReview = useLocalRouteReview();
+  const privacyProvider = usePrivacyProvider({
+    wallet: walletAdapter || { publicKey: address ? { toBase58: () => address } : null, signTransaction, signAllTransactions },
+    connection,
+  });
+  const { data: pusdCirculation } = usePalmUsdCirculation({ enabled: fromToken === 'PUSD' });
+  const vault = vaults?.find((v) => v.pubkey === selectedVault);
+  const toToken = vault?.depositToken || 'USDC';
 
   // Auto-select vault from URL when available, otherwise fall back to the top vault.
   useEffect(() => {
@@ -59,13 +79,44 @@ export const DepositFlow = () => {
   useEffect(() => {
     if (amount && Number(amount) > 0 && fromChain) {
       const timer = setTimeout(() => {
-        getQuote({ fromChain, fromToken, toChain: 'solana', toToken: 'USDC', amount });
+        getQuote({
+          fromChain,
+          fromToken,
+          toChain: 'solana',
+          toToken: vault?.depositToken || 'USDC',
+          amount,
+          fromAddress: evmAddress,
+          toAddress: address,
+        });
       }, 500);
       return () => clearTimeout(timer);
     }
-  }, [amount, fromChain, fromToken, getQuote]);
+  }, [address, amount, evmAddress, fromChain, fromToken, getQuote, toToken]);
+  const routeIntent = createRouteIntent({
+    fromChain,
+    fromToken,
+    toToken,
+    amount,
+    vault: selectedVault,
+    privacyMode,
+    quote,
+  });
 
-  const vault = vaults?.find((v) => v.pubkey === selectedVault);
+  const handlePrivacyChange = useCallback(async (mode) => {
+    setPrivacyMode(mode);
+    if (mode === PRIVACY_MODES.STANDARD) return;
+    if (!connected) return;
+    await privacyProvider.loadProvider(mode);
+  }, [connected, privacyProvider]);
+
+  const handleConfidenceCheck = useCallback(() => {
+    const walletAddress = fromChain === 'solana' ? address : evmAddress;
+    routeConfidence.checkRoute({ chain: fromChain, walletAddress, tokenSymbol: fromToken });
+  }, [address, evmAddress, fromChain, fromToken, routeConfidence]);
+
+  const handleLocalReview = useCallback(() => {
+    localRouteReview.review(routeIntent);
+  }, [localRouteReview, routeIntent]);
 
   const handleDeposit = useCallback(async () => {
     if (!connected) {
@@ -75,16 +126,18 @@ export const DepositFlow = () => {
     setShowTxModal(true);
     await depositFlow.execute({
       fromChain,
+      fromToken,
+      toToken,
       amount: Number(amount),
       vault: selectedVault,
-      needsSwap: false,
+      needsSwap: fromToken !== toToken,
       walletAddress: address,
       signTransaction,
       signAllTransactions,
       evmAddress,
       rawRoute: quote?.rawRoute || null,
     });
-  }, [connected, connect, fromChain, amount, selectedVault, depositFlow, address, signTransaction, signAllTransactions, evmAddress, quote]);
+  }, [connected, connect, fromChain, fromToken, toToken, amount, selectedVault, depositFlow, address, signTransaction, signAllTransactions, evmAddress, quote]);
 
   const estimatedYield = vault && amount ? (Number(amount) * (vault.apy / 100)).toFixed(2) : null;
   const canDeposit = amount && Number(amount) > 0 && selectedVault;
@@ -96,15 +149,22 @@ export const DepositFlow = () => {
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-body text-sg-text-secondary">{STRINGS.DEPOSIT_FROM}</span>
-            <ChainSelector value={fromChain} onChange={setFromChain} />
+            <div className="flex items-center gap-2">
+              <StablecoinSelector value={fromToken} onChange={setFromToken} />
+              <ChainSelector value={fromChain} onChange={setFromChain} />
+            </div>
           </div>
           <AmountInput
             value={amount}
             onChange={setAmount}
             token={fromToken}
-            balance={balance ?? 0}
-            onMax={() => setAmount(String(balance ?? 0))}
+            balance={null}
           />
+          {fromToken === 'PUSD' && pusdCirculation ? (
+            <p className="px-1 text-xs leading-5 text-sg-text-tertiary">
+              Palm USD circulation: {formatCurrency(pusdCirculation.total, 0)}
+            </p>
+          ) : null}
         </div>
 
         {/* Arrow divider */}
@@ -136,7 +196,7 @@ export const DepositFlow = () => {
             {quote && amount ? (
               <div className="space-y-1">
                 <p className="text-money-sm text-sg-text">
-                  ~{formatCurrency(quote.toAmount)} {fromToken}
+                  ~{formatCurrency(quote.toAmount)} {toToken}
                 </p>
                 {estimatedYield ? (
                   <p className="text-caption text-sg-accent-green">
@@ -155,6 +215,29 @@ export const DepositFlow = () => {
         {/* Route details */}
         <div className="mt-4">
           <RouteDetails quote={quote} />
+        </div>
+
+        <div className="mt-4 grid gap-3">
+          <PrivacySelector
+            value={privacyMode}
+            onChange={handlePrivacyChange}
+            boundary={getPrivacyBoundary(privacyMode)}
+            loading={privacyProvider.loading}
+            error={privacyProvider.error}
+          />
+          <RouteConfidence
+            confidence={routeConfidence.data}
+            loading={routeConfidence.loading}
+            onCheck={handleConfidenceCheck}
+            disabled={!amount || !(fromChain === 'solana' ? address : evmAddress)}
+          />
+          <LocalRouteReview
+            review={localRouteReview.data}
+            loading={localRouteReview.loading}
+            error={localRouteReview.error}
+            onReview={handleLocalReview}
+            disabled={!quote || !amount}
+          />
         </div>
 
         {/* CTA Button */}
@@ -190,8 +273,9 @@ export const DepositFlow = () => {
           depositInfo={{
             fromChain,
             amount: Number(amount),
-            token: fromToken,
-            totalFees: quote ? quote.bridgeFee + quote.networkFee : 0,
+             token: fromToken,
+             privacyMode,
+             totalFees: quote ? quote.bridgeFee + quote.networkFee : 0,
             apy: vault?.apy || 0,
             steps: quote?.steps || [],
           }}
