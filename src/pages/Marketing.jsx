@@ -47,6 +47,7 @@ const MarketingAsset = ({
   fit = 'cover',
   loading = 'lazy',
   sizes = '(min-width: 1024px) 44vw, 100vw',
+  imageClassName = '',
 }) => (
   <div
     data-asset-slot={slot}
@@ -58,7 +59,7 @@ const MarketingAsset = ({
       <img
         src={src}
         alt={alt || ''}
-        className={`h-full w-full ${fit === 'contain' ? 'object-contain p-3' : 'object-cover'}`}
+        className={`h-full w-full ${fit === 'contain' ? 'object-contain p-3' : 'object-cover'} ${imageClassName}`}
         loading={loading}
         decoding="async"
         sizes={sizes}
@@ -665,16 +666,17 @@ export default function Marketing() {
           </div>
 
           <div data-reveal className="relative flex items-center justify-center lg:justify-end">
-            <div className="relative w-full max-w-[430px] overflow-hidden rounded-[34px] border border-[#F8E6B6]/18 bg-[#F8E6B6]/8 p-3 shadow-[0_36px_90px_rgba(42,26,11,0.34)]">
-              <img
+            <div className="w-full max-w-[420px]">
+              <MarketingAsset
+                slot={MARKETING_CONTENT.finalCta.assetSlot}
                 src={MARKETING_CONTENT.finalCta.asset}
                 alt={MARKETING_CONTENT.finalCta.assetAlt}
-                className="aspect-[2/3] w-full rounded-[26px] object-cover"
+                aspect="aspect-[2/3]"
+                dark
                 loading="lazy"
-                decoding="async"
-                sizes="(min-width: 1024px) 430px, 100vw"
+                sizes="(min-width: 1024px) 420px, 100vw"
+                imageClassName="scale-[1.015]"
               />
-              <div className="pointer-events-none absolute inset-3 rounded-[26px] ring-1 ring-inset ring-white/12" />
             </div>
           </div>
         </div>
