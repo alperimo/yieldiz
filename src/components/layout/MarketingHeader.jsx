@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { useHideOnScroll } from '../../hooks/useHideOnScroll';
@@ -66,6 +66,7 @@ const HEADER_THEMES = {
 
 export const MarketingHeader = () => {
   const { scrolled } = useHideOnScroll();
+  const headerRef = useRef(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [theme, setTheme] = useState('light');
   const activeTheme = HEADER_THEMES[theme];
@@ -86,7 +87,8 @@ export const MarketingHeader = () => {
     };
 
     const updateTheme = () => {
-      const sampleY = 4;
+      const headerBottom = headerRef.current?.getBoundingClientRect().bottom ?? 68;
+      const sampleY = Math.ceil(headerBottom) + 1;
       const current = sections.find((section) => {
         const rect = section.getBoundingClientRect();
         return rect.top <= sampleY && rect.bottom > sampleY;
@@ -130,6 +132,7 @@ export const MarketingHeader = () => {
 
   return (
     <header
+      ref={headerRef}
       className={`sticky top-0 z-50 translate-y-0 border-b transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-out ${
         scrolled ? activeTheme.header : `${activeTheme.header} shadow-none`
       }`}
