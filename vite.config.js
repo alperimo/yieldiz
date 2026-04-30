@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   define: {
     global: 'globalThis',
+    'process.env': {},
   },
   resolve: {
     alias: {
@@ -13,10 +14,12 @@ export default defineConfig({
       assert: 'assert/',
       buffer: 'buffer/',
       crypto: fileURLToPath(new URL('./src/polyfills/nodeCrypto.js', import.meta.url)),
+      process: 'process/browser.js',
+      util: 'util/',
     },
   },
   optimizeDeps: {
-    include: ['assert', 'buffer'],
+    include: ['assert', 'buffer', 'process', 'util'],
   },
   build: {
     rollupOptions: {

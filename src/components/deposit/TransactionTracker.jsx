@@ -53,6 +53,7 @@ export const TransactionTracker = ({
   steps,
   txHashes,
   depositInfo,
+  error,
   onClose,
   onBackToDashboard,
 }) => {
@@ -181,6 +182,7 @@ export const TransactionTracker = ({
       {isError ? (
         <div className="p-4 rounded-xl bg-sg-error/10 border border-sg-error/20">
           <p className="text-body text-sg-error">{STRINGS.STATE_ERROR}</p>
+          {error ? <p className="mt-2 text-sm leading-6 text-sg-text-secondary">{error}</p> : null}
         </div>
       ) : null}
     </div>

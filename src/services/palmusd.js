@@ -1,6 +1,13 @@
-const PALMUSD_API = import.meta.env.VITE_PALMUSD_API_BASE || 'https://api.palmusd.com';
+const configuredPalmUsdApi = import.meta.env.VITE_PALMUSD_API_BASE || '';
+const PALMUSD_API = configuredPalmUsdApi && configuredPalmUsdApi !== 'https://api.palmusd.com'
+  ? configuredPalmUsdApi.replace(/\/$/, '')
+  : '';
 
 export async function getCirculation({ exclude } = {}) {
+  if (!PALMUSD_API) {
+    throw new Error('Palm USD circulation API is not configured.');
+  }
+
   const params = new URLSearchParams();
   if (exclude?.length) params.set('exclude', exclude.join(','));
 
@@ -32,4 +39,3 @@ export function normalizeCirculation(payload) {
     })),
   };
 }
-

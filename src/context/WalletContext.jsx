@@ -15,6 +15,13 @@ function parseEvmChainId(chainId) {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
+function readInjectedEvmState(provider) {
+  return {
+    address: provider?.selectedAddress || null,
+    chainId: parseEvmChainId(provider?.chainId),
+  };
+}
+
 // EVM wallet detection for cross-chain bridging
 function useEVMWallet() {
   const [evmAddress, setEvmAddress] = useState(null);
@@ -29,7 +36,9 @@ function useEVMWallet() {
       setEvmChainId(parseEvmChainId(chainId));
       return accounts[0] || null;
     } catch (error) {
-      console.warn('EVM wallet connection failed:', error);
+      if (error?.code !== 4001) {
+        console.warn('EVM wallet connection failed:', error);
+      }
       return null;
     }
   }, []);
@@ -41,19 +50,15 @@ function useEVMWallet() {
 
   useEffect(() => {
     if (typeof window === 'undefined' || !window.ethereum) return;
+    const initialState = readInjectedEvmState(window.ethereum);
+    setEvmAddress(initialState.address);
+    setEvmChainId(initialState.chainId);
+
     const handleAccountsChanged = (accounts) => setEvmAddress(accounts[0] || null);
     const handleChainChanged = (chainId) => setEvmChainId(parseEvmChainId(chainId));
     window.ethereum.on('accountsChanged', handleAccountsChanged);
     window.ethereum.on('chainChanged', handleChainChanged);
-    Promise.all([
-      window.ethereum.request({ method: 'eth_accounts' }),
-      window.ethereum.request({ method: 'eth_chainId' }),
-    ]).then(([accounts, chainId]) => {
-      setEvmAddress(accounts[0] || null);
-      setEvmChainId(parseEvmChainId(chainId));
-    }).catch((error) => {
-      console.warn('EVM wallet state could not be read:', error);
-    });
+
     return () => {
       window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
       window.ethereum.removeListener('chainChanged', handleChainChanged);

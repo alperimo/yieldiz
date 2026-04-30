@@ -276,7 +276,7 @@ export const DepositFlow = () => {
             onChange={handlePrivacyChange}
             boundary={getPrivacyBoundary(privacyMode)}
             loading={privacyProvider.loading}
-            error={privacyProvider.error}
+            error={privacyProvider.error || privacyProvider.provider?.reason}
           />
           <RouteConfidence
             confidence={routeConfidence.data}
@@ -326,12 +326,13 @@ export const DepositFlow = () => {
           depositInfo={{
             fromChain,
             amount: Number(amount),
-             token: fromToken,
-             privacyMode,
-             totalFees: quote ? quote.bridgeFee + quote.networkFee : 0,
+            token: fromToken,
+            privacyMode,
+            totalFees: quote ? quote.bridgeFee + quote.networkFee : 0,
             apy: vault?.apy || 0,
             steps: quote?.steps || [],
           }}
+          error={depositFlow.error}
           onClose={() => {
             setShowTxModal(false);
             depositFlow.reset();

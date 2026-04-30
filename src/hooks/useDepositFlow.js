@@ -9,6 +9,7 @@ import { TOKENS } from '../lib/constants';
 import { getSolanaMint, toBaseUnits } from '../lib/stablecoins';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK_DATA !== 'false';
+const APP_NETWORK = import.meta.env.VITE_NETWORK || 'devnet';
 
 export function useDepositFlow() {
   const [state, setState] = useState(DEPOSIT_FLOW_STATES.IDLE);
@@ -81,6 +82,10 @@ export function useDepositFlow() {
     evmAddress,
     rawRoute,
   }) => {
+    if (APP_NETWORK !== 'mainnet-beta') {
+      throw new Error('Live Kamino deposits require VITE_NETWORK=mainnet-beta with a mainnet Solana RPC and wallet. For local/devnet demos, set VITE_USE_MOCK_DATA=true.');
+    }
+
     // Step 1: Get quote / prepare
     setState(DEPOSIT_FLOW_STATES.QUOTING);
     if (abortRef.current) return;

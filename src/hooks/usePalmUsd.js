@@ -26,7 +26,8 @@ export function usePalmUsdCirculation({ enabled = true } = {}) {
       return normalized;
     } catch (err) {
       setError(err.message);
-      throw err;
+      setData(null);
+      return null;
     } finally {
       setLoading(false);
     }
@@ -39,4 +40,3 @@ export function usePalmUsdCirculation({ enabled = true } = {}) {
 
   return { data, loading, error, refetch };
 }
-

@@ -1,15 +1,41 @@
 import { PRIVACY_MODES } from '../lib/stablecoins';
 
+function createUnavailableProvider(id, reason) {
+  const fail = async () => {
+    throw new Error(reason);
+  };
+
+  return {
+    id,
+    status: 'unavailable',
+    reason,
+    deposit: fail,
+    withdraw: fail,
+    exportKeys: fail,
+    loadNotes: fail,
+    register: fail,
+  };
+}
+
 export async function createCloakProvider({ wallet, connection }) {
-  const { CloakSDK } = await import('@cloak.dev/sdk');
-  const sdk = new CloakSDK({
-    wallet,
-    network: 'mainnet',
-    relayUrl: import.meta.env.VITE_CLOAK_RELAY_URL || 'https://api.cloak.ag',
-  });
+  let sdk;
+  try {
+    const { CloakSDK } = await import('@cloak.dev/sdk');
+    sdk = new CloakSDK({
+      wallet,
+      network: 'mainnet',
+      relayUrl: import.meta.env.VITE_CLOAK_RELAY_URL || 'https://api.cloak.ag',
+    });
+  } catch (error) {
+    return createUnavailableProvider(
+      PRIVACY_MODES.CLOAK,
+      `Private treasury route is not available in this browser session: ${error.message}`
+    );
+  }
 
   return {
     id: PRIVACY_MODES.CLOAK,
+    status: 'ready',
     async deposit({ amount, mint }) {
       return sdk.deposit(connection, amount, { mint });
     },
@@ -39,19 +65,30 @@ function createWalletSigner(wallet) {
 }
 
 export async function createUmbraProvider({ wallet, rpcUrl, rpcSubscriptionsUrl }) {
-  const umbra = await import('@umbra-privacy/sdk');
-  const signer = createWalletSigner(wallet);
-  const network = import.meta.env.VITE_UMBRA_NETWORK || 'devnet';
-  const client = await umbra.getUmbraClient({
-    signer,
-    network,
-    rpcUrl,
-    rpcSubscriptionsUrl,
-    indexerApiEndpoint: import.meta.env.VITE_UMBRA_INDEXER_API || 'https://utxo-indexer.api.umbraprivacy.com',
-  });
+  let umbra;
+  let signer;
+  let client;
+  try {
+    umbra = await import('@umbra-privacy/sdk');
+    signer = createWalletSigner(wallet);
+    const network = import.meta.env.VITE_UMBRA_NETWORK || 'mainnet-beta';
+    client = await umbra.getUmbraClient({
+      signer,
+      network,
+      rpcUrl,
+      rpcSubscriptionsUrl,
+      indexerApiEndpoint: import.meta.env.VITE_UMBRA_INDEXER_API || 'https://utxo-indexer.api.umbraprivacy.com',
+    });
+  } catch (error) {
+    return createUnavailableProvider(
+      PRIVACY_MODES.UMBRA,
+      `Private balance route is not available in this browser session: ${error.message}`
+    );
+  }
 
   return {
     id: PRIVACY_MODES.UMBRA,
+    status: 'ready',
     async register(options = { confidential: true, anonymous: true }) {
       const register = umbra.getUserRegistrationFunction({ client });
       return register(options);

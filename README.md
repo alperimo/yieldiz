@@ -12,16 +12,16 @@ Users choose a source chain, stablecoin, vault, and privacy preference. SolGate 
 - Stablecoin conversion through DFlow before vault entry when needed.
 - Kamino vault discovery and deposit preparation.
 - Jito bundle submission for MEV-aware Solana execution.
-- Solflare-first Solana wallet connection with EVM wallet support for source-chain transactions.
-- USDC, USDT, and Palm USD route metadata, including Palm USD public circulation data.
+- Standard-wallet Solana connection with EVM wallet support for source-chain transactions.
+- USDC, USDT, and Palm USD route metadata, with Palm USD circulation shown when a reachable provider endpoint is configured.
 - GoldRush route confidence checks for balances, recent activity, and EVM approvals.
 - Optional Cloak and Umbra privacy modes, lazy-loaded only when selected.
-- Local QVAC route reviewer through a user-run local service.
+- Browser-local route reviewer, with optional QVAC service mode for user-run local model review.
 - Supabase-backed user data, positions, and transaction history.
 
 ## What can be tested for free?
 
-You can test the full UX, mocked deposit flow, Palm USD circulation fetch, local route review, dashboard layout, and Supabase persistence on free/dev tiers.
+You can test the full UX, mocked deposit flow, browser-local route review, dashboard layout, and Supabase persistence on free/dev tiers.
 
 You cannot prove every real money movement for free on devnet because several providers are mainnet-first or require real API credentials:
 
@@ -38,7 +38,7 @@ Use `VITE_USE_MOCK_DATA=true` for a free end-to-end product walkthrough. Use `VI
 
 - React 18, Vite 6, Tailwind CSS, React Router.
 - Supabase for auth and persistence.
-- Solana wallet adapter, Solflare adapter, `@solana/web3.js`, and SPL token utilities.
+- Solana wallet adapter, `@solana/web3.js`, and SPL token utilities.
 - LI.FI, DFlow, Kamino, Jito, Quicknode, Palm USD, GoldRush, Cloak, Umbra, and QVAC integrations.
 
 ## Project structure
@@ -78,7 +78,7 @@ Local QVAC reviewer:
 npm run qvac:reviewer
 ```
 
-The reviewer runs locally at `http://127.0.0.1:8787` by default. It uses deterministic local review unless `QVAC_REVIEWER_ENABLE_MODEL=true` is set, in which case it loads QVAC locally. Deposits still work without the reviewer; the UI shows the local review as unavailable instead of using fake output.
+By default, the app performs deterministic browser-local route review and does not call `127.0.0.1`. To use the optional QVAC local service, set `VITE_QVAC_REVIEWER_REMOTE=true`, set `VITE_QVAC_REVIEWER_URL=http://127.0.0.1:8787`, then run `npm run qvac:reviewer`. Set `QVAC_REVIEWER_ENABLE_MODEL=true` only when you want the local QVAC model path.
 
 ## Testing flow
 
@@ -86,7 +86,7 @@ The reviewer runs locally at `http://127.0.0.1:8787` by default. It uses determi
    - Set `VITE_USE_MOCK_DATA=true`.
    - Start `npm run dev`.
    - Open `/`, then `/app`.
-   - Connect a wallet, choose a source chain/token/vault, review privacy options, run local route review if the reviewer is running, and complete the mocked deposit.
+   - Connect a wallet, choose a source chain/token/vault, review privacy options, run the browser-local route review, and complete the mocked deposit.
 
 2. **Supabase persistence**
    - Create a free Supabase project.
@@ -97,6 +97,7 @@ The reviewer runs locally at `http://127.0.0.1:8787` by default. It uses determi
 
 3. **Real provider validation**
    - Set `VITE_USE_MOCK_DATA=false`.
+   - Set `VITE_NETWORK=mainnet-beta` and configure a mainnet Solana RPC/wallet before attempting live Kamino deposits.
    - Configure Quicknode, GoldRush, DFlow, LI.FI integrator, Jito, Cloak/Umbra, and any required wallet/network credentials.
    - Validate one provider path at a time: quote, route confidence, privacy mode load, local review, bridge/swap/deposit, then dashboard persistence.
 
@@ -123,7 +124,7 @@ Key groups:
 - Palm USD: public circulation API.
 - GoldRush: route confidence API.
 - Cloak and Umbra: optional privacy modes.
-- QVAC: local route reviewer URL.
+- QVAC: optional local route reviewer URL; browser-local review works without it.
 
 ## Database
 

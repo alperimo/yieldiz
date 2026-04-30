@@ -30,12 +30,15 @@ export function useRouteConfidence() {
     setLoading(true);
     setError(null);
     try {
+      const optional = (promise) => promise.catch(() => ({ items: [] }));
       const [balances, transactions, approvals] = await Promise.all([
         goldrush.getTokenBalances({ chain, walletAddress }),
-        goldrush.getRecentTransactions({ chain, walletAddress }),
         chain === 'solana'
           ? Promise.resolve({ items: [] })
-          : goldrush.getApprovals({ chain, walletAddress }),
+          : optional(goldrush.getRecentTransactions({ chain, walletAddress })),
+        chain === 'solana'
+          ? Promise.resolve({ items: [] })
+          : optional(goldrush.getApprovals({ chain, walletAddress })),
       ]);
       const confidence = goldrush.createRouteConfidence({ balances, transactions, approvals, tokenSymbol });
       setData(confidence);
