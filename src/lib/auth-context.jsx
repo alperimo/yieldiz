@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import { supabase } from './supabase';
+import { supabase, isSupabaseConfigured } from './supabase';
 import { useWallet } from '../context/WalletContext';
 import bs58 from 'bs58';
 
@@ -31,31 +31,31 @@ export const AuthProvider = ({ children }) => {
         }
       }
 
-      // Step 3: Authenticate with Supabase using wallet address
-      // Use Supabase anonymous sign-in with wallet metadata
-      // (Full nonce verification would use a Supabase Edge Function)
-      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-        email: `${walletAddress}@solgate.wallet`,
-        password: walletAddress,
-      }).catch(() => ({ data: null, error: { message: 'auth_not_configured' } }));
-
-      if (authError || !authData?.session) {
-        // Supabase auth not configured yet - use local session
-        // This allows the app to work without Supabase being set up
+      if (!isSupabaseConfigured) {
         const localSession = {
           access_token: `local_${walletAddress}_${Date.now()}`,
-          user: {
-            id: walletAddress,
-            wallet: walletAddress,
-            signed: !!signature,
-          },
+          user: { id: walletAddress, wallet: walletAddress, signed: !!signature },
         };
         setSession(localSession);
         setUser(localSession.user);
-      } else {
-        setSession(authData.session);
-        setUser({ ...authData.session.user, wallet: walletAddress });
+        return;
       }
+
+      const { data: authData, error: authError } = await supabase.auth.signInAnonymously({
+        options: {
+          data: {
+            wallet_address: walletAddress,
+            wallet_signature: signature,
+          },
+        },
+      });
+
+      if (authError || !authData?.session) {
+        throw new Error(authError?.message || 'Supabase anonymous auth failed');
+      }
+
+      setSession(authData.session);
+      setUser({ ...authData.session.user, wallet: walletAddress });
     } catch (err) {
       console.error('Auth sign-in failed:', err);
       // Graceful fallback: still set a local session
@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }) => {
 
   const signOut = useCallback(async () => {
     try {
-      await supabase.auth.signOut().catch(() => {});
+      await supabase?.auth.signOut().catch(() => {});
     } catch { /* ignore */ }
     setSession(null);
     setUser(null);

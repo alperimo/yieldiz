@@ -19,6 +19,21 @@ Users choose a source chain, stablecoin, vault, and privacy preference. SolGate 
 - Local QVAC route reviewer through a user-run local service.
 - Supabase-backed user data, positions, and transaction history.
 
+## What can be tested for free?
+
+You can test the full UX, mocked deposit flow, Palm USD circulation fetch, local route review, dashboard layout, and Supabase persistence on free/dev tiers.
+
+You cannot prove every real money movement for free on devnet because several providers are mainnet-first or require real API credentials:
+
+- LI.FI routes use live bridge liquidity and are normally mainnet-focused.
+- Kamino production vaults and KTX deposit routes are mainnet-oriented.
+- Jito bundle submission is a mainnet block-engine path.
+- GoldRush needs an API key for route confidence.
+- Cloak/Umbra demo paths depend on their supported networks, relayers, indexers, and wallet adapter support.
+- QVAC model mode is local but requires Node >= 22.17 and local model load time/resources.
+
+Use `VITE_USE_MOCK_DATA=true` for a free end-to-end product walkthrough. Use `VITE_USE_MOCK_DATA=false` only when real credentials and funded test/mainnet wallets are ready.
+
 ## Tech stack
 
 - React 18, Vite 6, Tailwind CSS, React Router.
@@ -65,6 +80,36 @@ npm run qvac:reviewer
 
 The reviewer runs locally at `http://127.0.0.1:8787` by default. It uses deterministic local review unless `QVAC_REVIEWER_ENABLE_MODEL=true` is set, in which case it loads QVAC locally. Deposits still work without the reviewer; the UI shows the local review as unavailable instead of using fake output.
 
+## Testing flow
+
+1. **Free product walkthrough**
+   - Set `VITE_USE_MOCK_DATA=true`.
+   - Start `npm run dev`.
+   - Open `/`, then `/app`.
+   - Connect a wallet, choose a source chain/token/vault, review privacy options, run local route review if the reviewer is running, and complete the mocked deposit.
+
+2. **Supabase persistence**
+   - Create a free Supabase project.
+   - Enable anonymous sign-ins in Supabase Auth.
+   - Run `supabase/schema.sql` in the SQL editor.
+   - Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
+   - Complete a deposit flow; confirmed deposits are stored in `positions` and `transactions` when Supabase auth is active.
+
+3. **Real provider validation**
+   - Set `VITE_USE_MOCK_DATA=false`.
+   - Configure Quicknode, GoldRush, DFlow, LI.FI integrator, Jito, Cloak/Umbra, and any required wallet/network credentials.
+   - Validate one provider path at a time: quote, route confidence, privacy mode load, local review, bridge/swap/deposit, then dashboard persistence.
+
+## Privacy modes
+
+The deposit screen has three privacy choices:
+
+- **Standard route** — fastest path; bridge/swap/deposit are public after signing.
+- **Private treasury route** — loads Cloak only when selected. It is intended for private pre-route treasury movement before funds enter the public vault route.
+- **Private balance route** — loads Umbra only when selected. It is intended for encrypted balance handling before withdrawing into the deposit route.
+
+Important boundary: SolGate does not claim Kamino vault deposits are private. Privacy applies before the public vault route; the final vault deposit still settles on-chain. Until a Cloak/Umbra shield-and-withdraw demo is validated on the target network, non-standard privacy modes are presented as setup paths and direct deposit confirmation remains blocked to avoid implying false privacy.
+
 ## Environment
 
 Copy `.env.example` to `.env.local` and configure only the providers you intend to use. Real production routes require provider API keys/RPC URLs and `VITE_USE_MOCK_DATA=false`.
@@ -88,7 +133,7 @@ Run `supabase/schema.sql` in Supabase to create:
 - `positions`
 - `transactions`
 
-Row Level Security is enabled for user-owned data.
+Row Level Security is enabled for user-owned data. The app uses Supabase anonymous auth with wallet metadata, then persists confirmed deposit snapshots and transaction history for the dashboard. If Supabase is not configured, the app still runs, but dashboard persistence is disabled.
 
 ## Documentation
 

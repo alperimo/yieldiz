@@ -4,7 +4,7 @@
 
 import { useMemo } from 'react';
 import { useAuth } from './auth-context';
-import { supabase, createAuthenticatedClient } from './supabase';
+import { supabase, createAuthenticatedClient, isSupabaseConfigured } from './supabase';
 
 export function useSupabase() {
   const { session, user } = useAuth();
@@ -20,7 +20,8 @@ export function useSupabase() {
 
   return {
     supabase: client,
-    isAuthenticated: !!session,
+    isConfigured: isSupabaseConfigured,
+    isAuthenticated: isSupabaseConfigured && !!session?.access_token && !session.access_token.startsWith('local_'),
     user,
   };
 }

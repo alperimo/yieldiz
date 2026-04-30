@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import * as kamino from '../services/kamino';
+import * as portfolioStore from '../services/portfolioStore';
+import { useSupabase } from '../lib/useSupabase';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK_DATA !== 'false';
 
@@ -37,6 +39,7 @@ const MOCK_POSITIONS = [
 ];
 
 export function usePositions(walletAddress) {
+  const { supabase, isAuthenticated } = useSupabase();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -54,6 +57,13 @@ export function usePositions(walletAddress) {
         await new Promise((r) => setTimeout(r, 500));
         setData(MOCK_POSITIONS.filter((p) => p.walletAddress === walletAddress));
       } else {
+        if (isAuthenticated && supabase) {
+          const stored = await portfolioStore.getStoredPositions(supabase, walletAddress);
+          if (stored.length) {
+            setData(stored);
+            return;
+          }
+        }
         const positions = await kamino.getUserPositions(walletAddress);
         setData(positions);
       }
@@ -62,7 +72,7 @@ export function usePositions(walletAddress) {
     } finally {
       setLoading(false);
     }
-  }, [walletAddress]);
+  }, [isAuthenticated, supabase, walletAddress]);
 
   useEffect(() => { fetchPositions(); }, [fetchPositions]);
 

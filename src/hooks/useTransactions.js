@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import * as kamino from '../services/kamino';
+import * as portfolioStore from '../services/portfolioStore';
+import { useSupabase } from '../lib/useSupabase';
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK_DATA !== 'false';
 
@@ -63,6 +65,7 @@ const MOCK_TRANSACTIONS = [
 ];
 
 export function useTransactions(walletAddress) {
+  const { supabase, isAuthenticated } = useSupabase();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -80,6 +83,13 @@ export function useTransactions(walletAddress) {
         await new Promise((r) => setTimeout(r, 400));
         setData(MOCK_TRANSACTIONS.filter((t) => t.walletAddress === walletAddress));
       } else {
+        if (isAuthenticated && supabase) {
+          const stored = await portfolioStore.getStoredTransactions(supabase, walletAddress);
+          if (stored.length) {
+            setData(stored);
+            return;
+          }
+        }
         const txs = await kamino.getUserTransactions(walletAddress);
         setData(txs);
       }
@@ -88,7 +98,7 @@ export function useTransactions(walletAddress) {
     } finally {
       setLoading(false);
     }
-  }, [walletAddress]);
+  }, [isAuthenticated, supabase, walletAddress]);
 
   useEffect(() => { fetchTransactions(); }, [fetchTransactions]);
 

@@ -6,12 +6,17 @@ import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const hasUsableValue = (value) => Boolean(value) && !String(value).includes('your-');
+
+export const isSupabaseConfigured = hasUsableValue(supabaseUrl) && hasUsableValue(supabaseAnonKey);
 
 // Base client - for public/unauthenticated queries only
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = isSupabaseConfigured ? createClient(supabaseUrl, supabaseAnonKey) : null;
 
 // Factory for authenticated client - used by useSupabase() hook
 export function createAuthenticatedClient(accessToken) {
+  if (!isSupabaseConfigured || !accessToken) return supabase;
+
   const client = createClient(supabaseUrl, supabaseAnonKey, {
     global: {
       headers: {

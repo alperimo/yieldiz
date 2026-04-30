@@ -198,16 +198,16 @@ export const MARKETING_CONTENT = {
   },
   partners: {
     eyebrow: 'Infrastructure',
-    title: 'Built on the most trusted services on Solana.',
+    title: 'The route stack behind every deposit.',
     subtitle:
-      'Every layer of the deposit — wallet signing, cross-chain transfer, on-chain liquidity, vault execution, MEV protection and live data — runs on the leading service for that job. SolGate is the layer that makes them work as one route.',
+      'Each provider has one clear job: signing, bridging, swapping, vault entry, protected submission, route confidence and chain state. SolGate keeps the route readable instead of turning the homepage into a sponsor wall.',
     list: [
       {
         partner: 'Solflare',
         role: 'Wallet & self-custody',
         description:
-          'Industry-leading non-custodial wallet for Solana, with hardware wallet support, in-wallet staking and a mobile-first account layer. Your keys never leave your device — SolGate signs through the adapter.',
-        metric: { value: '2.5M+', label: 'wallets secured' },
+          'The primary Solana wallet path. Your keys stay in your wallet; SolGate requests signatures through the standard adapter.',
+        metric: { value: 'Wallet', label: 'user signs' },
         logoMark: 'SF',
         accent: '#FFB02E',
       },
@@ -215,8 +215,8 @@ export const MARKETING_CONTENT = {
         partner: 'LI.FI',
         role: 'Cross-chain bridge aggregator',
         description:
-          'Aggregates 20+ bridges and 40+ DEXs across 25 chains to find the cheapest, fastest route for each stablecoin transfer. Routes are computed in real time against live liquidity.',
-        metric: { value: '$9B+', label: 'bridged volume' },
+          'Quotes and executes the source-chain bridge leg when funds start outside Solana.',
+        metric: { value: 'Bridge', label: 'source to Solana' },
         logoMark: 'LI',
         accent: '#F36B8F',
       },
@@ -224,8 +224,8 @@ export const MARKETING_CONTENT = {
         partner: 'DFlow',
         role: 'Solana swap engine',
         description:
-          'Institutional order-flow-aware swap router on Solana. Surfaces deeper liquidity than public DEX aggregators at the final-leg swap, with price improvement quoted up front.',
-        metric: { value: '0 bps', label: 'typical slippage' },
+          'Handles final-leg token conversion when the selected vault accepts a different asset.',
+        metric: { value: 'Swap', label: 'only if needed' },
         logoMark: 'DF',
         accent: '#A86F24',
       },
@@ -233,8 +233,8 @@ export const MARKETING_CONTENT = {
         partner: 'Kamino',
         role: 'Yield vault engine',
         description:
-          'Solana’s most-used yield vault platform — multi-asset strategies, live risk scoring, and TVL visible on-chain. Every SolGate deposit lands in a Kamino vault you selected explicitly.',
-        metric: { value: '$2.1B+', label: 'vault TVL' },
+          'The vault destination. Users choose the vault before signing and can review APY, token and risk context.',
+        metric: { value: 'Vault', label: 'chosen by user' },
         logoMark: 'KM',
         accent: '#D6A84F',
       },
@@ -242,8 +242,8 @@ export const MARKETING_CONTENT = {
         partner: 'Jito',
         role: 'MEV protection',
         description:
-          'Solana’s dominant MEV infrastructure. SolGate bundles the final swap + deposit and submits via Jito, making the entry atomic and immune to sandwich attacks.',
-        metric: { value: '100%', label: 'of deposits bundled' },
+          'Submits the final Solana leg as a protected bundle when bundle submission is configured.',
+        metric: { value: 'Bundle', label: 'protected entry' },
         logoMark: 'JT',
         accent: '#F1D27A',
       },
@@ -251,10 +251,19 @@ export const MARKETING_CONTENT = {
         partner: 'QuickNode',
         role: 'Solana RPC & data',
         description:
-          'Enterprise-grade Solana RPC with 99.99% uptime and priority-fee optimization. Live balances, vault metrics and transaction status stream through QuickNode infrastructure.',
-        metric: { value: '99.99%', label: 'uptime SLA' },
+          'Provides Solana RPC and subscription access for balances, transaction status and vault interactions.',
+        metric: { value: 'RPC', label: 'chain state' },
         logoMark: 'QN',
         accent: '#FF5D1F',
+      },
+      {
+        partner: 'GoldRush',
+        role: 'Route confidence',
+        description:
+          'Checks balances, recent activity and token approvals before the user confirms a route. It belongs here because it directly improves pre-signing confidence.',
+        metric: { value: '3 checks', label: 'before signing' },
+        logoMark: 'GR',
+        accent: '#7E4D22',
       },
     ],
   },
@@ -417,6 +426,7 @@ export const MARKETING_CONTENT = {
       { label: 'Jito', href: 'https://jito.network' },
       { label: 'DFlow', href: 'https://dflow.net' },
       { label: 'QuickNode', href: 'https://quicknode.com' },
+      { label: 'GoldRush', href: 'https://goldrush.dev' },
     ],
     company: [
       { label: 'About', href: '#product-story' },

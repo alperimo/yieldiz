@@ -4,6 +4,7 @@
 
 -- User preferences (synced across devices)
 CREATE TABLE IF NOT EXISTS user_settings (
+  user_id UUID DEFAULT auth.uid(),
   wallet_address TEXT PRIMARY KEY,
   slippage_tolerance NUMERIC DEFAULT 0.5,
   preferred_chain TEXT DEFAULT 'solana',
@@ -15,6 +16,7 @@ CREATE TABLE IF NOT EXISTS user_settings (
 -- Portfolio position snapshots (persisted for history/dashboard)
 CREATE TABLE IF NOT EXISTS positions (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID DEFAULT auth.uid(),
   wallet_address TEXT NOT NULL,
   vault_pubkey TEXT NOT NULL,
   vault_name TEXT,
@@ -32,6 +34,7 @@ CREATE TABLE IF NOT EXISTS positions (
 -- Transaction log (for the status tracker and history page)
 CREATE TABLE IF NOT EXISTS transactions (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID DEFAULT auth.uid(),
   wallet_address TEXT NOT NULL,
   type TEXT NOT NULL CHECK (type IN ('bridge', 'swap', 'deposit', 'withdraw')),
   status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'confirming', 'confirmed', 'failed')),
@@ -45,9 +48,15 @@ CREATE TABLE IF NOT EXISTS transactions (
   updated_at TIMESTAMPTZ DEFAULT now()
 );
 
+ALTER TABLE user_settings ADD COLUMN IF NOT EXISTS user_id UUID DEFAULT auth.uid();
+ALTER TABLE positions ADD COLUMN IF NOT EXISTS user_id UUID DEFAULT auth.uid();
+ALTER TABLE transactions ADD COLUMN IF NOT EXISTS user_id UUID DEFAULT auth.uid();
+
 -- Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_positions_wallet ON positions (wallet_address);
+CREATE INDEX IF NOT EXISTS idx_positions_user ON positions (user_id);
 CREATE INDEX IF NOT EXISTS idx_transactions_wallet ON transactions (wallet_address);
+CREATE INDEX IF NOT EXISTS idx_transactions_user ON transactions (user_id);
 CREATE INDEX IF NOT EXISTS idx_transactions_status ON transactions (status);
 
 -- Row Level Security: each wallet sees only its own data
@@ -55,9 +64,42 @@ ALTER TABLE user_settings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE positions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE transactions ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "own_settings" ON user_settings FOR ALL USING (wallet_address = auth.jwt()->>'wallet');
-CREATE POLICY "own_positions" ON positions FOR ALL USING (wallet_address = auth.jwt()->>'wallet');
-CREATE POLICY "own_transactions" ON transactions FOR ALL USING (wallet_address = auth.jwt()->>'wallet');
+DROP POLICY IF EXISTS "own_settings" ON user_settings;
+DROP POLICY IF EXISTS "own_positions" ON positions;
+DROP POLICY IF EXISTS "own_transactions" ON transactions;
+
+CREATE POLICY "own_settings" ON user_settings
+  FOR ALL
+  USING (
+    user_id = auth.uid()
+    OR wallet_address = auth.jwt()->'user_metadata'->>'wallet_address'
+  )
+  WITH CHECK (
+    user_id = auth.uid()
+    OR wallet_address = auth.jwt()->'user_metadata'->>'wallet_address'
+  );
+
+CREATE POLICY "own_positions" ON positions
+  FOR ALL
+  USING (
+    user_id = auth.uid()
+    OR wallet_address = auth.jwt()->'user_metadata'->>'wallet_address'
+  )
+  WITH CHECK (
+    user_id = auth.uid()
+    OR wallet_address = auth.jwt()->'user_metadata'->>'wallet_address'
+  );
+
+CREATE POLICY "own_transactions" ON transactions
+  FOR ALL
+  USING (
+    user_id = auth.uid()
+    OR wallet_address = auth.jwt()->'user_metadata'->>'wallet_address'
+  )
+  WITH CHECK (
+    user_id = auth.uid()
+    OR wallet_address = auth.jwt()->'user_metadata'->>'wallet_address'
+  );
 
 -- Updated_at trigger for automatic timestamp updates
 CREATE OR REPLACE FUNCTION update_updated_at_column()

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ArrowDown, Zap } from 'lucide-react';
 import { Card } from '../ui/Card';
@@ -22,6 +22,8 @@ import { useRouteConfidence } from '../../hooks/useRouteConfidence';
 import { usePrivacyProvider } from '../../hooks/usePrivacyProvider';
 import { useLocalRouteReview } from '../../hooks/useLocalRouteReview';
 import { useWallet } from '../../context/WalletContext';
+import { useSupabase } from '../../lib/useSupabase';
+import * as portfolioStore from '../../services/portfolioStore';
 import { STRINGS, DEPOSIT_FLOW_STATES } from '../../lib/constants';
 import { createRouteIntent } from '../../lib/routeIntent';
 import { getPrivacyBoundary, PRIVACY_MODES } from '../../lib/stablecoins';
@@ -30,6 +32,7 @@ import { formatPercent, formatCurrency } from '../../lib/formatters';
 export const DepositFlow = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { connected, connect, address, signTransaction, signAllTransactions, evmAddress, walletAdapter, connection } = useWallet();
+  const { supabase, isAuthenticated } = useSupabase();
   const { data: vaults } = useVaults();
   const { data: quote, loading: quoteLoading, error: quoteError, getQuote } = useBridgeQuote();
   const depositFlow = useDepositFlow();
@@ -40,6 +43,8 @@ export const DepositFlow = () => {
   const [selectedVault, setSelectedVault] = useState('');
   const [privacyMode, setPrivacyMode] = useState(PRIVACY_MODES.STANDARD);
   const [showTxModal, setShowTxModal] = useState(false);
+  const [persistenceError, setPersistenceError] = useState(null);
+  const persistedSnapshotKey = useRef(null);
   const selectedVaultParam = searchParams.get('vault');
   const routeConfidence = useRouteConfidence();
   const localRouteReview = useLocalRouteReview();
@@ -102,6 +107,30 @@ export const DepositFlow = () => {
     quote,
   });
 
+  useEffect(() => {
+    if (depositFlow.state !== DEPOSIT_FLOW_STATES.CONFIRMED) return;
+    if (!isAuthenticated || !supabase || !address || !vault || !amount) return;
+
+    const snapshotKey = `${address}:${depositFlow.txHashes.deposit || 'mock'}:${selectedVault}:${amount}:${fromToken}`;
+    if (persistedSnapshotKey.current === snapshotKey) return;
+    persistedSnapshotKey.current = snapshotKey;
+    setPersistenceError(null);
+
+    portfolioStore.recordDepositSnapshot(supabase, {
+      walletAddress: address,
+      vault,
+      amount: Number(amount),
+      token: fromToken,
+      fromChain,
+      txHashes: depositFlow.txHashes,
+      quote,
+      privacyMode,
+    }).catch((error) => {
+      setPersistenceError(error.message);
+      console.error('Failed to persist deposit snapshot:', error);
+    });
+  }, [address, amount, depositFlow.state, depositFlow.txHashes, fromChain, fromToken, isAuthenticated, privacyMode, quote, selectedVault, supabase, vault]);
+
   const handlePrivacyChange = useCallback(async (mode) => {
     setPrivacyMode(mode);
     if (mode === PRIVACY_MODES.STANDARD) return;
@@ -140,7 +169,8 @@ export const DepositFlow = () => {
   }, [connected, connect, fromChain, fromToken, toToken, amount, selectedVault, depositFlow, address, signTransaction, signAllTransactions, evmAddress, quote]);
 
   const estimatedYield = vault && amount ? (Number(amount) * (vault.apy / 100)).toFixed(2) : null;
-  const canDeposit = amount && Number(amount) > 0 && selectedVault && (!connected || (quote && !quoteError && !quoteLoading));
+  const privacyRouteNeedsSetup = privacyMode !== PRIVACY_MODES.STANDARD;
+  const canDeposit = amount && Number(amount) > 0 && selectedVault && !privacyRouteNeedsSetup && (!connected || (quote && !quoteError && !quoteLoading));
 
   return (
     <>
@@ -218,6 +248,16 @@ export const DepositFlow = () => {
           {quoteError ? (
             <p className="mt-3 rounded-2xl border border-[#D6A84F]/30 bg-[#F8E6B6]/40 px-4 py-3 text-sm leading-6 text-[#654B2B]">
               {quoteError}
+            </p>
+          ) : null}
+          {persistenceError ? (
+            <p className="mt-3 rounded-2xl border border-sg-warning/30 bg-sg-warning/10 px-4 py-3 text-sm leading-6 text-sg-text-secondary">
+              Deposit confirmed, but portfolio history could not be saved: {persistenceError}
+            </p>
+          ) : null}
+          {privacyRouteNeedsSetup ? (
+            <p className="mt-3 rounded-2xl border border-[#D6A84F]/30 bg-[#F8E6B6]/40 px-4 py-3 text-sm leading-6 text-[#654B2B]">
+              Privacy mode is prepared separately before the public vault deposit. Use the standard route for direct deposits until the selected privacy provider flow is validated in your demo network.
             </p>
           ) : null}
         </div>
