@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -20,6 +20,7 @@ import { MevShield } from '../components/marketing/MevShield';
 import { VaultSpotlight } from '../components/marketing/VaultSpotlight';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import { usePlatformMetrics } from '../hooks/usePlatformMetrics';
+import { useVaults } from '../hooks/useVaults';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -101,6 +102,39 @@ const FaqItem = ({ q, a }) => {
   );
 };
 
+const formatCompactUsd = (value) =>
+  new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    notation: 'compact',
+    maximumFractionDigits: 1,
+  }).format(value || 0);
+
+const riskScoreFor = (riskLevel) => ({ low: 1, medium: 3, high: 5 }[riskLevel] ?? 3);
+
+const toMarketingVaults = (vaults) => {
+  if (!vaults?.length) return MARKETING_CONTENT.vaultSpotlight.vaults;
+
+  const selected = [...vaults]
+    .filter((vault) => vault.tvl > 100_000 && vault.apy > 0)
+    .sort((a, b) => b.apy - a.apy)
+    .slice(0, 3);
+
+  if (!selected.length) return MARKETING_CONTENT.vaultSpotlight.vaults;
+
+  return selected.map((vault, index) => ({
+    pubkey: vault.pubkey,
+    name: vault.name,
+    pair: vault.token,
+    apy: vault.apy,
+    tvl: formatCompactUsd(vault.tvl),
+    risk: vault.riskLevel === 'low' ? 'Low' : vault.riskLevel === 'high' ? 'High' : 'Medium',
+    riskScore: riskScoreFor(vault.riskLevel),
+    badge: index === 0 ? 'Highest live APY' : index === 1 ? 'Deep liquidity' : 'Curated vault',
+    strategy: vault.description,
+  }));
+};
+
 export default function Marketing() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const pageRef = useRef(null);
@@ -109,9 +143,11 @@ export default function Marketing() {
   const [routeActiveStep, setRouteActiveStep] = useState(0);
   const routeSectionRef = useRef(null);
   const platformMetrics = usePlatformMetrics();
+  const { data: liveVaults } = useVaults();
   const metricsLive = platformMetrics.status === 'live';
   const heroLive = platformMetrics.hero;
   const liveMetricsTiles = platformMetrics.liveGrid;
+  const spotlightVaults = useMemo(() => toMarketingVaults(liveVaults), [liveVaults]);
 
   useLayoutEffect(() => {
     if (prefersReducedMotion || !pageRef.current) return undefined;
@@ -505,7 +541,7 @@ export default function Marketing() {
 
           <div data-reveal className="mt-12">
             <VaultSpotlight
-              vaults={MARKETING_CONTENT.vaultSpotlight.vaults}
+              vaults={spotlightVaults}
               reducedMotion={prefersReducedMotion}
             />
           </div>

@@ -93,7 +93,7 @@ const VaultCard = ({ vault }) => {
           Audited · Kamino
         </div>
         <Link
-          to="/app"
+          to={vault.pubkey ? `/app?vault=${encodeURIComponent(vault.pubkey)}` : '/app'}
           className="inline-flex items-center gap-1 rounded-full bg-[#7E4D22] px-4 py-2 text-[11px] font-semibold text-[#F8E6B6] shadow-[0_14px_30px_rgba(126,77,34,0.18)] transition-transform group-hover:-translate-y-0.5"
         >
           Deposit
@@ -107,7 +107,7 @@ const VaultCard = ({ vault }) => {
 export const VaultSpotlight = ({ vaults }) => (
   <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
     {vaults.map((v) => (
-      <VaultCard key={v.name} vault={v} />
+      <VaultCard key={v.pubkey || v.name} vault={v} />
     ))}
   </div>
 );
