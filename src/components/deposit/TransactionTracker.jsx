@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { CheckCircle, Loader, Circle, ExternalLink, Shield } from 'lucide-react';
+import { AlertTriangle, CheckCircle, Loader, Circle, ExternalLink, Shield } from 'lucide-react';
 import { STRINGS, DEPOSIT_FLOW_STATES } from '../../lib/constants';
 import { formatCurrency, formatDuration, abbreviateAddress, getExplorerUrl } from '../../lib/formatters';
 import { Badge } from '../ui/Badge';
@@ -35,6 +35,9 @@ const Confetti = () => {
 };
 
 const stepStatusIcon = (stepIdx, currentStep, flowState) => {
+  if (flowState === DEPOSIT_FLOW_STATES.ERROR && stepIdx === currentStep) {
+    return <AlertTriangle size={20} className="text-sg-error" />;
+  }
   if (flowState === DEPOSIT_FLOW_STATES.CONFIRMED) {
     return <CheckCircle size={20} className="text-sg-success step-complete" />;
   }

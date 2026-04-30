@@ -11,23 +11,36 @@ import { getSolanaMint, toBaseUnits } from '../lib/stablecoins';
 const USE_MOCK = import.meta.env.VITE_USE_MOCK_DATA !== 'false';
 const APP_NETWORK = import.meta.env.VITE_NETWORK || 'devnet';
 
+const DEFAULT_STEPS = [
+  { key: 'bridge', label: 'Bridge', state: DEPOSIT_FLOW_STATES.BRIDGING },
+  { key: 'swap', label: 'Swap', state: DEPOSIT_FLOW_STATES.SWAPPING },
+  { key: 'deposit', label: 'Deposit', state: DEPOSIT_FLOW_STATES.DEPOSITING },
+];
+
+function buildExecutionSteps({ fromChain, needsSwap }) {
+  return [
+    ...(fromChain !== 'solana' ? [DEFAULT_STEPS[0]] : []),
+    ...(needsSwap ? [DEFAULT_STEPS[1]] : []),
+    DEFAULT_STEPS[2],
+  ];
+}
+
+function getStepIndex(steps, key) {
+  return Math.max(0, steps.findIndex((step) => step.key === key));
+}
+
 export function useDepositFlow() {
   const [state, setState] = useState(DEPOSIT_FLOW_STATES.IDLE);
   const [currentStep, setCurrentStep] = useState(0);
+  const [steps, setSteps] = useState(DEFAULT_STEPS);
   const [txHashes, setTxHashes] = useState({});
   const [error, setError] = useState(null);
   const abortRef = useRef(false);
 
-  const steps = [
-    { key: 'bridge', label: 'Bridge', state: DEPOSIT_FLOW_STATES.BRIDGING },
-    { key: 'swap', label: 'Swap', state: DEPOSIT_FLOW_STATES.SWAPPING },
-    { key: 'deposit', label: 'Deposit', state: DEPOSIT_FLOW_STATES.DEPOSITING },
-  ];
-
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
   // Mock execution for development
-  const executeMock = async ({ fromChain, amount, vault, needsSwap }) => {
+  const executeMock = async ({ fromChain, needsSwap, executionSteps }) => {
     const MOCK_TX_HASHES = {
       bridge: '0xa3f9b2c1d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0',
       swap: '4kYmZ8R4hJDnPtVJgRFnTVbMQD6K1qLPfCaKEvR3ZABC',
@@ -44,7 +57,7 @@ export function useDepositFlow() {
 
     if (fromChain !== 'solana') {
       setState(DEPOSIT_FLOW_STATES.BRIDGING);
-      setCurrentStep(0);
+      setCurrentStep(getStepIndex(executionSteps, 'bridge'));
       await sleep(2000);
       if (abortRef.current) return;
       setTxHashes((prev) => ({ ...prev, bridge: MOCK_TX_HASHES.bridge }));
@@ -52,20 +65,20 @@ export function useDepositFlow() {
 
     if (needsSwap) {
       setState(DEPOSIT_FLOW_STATES.SWAPPING);
-      setCurrentStep(1);
+      setCurrentStep(getStepIndex(executionSteps, 'swap'));
       await sleep(1500);
       if (abortRef.current) return;
       setTxHashes((prev) => ({ ...prev, swap: MOCK_TX_HASHES.swap }));
     }
 
     setState(DEPOSIT_FLOW_STATES.DEPOSITING);
-    setCurrentStep(2);
+    setCurrentStep(getStepIndex(executionSteps, 'deposit'));
     await sleep(1500);
     if (abortRef.current) return;
     setTxHashes((prev) => ({ ...prev, deposit: MOCK_TX_HASHES.deposit }));
 
     setState(DEPOSIT_FLOW_STATES.CONFIRMED);
-    setCurrentStep(3);
+    setCurrentStep(executionSteps.length);
   };
 
   // Real execution using LI.FI, DFlow, Kamino, and Jito
@@ -81,6 +94,7 @@ export function useDepositFlow() {
     signAllTransactions,
     evmAddress,
     rawRoute,
+    executionSteps,
   }) => {
     if (APP_NETWORK !== 'mainnet-beta') {
       throw new Error('Live Kamino deposits require VITE_NETWORK=mainnet-beta with a mainnet Solana RPC and wallet. For local/devnet demos, set VITE_USE_MOCK_DATA=true.');
@@ -124,7 +138,7 @@ export function useDepositFlow() {
     // Step 3: Bridge (if cross-chain)
     if (isCrossChain) {
       setState(DEPOSIT_FLOW_STATES.BRIDGING);
-      setCurrentStep(0);
+      setCurrentStep(getStepIndex(executionSteps, 'bridge'));
       if (abortRef.current) return;
 
       try {
@@ -170,7 +184,7 @@ export function useDepositFlow() {
     // Step 4: Swap via DFlow (if token mismatch)
     if (needsSwap) {
       setState(DEPOSIT_FLOW_STATES.SWAPPING);
-      setCurrentStep(1);
+      setCurrentStep(getStepIndex(executionSteps, 'swap'));
       if (abortRef.current) return;
 
       try {
@@ -199,7 +213,7 @@ export function useDepositFlow() {
 
     // Step 5: Deposit into Kamino vault (via KTX API + Jito bundle)
     setState(DEPOSIT_FLOW_STATES.DEPOSITING);
-    setCurrentStep(2);
+    setCurrentStep(getStepIndex(executionSteps, 'deposit'));
     if (abortRef.current) return;
 
     try {
@@ -254,7 +268,7 @@ export function useDepositFlow() {
     }
 
     setState(DEPOSIT_FLOW_STATES.CONFIRMED);
-    setCurrentStep(3);
+    setCurrentStep(executionSteps.length);
   };
 
   const execute = useCallback(async (params) => {
@@ -262,12 +276,14 @@ export function useDepositFlow() {
     setError(null);
     setTxHashes({});
     setCurrentStep(0);
+    const executionSteps = buildExecutionSteps(params);
+    setSteps(executionSteps);
 
     try {
       if (USE_MOCK) {
-        await executeMock(params);
+        await executeMock({ ...params, executionSteps });
       } else {
-        await executeReal(params);
+        await executeReal({ ...params, executionSteps });
       }
     } catch (err) {
       setState(DEPOSIT_FLOW_STATES.ERROR);
@@ -279,6 +295,7 @@ export function useDepositFlow() {
     abortRef.current = true;
     setState(DEPOSIT_FLOW_STATES.IDLE);
     setCurrentStep(0);
+    setSteps(DEFAULT_STEPS);
     setTxHashes({});
     setError(null);
   }, []);

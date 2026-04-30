@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { ArrowDown, Zap } from 'lucide-react';
+import { ArrowDown, X, Zap } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
-import { Modal } from '../ui/Modal';
 import { AmountInput } from './AmountInput';
 import { ChainSelector } from './ChainSelector';
 import { VaultSelector } from './VaultSelector';
@@ -45,6 +44,7 @@ export const DepositFlow = () => {
   const [showTxModal, setShowTxModal] = useState(false);
   const [persistenceError, setPersistenceError] = useState(null);
   const persistedSnapshotKey = useRef(null);
+  const txPanelRef = useRef(null);
   const selectedVaultParam = searchParams.get('vault');
   const routeConfidence = useRouteConfidence();
   const localRouteReview = useLocalRouteReview();
@@ -135,6 +135,14 @@ export const DepositFlow = () => {
       console.error('Failed to persist deposit snapshot:', error);
     });
   }, [address, amount, depositFlow.state, depositFlow.txHashes, fromChain, fromToken, isAuthenticated, privacyMode, quote, selectedVault, supabase, vault]);
+
+  useEffect(() => {
+    if (!showTxModal) return undefined;
+    const frame = window.requestAnimationFrame(() => {
+      txPanelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [depositFlow.state, showTxModal]);
 
   const handlePrivacyChange = useCallback(async (mode) => {
     setPrivacyMode(mode);
@@ -305,40 +313,50 @@ export const DepositFlow = () => {
           <Zap size={18} />
           {!connected ? STRINGS.CONNECT_WALLET : STRINGS.HERO_CTA}
         </Button>
-      </Card>
 
-      {/* Transaction Status Modal */}
-      <Modal
-        isOpen={showTxModal}
-        onClose={() => {
-          if (!depositFlow.isActive) {
-            setShowTxModal(false);
-            depositFlow.reset();
-          }
-        }}
-        title={STRINGS.TX_IN_PROGRESS}
-      >
-        <TransactionTracker
-          flowState={depositFlow.state}
-          currentStep={depositFlow.currentStep}
-          steps={depositFlow.steps}
-          txHashes={depositFlow.txHashes}
-          depositInfo={{
-            fromChain,
-            amount: Number(amount),
-            token: fromToken,
-            privacyMode,
-            totalFees: quote ? quote.bridgeFee + quote.networkFee : 0,
-            apy: vault?.apy || 0,
-            steps: quote?.steps || [],
-          }}
-          error={depositFlow.error}
-          onClose={() => {
-            setShowTxModal(false);
-            depositFlow.reset();
-          }}
-        />
-      </Modal>
+        {showTxModal ? (
+          <div
+            ref={txPanelRef}
+            className="mt-5 rounded-[26px] border border-black/[0.08] bg-white/[0.94] p-4 shadow-[0_24px_70px_rgba(126,77,34,0.10)]"
+            aria-live="polite"
+          >
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sg-text-secondary">Deposit status</p>
+                <h2 className="mt-1 font-display text-[22px] font-semibold text-sg-text">{STRINGS.TX_IN_PROGRESS}</h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowTxModal(false);
+                  depositFlow.reset();
+                }}
+                disabled={depositFlow.isActive}
+                className="rounded-full border border-black/[0.08] bg-white p-2 text-sg-text-tertiary transition-colors hover:text-sg-text disabled:cursor-not-allowed disabled:opacity-40"
+                aria-label="Close deposit status"
+              >
+                <X size={16} />
+              </button>
+            </div>
+            <TransactionTracker
+              flowState={depositFlow.state}
+              currentStep={depositFlow.currentStep}
+              steps={depositFlow.steps}
+              txHashes={depositFlow.txHashes}
+              depositInfo={{
+                fromChain,
+                amount: Number(amount),
+                token: fromToken,
+                privacyMode,
+                totalFees: quote ? quote.bridgeFee + quote.networkFee : 0,
+                apy: vault?.apy || 0,
+                steps: quote?.steps || [],
+              }}
+              error={depositFlow.error}
+            />
+          </div>
+        ) : null}
+      </Card>
     </>
   );
 };
