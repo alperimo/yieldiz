@@ -137,7 +137,7 @@ Row Level Security is enabled for user-owned data. The app uses Supabase anonymo
 
 ## Documentation
 
-- `.docs/SOLGATE_MASTER_PLAN.md` — current product and track strategy.
+- `.docs/SOLGATE_MASTER_PLAN.md` — current product and architecture plan.
 - `.docs/SOLGATE_TRACK_IMPLEMENTATION_PLAN.md` — implementation plan for Palm USD, GoldRush, Cloak, Umbra, and QVAC.
 - `.docs/SOLGATE_FRONTIER_SIDE_TRACK_REPORT.md` — side-track fit analysis.
 

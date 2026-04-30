@@ -94,10 +94,10 @@ export const MARKETING_CONTENT = {
     ],
   },
   phoneFlow: {
-    eyebrow: 'Inside the app',
+    eyebrow: 'Inside SolGate',
     title: 'Five taps from your wallet to live yield.',
     subtitle:
-      'Connect, choose, review, confirm, earn — the same five steps every time, with the destination and the cost visible from the first tap.',
+      'Connect, choose, review, confirm, earn — with route cost, privacy choice and destination visible before money moves.',
     screens: [
       {
         key: 'connect',
@@ -111,8 +111,8 @@ export const MARKETING_CONTENT = {
       },
       {
         key: 'route',
-        label: 'Step 3 — Route',
-        caption: 'See the full path — bridge, swap, MEV shield, destination — before confirming.',
+        label: 'Step 3 — Review',
+        caption: 'Check the path, route cost, privacy boundary and destination before confirming.',
       },
       {
         key: 'confirm',
@@ -200,7 +200,7 @@ export const MARKETING_CONTENT = {
     eyebrow: 'Infrastructure',
     title: 'The route stack behind every deposit.',
     subtitle:
-      'Each provider has one clear job: signing, bridging, swapping, vault entry, protected submission, route confidence and chain state. SolGate keeps the route readable instead of turning the homepage into a sponsor wall.',
+      'Every deposit depends on a clear sequence: wallet signing, bridge routing, optional swap, protected Solana execution, vault entry and route checks before confirmation.',
     list: [
       {
         partner: 'Solflare',

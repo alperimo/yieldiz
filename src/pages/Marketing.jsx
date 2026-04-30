@@ -187,7 +187,7 @@ export default function Marketing() {
   return (
     <div ref={pageRef}>
       {/* ─────────────────  HERO  ───────────────── */}
-      <section className="relative px-4 pb-16 pt-6 sm:px-6 lg:px-8 lg:pb-24 lg:pt-10">
+      <section data-header-theme="light" className="relative px-4 pb-16 pt-6 sm:px-6 lg:px-8 lg:pb-24 lg:pt-10">
         <div className="mx-auto grid max-w-[1360px] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="space-y-6 lg:space-y-7">
             <Eyebrow>{MARKETING_CONTENT.hero.eyebrow}</Eyebrow>
@@ -248,14 +248,14 @@ export default function Marketing() {
         </div>
       </section>
 
-      {/* ─────────────────  TRUST ROW (chains only — SDKs are detailed in Infrastructure section) ───────────────── */}
-      <section>
+      {/* ─────────────────  TRUST ROW  ───────────────── */}
+      <section data-header-theme="light">
         <ChainMarquee items={MARKETING_CONTENT.marqueeChains} variant="light" />
       </section>
 
       {/* ─────────────────  LIVE METRICS (DARK) — only when wired to a real metrics endpoint  ───────────────── */}
       {metricsLive ? (
-        <section className="relative mt-4 overflow-hidden bg-[#D6A84F] px-4 py-24 text-[#2A1A0B] sm:px-6 lg:px-8 lg:py-28">
+        <section data-header-theme="gold" className="relative mt-4 overflow-hidden bg-[#D6A84F] px-4 py-24 text-[#2A1A0B] sm:px-6 lg:px-8 lg:py-28">
           <div className="relative mx-auto max-w-[1360px]">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <div data-reveal className="max-w-[640px]">
@@ -277,7 +277,7 @@ export default function Marketing() {
       ) : null}
 
       {/* ─────────────────  STORY  ───────────────── */}
-      <section id="product-story" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+      <section id="product-story" data-header-theme="light" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
         <div className="mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[0.92fr_1.08fr]">
           <div data-reveal>
             <MarketingAsset
@@ -306,6 +306,7 @@ export default function Marketing() {
       <section
         id="operating-model"
         ref={routeSectionRef}
+        data-header-theme="copper"
         className="relative overflow-hidden bg-[#7E4D22] px-4 py-24 text-white sm:px-6 lg:px-8 lg:py-32"
       >
         <div className="relative mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[0.95fr_1.05fr]">
@@ -365,6 +366,7 @@ export default function Marketing() {
       {/* ─────────────────  PHONE FLOW (PINNED)  ───────────────── */}
       <section
         ref={phoneFlowRef}
+        data-header-theme="light"
         className="relative px-4 py-24 sm:px-6 lg:px-8 lg:py-32"
       >
         <div className="mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[0.95fr_1.05fr]">
@@ -419,7 +421,7 @@ export default function Marketing() {
       </section>
 
       {/* ─────────────────  ROUTE CONTROLS  ───────────────── */}
-      <section id="route-controls" className="px-4 pb-24 sm:px-6 lg:px-8 lg:pb-32">
+      <section id="route-controls" data-header-theme="light" className="px-4 pb-24 sm:px-6 lg:px-8 lg:pb-32">
         <div className="mx-auto max-w-[1360px]">
           <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
             <div data-reveal>
@@ -454,7 +456,7 @@ export default function Marketing() {
       </section>
 
       {/* ─────────────────  PARTNERS  ───────────────── */}
-      <section id="execution-stack" className="relative overflow-hidden bg-[#F8E6B6] px-4 py-24 text-[#2A1A0B] sm:px-6 lg:px-8 lg:py-32">
+      <section id="execution-stack" data-header-theme="champagne" className="relative overflow-hidden bg-[#F8E6B6] px-4 py-24 text-[#2A1A0B] sm:px-6 lg:px-8 lg:py-32">
         <div className="relative mx-auto max-w-[1360px]">
           <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
             <div>
@@ -475,7 +477,7 @@ export default function Marketing() {
       </section>
 
       {/* ─────────────────  VAULT SPOTLIGHT  ───────────────── */}
-      <section id="vault-spotlight" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+      <section id="vault-spotlight" data-header-theme="light" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
         <div className="mx-auto max-w-[1360px]">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div data-reveal className="max-w-[640px]">
@@ -509,7 +511,7 @@ export default function Marketing() {
       </section>
 
       {/* ─────────────────  MEV SHIELD  ───────────────── */}
-      <section id="security-layer" className="relative overflow-hidden bg-[#7E4D22] px-4 py-24 text-white sm:px-6 lg:px-8 lg:py-32">
+      <section id="security-layer" data-header-theme="copper" className="relative overflow-hidden bg-[#7E4D22] px-4 py-24 text-white sm:px-6 lg:px-8 lg:py-32">
         <div className="relative mx-auto max-w-[1360px]">
           <div className="max-w-[720px]">
             <Eyebrow dark>{MARKETING_CONTENT.mevShield.eyebrow}</Eyebrow>
@@ -553,7 +555,7 @@ export default function Marketing() {
           be reintroduced only with real, attributed user statements. */}
 
       {/* ─────────────────  PERSONAS  ───────────────── */}
-      <section className="px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+      <section data-header-theme="light" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
         <div className="mx-auto max-w-[1360px]">
           <div className="max-w-[720px]" data-reveal>
             <Eyebrow>{MARKETING_CONTENT.personas.eyebrow}</Eyebrow>
@@ -598,7 +600,7 @@ export default function Marketing() {
       </section>
 
       {/* ─────────────────  FAQ  ───────────────── */}
-      <section id="faq" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+      <section id="faq" data-header-theme="light" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
         <div className="mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <div data-reveal>
             <Eyebrow>Questions, answered</Eyebrow>
@@ -618,7 +620,7 @@ export default function Marketing() {
       </section>
 
       {/* ─────────────────  FINAL CTA  ───────────────── */}
-      <section className="bg-[#D6A84F] px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+      <section data-header-theme="gold" className="bg-[#D6A84F] px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
         <div
           className="relative mx-auto grid max-w-[1360px] gap-10 text-[#2A1A0B] lg:grid-cols-[1.1fr_0.9fr]"
         >
