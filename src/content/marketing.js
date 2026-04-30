@@ -173,6 +173,29 @@ export const MARKETING_CONTENT = {
       },
     },
   },
+  routeControls: {
+    eyebrow: 'Before you sign',
+    title: 'More control, without more steps.',
+    subtitle:
+      'SolGate adds the checks that matter before money moves: stablecoin choice, optional privacy before the public vault route, and a local review of what you are about to sign.',
+    cards: [
+      {
+        title: 'More stablecoin choice',
+        description:
+          'Route USDC, USDT or Palm USD into the same clear deposit flow, with the route blocked if liquidity is not available.',
+      },
+      {
+        title: 'Privacy when it matters',
+        description:
+          'Choose a standard route, private treasury movement or private balance flow before funds enter the public vault deposit.',
+      },
+      {
+        title: 'Review on your device',
+        description:
+          'Get a plain-language route check locally before confirming — useful for fees, destination, privacy boundary and route risk.',
+      },
+    ],
+  },
   partners: {
     eyebrow: 'Infrastructure',
     title: 'Built on the most trusted services on Solana.',

@@ -418,6 +418,41 @@ export default function Marketing() {
         </div>
       </section>
 
+      {/* ─────────────────  ROUTE CONTROLS  ───────────────── */}
+      <section id="route-controls" className="px-4 pb-24 sm:px-6 lg:px-8 lg:pb-32">
+        <div className="mx-auto max-w-[1360px]">
+          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+            <div data-reveal>
+              <Eyebrow>{MARKETING_CONTENT.routeControls.eyebrow}</Eyebrow>
+              <h2 className="mt-6 max-w-[14ch] font-display text-[40px] font-semibold leading-[0.98] tracking-[-0.04em] text-[#2A1A0B] sm:text-[54px]">
+                {MARKETING_CONTENT.routeControls.title}
+              </h2>
+            </div>
+            <p data-reveal className="max-w-[560px] text-[16px] leading-[1.75] text-[#654B2B]">
+              {MARKETING_CONTENT.routeControls.subtitle}
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {MARKETING_CONTENT.routeControls.cards.map((card) => (
+              <article
+                key={card.title}
+                data-reveal
+                className="rounded-[28px] border border-black/[0.08] bg-white/80 p-6 shadow-[0_24px_60px_rgba(126,77,34,0.06)]"
+              >
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#F8E6B6] text-[#7E4D22]">
+                  <CheckCircle2 size={18} />
+                </div>
+                <h3 className="mt-5 font-display text-[20px] font-semibold tracking-[-0.02em] text-[#2A1A0B]">
+                  {card.title}
+                </h3>
+                <p className="mt-3 text-[14px] leading-[1.7] text-[#654B2B]">{card.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─────────────────  PARTNERS  ───────────────── */}
       <section id="execution-stack" className="relative overflow-hidden bg-[#F8E6B6] px-4 py-24 text-[#2A1A0B] sm:px-6 lg:px-8 lg:py-32">
         <div className="relative mx-auto max-w-[1360px]">

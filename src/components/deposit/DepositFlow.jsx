@@ -31,7 +31,7 @@ export const DepositFlow = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { connected, connect, address, signTransaction, signAllTransactions, evmAddress, walletAdapter, connection } = useWallet();
   const { data: vaults } = useVaults();
-  const { data: quote, loading: quoteLoading, getQuote } = useBridgeQuote();
+  const { data: quote, loading: quoteLoading, error: quoteError, getQuote } = useBridgeQuote();
   const depositFlow = useDepositFlow();
 
   const [fromChain, setFromChain] = useState('ethereum');
@@ -140,7 +140,7 @@ export const DepositFlow = () => {
   }, [connected, connect, fromChain, fromToken, toToken, amount, selectedVault, depositFlow, address, signTransaction, signAllTransactions, evmAddress, quote]);
 
   const estimatedYield = vault && amount ? (Number(amount) * (vault.apy / 100)).toFixed(2) : null;
-  const canDeposit = amount && Number(amount) > 0 && selectedVault;
+  const canDeposit = amount && Number(amount) > 0 && selectedVault && (!connected || (quote && !quoteError && !quoteLoading));
 
   return (
     <>
@@ -215,6 +215,11 @@ export const DepositFlow = () => {
         {/* Route details */}
         <div className="mt-4">
           <RouteDetails quote={quote} />
+          {quoteError ? (
+            <p className="mt-3 rounded-2xl border border-[#D6A84F]/30 bg-[#F8E6B6]/40 px-4 py-3 text-sm leading-6 text-[#654B2B]">
+              {quoteError}
+            </p>
+          ) : null}
         </div>
 
         <div className="mt-4 grid gap-3">
