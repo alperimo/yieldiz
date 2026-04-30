@@ -67,54 +67,54 @@ export default function Deposit() {
     <div className="px-4 pb-14 pt-6 sm:px-6 lg:px-8 lg:pb-20 lg:pt-10">
       <div className="mx-auto max-w-[1360px] space-y-14">
         <section className="grid items-start gap-8 xl:grid-cols-[0.86fr_0.76fr]">
-          <div className="space-y-6 xl:sticky xl:top-20 xl:max-h-[calc(100vh-5rem)] xl:self-start xl:overflow-y-auto xl:pb-4 xl:pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="space-y-6 xl:sticky xl:top-16 xl:self-start xl:space-y-5">
             <div className="inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-sg-text-secondary">
               <span className="h-px w-8 rounded-full bg-black/[0.12]" />
               Start with a deposit
             </div>
 
             <div>
-              <h1 className="max-w-[12ch] font-display text-[44px] font-semibold leading-[0.96] tracking-[-0.04em] text-sg-text sm:text-[64px]">
+              <h1 className="max-w-[12ch] font-display text-[44px] font-semibold leading-[0.96] tracking-[-0.04em] text-sg-text sm:text-[64px] xl:text-[56px] 2xl:text-[64px]">
                 {STRINGS.HERO_HEADLINE}
               </h1>
-              <p className="mt-5 max-w-[52ch] text-base leading-8 text-sg-text-secondary lg:text-lg">
+              <p className="mt-5 max-w-[52ch] text-base leading-8 text-sg-text-secondary lg:text-lg xl:mt-4 xl:text-base xl:leading-7 2xl:text-lg 2xl:leading-8">
                 {STRINGS.HERO_SUBHEADLINE}
               </p>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="grid gap-4 md:grid-cols-3 xl:gap-3 2xl:gap-4">
               {APP_PILLARS.map(({ icon: Icon, title, description }) => (
-                <Card key={title} className="feature-card h-full !rounded-[28px] !p-6">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#7E4D22] text-sg-accent-green shadow-[0_18px_40px_rgba(126,77,34,0.12)]">
+                <Card key={title} className="feature-card h-full !rounded-[28px] !p-6 xl:!p-5 2xl:!p-6">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#7E4D22] text-sg-accent-green shadow-[0_18px_40px_rgba(126,77,34,0.12)] xl:h-10 xl:w-10 2xl:h-11 2xl:w-11">
                     <Icon size={18} />
                   </div>
-                  <h2 className="mt-5 font-display text-[24px] font-semibold leading-tight text-sg-text">{title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-sg-text-secondary">{description}</p>
+                  <h2 className="mt-5 font-display text-[24px] font-semibold leading-tight text-sg-text xl:mt-4 xl:text-[22px] 2xl:mt-5 2xl:text-[24px]">{title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-sg-text-secondary xl:mt-2 xl:text-[13px] xl:leading-6 2xl:mt-3 2xl:text-sm 2xl:leading-7">{description}</p>
                 </Card>
               ))}
             </div>
 
             <Card className="overflow-hidden !rounded-[30px] !p-0">
               <div className="grid gap-px bg-black/[0.06] lg:grid-cols-[0.88fr_1.12fr]">
-                <div className="bg-white/[0.86] p-6">
+                <div className="bg-white/[0.86] p-6 xl:p-5 2xl:p-6">
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sg-text-secondary">Before you confirm</p>
-                  <p className="mt-4 max-w-[28ch] font-display text-[28px] font-semibold leading-tight text-sg-text">
+                  <p className="mt-4 max-w-[28ch] font-display text-[28px] font-semibold leading-tight text-sg-text xl:text-[25px] 2xl:text-[28px]">
                     The numbers that matter stay visible.
                   </p>
                 </div>
-                <div className="bg-[#7E4D22] p-6 text-white">
-                  <div className="grid gap-5 md:grid-cols-3">
+                <div className="bg-[#7E4D22] p-6 text-white xl:p-5 2xl:p-6">
+                  <div className="grid gap-5 md:grid-cols-3 xl:gap-4 2xl:gap-5">
                     <div>
                       <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/[0.46]">Source chain</p>
-                      <p className="mt-3 text-sm leading-7 text-white/[0.72]">Choose where funds sit today, then set the token and amount you want to move.</p>
+                      <p className="mt-3 text-sm leading-7 text-white/[0.72] xl:mt-2 xl:text-[13px] xl:leading-6 2xl:mt-3 2xl:text-sm 2xl:leading-7">Choose where funds sit today, then set the token and amount you want to move.</p>
                     </div>
                     <div>
                       <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/[0.46]">Route cost</p>
-                      <p className="mt-3 text-sm leading-7 text-white/[0.72]">Bridge, swap, slippage, and estimated time stay visible before you approve.</p>
+                      <p className="mt-3 text-sm leading-7 text-white/[0.72] xl:mt-2 xl:text-[13px] xl:leading-6 2xl:mt-3 2xl:text-sm 2xl:leading-7">Bridge, swap, slippage, and estimated time stay visible before you approve.</p>
                     </div>
                     <div>
                       <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/[0.46]">Destination vault</p>
-                      <p className="mt-3 text-sm leading-7 text-white/[0.72]">Your deposit finishes inside Kamino so the position can start earning right away.</p>
+                      <p className="mt-3 text-sm leading-7 text-white/[0.72] xl:mt-2 xl:text-[13px] xl:leading-6 2xl:mt-3 2xl:text-sm 2xl:leading-7">Your deposit finishes inside Kamino so the position can start earning right away.</p>
                     </div>
                   </div>
                 </div>
@@ -122,7 +122,7 @@ export default function Deposit() {
             </Card>
           </div>
 
-          <div className="xl:sticky xl:top-20 xl:self-start">
+          <div className="xl:sticky xl:top-16 xl:self-start">
             <div className="rounded-[34px] border border-black/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.78),rgba(255,255,255,0.94))] p-3 shadow-[0_40px_120px_rgba(126,77,34,0.10)] backdrop-blur">
               <div className="mb-4 flex items-center gap-2 px-3 pt-2 text-sg-text-tertiary">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#7E4D22]/10" />
