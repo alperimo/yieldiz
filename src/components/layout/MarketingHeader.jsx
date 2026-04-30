@@ -16,7 +16,7 @@ const HEADER_THEMES = {
     header: 'border-black/[0.018] bg-[rgba(245,247,242,0.92)] text-[#2A1A0B] backdrop-blur-2xl shadow-[0_8px_30px_rgba(126,77,34,0.045)]',
     logo: 'text-[#2A1A0B]',
     sub: 'text-[#8B6A3A]',
-    nav: 'text-[#654B2B] hover:text-[#2A1A0B] hover:bg-white/55',
+    nav: 'text-[#654B2B] hover:text-[#2A1A0B]',
     menu: 'border-black/[0.08] bg-white/70 text-[#2A1A0B]',
     cta: 'bg-[#7E4D22] text-[#F8E6B6] shadow-[0_14px_30px_rgba(126,77,34,0.18)] hover:bg-[#65401F]',
     mobile: 'border-black/[0.06] bg-white/95',
@@ -26,7 +26,7 @@ const HEADER_THEMES = {
     header: 'border-[#7E4D22]/[0.025] bg-[rgba(248,230,182,0.9)] text-[#2A1A0B] backdrop-blur-2xl shadow-[0_8px_30px_rgba(126,77,34,0.04)]',
     logo: 'text-[#2A1A0B]',
     sub: 'text-[#8B6A3A]',
-    nav: 'text-[#654B2B] hover:text-[#2A1A0B] hover:bg-white/35',
+    nav: 'text-[#654B2B] hover:text-[#2A1A0B]',
     menu: 'border-[#7E4D22]/10 bg-white/35 text-[#2A1A0B]',
     cta: 'bg-[#7E4D22] text-[#F8E6B6] shadow-[0_14px_30px_rgba(126,77,34,0.16)] hover:bg-[#65401F]',
     mobile: 'border-[#7E4D22]/[0.06] bg-[rgba(248,230,182,0.96)]',
@@ -36,7 +36,7 @@ const HEADER_THEMES = {
     header: 'border-[#F8E6B6]/10 bg-[rgba(126,77,34,0.94)] text-[#F8E6B6] backdrop-blur-2xl shadow-[0_10px_36px_rgba(42,26,11,0.18)]',
     logo: 'text-[#F8E6B6]',
     sub: 'text-[#F8E6B6]/78',
-    nav: 'text-[#F8E6B6]/86 hover:text-white hover:bg-white/10',
+    nav: 'text-[#F8E6B6]/86 hover:text-white',
     menu: 'border-white/15 bg-white/10 text-[#F8E6B6]',
     cta: 'bg-[#F8E6B6] text-[#7E4D22] shadow-[0_14px_30px_rgba(42,26,11,0.18)] hover:bg-white',
     mobile: 'border-[#F8E6B6]/15 bg-[rgba(126,77,34,0.96)]',
@@ -46,7 +46,7 @@ const HEADER_THEMES = {
     header: 'border-[#F8E6B6]/10 bg-[rgba(92,52,24,0.94)] text-[#F8E6B6] backdrop-blur-2xl shadow-[0_10px_36px_rgba(42,26,11,0.22)]',
     logo: 'text-[#F8E6B6]',
     sub: 'text-[#F8E6B6]/78',
-    nav: 'text-[#F8E6B6]/86 hover:text-white hover:bg-white/10',
+    nav: 'text-[#F8E6B6]/86 hover:text-white',
     menu: 'border-white/15 bg-white/10 text-[#F8E6B6]',
     cta: 'bg-[#F8E6B6] text-[#5C3418] shadow-[0_14px_30px_rgba(42,26,11,0.2)] hover:bg-white',
     mobile: 'border-[#F8E6B6]/15 bg-[rgba(92,52,24,0.96)]',
@@ -56,7 +56,7 @@ const HEADER_THEMES = {
     header: 'border-[#7E4D22]/[0.045] bg-[rgba(214,168,79,0.92)] text-[#2A1A0B] backdrop-blur-2xl shadow-[0_10px_36px_rgba(126,77,34,0.08)]',
     logo: 'text-[#2A1A0B]',
     sub: 'text-[#654B2B]',
-    nav: 'text-[#4A3218]/80 hover:text-[#2A1A0B] hover:bg-[#F8E6B6]/30',
+    nav: 'text-[#4A3218]/80 hover:text-[#2A1A0B]',
     menu: 'border-[#7E4D22]/15 bg-[#F8E6B6]/35 text-[#2A1A0B]',
     cta: 'bg-[#7E4D22] text-[#F8E6B6] shadow-[0_14px_30px_rgba(126,77,34,0.18)] hover:bg-[#65401F]',
     mobile: 'border-[#7E4D22]/15 bg-[rgba(214,168,79,0.96)]',
@@ -155,7 +155,7 @@ export const MarketingHeader = () => {
               key={item.href}
               href={item.href}
               onClick={(event) => handleAnchorClick(event, item.href)}
-              className={`rounded-full px-4 py-2 text-sm font-medium ${activeTheme.nav}`}
+              className={`relative px-4 py-2 text-sm font-medium transition-colors after:absolute after:bottom-[5px] after:left-4 after:right-4 after:h-px after:origin-center after:scale-x-0 after:bg-current after:transition-transform after:duration-200 hover:after:scale-x-100 focus-visible:outline-none focus-visible:after:scale-x-100 ${activeTheme.nav}`}
             >
               {item.label}
             </a>
