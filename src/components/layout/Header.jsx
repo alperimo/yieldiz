@@ -37,8 +37,8 @@ export const Header = ({ onMenuToggle }) => {
             <Menu size={20} strokeWidth={1.5} />
           </button>
 
-          <NavLink to="/app" className="flex items-center gap-3 text-[#2A1A0B]">
-            <YieldizLogo size={32} />
+          <NavLink to="/app" className="flex items-center gap-2.5 text-[#2A1A0B]">
+            <YieldizLogo size={40} className="shrink-0" />
             <div>
               <p className="font-display text-[17px] font-semibold leading-none">{STRINGS.APP_NAME}</p>
               <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-sg-text-secondary">

@@ -232,6 +232,16 @@ export default function Marketing() {
     return () => ctx.revert();
   }, [prefersReducedMotion]);
 
+  const handleSectionLinkClick = (event, href) => {
+    const target = document.querySelector(href);
+    if (!target) return;
+
+    event.preventDefault();
+    const top = target.getBoundingClientRect().top + window.scrollY - 72;
+    window.scrollTo({ top, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    window.history.replaceState(null, '', href);
+  };
+
   return (
     <div ref={pageRef}>
       {/* ─────────────────  HERO  ───────────────── */}
@@ -259,6 +269,7 @@ export default function Marketing() {
               </Link>
               <a
                 href="#operating-model"
+                onClick={(event) => handleSectionLinkClick(event, '#operating-model')}
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-black/10 bg-white/80 px-6 py-4 text-[14px] font-semibold text-[#2A1A0B] shadow-[0_20px_40px_rgba(126,77,34,0.06)] transition-transform hover:-translate-y-0.5"
               >
                 {MARKETING_CONTENT.hero.secondaryCta}

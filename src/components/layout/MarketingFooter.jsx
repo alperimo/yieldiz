@@ -33,7 +33,7 @@ export const MarketingFooter = () => (
       <div className="grid gap-14 lg:grid-cols-[1.2fr_2fr]">
         <div>
           <Link to="/" className="inline-flex items-center gap-3 text-[#F8E6B6]">
-            <YieldizLogo size={34} monochrome />
+            <YieldizLogo size={42} monochrome className="shrink-0" />
             <div>
               <p className="font-display text-[18px] font-semibold leading-none">Yieldiz</p>
               <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.26em] text-[#F8E6B6]/76">
