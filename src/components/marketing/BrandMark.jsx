@@ -1,6 +1,6 @@
 import React from 'react';
 
-// Inline SVG brand marks for the infrastructure SolGate runs on.
+// Inline SVG brand marks for the infrastructure Yieldiz runs on.
 // Each mark is a single-colour glyph that inherits currentColor, so it can sit
 // on dark or light surfaces with no edits.
 //

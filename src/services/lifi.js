@@ -34,7 +34,7 @@ export async function getBridgeQuote({ fromChainId, fromToken, toToken, fromAmou
     fromAmount: String(fromAmount),
     fromAddress,
     toAddress,
-    integrator: import.meta.env.VITE_LIFI_INTEGRATOR || 'solgate',
+    integrator: import.meta.env.VITE_LIFI_INTEGRATOR || 'yieldiz',
   });
 
   const res = await fetch(`${LIFI_API}/quote?${params}`);
@@ -63,7 +63,7 @@ export async function getRoutes({ fromChainId, fromToken, toToken, fromAmount, f
       fromAddress,
       toAddress,
       options: {
-        integrator: import.meta.env.VITE_LIFI_INTEGRATOR || 'solgate',
+        integrator: import.meta.env.VITE_LIFI_INTEGRATOR || 'yieldiz',
         slippage: 0.005,
         order: 'RECOMMENDED',
       },

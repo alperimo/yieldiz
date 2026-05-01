@@ -94,7 +94,7 @@ export function useBridgeQuote() {
       }
 
       const fromTokenAddr = getTokenAddress(fromToken, fromChain);
-      if (!fromTokenAddr) throw new Error(`${fromToken} is not available on ${fromChain} in SolGate yet.`);
+      if (!fromTokenAddr) throw new Error(`${fromToken} is not available on ${fromChain} in Yieldiz yet.`);
 
       const amountInBaseUnits = toBaseUnits(amount, sourceToken.decimals);
 

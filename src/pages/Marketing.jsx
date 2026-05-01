@@ -692,7 +692,7 @@ export default function Marketing() {
                 <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
               <a
-                href="mailto:hello@solgate.app"
+                href="mailto:hello@yieldiz.app"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-[#F8E6B6]/30 bg-white/8 px-6 py-4 text-[14px] font-semibold text-[#F8E6B6] transition-colors hover:bg-white/12"
               >
                 {MARKETING_CONTENT.finalCta.secondaryCta}

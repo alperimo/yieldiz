@@ -1,10 +1,10 @@
-# SolGate
+# Yieldiz
 
-SolGate is a stablecoin yield terminal for moving capital into Solana vaults with clear routing, MEV-aware execution, optional privacy, and local route review before signing.
+Yieldiz is a stablecoin yield terminal for moving capital into Solana vaults with clear routing, MEV-aware execution, optional privacy, and local route review before signing.
 
 ## Product
 
-Users choose a source chain, stablecoin, vault, and privacy preference. SolGate quotes the route, explains the movement in plain language, checks route confidence, then executes bridge, swap, and vault deposit steps through the configured providers.
+Users choose a source chain, stablecoin, vault, and privacy preference. Yieldiz quotes the route, explains the movement in plain language, checks route confidence, then executes bridge, swap, and vault deposit steps through the configured providers.
 
 ## Current capabilities
 
@@ -109,7 +109,7 @@ The deposit screen has three privacy choices:
 - **Private treasury route** — loads Cloak only when selected. It is intended for private pre-route treasury movement before funds enter the public vault route.
 - **Private balance route** — loads Umbra only when selected. It is intended for encrypted balance handling before withdrawing into the deposit route.
 
-Important boundary: SolGate does not claim Kamino vault deposits are private. Privacy applies before the public vault route; the final vault deposit still settles on-chain. Until a Cloak/Umbra shield-and-withdraw demo is validated on the target network, non-standard privacy modes are presented as setup paths and direct deposit confirmation remains blocked to avoid implying false privacy.
+Important boundary: Yieldiz does not claim Kamino vault deposits are private. Privacy applies before the public vault route; the final vault deposit still settles on-chain. Until a Cloak/Umbra shield-and-withdraw demo is validated on the target network, non-standard privacy modes are presented as setup paths and direct deposit confirmation remains blocked to avoid implying false privacy.
 
 ## Environment
 

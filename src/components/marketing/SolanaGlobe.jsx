@@ -2,9 +2,9 @@ import React, { useLayoutEffect, useMemo, useRef } from 'react';
 import { gsap } from 'gsap';
 import { SUPPORTED_CHAINS } from '../../content/marketing';
 
-// Premium SolGate globe.
-// Build: SVG wireframe rotating on its own axis, dot-map continents,
-// orbiting chain coins, converging energy beams, pulse rings.
+// Premium Yieldiz globe.
+// Build: clipped SVG wireframe rotating on its own axis, dot-map continents,
+// orbiting chain coins, and pulse rings.
 
 const GRID_LONG = 10;
 const GRID_LAT = 6;
@@ -36,7 +36,6 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
   const glowRef = useRef(null);
   const ringRefs = useRef([]);
   const orbitRefs = useRef([]);
-  const beamRefs = useRef([]);
 
   // Longitude lines (vertical ellipses at staged rotations)
   const longitudes = useMemo(
@@ -125,20 +124,6 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
             yoyo: true,
           });
         }
-        // Energy beam flowing from orbit → center
-        const beam = beamRefs.current[index];
-        if (beam) {
-          gsap.fromTo(
-            beam,
-            { strokeDashoffset: 160 },
-            {
-              strokeDashoffset: 0,
-              duration: 2.4 + index * 0.18,
-              ease: 'power1.inOut',
-              repeat: -1,
-            },
-          );
-        }
       });
     }, rootRef);
 
@@ -191,69 +176,66 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
             <stop offset="50%" stopColor="#D6A84F" stopOpacity="0.48" />
             <stop offset="100%" stopColor="#7E4D22" stopOpacity="0.55" />
           </linearGradient>
-          <linearGradient id="sgBeam" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#D6A84F" stopOpacity="0" />
-            <stop offset="50%" stopColor="#D6A84F" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#7E4D22" stopOpacity="0" />
-          </linearGradient>
-          <filter id="sgSoft" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="1.4" />
-          </filter>
+          <clipPath id="sgSphereClip">
+            <circle cx="0" cy="0" r="238" />
+          </clipPath>
         </defs>
 
         {/* Base sphere fill */}
         <circle cx="0" cy="0" r="240" fill="url(#sgSphere)" />
 
-        {/* Wireframe: longitudes + latitudes (static — atmosphere layer) */}
-        <g stroke="url(#sgGrid)" fill="none" strokeWidth="0.8" opacity="0.42">
-          {longitudes.map((rot) => (
-            <ellipse key={`lon-${rot}`} cx="0" cy="0" rx="240" ry="240" transform={`rotate(${rot})`} />
-          ))}
-          {longitudes.map((rot) => (
-            <ellipse
-              key={`lon-b-${rot}`}
-              cx="0"
-              cy="0"
-              rx="60"
-              ry="240"
-              transform={`rotate(${rot})`}
-              opacity="0.6"
-            />
-          ))}
-          {latitudes.map((scale, i) => (
-            <ellipse key={`lat-${i}`} cx="0" cy="0" rx="240" ry={240 * scale} opacity="0.55" />
-          ))}
-        </g>
-
-        {/* Rotating inner sphere group (continent dots + meridians) */}
-        <g
-          ref={sphereRef}
-          style={{ transformBox: 'fill-box', transformOrigin: '50% 50%' }}
-        >
-          {/* Primary meridian highlights */}
-          <g stroke="#D6A84F" fill="none" strokeWidth="1.1" opacity="0.38">
-            <ellipse cx="0" cy="0" rx="30" ry="240" />
-            <ellipse cx="0" cy="0" rx="120" ry="240" />
-            <ellipse cx="0" cy="0" rx="200" ry="240" />
+        <g clipPath="url(#sgSphereClip)">
+          {/* Wireframe: longitudes + latitudes (static — atmosphere layer) */}
+          <g stroke="url(#sgGrid)" fill="none" strokeWidth="0.8" opacity="0.42">
+            {longitudes.map((rot) => (
+              <ellipse key={`lon-${rot}`} cx="0" cy="0" rx="240" ry="240" transform={`rotate(${rot})`} />
+            ))}
+            {longitudes.map((rot) => (
+              <ellipse
+                key={`lon-b-${rot}`}
+                cx="0"
+                cy="0"
+                rx="60"
+                ry="240"
+                transform={`rotate(${rot})`}
+                opacity="0.6"
+              />
+            ))}
+            {latitudes.map((scale, i) => (
+              <ellipse key={`lat-${i}`} cx="0" cy="0" rx="240" ry={240 * scale} opacity="0.55" />
+            ))}
           </g>
-          <g stroke="#7E4D22" fill="none" strokeWidth="1.1" opacity="0.28">
-            <ellipse cx="0" cy="0" rx="80" ry="240" />
-            <ellipse cx="0" cy="0" rx="160" ry="240" />
-          </g>
-        </g>
 
-        {/* Continent dot map — counter-layer with its own rotation for parallax */}
-        <g ref={dotMapRef} style={{ transformBox: 'fill-box', transformOrigin: '50% 50%' }}>
-          {dots.map((d, i) => (
-            <circle
-              key={`dot-${i}`}
-              cx={d.x}
-              cy={d.y}
-              r={Math.max(0.6, d.r)}
-              fill={d.z > 0.3 ? '#D6A84F' : '#7E4D22'}
-              opacity={0.35 + d.z * 0.55}
-            />
-          ))}
+          {/* Rotating inner sphere group (continent dots + meridians) */}
+          <g
+            ref={sphereRef}
+            style={{ transformBox: 'fill-box', transformOrigin: '50% 50%' }}
+          >
+            {/* Primary meridian highlights */}
+            <g stroke="#D6A84F" fill="none" strokeWidth="1.1" opacity="0.38">
+              <ellipse cx="0" cy="0" rx="30" ry="240" />
+              <ellipse cx="0" cy="0" rx="120" ry="240" />
+              <ellipse cx="0" cy="0" rx="200" ry="240" />
+            </g>
+            <g stroke="#7E4D22" fill="none" strokeWidth="1.1" opacity="0.18">
+              <ellipse cx="0" cy="0" rx="80" ry="240" />
+              <ellipse cx="0" cy="0" rx="160" ry="240" />
+            </g>
+          </g>
+
+          {/* Continent dot map — counter-layer with its own rotation for parallax */}
+          <g ref={dotMapRef} style={{ transformBox: 'fill-box', transformOrigin: '50% 50%' }}>
+            {dots.map((d, i) => (
+              <circle
+                key={`dot-${i}`}
+                cx={d.x}
+                cy={d.y}
+                r={Math.max(0.6, d.r)}
+                fill={d.z > 0.3 ? '#D6A84F' : '#7E4D22'}
+                opacity={0.35 + d.z * 0.55}
+              />
+            ))}
+          </g>
         </g>
 
         {/* Rim highlight */}
@@ -267,46 +249,21 @@ export const SolanaGlobe = ({ reducedMotion = false }) => {
           opacity="0.8"
         />
 
-        {/* Energy beams from edge → center (one per chain) */}
-        <g opacity="0.75" filter="url(#sgSoft)">
-          {SUPPORTED_CHAINS.map((chain, i) => {
-            const rad = (chain.angle * Math.PI) / 180;
-            const x2 = Math.cos(rad - Math.PI / 2) * 235;
-            const y2 = Math.sin(rad - Math.PI / 2) * 235;
-            return (
-              <line
-                key={`beam-${chain.id}`}
-                ref={(el) => {
-                  beamRefs.current[i] = el;
-                }}
-                x1={0}
-                y1={0}
-                x2={x2}
-                y2={y2}
-                stroke="url(#sgBeam)"
-                strokeWidth="1.4"
-                strokeDasharray="10 8"
-              />
-            );
-          })}
-        </g>
-
-        {/* Center Solana node */}
+        {/* Center destination node */}
         <g>
-          <circle cx="0" cy="0" r="24" fill="#2A1A0B" />
-          <circle cx="0" cy="0" r="24" fill="url(#sgGrid)" opacity="0.9" />
-          <circle cx="0" cy="0" r="30" fill="none" stroke="#D6A84F" strokeWidth="1.2" opacity="0.7" />
+          <circle cx="0" cy="0" r="26" fill="#5C3418" />
+          <circle cx="0" cy="0" r="31" fill="none" stroke="#D6A84F" strokeWidth="1.4" opacity="0.78" />
           <text
             x="0"
             y="4"
             textAnchor="middle"
             fontFamily="Sora, Manrope, sans-serif"
-            fontSize="10"
-            fontWeight="700"
-            fill="#2A1A0B"
-            letterSpacing="0.12em"
+            fontSize="9"
+            fontWeight="800"
+            fill="#F8E6B6"
+            letterSpacing="0.08em"
           >
-            SOL
+            YLDZ
           </text>
         </g>
       </svg>

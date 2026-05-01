@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { useHideOnScroll } from '../../hooks/useHideOnScroll';
-import { SolGateLogo } from '../brand/SolGateLogo';
+import { YieldizLogo } from '../brand/YieldizLogo';
 
 const MARKETING_LINKS = [
   { href: '#product-story', label: 'Overview' },
@@ -140,9 +140,9 @@ export const MarketingHeader = () => {
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="mx-auto flex h-[68px] max-w-[1360px] items-center justify-between gap-4">
         <Link to="/" className={`flex items-center gap-3 ${activeTheme.logo}`}>
-          <SolGateLogo size={32} monochrome={useMonochromeLogo} />
+          <YieldizLogo size={32} monochrome={useMonochromeLogo} />
           <div>
-            <p className="font-display text-[17px] font-semibold leading-none">SolGate</p>
+            <p className="font-display text-[17px] font-semibold leading-none">Yieldiz</p>
             <p className={`mt-1 text-[10px] font-semibold uppercase tracking-[0.26em] ${activeTheme.sub}`}>
               Stablecoin yield on Solana
             </p>

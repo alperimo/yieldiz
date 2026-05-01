@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, useEffect, useMemo } from 'react';
 import { ConnectionProvider, WalletProvider as SolanaWalletProvider, useWallet as useSolanaWallet, useConnection } from '@solana/wallet-adapter-react';
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
+import { WalletModalProvider, useWalletModal } from '@solana/wallet-adapter-react-ui';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 const WalletContext = createContext(null);
@@ -70,7 +70,8 @@ function useEVMWallet() {
 
 // Inner provider that wraps Solana wallet adapter hooks with our context API
 const WalletContextBridge = ({ children }) => {
-  const { publicKey, connected, connecting, disconnect, select, wallets, wallet, signMessage, signTransaction, signAllTransactions } = useSolanaWallet();
+  const { publicKey, connected, connecting, connect: connectSelectedWallet, disconnect, wallet, signMessage, signTransaction, signAllTransactions } = useSolanaWallet();
+  const { setVisible: setWalletModalVisible } = useWalletModal();
   const { connection } = useConnection();
   const [balance, setBalance] = useState(null);
   const evm = useEVMWallet();
@@ -96,11 +97,19 @@ const WalletContextBridge = ({ children }) => {
     return () => { cancelled = true; connection.removeAccountChangeListener(id); };
   }, [publicKey, connection]);
 
-  // Connect helper: select Solflare by default
-  const connect = useCallback(() => {
-    const solflare = wallets.find((w) => w.adapter.name === 'Solflare');
-    if (solflare) select(solflare.adapter.name);
-  }, [wallets, select]);
+  const connect = useCallback(async () => {
+    if (wallet?.adapter) {
+      try {
+        await connectSelectedWallet();
+        return;
+      } catch (error) {
+        if (error?.name !== 'WalletConnectionError') {
+          console.warn('Wallet connection failed:', error);
+        }
+      }
+    }
+    setWalletModalVisible(true);
+  }, [connectSelectedWallet, setWalletModalVisible, wallet?.adapter]);
 
   return (
     <WalletContext.Provider
@@ -136,7 +145,7 @@ export const WalletProvider = ({ children }) => {
 
   return (
     <ConnectionProvider endpoint={endpoint}>
-      <SolanaWalletProvider wallets={wallets} autoConnect={false}>
+      <SolanaWalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
           <WalletContextBridge>
             {children}

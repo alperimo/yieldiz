@@ -149,7 +149,7 @@ export async function getEarnVaults() {
   const candidates = rawVaults.filter(isSupportedVaultCandidate);
 
   if (!candidates.length) {
-    throw new Error('Kamino API returned no supported SolGate vault candidates');
+    throw new Error('Kamino API returned no supported Yieldiz vault candidates');
   }
 
   const settled = await mapWithConcurrency(candidates, 8, async (vault) => {
@@ -174,7 +174,7 @@ export async function getEarnVaults() {
 
   if (!vaults.length) {
     const reason = settled.find((result) => result.status === 'rejected')?.reason;
-    throw new Error(reason?.message || 'Kamino metrics unavailable for supported SolGate vaults');
+    throw new Error(reason?.message || 'Kamino metrics unavailable for supported Yieldiz vaults');
   }
 
   return vaults;

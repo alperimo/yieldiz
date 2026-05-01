@@ -7,7 +7,7 @@ import { STRINGS, NAV_ITEMS } from '../../lib/constants';
 import { abbreviateAddress } from '../../lib/formatters';
 import { LogOut, Menu, ArrowDownToLine, LayoutDashboard, Vault } from 'lucide-react';
 import { useHideOnScroll } from '../../hooks/useHideOnScroll';
-import { SolGateLogo } from '../brand/SolGateLogo';
+import { YieldizLogo } from '../brand/YieldizLogo';
 
 const ICON_MAP = { ArrowDownToLine, LayoutDashboard, Vault };
 
@@ -38,7 +38,7 @@ export const Header = ({ onMenuToggle }) => {
           </button>
 
           <NavLink to="/app" className="flex items-center gap-3 text-[#2A1A0B]">
-            <SolGateLogo size={32} />
+            <YieldizLogo size={32} />
             <div>
               <p className="font-display text-[17px] font-semibold leading-none">{STRINGS.APP_NAME}</p>
               <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-sg-text-secondary">

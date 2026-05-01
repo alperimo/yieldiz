@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
     try {
       // Wallet-based auth: sign nonce → verify → get JWT
       // Step 1: Generate a nonce (timestamp-based for simplicity)
-      const nonce = `SolGate auth: ${walletAddress} at ${Date.now()}`;
+      const nonce = `Yieldiz auth: ${walletAddress} at ${Date.now()}`;
       const encodedNonce = new TextEncoder().encode(nonce);
 
       // Step 2: Sign the nonce with the wallet

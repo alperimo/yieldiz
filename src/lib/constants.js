@@ -1,9 +1,9 @@
 export const APP_VERSION = '0.1.0';
 
 export const STRINGS = {
-  APP_NAME: 'SolGate',
+  APP_NAME: 'Yieldiz',
   APP_TAGLINE: 'Cross-Chain Yield Routing for Solana',
-  APP_LOGO_ABBR: 'SG',
+  APP_LOGO_ABBR: 'YZ',
 
   // App hero
   HERO_HEADLINE: 'Earn yield on your stablecoins.',

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { MARKETING_CONTENT } from '../../content/marketing';
-import { SolGateLogo } from '../brand/SolGateLogo';
+import { YieldizLogo } from '../brand/YieldizLogo';
 
 const LinkList = ({ title, items }) => (
   <div>
@@ -33,16 +33,16 @@ export const MarketingFooter = () => (
       <div className="grid gap-14 lg:grid-cols-[1.2fr_2fr]">
         <div>
           <Link to="/" className="inline-flex items-center gap-3 text-[#F8E6B6]">
-            <SolGateLogo size={34} monochrome />
+            <YieldizLogo size={34} monochrome />
             <div>
-              <p className="font-display text-[18px] font-semibold leading-none">SolGate</p>
+              <p className="font-display text-[18px] font-semibold leading-none">Yieldiz</p>
               <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.26em] text-[#F8E6B6]/76">
                 Stablecoin yield on Solana
               </p>
             </div>
           </Link>
           <p className="mt-6 max-w-[44ch] text-[15px] font-medium leading-[1.75] text-[#F8E6B6]/78">
-            SolGate routes stablecoin capital from Ethereum, Arbitrum, Base, Polygon and Optimism
+            Yieldiz routes stablecoin capital from Ethereum, Arbitrum, Base, Polygon and Optimism
             into audited Solana yield vaults — with route clarity, MEV protection and self-custodial
             control at every step.
           </p>
@@ -56,7 +56,7 @@ export const MarketingFooter = () => (
       </div>
 
       <div className="mt-16 flex flex-col gap-4 border-t border-[#F8E6B6]/10 pt-8 text-[13px] font-medium text-[#F8E6B6]/70 md:flex-row md:items-center md:justify-between">
-        <p>© {new Date().getFullYear()} SolGate. Stablecoin yield routing with self-custody.</p>
+        <p>© {new Date().getFullYear()} Yieldiz. Stablecoin yield routing with self-custody.</p>
         <p>Transparent fees. Audited vaults. Self-custodial routing.</p>
       </div>
     </div>

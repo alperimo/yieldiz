@@ -1,6 +1,6 @@
 {
-  "name": "SolGate — Cross-Chain Yield Routing for Solana",
-  "short_name": "SolGate",
+  "name": "Yieldiz — Cross-Chain Yield Routing for Solana",
+  "short_name": "Yieldiz",
   "description": "Move stablecoin capital from major chains into Solana yield with route clarity and self-custodial control.",
   "start_url": "/",
   "display": "standalone",

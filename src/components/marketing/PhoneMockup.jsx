@@ -78,7 +78,7 @@ const ConnectScreen = ({ preview }) => (
   <ScreenChrome>
     <div className="flex h-full flex-col">
       <AppHeader
-        eyebrow="SolGate"
+        eyebrow="Yieldiz"
         title="Choose a wallet."
         caption="Self-custodial access. No account, no custody."
         right={
@@ -109,7 +109,7 @@ const ConnectScreen = ({ preview }) => (
         <div className="flex items-start gap-2">
           <Shield size={14} className="mt-0.5 shrink-0 text-[#7E4D22]" />
           <p className="text-[10px] font-medium leading-[1.45] text-[#4A3218]">
-            SolGate requests signatures only when a route is ready to review.
+            Yieldiz requests signatures only when a route is ready to review.
           </p>
         </div>
       </div>

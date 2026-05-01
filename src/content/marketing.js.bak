@@ -34,7 +34,7 @@ export const MARKETING_CONTENT = {
     eyebrow: 'Capital should move where yield is highest',
     title: 'A treasury-grade path into Solana without hiding the plumbing.',
     paragraphs: [
-      'Most stablecoin capital sits fragmented across chains, idle or underutilized. SolGate turns that fragmented balance sheet into a single routing decision.',
+      'Most stablecoin capital sits fragmented across chains, idle or underutilized. Yieldiz turns that fragmented balance sheet into a single routing decision.',
       'Instead of forcing users through multiple tools, tabs, and wallets, the product presents one coherent execution surface: source chain selection, route visibility, destination vault, and post-deposit monitoring.',
       'The tone is finance-first. Users should feel they are operating a premium capital allocation system, not a meme dashboard.',
     ],
@@ -165,7 +165,7 @@ export const MARKETING_CONTENT = {
     title: 'Open the terminal when you want execution. Stay on the landing when you need conviction.',
     description:
       'The marketing experience explains the system like a premium financial product. The app experience picks up immediately where the story ends.',
-    primaryCta: 'Launch SolGate App',
+    primaryCta: 'Launch Yieldiz App',
     secondaryCta: 'Review the route model',
     featuredAsset: '/marketing/final-cta-scene.svg',
   },

@@ -49,11 +49,11 @@ export const MARKETING_CONTENT = {
     title: 'Keep control from the first quote to the final receipt.',
     paragraphs: [
       'Stablecoins sit idle when moving them into yield takes too many tools, too many approvals and too little price certainty.',
-      'SolGate turns that journey into one quoted route — bridge cost, swap cost, MEV protection and final APY are visible before you sign.',
+      'Yieldiz turns that journey into one quoted route — bridge cost, swap cost, MEV protection and final APY are visible before you sign.',
     ],
     assetSlot: 'story-portrait',
     asset: '/marketing/optimized/story-portrait.webp',
-    assetAlt: 'SolGate route preview shown in a calm finance workspace',
+    assetAlt: 'Yieldiz route preview shown in a calm finance workspace',
   },
   routeDiagram: {
     eyebrow: 'How a deposit travels',
@@ -94,7 +94,7 @@ export const MARKETING_CONTENT = {
     ],
   },
   phoneFlow: {
-    eyebrow: 'Inside SolGate',
+    eyebrow: 'Inside Yieldiz',
     title: 'Five taps from your wallet to live yield.',
     subtitle:
       'Connect, choose, review, confirm, earn — with route cost, privacy choice and destination visible before money moves.',
@@ -177,7 +177,7 @@ export const MARKETING_CONTENT = {
     eyebrow: 'Before you sign',
     title: 'More control, without more steps.',
     subtitle:
-      'SolGate adds the checks that matter before money moves: stablecoin choice, optional privacy before the public vault route, and a local review of what you are about to sign.',
+      'Yieldiz adds the checks that matter before money moves: stablecoin choice, optional privacy before the public vault route, and a local review of what you are about to sign.',
     cards: [
       {
         title: 'More stablecoin choice',
@@ -206,7 +206,7 @@ export const MARKETING_CONTENT = {
         partner: 'Solflare',
         role: 'Wallet & self-custody',
         description:
-          'The primary Solana wallet path. Your keys stay in your wallet; SolGate requests signatures through the standard adapter.',
+          'The primary Solana wallet path. Your keys stay in your wallet; Yieldiz requests signatures through the standard adapter.',
         metric: { value: 'Wallet', label: 'user signs' },
         logoMark: 'SF',
         accent: '#FFB02E',
@@ -271,7 +271,7 @@ export const MARKETING_CONTENT = {
     eyebrow: 'MEV protection, not MEV exposure',
     title: 'Two routes. One keeps the quote intact.',
     subtitle:
-      'SolGate separates the risky public path from the protected deposit path, so users understand exactly why the final swap and vault entry are bundled before execution.',
+      'Yieldiz separates the risky public path from the protected deposit path, so users understand exactly why the final swap and vault entry are bundled before execution.',
     before: {
       label: 'Unprotected route',
       bullets: [
@@ -284,14 +284,14 @@ export const MARKETING_CONTENT = {
       lossValue: '~$18–$60',
     },
     after: {
-      label: 'Protected SolGate route',
+      label: 'Protected Yieldiz route',
       bullets: [
         'Swap and vault deposit move as one bundle',
         'No partial route can land by itself',
         'Submitted away from public mempool exposure',
         'The route either completes or safely reverts',
       ],
-      lossLabel: 'MEV loss on a SolGate deposit',
+      lossLabel: 'MEV loss on a Yieldiz deposit',
       lossValue: '$0',
     },
     footnote: 'All final-leg swaps and vault deposits route through Jito’s block engine.',
@@ -340,7 +340,7 @@ export const MARKETING_CONTENT = {
       {
         title: 'Non-custodial by design',
         description:
-          'SolGate never holds, pools or rehypothecates user funds. Every transaction is signed by your wallet and broadcast directly to each chain.',
+          'Yieldiz never holds, pools or rehypothecates user funds. Every transaction is signed by your wallet and broadcast directly to each chain.',
       },
       {
         title: 'Transparent pricing, always',
@@ -358,7 +358,7 @@ export const MARKETING_CONTENT = {
   // Note: testimonials data is intentionally omitted from the live build.
   // Re-add only when real, attributed user quotes are available.
   personas: {
-    eyebrow: 'Who SolGate is for',
+    eyebrow: 'Who Yieldiz is for',
     title: 'The same clear route, for personal balances and treasury capital.',
     list: [
       {
@@ -368,7 +368,7 @@ export const MARKETING_CONTENT = {
           'Earn market-driven yield on USDC and USDT without juggling bridges or learning a new wallet. Withdraw to any source chain, any time.',
         assetSlot: 'persona-individual',
         asset: '/marketing/optimized/persona-individual.webp',
-        assetAlt: 'Individual SolGate user reviewing a deposit route',
+        assetAlt: 'Individual Yieldiz user reviewing a deposit route',
         bullets: ['Live APY before you sign', 'Withdraw to any source chain', 'No minimums, no lockups'],
       },
       {
@@ -378,19 +378,19 @@ export const MARKETING_CONTENT = {
           'Move treasury balances into Solana yield with the audit trail finance teams require. Multisig and hardware wallet ready via Solflare.',
         assetSlot: 'persona-treasury',
         asset: '/marketing/optimized/persona-treasury.webp',
-        assetAlt: 'SolGate execution network for treasury route review',
+        assetAlt: 'Yieldiz execution network for treasury route review',
         bullets: ['Route + fees exportable as CSV', 'Hardware wallet + multisig ready', 'Destination whitelist only'],
       },
     ],
   },
   faq: [
     {
-      q: 'Does SolGate hold my funds at any point?',
-      a: 'No. Every transaction is signed by your wallet, and funds move directly through the selected bridge, swap route and vault program. SolGate does not pool, custody or rehypothecate user balances.',
+      q: 'Does Yieldiz hold my funds at any point?',
+      a: 'No. Every transaction is signed by your wallet, and funds move directly through the selected bridge, swap route and vault program. Yieldiz does not pool, custody or rehypothecate user balances.',
     },
     {
       q: 'What happens if the bridge takes longer than expected?',
-      a: 'Bridge settlement times are quoted up front by LI.FI. If a route stalls, the bridge provider is responsible for reconciliation, and SolGate tracks status through QuickNode until the destination transaction confirms.',
+      a: 'Bridge settlement times are quoted up front by LI.FI. If a route stalls, the bridge provider is responsible for reconciliation, and Yieldiz tracks status through QuickNode until the destination transaction confirms.',
     },
     {
       q: 'Can I withdraw my yield back to my source chain?',
@@ -410,7 +410,7 @@ export const MARKETING_CONTENT = {
     secondaryCta: 'Talk to the team',
     assetSlot: 'final-cta',
     asset: '/marketing/optimized/final-cta.webp',
-    assetAlt: 'SolGate deposit terminal in a premium finance scene',
+    assetAlt: 'Yieldiz deposit terminal in a premium finance scene',
   },
   footer: {
     product: [
@@ -430,7 +430,7 @@ export const MARKETING_CONTENT = {
     ],
     company: [
       { label: 'About', href: '#product-story' },
-      { label: 'Contact', href: 'mailto:hello@solgate.app' },
+      { label: 'Contact', href: 'mailto:hello@yieldiz.app' },
       { label: 'Terms', href: '#' },
       { label: 'Privacy', href: '#' },
     ],
