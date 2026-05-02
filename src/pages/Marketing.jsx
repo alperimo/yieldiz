@@ -244,9 +244,9 @@ export default function Marketing() {
   return (
     <div ref={pageRef}>
       {/* ─────────────────  HERO  ───────────────── */}
-      <section data-header-theme="light" className="relative px-4 pb-8 pt-4 sm:px-6 lg:px-8 lg:pb-10 lg:pt-6">
-        <div className="mx-auto grid min-h-[clamp(560px,76svh,720px)] max-w-[1360px] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
-          <div className="space-y-5 lg:space-y-6">
+      <section data-header-theme="light" className="relative overflow-hidden px-4 pb-3 pt-2 sm:px-6 lg:px-8 lg:pb-4 lg:pt-3">
+        <div className="mx-auto grid min-h-[calc(100svh-68px)] max-w-[1360px] items-center gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
+          <div className="space-y-5 lg:-translate-y-6 lg:space-y-5">
             <Eyebrow className="text-[12px] tracking-[0.2em]" lineClassName="w-8">
               {MARKETING_CONTENT.hero.eyebrow}
             </Eyebrow>
@@ -302,7 +302,7 @@ export default function Marketing() {
 
           </div>
 
-          <div data-reveal className="relative flex items-center justify-center">
+          <div data-reveal className="relative flex items-center justify-center lg:-translate-y-4">
             <HeroGlobe reducedMotion={prefersReducedMotion} />
           </div>
         </div>

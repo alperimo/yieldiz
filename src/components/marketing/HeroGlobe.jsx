@@ -60,7 +60,7 @@ export const HeroGlobe = ({ reducedMotion = false }) => {
   }
 
   return (
-    <div className="relative aspect-square w-full max-w-[720px]">
+    <div className="relative aspect-square w-full max-w-[760px]">
       <div
         ref={glowRef}
         aria-hidden
@@ -69,7 +69,7 @@ export const HeroGlobe = ({ reducedMotion = false }) => {
 
       {!imageReady ? (
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-full max-w-[720px]">
+          <div className="w-full max-w-[760px]">
             <SolanaGlobe reducedMotion={reducedMotion} />
           </div>
         </div>
