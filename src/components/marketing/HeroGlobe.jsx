@@ -59,7 +59,7 @@ export const HeroGlobe = ({ reducedMotion = false }) => {
   }
 
   return (
-    <div className="relative aspect-[3/2] w-full max-w-[900px]">
+    <div className="relative aspect-square w-full max-w-[720px]">
       <div
         ref={glowRef}
         aria-hidden

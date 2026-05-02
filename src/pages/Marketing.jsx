@@ -245,8 +245,8 @@ export default function Marketing() {
   return (
     <div ref={pageRef}>
       {/* ─────────────────  HERO  ───────────────── */}
-      <section data-header-theme="light" className="relative px-4 pb-16 pt-6 sm:px-6 lg:px-8 lg:pb-24 lg:pt-10">
-        <div className="mx-auto grid max-w-[1360px] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+      <section data-header-theme="light" className="relative flex min-h-[calc(100svh-72px)] flex-col px-4 pt-6 sm:px-6 lg:px-8 lg:pt-10">
+        <div className="mx-auto grid w-full max-w-[1360px] flex-1 items-center gap-10 pb-12 lg:grid-cols-[1.05fr_0.95fr] lg:pb-20">
           <div className="space-y-6 lg:space-y-7">
             <Eyebrow>{MARKETING_CONTENT.hero.eyebrow}</Eyebrow>
 
@@ -305,10 +305,8 @@ export default function Marketing() {
             <HeroGlobe reducedMotion={prefersReducedMotion} />
           </div>
         </div>
-      </section>
 
-      {/* ─────────────────  TRUST ROW  ───────────────── */}
-      <section data-header-theme="light">
+        {/* Marquee pinned to viewport bottom */}
         <ChainMarquee items={MARKETING_CONTENT.marqueeChains} variant="light" />
       </section>
 
