@@ -17,9 +17,10 @@ export const HeroGlobe = ({ reducedMotion = false }) => {
 
     const ctx = gsap.context(() => {
       gsap.to(shellRef.current, {
-        y: -10,
-        scale: 1.018,
-        duration: 6.8,
+        y: -18,
+        scale: 1.034,
+        rotate: -1.35,
+        duration: 5.4,
         ease: 'sine.inOut',
         repeat: -1,
         yoyo: true,
@@ -28,9 +29,9 @@ export const HeroGlobe = ({ reducedMotion = false }) => {
 
       if (glowRef.current) {
         gsap.to(glowRef.current, {
-          opacity: 0.86,
-          scale: 1.04,
-          duration: 6.8,
+          opacity: 0.94,
+          scale: 1.08,
+          duration: 5.4,
           ease: 'sine.inOut',
           repeat: -1,
           yoyo: true,
@@ -40,9 +41,9 @@ export const HeroGlobe = ({ reducedMotion = false }) => {
 
       if (sheenRef.current) {
         gsap.to(sheenRef.current, {
-          xPercent: 10,
-          opacity: 0.52,
-          duration: 8.4,
+          xPercent: 18,
+          opacity: 0.7,
+          duration: 6.2,
           ease: 'sine.inOut',
           repeat: -1,
           yoyo: true,
@@ -98,4 +99,3 @@ export const HeroGlobe = ({ reducedMotion = false }) => {
     </div>
   );
 };
-

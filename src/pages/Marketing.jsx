@@ -12,7 +12,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MARKETING_CONTENT } from '../content/marketing';
 import { HeroGlobe } from '../components/marketing/HeroGlobe';
 import { LiveMetrics } from '../components/marketing/LiveMetrics';
-import { ChainMarquee } from '../components/marketing/ChainMarquee';
 import { RouteDiagram } from '../components/marketing/RouteDiagram';
 import { PhoneMockup, PHONE_SCREEN_KEYS } from '../components/marketing/PhoneMockup';
 import { PartnerSpotlight } from '../components/marketing/PartnerSpotlight';
@@ -24,16 +23,16 @@ import { useVaults } from '../hooks/useVaults';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Eyebrow = ({ children, dark = false }) => (
+const Eyebrow = ({ children, dark = false, className = '', lineClassName = '' }) => (
   <div
     className={`inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.24em] ${
       dark ? 'text-white/70' : 'text-[#654B2B]'
-    }`}
+    } ${className}`}
   >
     <span
       className={`h-px w-10 shrink-0 rounded-full ${
         dark ? 'bg-white/45' : 'bg-[#7E4D22]/45'
-      }`}
+      } ${lineClassName}`}
     />
     {children}
   </div>
@@ -245,16 +244,18 @@ export default function Marketing() {
   return (
     <div ref={pageRef}>
       {/* ─────────────────  HERO  ───────────────── */}
-      <section data-header-theme="light" className="relative flex min-h-[calc(100svh-72px)] flex-col px-4 pt-6 sm:px-6 lg:px-8 lg:pt-10">
-        <div className="mx-auto grid w-full max-w-[1360px] flex-1 items-center gap-10 pb-12 lg:grid-cols-[1.05fr_0.95fr] lg:pb-20">
-          <div className="space-y-6 lg:space-y-7">
-            <Eyebrow>{MARKETING_CONTENT.hero.eyebrow}</Eyebrow>
+      <section data-header-theme="light" className="relative px-4 pb-8 pt-4 sm:px-6 lg:px-8 lg:pb-10 lg:pt-6">
+        <div className="mx-auto grid min-h-[clamp(560px,76svh,720px)] max-w-[1360px] items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+          <div className="space-y-5 lg:space-y-6">
+            <Eyebrow className="text-[12px] tracking-[0.2em]" lineClassName="w-8">
+              {MARKETING_CONTENT.hero.eyebrow}
+            </Eyebrow>
 
             <div data-reveal>
               <h1 className="max-w-[18ch] font-display text-[48px] font-semibold leading-[0.96] tracking-[-0.045em] text-[#2A1A0B] sm:text-[64px] lg:text-[78px]">
                 {MARKETING_CONTENT.hero.headline}
               </h1>
-              <p className="mt-5 max-w-[56ch] text-[16px] leading-[1.65] text-[#654B2B] lg:text-[18px]">
+              <p className="mt-4 max-w-[56ch] text-[16px] leading-[1.65] text-[#654B2B] lg:text-[18px]">
                 {MARKETING_CONTENT.hero.subheadline}
               </p>
             </div>
@@ -305,9 +306,6 @@ export default function Marketing() {
             <HeroGlobe reducedMotion={prefersReducedMotion} />
           </div>
         </div>
-
-        {/* Marquee pinned to viewport bottom */}
-        <ChainMarquee items={MARKETING_CONTENT.marqueeChains} variant="light" />
       </section>
 
       {/* ─────────────────  LIVE METRICS (DARK) — only when wired to a real metrics endpoint  ───────────────── */}
@@ -334,7 +332,7 @@ export default function Marketing() {
       ) : null}
 
       {/* ─────────────────  STORY  ───────────────── */}
-      <section id="product-story" data-header-theme="light" className="px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+      <section id="product-story" data-header-theme="light" className="px-4 pb-24 pt-12 sm:px-6 lg:px-8 lg:pb-32 lg:pt-16">
         <div className="mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[0.92fr_1.08fr]">
           <div data-reveal>
             <MarketingAsset
