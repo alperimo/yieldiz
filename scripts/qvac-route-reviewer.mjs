@@ -81,7 +81,7 @@ async function qvacReview(routeIntent) {
   if (!state.loaded) return deterministicReview(routeIntent);
 
   const prompt = [
-    'You are a concise local financial route reviewer for SolGate.',
+    'You are a concise local financial route reviewer for Yieldiz.',
     'Explain this deposit route to a user in JSON only.',
     'Return keys: summary, mainRisk, privacyNote, recommendation.',
     'Do not mention SDKs, sponsors, or implementation details.',
@@ -130,5 +130,5 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, HOST, () => {
-  console.log(`SolGate local route reviewer listening on http://${HOST}:${PORT}`);
+  console.log(`Yieldiz local route reviewer listening on http://${HOST}:${PORT}`);
 });

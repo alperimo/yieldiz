@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-
-const USE_MOCK = import.meta.env.VITE_USE_MOCK_DATA !== 'false';
+import { USE_MOCK_DATA } from '../lib/env';
 
 // CoinGecko ID mapping
 const COINGECKO_IDS = {
@@ -30,7 +29,7 @@ export function usePrices(symbols = ['SOL', 'USDC', 'USDT']) {
     setLoading(true);
     setError(null);
     try {
-      if (USE_MOCK) {
+      if (USE_MOCK_DATA) {
         await new Promise((r) => setTimeout(r, 300));
         const prices = {};
         symbols.forEach((s) => { if (MOCK_PRICES[s]) prices[s] = MOCK_PRICES[s]; });

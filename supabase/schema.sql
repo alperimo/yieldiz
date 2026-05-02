@@ -1,4 +1,4 @@
--- SolGate Supabase Schema
+-- Yieldiz Supabase Schema
 -- Run this in your Supabase SQL editor to set up all required tables
 -- Docs: https://supabase.com/docs/guides/database
 

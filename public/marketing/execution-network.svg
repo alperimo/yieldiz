@@ -18,8 +18,8 @@
     <ellipse cx="640" cy="450" rx="146" ry="52" stroke="url(#ringStroke)" stroke-opacity="0.4"/>
     <ellipse cx="640" cy="450" rx="52" ry="146" stroke="url(#ringStroke)" stroke-opacity="0.28"/>
     <rect x="548" y="418" width="184" height="64" rx="32" fill="#08111F" fill-opacity="0.9"/>
-    <text x="640" y="446" text-anchor="middle" fill="#F7FAF7" font-size="14" font-family="Inter, Arial, sans-serif" letter-spacing="3.2" font-weight="700">SOLGATE</text>
-    <text x="640" y="470" text-anchor="middle" fill="#9BB0C9" font-size="13" font-family="Inter, Arial, sans-serif" letter-spacing="1.4">Visible route to Solana yield</text>
+    <text x="640" y="446" text-anchor="middle" fill="#F7FAF7" font-size="14" font-family="Inter, Arial, sans-serif" letter-spacing="3.2" font-weight="700">YIELDIZ</text>
+    <text x="640" y="470" text-anchor="middle" fill="#9BB0C9" font-size="13" font-family="Inter, Arial, sans-serif" letter-spacing="1.4">Clear route to Solana yield</text>
   </g>
 
   <g>

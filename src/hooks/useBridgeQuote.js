@@ -1,9 +1,8 @@
 import { useState, useCallback } from 'react';
 import * as lifi from '../services/lifi';
 import { SUPPORTED_CHAINS } from '../services/lifi';
+import { USE_MOCK_DATA } from '../lib/env';
 import { getSolanaMint, getStablecoin, getTokenAddress, toBaseUnits } from '../lib/stablecoins';
-
-const USE_MOCK = import.meta.env.VITE_USE_MOCK_DATA !== 'false';
 
 const MOCK_ROUTES = {
   ethereum: { route: 'Stargate', estimatedTime: 30, bridgeFee: 0.80, networkFee: 0.45 },
@@ -37,7 +36,7 @@ export function useBridgeQuote() {
     setLoading(true);
     setError(null);
     try {
-      if (USE_MOCK || fromChain === 'solana') {
+      if (USE_MOCK_DATA || fromChain === 'solana') {
         // Mock mode or same-chain (no bridge needed)
         const routeInfo = MOCK_ROUTES[fromChain] || MOCK_ROUTES.ethereum;
         const totalFees = routeInfo.bridgeFee + routeInfo.networkFee;

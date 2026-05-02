@@ -6,9 +6,9 @@ import * as kamino from '../services/kamino';
 import * as jito from '../services/jito';
 import { SUPPORTED_CHAINS } from '../services/lifi';
 import { TOKENS } from '../lib/constants';
+import { USE_MOCK_DATA } from '../lib/env';
 import { getSolanaMint, toBaseUnits } from '../lib/stablecoins';
 
-const USE_MOCK = import.meta.env.VITE_USE_MOCK_DATA !== 'false';
 const APP_NETWORK = import.meta.env.VITE_NETWORK || 'devnet';
 
 const DEFAULT_STEPS = [
@@ -280,7 +280,7 @@ export function useDepositFlow() {
     setSteps(executionSteps);
 
     try {
-      if (USE_MOCK) {
+      if (USE_MOCK_DATA) {
         await executeMock({ ...params, executionSteps });
       } else {
         await executeReal({ ...params, executionSteps });

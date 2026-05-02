@@ -1,0 +1,19 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#F5F7F2"/>
+  <circle cx="1010" cy="320" r="220" fill="#D6A84F" fill-opacity="0.12"/>
+  <circle cx="1020" cy="320" r="148" stroke="#D6A84F" stroke-width="3" stroke-opacity="0.55"/>
+  <circle cx="1020" cy="320" r="98" stroke="#7E4D22" stroke-width="2" stroke-opacity="0.24"/>
+  <path d="M947 290C1005 250 1063 250 1093 290" stroke="#D6A84F" stroke-width="8" stroke-linecap="round"/>
+  <path d="M978 236L1020 320L1062 236" stroke="#7E4D22" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M1020 320V392" stroke="#7E4D22" stroke-width="16" stroke-linecap="round"/>
+  <path d="M1020 174L1031 204L1061 215L1031 226L1020 256L1009 226L979 215L1009 204L1020 174Z" fill="#D6A84F"/>
+  <path d="M96 456H598" stroke="#D6A84F" stroke-width="2" stroke-opacity="0.45"/>
+  <text x="96" y="150" fill="#08111F" font-family="Manrope, Inter, Arial, sans-serif" font-size="82" font-weight="800" letter-spacing="-4">Stablecoin yield,</text>
+  <text x="96" y="246" fill="#08111F" font-family="Manrope, Inter, Arial, sans-serif" font-size="82" font-weight="800" letter-spacing="-4">on Solana.</text>
+  <text x="96" y="332" fill="#526071" font-family="Manrope, Inter, Arial, sans-serif" font-size="28" font-weight="500">Route stablecoins into audited Solana vaults with</text>
+  <text x="96" y="372" fill="#526071" font-family="Manrope, Inter, Arial, sans-serif" font-size="28" font-weight="500">clear fees, live APY, and self-custodial control.</text>
+  <circle cx="130" cy="520" r="30" fill="#F8E6B6" stroke="#D6A84F" stroke-width="3"/>
+  <path d="M114 508L130 520L146 508" stroke="#7E4D22" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M130 520V538" stroke="#7E4D22" stroke-width="6" stroke-linecap="round"/>
+  <text x="178" y="531" fill="#08111F" font-family="Manrope, Inter, Arial, sans-serif" font-size="44" font-weight="800">Yieldiz</text>
+</svg>

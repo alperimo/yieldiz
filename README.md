@@ -32,7 +32,7 @@ You cannot prove every real money movement for free on devnet because several pr
 - Cloak/Umbra demo paths depend on their supported networks, relayers, indexers, and wallet adapter support.
 - QVAC model mode is local but requires Node >= 22.17 and local model load time/resources.
 
-Use `VITE_USE_MOCK_DATA=true` for a free end-to-end product walkthrough. Use `VITE_USE_MOCK_DATA=false` only when real credentials and funded test/mainnet wallets are ready.
+Use `VITE_USE_MOCK_DATA=true` for a free end-to-end product walkthrough. Production builds default to live provider data unless this variable is explicitly set to `true`; use `VITE_USE_MOCK_DATA=false` only when real credentials and funded test/mainnet wallets are ready for transaction execution.
 
 ## Tech stack
 
@@ -90,7 +90,7 @@ This repo includes deploy-safe static hosting files:
    - Build command: `npm run build`
    - Build output directory: `dist`
    - Root directory: project root
-4. Add production environment variables from `.env.example`. For a safe public demo, start with `VITE_USE_MOCK_DATA=true`, `VITE_QVAC_REVIEWER_REMOTE=false`, and only add live provider keys when ready.
+4. Add production environment variables from `.env.example`. Cloudflare Pages injects `VITE_*` variables at build time, so after changing them you must trigger a new deploy. For a safe public demo, set `VITE_USE_MOCK_DATA=true`; for live Kamino vault discovery, leave it unset or set it to `false`.
 5. Deploy, then attach your custom domain in **Custom domains**.
 
 CLI alternative:

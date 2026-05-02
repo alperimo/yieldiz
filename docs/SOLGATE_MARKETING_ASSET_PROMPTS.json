@@ -1,0 +1,227 @@
+{
+  "project": "Yieldiz marketing assets",
+  "version": "2026-05-02",
+  "generationModelHint": "gpt-image-2, midjourney v6, runway gen-3, sora",
+  "priority": "Regenerate all photo/product-composite assets that currently show SolGate, Tau Protocol, Aurum Core, or any non-Yieldiz UI. The live app must never show invented product screens.",
+  "brandDirection": {
+    "positioning": "Premium self-custodial stablecoin yield terminal for routing capital into Solana vaults.",
+    "audience": "Stablecoin holders, fintech-literate operators, founders, and on-chain treasuries - not retail crypto traders.",
+    "visualBar": "Wise, Stripe, Revolut Business, Monzo Business, Solflare web - quiet, credible, editorial finance.",
+    "palette": {
+      "background": "#F5F7F2",
+      "ink": "#08111F",
+      "muted": "#526071",
+      "aurum": "#D6A84F",
+      "aurumLight": "#F1D27A",
+      "champagne": "#F8E6B6",
+      "copper": "#7E4D22"
+    },
+    "typographyTone": "Modern finance UI typography. Prefer Manrope/Inter-like clarity. No crypto display fonts.",
+    "compositionRules": [
+      "Use real Yieldiz app screenshots from docs/marketing-references as the source of truth for every device or screen.",
+      "When generating people/device scenes, treat the app screenshot as a screen-replacement layer, not text to hallucinate.",
+      "Keep in-image UI readable only when it is directly composited from a reference screenshot; otherwise blur the screen enough that no fake UI copy is readable.",
+      "Editorial negative space, calm posture, natural daylight, premium desk materials, no crypto hype.",
+      "Use Yieldiz Aurum tones (#D6A84F, #F1D27A, #F8E6B6, #7E4D22) as restrained accents; avoid neon Solana gradients.",
+      "People must have realistic anatomy, natural hands, believable skin texture, and non-stock-photo posture."
+    ],
+    "avoidEverywhere": [
+      "SolGate, Tau Protocol, Aurum Core, or any previous/fake product names",
+      "Unreadable generated UI text",
+      "AI plastic skin, impossible hands, fake keyboard keys, distorted device bezels",
+      "Hacker hoodies, cyberpunk neon, rocket/moon/lambo imagery",
+      "Gold coin piles, Bitcoin or meme-coin logos, casino-style chrome",
+      "Stock-photo handshakes, boardroom clichés, chaotic trading-floor scenes",
+      "Fake exchange charts as the main subject, floating padlock/shield icons"
+    ]
+  },
+  "referenceScreenshots": {
+    "folder": "docs/marketing-references",
+    "requiredUse": "Use these images as direct visual references and screen-replacement sources. Do not invent a separate app UI.",
+    "files": [
+      {
+        "path": "docs/marketing-references/yieldiz-home-full.png",
+        "purpose": "Full landing page reference for brand rhythm, palette, typography, and section spacing."
+      },
+      {
+        "path": "docs/marketing-references/yieldiz-app-deposit-hero.png",
+        "purpose": "Primary product UI reference for deposit-route device scenes and hero composites."
+      },
+      {
+        "path": "docs/marketing-references/yieldiz-app-deposit-full.png",
+        "purpose": "Full deposit page reference, including left-side product story and right-side route panel."
+      },
+      {
+        "path": "docs/marketing-references/yieldiz-app-vaults-hero.png",
+        "purpose": "Primary vault-browsing UI reference for teams/treasury scenes and vault-list assets."
+      },
+      {
+        "path": "docs/marketing-references/yieldiz-app-vaults-full.png",
+        "purpose": "Full live vault inventory reference showing real Kamino vault cards, APY, TVL, and filters."
+      }
+    ],
+    "captureNotes": [
+      "Deposit page route is /app, not /app/deposit.",
+      "Vaults page route is /app/vaults.",
+      "Capture at 1440px desktop width and also one mobile width before final asset generation.",
+      "Use production-like data: VITE_USE_MOCK_DATA=false or unset in production."
+    ]
+  },
+  "liveAssetAudit": {
+    "issue": "Previous optimized images contained fake product UI: Tau Protocol, SolGate, Aurum Core, and invented deposit screens.",
+    "codeMitigation": "The live marketing content now points back to neutral SVG fallbacks until new Yieldiz-accurate assets are generated and reviewed.",
+    "assetsToReplaceBeforeFinalDemo": [
+      "public/marketing/optimized/story-portrait.webp",
+      "public/marketing/optimized/persona-individual.webp",
+      "public/marketing/optimized/persona-treasury.webp",
+      "public/marketing/optimized/final-cta.webp",
+      "public/og/optimized/share-card-1200x630.png"
+    ]
+  },
+  "assets": [
+    {
+      "id": "story-portrait",
+      "title": "A clearer path to yield - finance operator with real Yieldiz route",
+      "status": "needs-regeneration-current-optimized-quarantined",
+      "currentFallback": "public/marketing/portrait-finance-operator.svg",
+      "referenceScreenshots": [
+        "docs/marketing-references/yieldiz-app-deposit-hero.png"
+      ],
+      "deliveryTarget": {
+        "preferred": "png plus optimized webp",
+        "path": "public/marketing/story-portrait.png",
+        "optimizedPath": "public/marketing/optimized/story-portrait.webp",
+        "aspectRatio": "4:5",
+        "size": "1400x1750",
+        "wireToCodeAfterReview": "Set MARKETING_CONTENT.story.asset back to '/marketing/optimized/story-portrait.webp' only after the screen shows real Yieldiz UI."
+      },
+      "prompt": "Editorial finance campaign photograph of a focused professional in their 30s reviewing Yieldiz on a 14-inch laptop in a restrained European workspace. Use docs/marketing-references/yieldiz-app-deposit-hero.png as the exact screen-replacement source on the laptop: the visible product must be Yieldiz, with the real deposit route panel, vault selector, fees, privacy selector, route confidence and local review controls. Natural northern daylight, warm wood, off-white wall, minimal stationery, calm treasury-work mood. The scene should look photographed for a high-end fintech brand, not AI-generated and not crypto-native.",
+      "negativePrompt": "No Tau Protocol, no SolGate, no Aurum Core, no invented UI, no lorem ipsum, no unreadable scrambled app text, no fake wallet screens, no exaggerated glow, no impossible hands."
+    },
+    {
+      "id": "persona-individual",
+      "title": "Individuals - real mobile Yieldiz deposit review",
+      "status": "needs-regeneration-current-optimized-quarantined",
+      "currentFallback": "public/marketing/portrait-finance-operator.svg",
+      "referenceScreenshots": [
+        "docs/marketing-references/yieldiz-app-deposit-hero.png"
+      ],
+      "deliveryTarget": {
+        "preferred": "png plus optimized webp",
+        "path": "public/marketing/persona-individual.png",
+        "optimizedPath": "public/marketing/optimized/persona-individual.webp",
+        "aspectRatio": "16:10",
+        "size": "1600x1000",
+        "wireToCodeAfterReview": "Set MARKETING_CONTENT.personas.list[0].asset back to '/marketing/optimized/persona-individual.webp' only after review."
+      },
+      "prompt": "Editorial lifestyle photograph of an individual stablecoin user calmly reviewing Yieldiz on a phone in a quiet cafe or home office. The phone screen must be a faithful mobile crop/redesign of docs/marketing-references/yieldiz-app-deposit-hero.png: Yieldiz brand, amount input, source chain, destination Kamino vault, route cost and APY visible. The phone is held naturally at table height; background is softly out of focus, modern European, financially literate, no hype.",
+      "negativePrompt": "No SolGate text, no fake 'Aurum' product, no Tau Protocol, no influencer pose, no crypto merch, no synthetic skin, no bad hands, no unreadable generated UI."
+    },
+    {
+      "id": "persona-treasury",
+      "title": "Teams & treasuries - real Yieldiz vault operations",
+      "status": "needs-regeneration-current-optimized-quarantined",
+      "currentFallback": "public/marketing/team-finance-scene.svg",
+      "referenceScreenshots": [
+        "docs/marketing-references/yieldiz-app-vaults-hero.png",
+        "docs/marketing-references/yieldiz-app-vaults-full.png"
+      ],
+      "deliveryTarget": {
+        "preferred": "png plus optimized webp",
+        "path": "public/marketing/persona-treasury.png",
+        "optimizedPath": "public/marketing/optimized/persona-treasury.webp",
+        "aspectRatio": "16:10",
+        "size": "1600x1000",
+        "wireToCodeAfterReview": "Set MARKETING_CONTENT.personas.list[1].asset back to '/marketing/optimized/persona-treasury.webp' only after review."
+      },
+      "prompt": "A small finance or treasury team reviewing Yieldiz vault opportunities on a large display in a modern office. Composite docs/marketing-references/yieldiz-app-vaults-hero.png onto the main display and keep the UI readable enough to show real Yieldiz vault cards, APY, TVL, risk filters and the 'Explore Vaults' view. Professional CFO atmosphere, calm natural light, credible posture, laptops and notebooks on the table, subtle Aurum accents only.",
+      "negativePrompt": "No SolGate sidebar, no Aurum Core, no fake treasury dashboard, no boardroom cliché, no handshake, no chaotic trading floor, no unreadable dashboard text."
+    },
+    {
+      "id": "final-cta-scene",
+      "title": "Final CTA - completed Yieldiz deposit",
+      "status": "needs-regeneration-current-optimized-quarantined",
+      "currentFallback": "public/marketing/final-cta-scene.svg",
+      "referenceScreenshots": [
+        "docs/marketing-references/yieldiz-app-deposit-hero.png",
+        "docs/marketing-references/yieldiz-app-vaults-hero.png"
+      ],
+      "deliveryTarget": {
+        "preferred": "png plus optimized webp",
+        "path": "public/marketing/final-cta.png",
+        "optimizedPath": "public/marketing/optimized/final-cta.webp",
+        "aspectRatio": "4:5",
+        "size": "1400x1750",
+        "wireToCodeAfterReview": "Set MARKETING_CONTENT.finalCta.asset back to '/marketing/optimized/final-cta.webp' only after review."
+      },
+      "prompt": "Closing frame of a premium Yieldiz brand film: a deposit route has been reviewed and the user can now proceed into a Solana vault. A clean laptop or tablet sits in a refined desk scene, using docs/marketing-references/yieldiz-app-deposit-hero.png as the exact screen replacement. The UI must show Yieldiz, realistic route review, APY, fees, destination vault and self-custody controls. Warm professional lighting; mood is confidence and completion, not excitement.",
+      "negativePrompt": "No Tau Protocol, no SolGate, no '$25,000 -> $0.10' fake math, no fake local fees typo, no rockets, no moon, no confetti, no casino green."
+    },
+    {
+      "id": "open-graph-share-card",
+      "title": "Open Graph / social share card",
+      "status": "yieldiz-png-wired",
+      "currentFallback": "public/og/share-card-yieldiz.svg",
+      "currentPng": "public/og/share-card-yieldiz.png",
+      "referenceScreenshots": [
+        "docs/marketing-references/yieldiz-home-full.png"
+      ],
+      "deliveryTarget": {
+        "preferred": "png",
+        "path": "public/og/share-card-yieldiz.png",
+        "aspectRatio": "1.91:1",
+        "size": "1200x630",
+        "wireToCodeAfterReview": "Current Yieldiz PNG is wired in index.html. Replace only after a reviewed generated card is available."
+      },
+      "prompt": "Editorial social share card for Yieldiz. Large headline: 'Stablecoin yield, on Solana.' Bottom-left Yieldiz wordmark and Y-star coin mark. Right side: clean abstract Yieldiz coin/globe motif, not a busy crypto globe. Pale background (#F5F7F2), restrained Aurum light (#F8E6B6, #D6A84F, #7E4D22), readable at thumbnail size.",
+      "negativePrompt": "No SolGate wordmark, no old S logo, no tagline soup, no sponsor badges, no hype emojis, no chart overlays."
+    },
+    {
+      "id": "hero_globe_master",
+      "title": "Solana globe - homepage hero",
+      "status": "code-rendered-fallback-exists",
+      "currentRender": "src/components/marketing/SolanaGlobe.jsx",
+      "referenceScreenshots": [
+        "docs/marketing-references/yieldiz-home-full.png"
+      ],
+      "deliveryTarget": {
+        "preferred": "alpha_webm plus png poster",
+        "path": "public/marketing/hero-globe-master.webm",
+        "posterPath": "public/marketing/hero-globe-master.png",
+        "aspectRatio": "1:1",
+        "size": "1600x1600",
+        "wireToCode": "Progressive enhancement only. Keep DOM globe as fallback and respect prefers-reduced-motion."
+      },
+      "prompt": "Cinematic editorial render of a translucent glass globe on a pale finance-grade Yieldiz background. Fine latitude/longitude wireframe, soft depth, six discreet markers labelled ETH, ARB, BASE, POL, OP, SOL. Use flat Aurum linework and copper depth, with all route geometry contained inside the central 72 percent of the frame. Institutional cross-border finance tone, not a crypto exchange.",
+      "motionPrompt": "Seamless 16-second loop: extremely slow globe rotation, gentle parallax on chain markers, subtle Aurum pulse to SOL once per loop. No fast cuts.",
+      "negativePrompt": "No black overflow lines, no dark hacker map, no neon city grid, no cartoon coins, no holographic UI overlays."
+    },
+    {
+      "id": "route_explainer_loop",
+      "title": "Route diagram - animated loop",
+      "status": "svg-dom-diagram-currently",
+      "currentRender": "src/components/marketing/RouteDiagram.jsx",
+      "referenceScreenshots": [
+        "docs/marketing-references/yieldiz-app-deposit-hero.png"
+      ],
+      "deliveryTarget": {
+        "preferred": "alpha_webm plus png poster",
+        "path": "public/marketing/route-explainer-loop.webm",
+        "posterPath": "public/marketing/route-explainer-loop.png",
+        "aspectRatio": "16:10",
+        "size": "1800x1125",
+        "wireToCode": "Optional enhancement only. Keep current DOM/SVG route diagram as canonical."
+      },
+      "prompt": "Premium fintech motion graphic on a flat Aurum canvas. Stablecoins move from ETH, ARB, BASE, POL, OP through LI.FI, optional DFlow swap, Jito protected execution, then a Kamino vault destination. Match the wording and product flow visible in docs/marketing-references/yieldiz-app-deposit-hero.png. Crisp finance typography, generous negative space, no sponsor-logo collage.",
+      "motionPrompt": "10-second seamless loop. Signals travel slowly along paths, partner nodes breathe subtly, destination vault confirms once per loop.",
+      "negativePrompt": "No loud arrowheads, no whitepaper clutter, no cyberpunk grid, no rapid camera moves, no fake app screen."
+    }
+  ],
+  "implementationNotes": [
+    "Do not wire generated assets straight into src/content/marketing.js. Review desktop and mobile crops first.",
+    "Any screen inside a generated photo must be composited from docs/marketing-references, not hallucinated by the image model.",
+    "Keep SVG fallbacks live until regenerated assets pass a text/brand audit.",
+    "After generating PNGs, optimize to WebP and update only the corresponding asset path in src/content/marketing.js.",
+    "Refresh reference screenshots whenever the app UI changes materially."
+  ]
+}
