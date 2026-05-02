@@ -52,7 +52,7 @@ export const MARKETING_CONTENT = {
       'Yieldiz turns that journey into one quoted route — bridge cost, swap cost, MEV protection and final APY are visible before you sign.',
     ],
     assetSlot: 'story-portrait',
-    asset: '/marketing/portrait-finance-operator.svg',
+    asset: '/marketing/story-portrait.png',
     assetAlt: 'Yieldiz route preview shown in a calm finance workspace',
   },
   routeDiagram: {
@@ -367,7 +367,7 @@ export const MARKETING_CONTENT = {
         description:
           'Earn market-driven yield on USDC and USDT without juggling bridges or learning a new wallet. Withdraw to any source chain, any time.',
         assetSlot: 'persona-individual',
-        asset: '/marketing/portrait-finance-operator.svg',
+        asset: '/marketing/persona-individual.png',
         assetAlt: 'Individual Yieldiz user reviewing a deposit route',
         bullets: ['Live APY before you sign', 'Withdraw to any source chain', 'No minimums, no lockups'],
       },
@@ -377,7 +377,7 @@ export const MARKETING_CONTENT = {
         description:
           'Move treasury balances into Solana yield with the audit trail finance teams require. Multisig and hardware wallet ready via Solflare.',
         assetSlot: 'persona-treasury',
-        asset: '/marketing/team-finance-scene.svg',
+        asset: '/marketing/persona-treasury.png',
         assetAlt: 'Yieldiz execution network for treasury route review',
         bullets: ['Route + fees exportable as CSV', 'Hardware wallet + multisig ready', 'Destination whitelist only'],
       },
@@ -409,7 +409,7 @@ export const MARKETING_CONTENT = {
     primaryCta: 'Start earning',
     secondaryCta: 'Talk to the team',
     assetSlot: 'final-cta',
-    asset: '/marketing/final-cta-scene.svg',
+    asset: '/marketing/final-cta-scene.png',
     assetAlt: 'Yieldiz deposit terminal in a premium finance scene',
   },
   footer: {

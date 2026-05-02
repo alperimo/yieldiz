@@ -10,7 +10,7 @@ import {
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MARKETING_CONTENT } from '../content/marketing';
-import { SolanaGlobe } from '../components/marketing/SolanaGlobe';
+import { HeroGlobe } from '../components/marketing/HeroGlobe';
 import { LiveMetrics } from '../components/marketing/LiveMetrics';
 import { ChainMarquee } from '../components/marketing/ChainMarquee';
 import { RouteDiagram } from '../components/marketing/RouteDiagram';
@@ -302,7 +302,7 @@ export default function Marketing() {
           </div>
 
           <div data-reveal className="relative flex items-center justify-center">
-            <SolanaGlobe reducedMotion={prefersReducedMotion} />
+            <HeroGlobe reducedMotion={prefersReducedMotion} />
           </div>
         </div>
       </section>
