@@ -1,10 +1,9 @@
 import React from 'react';
-import { ExternalLink, ArrowRightLeft, ArrowDownToLine, ArrowUpFromLine } from 'lucide-react';
-import { Card } from '../ui/Card';
-import { Badge } from '../ui/Badge';
+import { ExternalLink, ArrowRightLeft, ArrowDownToLine, ArrowUpFromLine, Clock, AlertTriangle, CheckCircle } from 'lucide-react';
 import { Skeleton } from '../ui/Skeleton';
+import { Eyebrow } from '../ui/Eyebrow';
 import { STRINGS } from '../../lib/constants';
-import { formatCurrency, formatTimeAgo, abbreviateAddress, getExplorerUrl } from '../../lib/formatters';
+import { formatCurrency, formatTimeAgo, getExplorerUrl } from '../../lib/formatters';
 
 const typeIcons = {
   bridge: ArrowRightLeft,
@@ -13,82 +12,109 @@ const typeIcons = {
   withdraw: ArrowUpFromLine,
 };
 
-const statusVariants = {
-  pending: 'warning',
-  confirming: 'info',
-  confirmed: 'success',
-  failed: 'error',
+const typeAccent = {
+  bridge: '#9945FF',
+  swap: '#00C2FF',
+  deposit: '#14F195',
+  withdraw: '#7C8898',
+};
+
+const STATUS_META = {
+  pending: { label: 'Pending', accent: '#D97706', Icon: Clock },
+  confirming: { label: 'Confirming', accent: '#00C2FF', Icon: Clock },
+  confirmed: { label: 'Confirmed', accent: '#0EA56A', Icon: CheckCircle },
+  failed: { label: 'Failed', accent: '#DC2626', Icon: AlertTriangle },
+};
+
+const txDescription = (tx) => {
+  if (tx.type === 'deposit' && tx.metadata?.vaultName) {
+    return `Deposited ${formatCurrency(tx.amount)} ${tx.token} → ${tx.metadata.vaultName}`;
+  }
+  if (tx.type === 'bridge') {
+    return `Bridged ${formatCurrency(tx.amount)} ${tx.token} from ${tx.fromChain}`;
+  }
+  if (tx.type === 'swap') {
+    return `Swapped ${formatCurrency(tx.amount)} ${tx.token}`;
+  }
+  if (tx.type === 'withdraw') {
+    return `Withdrew ${formatCurrency(tx.amount)} ${tx.token}`;
+  }
+  return `${tx.type} ${formatCurrency(tx.amount)} ${tx.token}`;
 };
 
 export const TransactionHistory = ({ transactions, loading, error }) => {
-  if (error) {
-    return (
-      <Card className="!rounded-[30px]">
-        <h2 className="mb-4 font-display text-[28px] font-semibold text-sg-text">{STRINGS.DASHBOARD_RECENT_TX}</h2>
-        <p className="text-body text-sg-error text-center py-4">{STRINGS.STATE_ERROR}</p>
-      </Card>
-    );
-  }
+  return (
+    <section className="rounded-[32px] border border-black/[0.08] bg-white/[0.82] p-7 shadow-[0_24px_60px_rgba(8,17,31,0.06)] backdrop-blur sm:p-8">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <Eyebrow>Activity</Eyebrow>
+          <h2 className="mt-3 font-display text-[26px] font-semibold leading-tight text-[#08111F]">
+            {STRINGS.DASHBOARD_RECENT_TX}
+          </h2>
+        </div>
+      </div>
 
-  if (loading) {
-    return (
-      <Card className="!rounded-[30px]">
-        <h2 className="mb-4 font-display text-[28px] font-semibold text-sg-text">{STRINGS.DASHBOARD_RECENT_TX}</h2>
+      {error ? (
+        <p className="text-[14px] text-[#DC2626]">{STRINGS.STATE_ERROR}</p>
+      ) : loading ? (
         <div className="space-y-3">
           {Array.from({ length: 3 }).map((_, i) => (
-            <Skeleton key={i} height="3.5rem" rounded="rounded-lg" className="w-full" />
+            <Skeleton key={i} height="3.5rem" rounded="rounded-[20px]" className="w-full" />
           ))}
         </div>
-      </Card>
-    );
-  }
-
-  return (
-    <Card className="!rounded-[30px]">
-      <h2 className="mb-4 font-display text-[28px] font-semibold text-sg-text">{STRINGS.DASHBOARD_RECENT_TX}</h2>
-      {!transactions?.length ? (
-        <p className="text-body text-sg-text-tertiary py-4">{STRINGS.STATE_EMPTY_TRANSACTIONS}</p>
+      ) : !transactions?.length ? (
+        <div className="rounded-[24px] border border-dashed border-black/[0.12] bg-white/60 p-10 text-center">
+          <p className="text-[14px] text-[#7C8898]">{STRINGS.STATE_EMPTY_TRANSACTIONS}</p>
+        </div>
       ) : (
-        <div className="space-y-2">
+        <ul className="space-y-2">
           {transactions.map((tx) => {
             const Icon = typeIcons[tx.type] || ArrowRightLeft;
+            const accent = typeAccent[tx.type] || '#526071';
+            const status = STATUS_META[tx.status] || STATUS_META.pending;
+            const StatusIcon = status.Icon;
             const chain = tx.type === 'bridge' ? tx.fromChain : 'solana';
             return (
-              <div
+              <li
                 key={tx.id}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-sg-bg-elevated/50 transition-colors"
+                className="group flex items-center gap-4 rounded-[20px] border border-transparent px-3 py-3 transition-all hover:border-black/[0.06] hover:bg-white"
               >
-                <div className="w-8 h-8 rounded-full bg-sg-bg-elevated flex items-center justify-center shrink-0">
-                  <Icon size={16} className="text-sg-text-secondary" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-body text-sg-text truncate">
-                    {tx.type === 'deposit' && tx.metadata?.vaultName
-                      ? `Deposited ${formatCurrency(tx.amount)} ${tx.token} → ${tx.metadata.vaultName}`
-                      : tx.type === 'bridge'
-                      ? `Bridged ${formatCurrency(tx.amount)} ${tx.token} from ${tx.fromChain}`
-                      : `${tx.type} ${formatCurrency(tx.amount)} ${tx.token}`}
+                <span
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl"
+                  style={{ background: `${accent}1A`, color: accent }}
+                  aria-hidden="true"
+                >
+                  <Icon size={16} />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-[14px] font-medium text-[#08111F]">{txDescription(tx)}</p>
+                  <p className="text-[11px] uppercase tracking-[0.16em] text-[#7C8898]">
+                    {formatTimeAgo(tx.createdAt)}
                   </p>
-                  <p className="text-caption text-sg-text-tertiary">{formatTimeAgo(tx.createdAt)}</p>
                 </div>
-                <Badge variant={statusVariants[tx.status]}>
-                  {tx.status}
-                </Badge>
+                <span
+                  className="inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]"
+                  style={{ background: `${status.accent}1A`, color: status.accent }}
+                >
+                  <StatusIcon size={11} />
+                  {status.label}
+                </span>
                 {tx.txHash ? (
                   <a
                     href={getExplorerUrl(chain, tx.txHash)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sg-accent-purple hover:text-sg-accent-purple/80 shrink-0"
+                    className="shrink-0 text-[#7B2FE6] opacity-60 transition-opacity hover:opacity-100"
+                    aria-label="View on explorer"
                   >
                     <ExternalLink size={14} />
                   </a>
                 ) : null}
-              </div>
+              </li>
             );
           })}
-        </div>
+        </ul>
       )}
-    </Card>
+    </section>
   );
 };
