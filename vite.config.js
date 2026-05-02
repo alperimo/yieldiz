@@ -1,25 +1,27 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    nodePolyfills({
+      globals: { Buffer: true, process: true, global: true },
+      protocolImports: true,
+    }),
+  ],
   define: {
-    global: 'globalThis',
     'process.env': {},
   },
   resolve: {
     alias: {
       '@': '/src',
-      assert: 'assert/',
-      buffer: 'buffer/',
       crypto: fileURLToPath(new URL('./src/polyfills/nodeCrypto.js', import.meta.url)),
-      process: 'process/browser.js',
-      util: 'util/',
     },
   },
   optimizeDeps: {
-    include: ['assert', 'buffer', 'process', 'util'],
+    include: ['buffer', 'process'],
   },
   build: {
     rollupOptions: {
