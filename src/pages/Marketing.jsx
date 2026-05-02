@@ -252,10 +252,11 @@ export default function Marketing() {
             </Eyebrow>
 
             <div data-reveal>
-              <h1 className="max-w-[18ch] font-display text-[48px] font-semibold leading-[0.96] tracking-[-0.045em] text-[#2A1A0B] sm:text-[64px] lg:text-[78px]">
-                {MARKETING_CONTENT.hero.headline}
+              <h1 className="font-display text-[48px] font-semibold leading-[0.96] tracking-[-0.045em] text-[#2A1A0B] sm:text-[64px] lg:text-[88px]">
+                <span className="whitespace-nowrap">Move stablecoins</span>
+                {' into Solana yield with clarity.'}
               </h1>
-              <p className="mt-4 max-w-[56ch] text-[16px] leading-[1.65] text-[#654B2B] lg:text-[18px]">
+              <p className="mt-5 max-w-[52ch] text-[17px] leading-[1.65] text-[#654B2B] lg:text-[19px]">
                 {MARKETING_CONTENT.hero.subheadline}
               </p>
             </div>

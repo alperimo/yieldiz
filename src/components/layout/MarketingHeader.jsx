@@ -141,12 +141,7 @@ export const MarketingHeader = () => {
         <div className="mx-auto flex h-[68px] max-w-[1360px] items-center justify-between gap-4">
         <Link to="/" className={`flex items-center gap-2.5 ${activeTheme.logo}`}>
           <YieldizLogo size={42} monochrome={useMonochromeLogo} className="shrink-0" />
-          <div>
-            <p className="font-display text-[17px] font-semibold leading-none">Yieldiz</p>
-            <p className={`mt-1 text-[10px] font-semibold uppercase tracking-[0.26em] ${activeTheme.sub}`}>
-              Stablecoin yield on Solana
-            </p>
-          </div>
+          <p className="font-display text-[17px] font-semibold leading-none">Yieldiz</p>
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
