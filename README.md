@@ -72,6 +72,33 @@ Production build:
 npm run build
 ```
 
+## Deployment
+
+Recommended host for the current app: **Cloudflare Pages**. Yieldiz is a Vite static SPA, so the wallet adapters, injected Solana/EVM wallets, LI.FI, Supabase, Quicknode, GoldRush, Cloak/Umbra, and browser-local QVAC review all run from the browser over HTTPS. Cloudflare Pages is a good fit because it provides free global CDN hosting, custom domains, automatic HTTPS, SPA rewrites, immutable asset caching, and no server runtime lock-in.
+
+This repo includes deploy-safe static hosting files:
+
+- `public/_redirects` rewrites every route to `index.html` so `/app`, `/dashboard`, and `/vaults` work after refresh.
+- `public/_headers` adds cache and basic security headers while intentionally avoiding COOP/COEP and strict CSP headers that can break wallet popups, injected providers, or runtime-configured RPC/API origins.
+- `wrangler.toml` points Cloudflare Pages CLI deployments at `dist`.
+
+### Cloudflare Pages deploy
+
+1. Push the repo to GitHub.
+2. In Cloudflare, create **Workers & Pages → Pages → Connect to Git**.
+3. Select the repo and use:
+   - Build command: `npm run build`
+   - Build output directory: `dist`
+   - Root directory: project root
+4. Add production environment variables from `.env.example`. For a safe public demo, start with `VITE_USE_MOCK_DATA=true`, `VITE_QVAC_REVIEWER_REMOTE=false`, and only add live provider keys when ready.
+5. Deploy, then attach your custom domain in **Custom domains**.
+
+CLI alternative:
+
+```bash
+npm run deploy:cloudflare
+```
+
 Local QVAC reviewer:
 
 ```bash

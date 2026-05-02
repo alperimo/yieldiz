@@ -1,0 +1,22 @@
+# Long-lived hashed build assets.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/og/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/favicon.svg
+  Cache-Control: public, max-age=86400
+
+/manifest.json
+  Cache-Control: public, max-age=86400
+
+# Keep the app wallet-friendly: do not enable COOP/COEP or a strict CSP here,
+# because wallet adapters and provider SDKs use popups, injected providers, and
+# third-party RPC/API origins configured at runtime.
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  X-Frame-Options: DENY
