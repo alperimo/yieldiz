@@ -7,14 +7,17 @@ import { STRINGS, NAV_ITEMS } from '../../lib/constants';
 import { abbreviateAddress } from '../../lib/formatters';
 import { LogOut, Menu, ArrowDownToLine, LayoutDashboard, Vault } from 'lucide-react';
 import { useHideOnScroll } from '../../hooks/useHideOnScroll';
+import { useSnsIdentity } from '../../hooks/useSnsIdentity';
 import { YieldizLogo } from '../brand/YieldizLogo';
 
 const ICON_MAP = { ArrowDownToLine, LayoutDashboard, Vault };
 
 export const Header = ({ onMenuToggle }) => {
-  const { connected, address, balance, disconnect } = useWallet();
+  const { connected, address, balance, disconnect, connection } = useWallet();
+  const { domain } = useSnsIdentity(address, connection);
   const network = import.meta.env.VITE_NETWORK || 'devnet';
   const { hidden, scrolled } = useHideOnScroll();
+  const accountLabel = domain || abbreviateAddress(address);
 
   return (
     <header
@@ -87,8 +90,8 @@ export const Header = ({ onMenuToggle }) => {
                 <span className="hidden text-caption text-sg-text-secondary sm:inline">
                   {balance != null ? `${Number(balance).toFixed(2)} SOL` : ''}
                 </span>
-                <span className="text-caption font-mono text-sg-text">
-                  {abbreviateAddress(address)}
+                <span className={domain ? 'text-caption font-semibold text-sg-text' : 'text-caption font-mono text-sg-text'}>
+                  {accountLabel}
                 </span>
                 <button
                   onClick={disconnect}

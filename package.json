@@ -12,6 +12,7 @@
     "qvac:reviewer": "node scripts/qvac-route-reviewer.mjs"
   },
   "dependencies": {
+    "@bonfida/spl-name-service": "^3.0.21",
     "@cloak.dev/sdk": "^0.1.6",
     "@lifi/sdk": "^3.16.3",
     "@lifi/types": "^17.77.0",

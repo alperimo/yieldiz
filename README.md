@@ -13,9 +13,10 @@ Users choose a source chain, stablecoin, vault, and privacy preference. Yieldiz 
 - Kamino vault discovery and deposit preparation.
 - Jito bundle submission for MEV-aware Solana execution.
 - Standard-wallet Solana connection with EVM wallet support for source-chain transactions.
-- USDC, USDT, and Palm USD route metadata, with Palm USD circulation shown when a reachable provider endpoint is configured.
+- USDC, USDT, Palm USD, and USDG route metadata, with Palm USD circulation shown when a reachable provider endpoint is configured.
 - GoldRush route confidence checks for balances, recent activity, and EVM approvals.
 - Optional Cloak and Umbra privacy modes, lazy-loaded only when selected.
+- SNS primary `.sol` treasury identity resolution for connected wallets.
 - Browser-local route reviewer, with optional QVAC service mode for user-run local model review.
 - Supabase-backed user data, positions, and transaction history.
 
@@ -39,7 +40,7 @@ Use `VITE_USE_MOCK_DATA=true` for a free end-to-end product walkthrough. Product
 - React 18, Vite 6, Tailwind CSS, React Router.
 - Supabase for auth and persistence.
 - Solana wallet adapter, `@solana/web3.js`, and SPL token utilities.
-- LI.FI, DFlow, Kamino, Jito, Quicknode, Palm USD, GoldRush, Cloak, Umbra, and QVAC integrations.
+- LI.FI, DFlow, Kamino, Jito, Quicknode, Palm USD, USDG, GoldRush, Cloak, Umbra, SNS, and QVAC integrations.
 
 ## Project structure
 
@@ -149,6 +150,7 @@ Key groups:
 - LI.FI and DFlow: route quote, bridge, and swap execution.
 - Jito: bundle submission.
 - Palm USD: public circulation API.
+- SNS: primary `.sol` treasury identity resolution through Solana RPC.
 - GoldRush: route confidence API.
 - Cloak and Umbra: optional privacy modes.
 - QVAC: optional local route reviewer URL; browser-local review works without it.
@@ -168,6 +170,7 @@ Row Level Security is enabled for user-owned data. By default, the app uses a lo
 - `.docs/SOLGATE_MASTER_PLAN.md` — current product and architecture plan.
 - `.docs/SOLGATE_TRACK_IMPLEMENTATION_PLAN.md` — implementation plan for Palm USD, GoldRush, Cloak, Umbra, and QVAC.
 - `.docs/SOLGATE_FRONTIER_SIDE_TRACK_REPORT.md` — side-track fit analysis.
+- `.docs/YIELDIZ_FRONTIER_SUBMISSION_PACK.md` — Superteam Earn field-by-field submission answers for selected Frontier side tracks.
 
 ## License
 

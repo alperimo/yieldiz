@@ -7,13 +7,16 @@ import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { usePositions } from '../hooks/usePositions';
 import { useTransactions } from '../hooks/useTransactions';
+import { useSnsIdentity } from '../hooks/useSnsIdentity';
 import { STRINGS } from '../lib/constants';
+import { abbreviateAddress } from '../lib/formatters';
 import { Wallet } from 'lucide-react';
 
 const Dashboard = () => {
-  const { connected, address, connect } = useWallet();
+  const { connected, address, connect, connection } = useWallet();
   const { data: positions, loading: posLoading, error: posError } = usePositions(address);
   const { data: transactions, loading: txLoading, error: txError } = useTransactions(address);
+  const { domain } = useSnsIdentity(address, connection);
 
   if (!connected) {
     return (
@@ -42,6 +45,9 @@ const Dashboard = () => {
         <p className="mt-4 max-w-[52ch] text-base leading-8 text-sg-text-secondary">
           Track deposited capital, earned yield, and the recent routes that brought funds into Solana.
         </p>
+        <div className="mt-5 inline-flex rounded-full border border-black/[0.08] bg-white/70 px-3 py-2 text-sm font-semibold text-[#7E4D22]">
+          Treasury profile: {domain || abbreviateAddress(address)}
+        </div>
       </div>
       <div className="space-y-6">
       <PortfolioSummary positions={positions} loading={posLoading} error={posError} />

@@ -148,7 +148,7 @@ export function useBridgeQuote() {
       setData(quote);
     } catch (err) {
       setError(err.message);
-      if (!USE_MOCK) {
+      if (!USE_MOCK_DATA) {
         setData(null);
         return;
       }

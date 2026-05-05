@@ -43,6 +43,16 @@ export const STABLECOINS = {
       solana: 'CZzgUBvxaMLwMhVSLgqJn3npmxoTo6nzMNQPAnwtHF3s',
     },
   },
+  USDG: {
+    symbol: 'USDG',
+    name: 'Global Dollar',
+    decimals: 6,
+    category: 'global dollar stablecoin',
+    solanaMint: '2u1tszSeqZ3qBWF3uNGPFc8TzMk2tdiwknnRMWGWjGWH',
+    addresses: {
+      solana: '2u1tszSeqZ3qBWF3uNGPFc8TzMk2tdiwknnRMWGWjGWH',
+    },
+  },
 };
 
 export const STABLECOIN_OPTIONS = Object.values(STABLECOINS);
