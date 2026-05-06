@@ -14,17 +14,37 @@ function createUnavailableProvider(id, reason) {
     exportKeys: fail,
     loadNotes: fail,
     register: fail,
+    validate: fail,
   };
+}
+
+function requireSolanaWallet(wallet) {
+  if (!wallet?.publicKey || !wallet?.signTransaction) {
+    throw new Error('Connect a Solana wallet before preparing a private route.');
+  }
+}
+
+function withTimeout(promise, ms, label) {
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = globalThis.setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms);
+  });
+  return Promise.race([promise, timeout]).finally(() => globalThis.clearTimeout(timer));
 }
 
 export async function createCloakProvider({ wallet, connection }) {
   let sdk;
+  let cloak;
+  const relayUrl = import.meta.env.VITE_CLOAK_RELAY_URL || 'https://api.cloak.ag';
   try {
-    const { CloakSDK } = await import('@cloak.dev/sdk');
+    requireSolanaWallet(wallet);
+    cloak = await import('@cloak.dev/sdk');
+    const { CloakSDK, LocalStorageAdapter } = cloak;
     sdk = new CloakSDK({
       wallet,
       network: 'mainnet',
-      relayUrl: import.meta.env.VITE_CLOAK_RELAY_URL || 'https://api.cloak.ag',
+      relayUrl,
+      storage: new LocalStorageAdapter('yieldiz_cloak_keys'),
     });
   } catch (error) {
     return createUnavailableProvider(
@@ -36,23 +56,95 @@ export async function createCloakProvider({ wallet, connection }) {
   return {
     id: PRIVACY_MODES.CLOAK,
     status: 'ready',
-    async deposit({ amount, mint }) {
-      return sdk.deposit(connection, amount, { mint });
+    capabilities: ['wallet-mode', 'relay-status', 'shield-deposit', 'full-withdraw', 'key-export'],
+    async validate() {
+      const publicKey = sdk.getPublicKey();
+      const config = sdk.getConfig();
+      let currentRoot = null;
+      try {
+        currentRoot = await withTimeout(sdk.getCurrentRoot(connection), 10_000, 'Cloak root check');
+      } catch (error) {
+        return {
+          ok: false,
+          publicKey: publicKey.toBase58(),
+          network: config.network || 'mainnet',
+          relayUrl,
+          reason: `Cloak SDK loaded, but relay/on-chain root check failed: ${error.message}`,
+        };
+      }
+      return {
+        ok: true,
+        publicKey: publicKey.toBase58(),
+        network: config.network || 'mainnet',
+        relayUrl,
+        currentRoot,
+      };
     },
-    async withdraw({ note, recipient }) {
-      return sdk.withdraw(connection, note, recipient);
+    async deposit({ amount, mint }) {
+      requireSolanaWallet(wallet);
+      const {
+        CLOAK_PROGRAM_ID,
+        NATIVE_SOL_MINT,
+        createUtxo,
+        createZeroUtxo,
+        generateUtxoKeypair,
+        transact,
+      } = cloak;
+      const { PublicKey } = await import('@solana/web3.js');
+      const mintAddress = mint ? new PublicKey(mint) : NATIVE_SOL_MINT;
+      const baseAmount = BigInt(amount);
+      const owner = await generateUtxoKeypair();
+      const output = await createUtxo(baseAmount, owner, mintAddress);
+      const change = await createZeroUtxo(mintAddress);
+      return transact(
+        {
+          inputUtxos: [await createZeroUtxo(mintAddress), await createZeroUtxo(mintAddress)],
+          outputUtxos: [output, change],
+          externalAmount: baseAmount,
+          depositor: wallet.publicKey,
+        },
+        {
+          connection,
+          programId: CLOAK_PROGRAM_ID,
+          relayUrl,
+          signTransaction: wallet.signTransaction,
+          signMessage: wallet.signMessage,
+          depositorPublicKey: wallet.publicKey,
+          walletPublicKey: wallet.publicKey,
+          enforceViewingKeyRegistration: false,
+        }
+      );
+    },
+    async withdraw({ utxos, recipient }) {
+      requireSolanaWallet(wallet);
+      if (!Array.isArray(utxos) || utxos.length === 0) {
+        throw new Error('Cloak withdrawal requires at least one spendable UTXO from the shielded route.');
+      }
+      const { CLOAK_PROGRAM_ID, fullWithdraw } = cloak;
+      const { PublicKey } = await import('@solana/web3.js');
+      return fullWithdraw(utxos, new PublicKey(recipient || wallet.publicKey), {
+        connection,
+        programId: CLOAK_PROGRAM_ID,
+        relayUrl,
+        signTransaction: wallet.signTransaction,
+        signMessage: wallet.signMessage,
+        walletPublicKey: wallet.publicKey,
+        enforceViewingKeyRegistration: false,
+      });
     },
     async exportKeys() {
       return sdk.exportWalletKeys();
     },
     async loadNotes() {
-      return sdk.loadNotes();
+      return {
+        message: 'Cloak v0.1.6 stores UTXO ownership in caller-managed route state; no legacy plaintext notes are loaded.',
+      };
     },
   };
 }
 
 function createWalletSigner(wallet) {
-  if (!wallet?.publicKey || !wallet?.signTransaction) {
+  if (!wallet?.publicKey || !wallet?.signTransaction || !wallet?.signMessage) {
     throw new Error('Connect a Solana wallet before opening private balance mode.');
   }
 
@@ -60,7 +152,13 @@ function createWalletSigner(wallet) {
     address: wallet.publicKey.toBase58(),
     publicKey: wallet.publicKey,
     signTransaction: wallet.signTransaction,
+    signTransactions: wallet.signAllTransactions || (async (transactions) => Promise.all(transactions.map(wallet.signTransaction))),
     signAllTransactions: wallet.signAllTransactions,
+    signMessage: async (message) => ({
+      message,
+      signature: await wallet.signMessage(message),
+      signer: wallet.publicKey.toBase58(),
+    }),
   };
 }
 
@@ -71,7 +169,7 @@ export async function createUmbraProvider({ wallet, rpcUrl, rpcSubscriptionsUrl 
   try {
     umbra = await import('@umbra-privacy/sdk');
     signer = createWalletSigner(wallet);
-    const network = import.meta.env.VITE_UMBRA_NETWORK || 'mainnet-beta';
+    const network = import.meta.env.VITE_UMBRA_NETWORK || 'mainnet';
     client = await umbra.getUmbraClient({
       signer,
       network,
@@ -89,6 +187,19 @@ export async function createUmbraProvider({ wallet, rpcUrl, rpcSubscriptionsUrl 
   return {
     id: PRIVACY_MODES.UMBRA,
     status: 'ready',
+    capabilities: ['registration', 'encrypted-balance-deposit', 'encrypted-balance-withdraw', 'account-query'],
+    async validate() {
+      const result = { ok: true, publicKey: signer.address, network: import.meta.env.VITE_UMBRA_NETWORK || 'mainnet' };
+      if (typeof umbra.getUserAccountQuerierFunction !== 'function') return result;
+      try {
+        const queryUser = umbra.getUserAccountQuerierFunction({ client });
+        result.account = await queryUser(signer.address);
+      } catch (error) {
+        result.ok = false;
+        result.reason = `Umbra SDK loaded, but account query failed: ${error.message}`;
+      }
+      return result;
+    },
     async register(options = { confidential: true, anonymous: true }) {
       const register = umbra.getUserRegistrationFunction({ client });
       return register(options);

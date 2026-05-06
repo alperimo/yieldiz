@@ -11,6 +11,7 @@ import { RouteDetails } from './RouteDetails';
 import { TransactionTracker } from './TransactionTracker';
 import { StablecoinSelector } from './StablecoinSelector';
 import { PrivacySelector } from './PrivacySelector';
+import { PrivacyReadiness } from './PrivacyReadiness';
 import { RouteConfidence } from './RouteConfidence';
 import { LocalRouteReview } from './LocalRouteReview';
 import { useVaults } from '../../hooks/useVaults';
@@ -285,6 +286,14 @@ export const DepositFlow = () => {
             boundary={getPrivacyBoundary(privacyMode)}
             loading={privacyProvider.loading}
             error={privacyProvider.error || privacyProvider.provider?.reason}
+          />
+          <PrivacyReadiness
+            mode={privacyMode}
+            provider={privacyProvider.provider}
+            loading={privacyProvider.loading}
+            error={privacyProvider.error || privacyProvider.provider?.reason}
+            connected={connected}
+            onLoadProvider={privacyProvider.loadProvider}
           />
           <RouteConfidence
             confidence={routeConfidence.data}
