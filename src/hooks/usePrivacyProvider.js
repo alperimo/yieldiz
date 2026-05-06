@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react';
 import { PRIVACY_MODES } from '../lib/stablecoins';
-import { createCloakProvider, createUmbraProvider } from '../services/privacyProviders';
 
 export function usePrivacyProvider({ wallet, connection }) {
   const [provider, setProvider] = useState(null);
@@ -17,9 +16,10 @@ export function usePrivacyProvider({ wallet, connection }) {
     setLoading(true);
     setError(null);
     try {
+      const privacyProviders = await import('../services/privacyProviders');
       const loaded = mode === PRIVACY_MODES.CLOAK
-        ? await createCloakProvider({ wallet, connection })
-        : await createUmbraProvider({
+        ? await privacyProviders.createCloakProvider({ wallet, connection })
+        : await privacyProviders.createUmbraProvider({
           wallet,
           rpcUrl: import.meta.env.VITE_QUICKNODE_RPC_URL || 'https://api.devnet.solana.com',
           rpcSubscriptionsUrl: import.meta.env.VITE_QUICKNODE_WSS_URL || 'wss://api.devnet.solana.com',
