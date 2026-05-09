@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useCallback, useEffect, use
 import { ConnectionProvider, WalletProvider as SolanaWalletProvider, useWallet as useSolanaWallet, useConnection } from '@solana/wallet-adapter-react';
 import { WalletModalProvider, useWalletModal } from '@solana/wallet-adapter-react-ui';
 import '@solana/wallet-adapter-react-ui/styles.css';
+import { DEMO_WALLET_ADDRESS, SHOW_DEMO_DASHBOARD } from '../lib/env';
 
 const WalletContext = createContext(null);
 
@@ -77,6 +78,7 @@ const WalletContextBridge = ({ children }) => {
   const evm = useEVMWallet();
 
   const address = publicKey?.toBase58() || null;
+  const demoDashboardActive = SHOW_DEMO_DASHBOARD && !connected;
 
   // Fetch SOL balance when connected
   useEffect(() => {
@@ -114,12 +116,12 @@ const WalletContextBridge = ({ children }) => {
   return (
     <WalletContext.Provider
       value={{
-        connected,
+        connected: connected || SHOW_DEMO_DASHBOARD,
         connecting,
-        address,
-        balance,
+        address: demoDashboardActive ? DEMO_WALLET_ADDRESS : address,
+        balance: demoDashboardActive ? 4.28 : balance,
         connect,
-        disconnect,
+        disconnect: demoDashboardActive ? () => {} : disconnect,
         publicKey,
         walletAdapter: wallet?.adapter || null,
         connection,

@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import * as kamino from '../services/kamino';
 import * as portfolioStore from '../services/portfolioStore';
 import { useSupabase } from '../lib/useSupabase';
-import { USE_MOCK_DATA } from '../lib/env';
+import { SHOW_DEMO_DASHBOARD, USE_MOCK_DATA } from '../lib/env';
 
 const MOCK_TRANSACTIONS = [
   {
@@ -78,7 +78,7 @@ export function useTransactions(walletAddress) {
     setLoading(true);
     setError(null);
     try {
-      if (USE_MOCK_DATA) {
+      if (USE_MOCK_DATA || SHOW_DEMO_DASHBOARD) {
         await new Promise((r) => setTimeout(r, 400));
         setData(MOCK_TRANSACTIONS.filter((t) => t.walletAddress === walletAddress));
       } else {
