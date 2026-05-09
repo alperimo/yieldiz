@@ -72,7 +72,9 @@ export async function recordDepositSnapshot(supabase, { walletAddress, vault, am
       swap_hash: txHashes?.swap || null,
       route: quote?.route || null,
       privacy_mode: privacyMode,
-      fees: quote ? Number(quote.bridgeFee || 0) + Number(quote.networkFee || 0) : null,
+      fees: quote
+        ? Number(quote.bridgeFee || 0) + Number(quote.networkFee || 0) + Number(quote.platformFee || 0)
+        : null,
     },
   });
   if (txError) throw new Error(txError.message);

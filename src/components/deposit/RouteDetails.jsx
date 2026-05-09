@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, Shield, Clock } from 'lucide-react';
 import { STRINGS, DEFAULT_SLIPPAGE_DISPLAY } from '../../lib/constants';
 import { formatCurrency, formatDuration } from '../../lib/formatters';
+import { formatPlatformFeeRate, isPlatformFeeEnabled } from '../../lib/monetization';
 import { Badge } from '../ui/Badge';
 
 export const RouteDetails = ({ quote, className = '' }) => {
@@ -9,7 +10,8 @@ export const RouteDetails = ({ quote, className = '' }) => {
 
   if (!quote) return null;
 
-  const totalFee = quote.bridgeFee + quote.networkFee;
+  const platformFee = Number(quote.platformFee || 0);
+  const totalFee = quote.bridgeFee + quote.networkFee + platformFee;
   const totalTime = quote.steps.reduce((sum, s) => sum + s.estimatedTime, 0);
 
   return (
@@ -54,9 +56,19 @@ export const RouteDetails = ({ quote, className = '' }) => {
               <span className="text-sg-text-secondary">{STRINGS.DEPOSIT_BRIDGE_FEE}</span>
               <span className="text-sg-text">{formatCurrency(quote.bridgeFee)}</span>
             </div>
+            {isPlatformFeeEnabled() ? (
+              <div className="flex justify-between text-caption">
+                <span className="text-sg-text-secondary">Yieldiz service fee ({formatPlatformFeeRate()})</span>
+                <span className="text-sg-text">{formatCurrency(platformFee)}</span>
+              </div>
+            ) : null}
             <div className="flex justify-between text-caption">
               <span className="text-sg-text-secondary">{STRINGS.DEPOSIT_SLIPPAGE}</span>
               <span className="text-sg-text">{DEFAULT_SLIPPAGE_DISPLAY}</span>
+            </div>
+            <div className="flex justify-between text-caption">
+              <span className="text-sg-text-secondary">Total fees</span>
+              <span className="text-sg-text">{formatCurrency(totalFee)}</span>
             </div>
             <div className="flex justify-between text-caption font-medium">
               <span className="text-sg-text-secondary">{STRINGS.DEPOSIT_TOTAL_TIME}</span>

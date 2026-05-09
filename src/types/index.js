@@ -72,6 +72,8 @@
  * @property {number} estimatedTime
  * @property {number} bridgeFee
  * @property {number} networkFee
+ * @property {number} [platformFee]
+ * @property {number} [platformFeeBps]
  * @property {Array<BridgeStep>} steps
  * @property {string} route
  */

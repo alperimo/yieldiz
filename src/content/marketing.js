@@ -345,7 +345,7 @@ export const MARKETING_CONTENT = {
       {
         title: 'Transparent pricing, always',
         description:
-          'Bridge fee, swap fee, network fee, MEV savings and final APY are shown before the first signature. Nothing is marked up inside the quote.',
+          'Bridge fee, swap fee, network fee, MEV savings, any Yieldiz service fee and final APY are shown before the first signature.',
       },
       {
         title: 'Audited destinations only',

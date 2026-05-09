@@ -1,6 +1,7 @@
 // DFlow Swap Service
 // Declarative trade routing with MEV-resistant execution
 // Docs: https://pond.dflow.net/build
+import { YIELDIZ_PLATFORM_FEE_BPS } from '../lib/monetization';
 
 const DFLOW_DEV_API = 'https://dev-quote-api.dflow.net';
 const DFLOW_PROD_API = 'https://quote-api.dflow.net';
@@ -30,7 +31,13 @@ export async function getSwapQuote({ inputMint, outputMint, amount, slippageBps 
 }
 
 export async function getSwapTransaction({ inputMint, outputMint, amount, userPublicKey, slippageBps = 50 }) {
-  const quote = await getSwapQuote({ inputMint, outputMint, amount, slippageBps });
+  const quote = await getSwapQuote({
+    inputMint,
+    outputMint,
+    amount,
+    slippageBps,
+    platformFeeBps: YIELDIZ_PLATFORM_FEE_BPS,
+  });
 
   const res = await fetch(`${getBaseUrl()}/v1/swap`, {
     method: 'POST',

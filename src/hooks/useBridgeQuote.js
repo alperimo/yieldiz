@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import * as lifi from '../services/lifi';
 import { SUPPORTED_CHAINS } from '../services/lifi';
 import { USE_MOCK_DATA } from '../lib/env';
+import { applyPlatformFeeToQuote } from '../lib/monetization';
 import { getSolanaMint, getStablecoin, getTokenAddress, toBaseUnits } from '../lib/stablecoins';
 
 const MOCK_ROUTES = {
@@ -42,7 +43,7 @@ export function useBridgeQuote() {
         const totalFees = routeInfo.bridgeFee + routeInfo.networkFee;
         const toAmount = Number(amount) - totalFees;
 
-        setData({
+        setData(applyPlatformFeeToQuote({
           fromChain,
           toChain: toChain || 'solana',
           fromToken,
@@ -74,7 +75,7 @@ export function useBridgeQuote() {
               protocol: 'Kamino',
             },
           ],
-        });
+        }));
         return;
       }
 
@@ -111,7 +112,7 @@ export function useBridgeQuote() {
       const totalBridgeFee = (result.bridgeFee || []).reduce((sum, f) => sum + Number(f.amountUSD || 0), 0);
       const totalGasCost = (result.gasCost || []).reduce((sum, g) => sum + Number(g.amountUSD || 0), 0);
 
-      const quote = {
+      const quote = applyPlatformFeeToQuote({
         fromChain,
         toChain: 'solana',
         fromToken,
@@ -143,7 +144,7 @@ export function useBridgeQuote() {
             protocol: 'Kamino',
           },
         ],
-      };
+      });
 
       setData(quote);
     } catch (err) {
@@ -154,7 +155,7 @@ export function useBridgeQuote() {
       }
       const routeInfo = MOCK_ROUTES[fromChain] || MOCK_ROUTES.ethereum;
       const totalFees = routeInfo.bridgeFee + routeInfo.networkFee;
-      setData({
+      setData(applyPlatformFeeToQuote({
         fromChain,
         toChain: 'solana',
         fromToken,
@@ -170,7 +171,7 @@ export function useBridgeQuote() {
           { type: 'bridge', description: `Move ${fromToken}: ${fromChain} → Solana`, estimatedTime: routeInfo.estimatedTime, protocol: `LI.FI / ${routeInfo.route}` },
           { type: 'deposit', description: 'Deposit into Kamino Vault', estimatedTime: 2, protocol: 'Kamino' },
         ],
-      });
+      }));
     } finally {
       setLoading(false);
     }

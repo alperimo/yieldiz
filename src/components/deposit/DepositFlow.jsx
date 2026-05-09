@@ -358,7 +358,7 @@ export const DepositFlow = () => {
                   amount: Number(amount),
                   token: fromToken,
                   privacyMode,
-                  totalFees: quote ? quote.bridgeFee + quote.networkFee : 0,
+                  totalFees: quote ? quote.bridgeFee + quote.networkFee + Number(quote.platformFee || 0) : 0,
                   apy: vault?.apy || 0,
                   steps: quote?.steps || [],
                 }}

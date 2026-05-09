@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4096 4096" role="img" aria-label="Yieldiz logo">
+  <rect width="4096" height="4096" fill="#8B5724"/>
+  <g transform="translate(2048 2048) scale(0.76) translate(-2048 -2048)">
+    <circle cx="2048" cy="2048" r="1749.3" fill="none" stroke="#F8E6B6" stroke-width="200.5"/>
+    <circle cx="2048" cy="2048" r="1322.7" fill="none" stroke="#F8E6B6" stroke-width="89.6" opacity="0.32"/>
+    <path d="M1433.6 1595.7 2048 2235.7l614.4-640M2048 2235.7v768" fill="none" stroke="#F8E6B6" stroke-width="311.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M2048 785.1 2188.8 1133.2 2537 1274 2188.8 1414.8 2048 1763 1907.2 1414.8 1559 1274 1907.2 1133.2 2048 785.1z" fill="#F8E6B6"/>
+  </g>
+</svg>
