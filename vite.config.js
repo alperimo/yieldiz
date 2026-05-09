@@ -26,7 +26,7 @@ export default defineConfig({
   build: {
     modulePreload: {
       resolveDependencies(_url, deps) {
-        return deps.filter((dep) => !/(privacyProviders|vendor-(privacy|umbra|cloak))/.test(dep));
+        return deps.filter((dep) => !/(privacyProviders|vendor-(privacy|umbra|cloak|spline))/.test(dep));
       },
     },
     rollupOptions: {
@@ -38,6 +38,8 @@ export default defineConfig({
           if (id.includes('@supabase')) return 'vendor-supabase';
           if (id.includes('@tanstack')) return 'vendor-query';
           if (id.includes('gsap')) return 'vendor-gsap';
+          if (id.includes('@splinetool')) return 'vendor-spline';
+          if (/(node_modules\/(?:motion|framer-motion|motion-dom|motion-utils)\/)/.test(id)) return 'vendor-motion';
           if (id.includes('lucide-react')) return 'vendor-ui';
           if (id.includes('react')) return 'vendor-react';
           return undefined;

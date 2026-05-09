@@ -7,3 +7,5 @@ export { Skeleton, SkeletonCard, SkeletonRow } from './Skeleton';
 export { Modal } from './Modal';
 export { ToastContainer, toast } from './Toast';
 export { TokenBadge, PriceDisplay, DataTable } from './DataDisplay';
+export { SplineScene } from './SplineScene';
+export { Spotlight } from './Spotlight';

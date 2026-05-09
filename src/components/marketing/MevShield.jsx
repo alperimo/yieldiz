@@ -38,7 +38,16 @@ export const MevShield = ({ before, after, footnote, reducedMotion = false }) =>
   return (
     <div ref={rootRef} className="grid gap-5 lg:grid-cols-2">
       {/* BEFORE */}
-      <article className="relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.045] p-7 opacity-90">
+      <article data-cinematic-card className="relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.045] p-7 opacity-90 will-change-transform">
+        <div
+          data-cinematic-shine
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-0"
+          style={{
+            background:
+              'radial-gradient(circle at var(--cinematic-x, 50%) var(--cinematic-y, 50%), rgba(255,255,255,0.12), transparent 52%)',
+          }}
+        />
         <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55">
           <AlertTriangle size={14} className="text-white/55" />
           {before.label}
@@ -83,7 +92,16 @@ export const MevShield = ({ before, after, footnote, reducedMotion = false }) =>
       </article>
 
       {/* AFTER */}
-      <article className="relative overflow-hidden rounded-[28px] border border-[#F8E6B6]/25 bg-[#F8E6B6]/10 p-7">
+      <article data-cinematic-card className="relative overflow-hidden rounded-[28px] border border-[#F8E6B6]/25 bg-[#F8E6B6]/10 p-7 will-change-transform">
+        <div
+          data-cinematic-shine
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-0"
+          style={{
+            background:
+              'radial-gradient(circle at var(--cinematic-x, 50%) var(--cinematic-y, 50%), rgba(248,230,182,0.18), transparent 52%)',
+          }}
+        />
         <div className="relative flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55">
           <ShieldCheck size={14} className="text-[#D6A84F]" />
           {after.label}

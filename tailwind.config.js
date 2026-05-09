@@ -43,6 +43,16 @@ export default {
         money: ['34px', { lineHeight: '1.05', fontWeight: '600', letterSpacing: '-0.03em' }],
         'money-sm': ['22px', { lineHeight: '1.15', fontWeight: '600', letterSpacing: '-0.02em' }],
       },
+      keyframes: {
+        spotlight: {
+          '0%': { opacity: '0', transform: 'translate3d(-18%, -10%, 0) scale(0.82)' },
+          '35%': { opacity: '0.64' },
+          '100%': { opacity: '0.34', transform: 'translate3d(5%, 1%, 0) scale(1.05)' },
+        },
+      },
+      animation: {
+        spotlight: 'spotlight 7s ease-out 0.25s forwards',
+      },
     },
   },
   plugins: [],

@@ -11,12 +11,14 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MARKETING_CONTENT } from '../content/marketing';
 import { HeroGlobe } from '../components/marketing/HeroGlobe';
+import { CinematicSpotlight } from '../components/marketing/CinematicSpotlight';
 import { LiveMetrics } from '../components/marketing/LiveMetrics';
 import { RouteDiagram } from '../components/marketing/RouteDiagram';
 import { PhoneMockup, PHONE_SCREEN_KEYS } from '../components/marketing/PhoneMockup';
 import { PartnerSpotlight } from '../components/marketing/PartnerSpotlight';
 import { MevShield } from '../components/marketing/MevShield';
 import { VaultSpotlight } from '../components/marketing/VaultSpotlight';
+import { Spotlight } from '../components/ui/Spotlight';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import { usePlatformMetrics } from '../hooks/usePlatformMetrics';
 import { useVaults } from '../hooks/useVaults';
@@ -50,10 +52,12 @@ const MarketingAsset = ({
   imageClassName = '',
 }) => (
   <div
+    data-cinematic-card
     data-asset-slot={slot}
-    className={`relative overflow-hidden rounded-[28px] ${aspect} ${
+    className={`relative overflow-hidden rounded-[28px] transition-transform duration-500 will-change-transform ${aspect} ${
       dark ? 'border border-white/15 bg-[#7E4D22]' : 'border border-black/[0.08] bg-[#F8E6B6]'
     }`}
+    style={{ transformStyle: 'preserve-3d' }}
   >
     {src ? (
       <img
@@ -72,6 +76,15 @@ const MarketingAsset = ({
         }}
       />
     )}
+    <div
+      data-cinematic-shine
+      aria-hidden
+      className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"
+      style={{
+        background:
+          'radial-gradient(circle at var(--cinematic-x, 50%) var(--cinematic-y, 50%), rgba(255,255,255,0.34), rgba(248,230,182,0.12) 22%, transparent 48%)',
+      }}
+    />
     <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10" />
   </div>
 );
@@ -171,6 +184,106 @@ export default function Marketing() {
     return () => ctx.revert();
   }, [prefersReducedMotion]);
 
+  useLayoutEffect(() => {
+    if (prefersReducedMotion || !pageRef.current) return undefined;
+
+    const cleanup = [];
+    const ctx = gsap.context(() => {
+      const heroItems = gsap.utils.toArray('[data-hero-cinematic]');
+      gsap.fromTo(
+        heroItems,
+        { y: 34, rotationX: -16, filter: 'blur(10px)' },
+        {
+          y: 0,
+          rotationX: 0,
+          filter: 'blur(0px)',
+          duration: 1.05,
+          delay: 0.08,
+          ease: 'power3.out',
+          stagger: 0.08,
+        },
+      );
+
+      const heroSection = pageRef.current.querySelector('[data-hero-section]');
+      const heroVisual = pageRef.current.querySelector('[data-hero-visual]');
+      if (heroSection && heroVisual) {
+        gsap.to(heroVisual, {
+          yPercent: 6,
+          scale: 0.985,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: heroSection,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          },
+        });
+      }
+
+      gsap.utils.toArray('[data-cinematic-card]').forEach((card) => {
+        const shine = card.querySelector('[data-cinematic-shine]');
+        const rotateXTo = gsap.quickTo(card, 'rotationX', { duration: 0.45, ease: 'power3.out' });
+        const rotateYTo = gsap.quickTo(card, 'rotationY', { duration: 0.45, ease: 'power3.out' });
+        const scaleTo = gsap.quickTo(card, 'scale', { duration: 0.45, ease: 'power3.out' });
+        const shineTo = shine ? gsap.quickTo(shine, 'opacity', { duration: 0.25, ease: 'power2.out' }) : null;
+
+        const handleMove = (event) => {
+          const bounds = card.getBoundingClientRect();
+          const x = (event.clientX - bounds.left) / bounds.width;
+          const y = (event.clientY - bounds.top) / bounds.height;
+          card.style.setProperty('--cinematic-x', `${x * 100}%`);
+          card.style.setProperty('--cinematic-y', `${y * 100}%`);
+          rotateYTo((x - 0.5) * 8);
+          rotateXTo((0.5 - y) * 7);
+          scaleTo(1.018);
+          shineTo?.(1);
+        };
+
+        const handleLeave = () => {
+          rotateXTo(0);
+          rotateYTo(0);
+          scaleTo(1);
+          shineTo?.(0);
+        };
+
+        card.addEventListener('pointermove', handleMove);
+        card.addEventListener('pointerleave', handleLeave);
+        cleanup.push(() => {
+          card.removeEventListener('pointermove', handleMove);
+          card.removeEventListener('pointerleave', handleLeave);
+        });
+      });
+
+      gsap.utils.toArray('[data-magnetic]').forEach((node) => {
+        const xTo = gsap.quickTo(node, 'x', { duration: 0.34, ease: 'power3.out' });
+        const yTo = gsap.quickTo(node, 'y', { duration: 0.34, ease: 'power3.out' });
+
+        const handleMove = (event) => {
+          const bounds = node.getBoundingClientRect();
+          xTo((event.clientX - bounds.left - bounds.width / 2) * 0.16);
+          yTo((event.clientY - bounds.top - bounds.height / 2) * 0.16);
+        };
+
+        const handleLeave = () => {
+          xTo(0);
+          yTo(0);
+        };
+
+        node.addEventListener('pointermove', handleMove);
+        node.addEventListener('pointerleave', handleLeave);
+        cleanup.push(() => {
+          node.removeEventListener('pointermove', handleMove);
+          node.removeEventListener('pointerleave', handleLeave);
+        });
+      });
+    }, pageRef);
+
+    return () => {
+      cleanup.forEach((dispose) => dispose());
+      ctx.revert();
+    };
+  }, [prefersReducedMotion]);
+
   // Route diagram: highlight the matching left-side step card based on scroll
   // position so the section feels alive without locking the page. We start
   // when the section is roughly centered (top 35%) and end when its bottom
@@ -244,25 +357,33 @@ export default function Marketing() {
   return (
     <div ref={pageRef}>
       {/* ─────────────────  HERO  ───────────────── */}
-      <section data-header-theme="light" className="relative overflow-hidden px-4 pb-3 pt-2 sm:px-6 lg:px-8 lg:pb-4 lg:pt-3">
-        <div className="mx-auto grid min-h-[calc(100svh-68px)] max-w-[1360px] items-center gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
+      <section
+        data-hero-section
+        data-header-theme="light"
+        className="relative isolate overflow-hidden px-4 pb-3 pt-2 sm:px-6 lg:px-8 lg:pb-4 lg:pt-3"
+      >
+        <Spotlight className="animate-spotlight -top-[44%] left-[-22%] md:left-[30%] md:-top-[38%]" fill="#F8E6B6" />
+        <CinematicSpotlight reducedMotion={prefersReducedMotion} size={620} />
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[-18%] z-0 h-[54%] bg-[radial-gradient(circle_at_52%_34%,rgba(248,230,182,0.62),rgba(214,168,79,0.16)_38%,transparent_70%)] blur-3xl" />
+        <div className="relative z-[3] mx-auto grid min-h-[calc(100svh-68px)] max-w-[1360px] items-center gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
           <div className="space-y-5 lg:-translate-y-6 lg:space-y-5">
             <Eyebrow className="text-[12px] tracking-[0.2em]" lineClassName="w-8">
               {MARKETING_CONTENT.hero.eyebrow}
             </Eyebrow>
 
             <div data-reveal>
-              <h1 className="font-display text-[48px] font-semibold leading-[0.96] tracking-[-0.045em] text-[#2A1A0B] sm:text-[64px] lg:text-[88px]">
+              <h1 data-hero-cinematic className="font-display text-[48px] font-semibold leading-[0.96] tracking-[-0.045em] text-[#2A1A0B] sm:text-[64px] lg:text-[88px]">
                 <span className="sm:whitespace-nowrap">Move stablecoins</span>
                 {' into Solana yield with clarity.'}
               </h1>
-              <p className="mt-5 max-w-[52ch] text-[17px] leading-[1.65] text-[#654B2B] lg:text-[19px]">
+              <p data-hero-cinematic className="mt-5 max-w-[52ch] text-[17px] leading-[1.65] text-[#654B2B] lg:text-[19px]">
                 {MARKETING_CONTENT.hero.subheadline}
               </p>
             </div>
 
-            <div data-reveal className="flex flex-col gap-3 sm:flex-row">
+            <div data-reveal data-hero-cinematic className="flex flex-col gap-3 sm:flex-row">
               <Link
+                data-magnetic
                 to="/app"
                 className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#7E4D22] px-6 py-4 text-[14px] font-semibold text-[#F8E6B6] shadow-[0_24px_60px_rgba(126,77,34,0.22)] transition-all hover:-translate-y-0.5 hover:bg-[#65401F] hover:shadow-[0_24px_60px_rgba(126,77,34,0.22)]"
               >
@@ -270,6 +391,7 @@ export default function Marketing() {
                 <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
               <a
+                data-magnetic
                 href="#operating-model"
                 onClick={(event) => handleSectionLinkClick(event, '#operating-model')}
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-black/10 bg-white/80 px-6 py-4 text-[14px] font-semibold text-[#2A1A0B] shadow-[0_20px_40px_rgba(126,77,34,0.06)] transition-transform hover:-translate-y-0.5"
@@ -303,7 +425,7 @@ export default function Marketing() {
 
           </div>
 
-          <div data-reveal className="relative flex items-center justify-center lg:-translate-y-4">
+          <div data-reveal data-hero-visual className="relative flex items-center justify-center lg:-translate-y-4">
             <HeroGlobe reducedMotion={prefersReducedMotion} />
           </div>
         </div>
@@ -412,7 +534,7 @@ export default function Marketing() {
           </div>
 
           <div data-reveal className="flex flex-col justify-center">
-            <div className="relative overflow-hidden rounded-[34px] border border-[#F8E6B6]/30 bg-[#F8E6B6] p-6">
+            <div data-cinematic-card className="relative overflow-hidden rounded-[34px] border border-[#F8E6B6]/30 bg-[#F8E6B6] p-6 will-change-transform">
               <RouteDiagram reducedMotion={prefersReducedMotion} />
             </div>
           </div>
@@ -496,8 +618,18 @@ export default function Marketing() {
               <article
                 key={card.title}
                 data-reveal
-                className="rounded-[28px] border border-black/[0.08] bg-white/80 p-6 shadow-[0_24px_60px_rgba(126,77,34,0.06)]"
+                data-cinematic-card
+                className="relative overflow-hidden rounded-[28px] border border-black/[0.08] bg-white/80 p-6 shadow-[0_24px_60px_rgba(126,77,34,0.06)] will-change-transform"
               >
+                <div
+                  data-cinematic-shine
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 opacity-0"
+                  style={{
+                    background:
+                      'radial-gradient(circle at var(--cinematic-x, 50%) var(--cinematic-y, 50%), rgba(255,255,255,0.44), rgba(248,230,182,0.18) 25%, transparent 52%)',
+                  }}
+                />
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#F8E6B6] text-[#7E4D22]">
                   <CheckCircle2 size={18} />
                 </div>
@@ -556,6 +688,7 @@ export default function Marketing() {
 
           <div data-reveal className="mt-10 flex justify-center">
             <Link
+              data-magnetic
               to="/app/vaults"
               className="group inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/80 px-6 py-3 text-[13px] font-semibold text-[#2A1A0B] shadow-[0_18px_40px_rgba(126,77,34,0.06)] transition-transform hover:-translate-y-0.5"
             >
@@ -593,8 +726,18 @@ export default function Marketing() {
               <div
                 key={pt.title}
                 data-reveal
-                className="rounded-[24px] border border-white/15 bg-white/10 p-6"
+                data-cinematic-card
+                className="relative overflow-hidden rounded-[24px] border border-white/15 bg-white/10 p-6 will-change-transform"
               >
+                <div
+                  data-cinematic-shine
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 opacity-0"
+                  style={{
+                    background:
+                      'radial-gradient(circle at var(--cinematic-x, 50%) var(--cinematic-y, 50%), rgba(248,230,182,0.16), transparent 52%)',
+                  }}
+                />
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#F8E6B6] text-[#7E4D22]">
                   <Shield size={18} />
                 </div>
@@ -625,7 +768,8 @@ export default function Marketing() {
               <article
                 key={p.title}
                 data-reveal
-                className="overflow-hidden rounded-[36px] border border-black/[0.08] bg-white shadow-[0_30px_80px_rgba(126,77,34,0.08)]"
+                data-cinematic-card
+                className="overflow-hidden rounded-[36px] border border-black/[0.08] bg-white shadow-[0_30px_80px_rgba(126,77,34,0.08)] will-change-transform"
               >
                 <MarketingAsset
                   slot={p.assetSlot}
@@ -693,6 +837,7 @@ export default function Marketing() {
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link
+                data-magnetic
                 to="/app"
                 className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#F8E6B6] px-6 py-4 text-[14px] font-semibold text-[#5C3418] shadow-[0_24px_60px_rgba(42,26,11,0.28)] transition-transform hover:-translate-y-0.5 hover:bg-white"
               >
@@ -700,6 +845,7 @@ export default function Marketing() {
                 <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
               <a
+                data-magnetic
                 href="mailto:hello@yieldiz.app"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-[#F8E6B6]/30 bg-white/8 px-6 py-4 text-[14px] font-semibold text-[#F8E6B6] transition-colors hover:bg-white/12"
               >

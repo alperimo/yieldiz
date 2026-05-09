@@ -42,7 +42,16 @@ const VaultCard = ({ vault }) => {
   const display = vault.apy.toFixed(2);
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[32px] border border-black/[0.08] bg-white p-7 shadow-[0_24px_60px_rgba(126,77,34,0.08)] transition-all duration-400 hover:-translate-y-1 hover:shadow-[0_40px_90px_rgba(126,77,34,0.14)]">
+    <article data-cinematic-card className="group relative flex h-full flex-col overflow-hidden rounded-[32px] border border-black/[0.08] bg-white p-7 shadow-[0_24px_60px_rgba(126,77,34,0.08)] transition-all duration-400 will-change-transform hover:-translate-y-1 hover:shadow-[0_40px_90px_rgba(126,77,34,0.14)]">
+      <div
+        data-cinematic-shine
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-0"
+        style={{
+          background:
+            'radial-gradient(circle at var(--cinematic-x, 50%) var(--cinematic-y, 50%), rgba(255,255,255,0.42), rgba(248,230,182,0.16) 24%, transparent 52%)',
+        }}
+      />
       <div className="flex items-center justify-between">
         <span className="rounded-full border border-[#7E4D22]/10 bg-[#7E4D22]/[0.04] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#2A1A0B]">
           {vault.badge}
