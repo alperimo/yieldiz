@@ -2,7 +2,7 @@
 
 **A stablecoin yield terminal for Solana.** Yieldiz routes idle stablecoins from any supported chain into Solana vaults with one reviewed flow: quote, cost, settlement path, and privacy boundary are all shown before the user signs.
 
-> Status: pre-launch beta. Built for Colosseum Frontier. Default monetization is `0 bps`; the platform fee path is wired and gated behind an env var for post-launch activation.
+> Default monetization is `0 bps`; the platform fee path is wired and gated behind an env var for post-launch activation.
 
 ---
 
