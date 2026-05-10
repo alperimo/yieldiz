@@ -3,6 +3,7 @@ import { ConnectionProvider, WalletProvider as SolanaWalletProvider, useWallet a
 import { WalletModalProvider, useWalletModal } from '@solana/wallet-adapter-react-ui';
 import '@solana/wallet-adapter-react-ui/styles.css';
 import { DEMO_EVM_ADDRESS, DEMO_MODE, DEMO_WALLET_ADDRESS, SHOW_DEMO_DASHBOARD } from '../lib/env';
+import * as demoWallet from '../services/demoWallet';
 
 const WalletContext = createContext(null);
 
@@ -90,11 +91,13 @@ const WalletContextBridge = ({ children }) => {
   const { setVisible: setWalletModalVisible } = useWalletModal();
   const { connection } = useConnection();
   const [balance, setBalance] = useState(null);
+  const [demoWalletState, setDemoWalletState] = useState(null);
   const evm = useEVMWallet();
 
   const address = publicKey?.toBase58() || null;
   const demoDashboardActive = SHOW_DEMO_DASHBOARD && !connected;
   const demoValuesActive = DEMO_MODE && connected;
+  const activeDemoWalletAddress = address || DEMO_WALLET_ADDRESS;
 
   // Fetch SOL balance when connected
   useEffect(() => {
@@ -115,6 +118,15 @@ const WalletContextBridge = ({ children }) => {
     return () => { cancelled = true; connection.removeAccountChangeListener(id); };
   }, [publicKey, connection]);
 
+  useEffect(() => {
+    if (!demoValuesActive) {
+      setDemoWalletState(null);
+      return;
+    }
+
+    setDemoWalletState(demoWallet.getDemoWalletState(activeDemoWalletAddress));
+  }, [activeDemoWalletAddress, demoValuesActive]);
+
   const connect = useCallback(async () => {
     if (wallet?.adapter) {
       try {
@@ -129,13 +141,28 @@ const WalletContextBridge = ({ children }) => {
     setWalletModalVisible(true);
   }, [connectSelectedWallet, setWalletModalVisible, wallet?.adapter]);
 
+  const setDemoSourceToken = useCallback((token) => {
+    if (!demoValuesActive || !token) return;
+    setDemoWalletState(demoWallet.setDemoSelectedToken(activeDemoWalletAddress, token));
+  }, [activeDemoWalletAddress, demoValuesActive]);
+
+  const debitDemoSourceBalance = useCallback((token, amount) => {
+    if (!demoValuesActive || !token) return;
+    setDemoWalletState(demoWallet.debitDemoBalance(activeDemoWalletAddress, token, amount));
+  }, [activeDemoWalletAddress, demoValuesActive]);
+
   return (
     <WalletContext.Provider
       value={{
         connected: connected || demoDashboardActive,
         connecting,
         address: demoDashboardActive ? DEMO_WALLET_ADDRESS : address,
-        balance: demoDashboardActive || demoValuesActive ? 4.28 : balance,
+        balance: demoDashboardActive
+          ? 4.28
+          : demoValuesActive
+            ? demoWalletState?.balances?.[demoWalletState?.selectedToken || 'USDC'] ?? null
+            : balance,
+        balanceSymbol: demoValuesActive ? (demoWalletState?.selectedToken || 'USDC') : 'SOL',
         connect,
         disconnect: demoDashboardActive ? () => {} : disconnect,
         publicKey,
@@ -150,6 +177,9 @@ const WalletContextBridge = ({ children }) => {
         connectEVM: evm.connectEVM,
         disconnectEVM: evm.disconnectEVM,
         hasEVM: evm.hasEVM,
+        demoSourceBalances: demoWalletState?.balances || null,
+        setDemoSourceToken,
+        debitDemoSourceBalance,
       }}
     >
       {children}

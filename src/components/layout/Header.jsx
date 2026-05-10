@@ -13,7 +13,7 @@ import { YieldizLogo } from '../brand/YieldizLogo';
 const ICON_MAP = { ArrowDownToLine, LayoutDashboard, Vault };
 
 export const Header = ({ onMenuToggle }) => {
-  const { connected, address, balance, disconnect, connection } = useWallet();
+  const { connected, address, balance, balanceSymbol, disconnect, connection } = useWallet();
   const { domain } = useSnsIdentity(address, connection);
   const network = import.meta.env.VITE_NETWORK || 'devnet';
   const { hidden, scrolled } = useHideOnScroll();
@@ -88,7 +88,7 @@ export const Header = ({ onMenuToggle }) => {
               </Badge>
               <div className="flex items-center gap-2 rounded-full border border-black/[0.08] bg-white/80 px-3 py-2 shadow-[0_10px_24px_rgba(126,77,34,0.06)]">
                 <span className="hidden text-caption text-sg-text-secondary sm:inline">
-                  {balance != null ? `${Number(balance).toFixed(2)} SOL` : ''}
+                  {balance != null ? `${Number(balance).toFixed(2)} ${balanceSymbol || 'SOL'}` : ''}
                 </span>
                 <span className={domain ? 'text-caption font-semibold text-sg-text' : 'text-caption font-mono text-sg-text'}>
                   {accountLabel}

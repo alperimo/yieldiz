@@ -28,13 +28,27 @@ import { STRINGS, DEPOSIT_FLOW_STATES } from '../../lib/constants';
 import { createRouteIntent } from '../../lib/routeIntent';
 import { getPrivacyBoundary, PRIVACY_MODES } from '../../lib/stablecoins';
 import { formatPercent, formatCurrency } from '../../lib/formatters';
-import { DEMO_MODE, DEMO_SOURCE_BALANCES, USE_MOCK_DATA } from '../../lib/env';
+import { DEMO_MODE, USE_MOCK_DATA } from '../../lib/env';
 import * as demoPortfolio from '../../services/demoPortfolio';
 
 export const DepositFlow = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { connected, connect, address, signTransaction, signAllTransactions, evmAddress, connectEVM, hasEVM, walletAdapter, connection } = useWallet();
+  const {
+    connected,
+    connect,
+    address,
+    signTransaction,
+    signAllTransactions,
+    evmAddress,
+    connectEVM,
+    hasEVM,
+    walletAdapter,
+    connection,
+    demoSourceBalances,
+    setDemoSourceToken,
+    debitDemoSourceBalance,
+  } = useWallet();
   const { supabase, isAuthenticated } = useSupabase();
   const { data: vaults } = useVaults();
   const { data: quote, loading: quoteLoading, error: quoteError, getQuote } = useBridgeQuote();
@@ -86,6 +100,11 @@ export const DepositFlow = () => {
     setSearchParams(nextParams, { replace: true });
   }, [selectedVault, searchParams, setSearchParams]);
 
+  useEffect(() => {
+    if (!DEMO_MODE || !connected) return;
+    setDemoSourceToken(fromToken);
+  }, [connected, fromToken, setDemoSourceToken]);
+
   // Fetch quote when params change
   useEffect(() => {
     if (!amount || Number(amount) <= 0 || !fromChain) {
@@ -127,6 +146,10 @@ export const DepositFlow = () => {
 
     if (DEMO_MODE || USE_MOCK_DATA) {
       try {
+        if (DEMO_MODE) {
+          const totalDebit = Number(amount) + Number(quote?.bridgeFee || 0) + Number(quote?.networkFee || 0) + Number(quote?.platformFee || 0);
+          debitDemoSourceBalance(fromToken, totalDebit);
+        }
         demoPortfolio.recordDemoDeposit({
           walletAddress: address,
           vault,
@@ -212,7 +235,7 @@ export const DepositFlow = () => {
   const estimatedYield = vault && amount ? (Number(amount) * (vault.apy / 100)).toFixed(2) : null;
   const privacyRouteNeedsSetup = privacyMode !== PRIVACY_MODES.STANDARD;
   const canDeposit = amount && Number(amount) > 0 && selectedVault && !privacyRouteNeedsSetup && (!connected || (quote && !quoteError && !quoteLoading));
-  const sourceBalance = DEMO_MODE && connected ? DEMO_SOURCE_BALANCES[fromToken] : null;
+  const sourceBalance = DEMO_MODE && connected ? demoSourceBalances?.[fromToken] ?? null : null;
 
   return (
     <>
