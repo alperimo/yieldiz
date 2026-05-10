@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useCallback, useEffect, use
 import { ConnectionProvider, WalletProvider as SolanaWalletProvider, useWallet as useSolanaWallet, useConnection } from '@solana/wallet-adapter-react';
 import { WalletModalProvider, useWalletModal } from '@solana/wallet-adapter-react-ui';
 import '@solana/wallet-adapter-react-ui/styles.css';
-import { DEMO_WALLET_ADDRESS, SHOW_DEMO_DASHBOARD } from '../lib/env';
+import { DEMO_EVM_ADDRESS, DEMO_MODE, DEMO_WALLET_ADDRESS, SHOW_DEMO_DASHBOARD } from '../lib/env';
 
 const WalletContext = createContext(null);
 
@@ -25,10 +25,15 @@ function readInjectedEvmState(provider) {
 
 // EVM wallet detection for cross-chain bridging
 function useEVMWallet() {
-  const [evmAddress, setEvmAddress] = useState(null);
-  const [evmChainId, setEvmChainId] = useState(null);
+  const [evmAddress, setEvmAddress] = useState(DEMO_MODE ? DEMO_EVM_ADDRESS : null);
+  const [evmChainId, setEvmChainId] = useState(DEMO_MODE ? 1 : null);
 
   const connectEVM = useCallback(async () => {
+    if (DEMO_MODE) {
+      setEvmAddress(DEMO_EVM_ADDRESS);
+      setEvmChainId(1);
+      return DEMO_EVM_ADDRESS;
+    }
     if (typeof window === 'undefined' || !window.ethereum) return null;
     try {
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -45,11 +50,21 @@ function useEVMWallet() {
   }, []);
 
   const disconnectEVM = useCallback(() => {
+    if (DEMO_MODE) {
+      setEvmAddress(DEMO_EVM_ADDRESS);
+      setEvmChainId(1);
+      return;
+    }
     setEvmAddress(null);
     setEvmChainId(null);
   }, []);
 
   useEffect(() => {
+    if (DEMO_MODE) {
+      setEvmAddress(DEMO_EVM_ADDRESS);
+      setEvmChainId(1);
+      return undefined;
+    }
     if (typeof window === 'undefined' || !window.ethereum) return;
     const initialState = readInjectedEvmState(window.ethereum);
     setEvmAddress(initialState.address);
@@ -66,7 +81,7 @@ function useEVMWallet() {
     };
   }, []);
 
-  return { evmAddress, evmChainId, connectEVM, disconnectEVM, hasEVM: typeof window !== 'undefined' && !!window.ethereum };
+  return { evmAddress, evmChainId, connectEVM, disconnectEVM, hasEVM: DEMO_MODE || (typeof window !== 'undefined' && !!window.ethereum) };
 }
 
 // Inner provider that wraps Solana wallet adapter hooks with our context API
@@ -78,7 +93,7 @@ const WalletContextBridge = ({ children }) => {
   const evm = useEVMWallet();
 
   const address = publicKey?.toBase58() || null;
-  const demoDashboardActive = SHOW_DEMO_DASHBOARD && !connected;
+  const demoDashboardActive = DEMO_MODE || (SHOW_DEMO_DASHBOARD && !connected);
 
   // Fetch SOL balance when connected
   useEffect(() => {
@@ -116,7 +131,7 @@ const WalletContextBridge = ({ children }) => {
   return (
     <WalletContext.Provider
       value={{
-        connected: connected || SHOW_DEMO_DASHBOARD,
+        connected: connected || demoDashboardActive,
         connecting,
         address: demoDashboardActive ? DEMO_WALLET_ADDRESS : address,
         balance: demoDashboardActive ? 4.28 : balance,

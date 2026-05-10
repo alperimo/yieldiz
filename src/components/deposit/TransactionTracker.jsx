@@ -179,6 +179,15 @@ export const TransactionTracker = ({
               ~{formatCurrency(depositInfo.amount * (depositInfo.apy / 100))} at {depositInfo.apy}% APY
             </span>
           </div>
+          {onBackToDashboard ? (
+            <button
+              type="button"
+              onClick={onBackToDashboard}
+              className="mt-4 w-full rounded-full bg-[#7E4D22] px-4 py-3 text-sm font-semibold text-[#F8E6B6] transition-transform hover:-translate-y-0.5"
+            >
+              Open dashboard
+            </button>
+          ) : null}
         </div>
       ) : null}
 

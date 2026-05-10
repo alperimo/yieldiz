@@ -1,41 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import * as kamino from '../services/kamino';
 import * as portfolioStore from '../services/portfolioStore';
+import * as demoPortfolio from '../services/demoPortfolio';
 import { useSupabase } from '../lib/useSupabase';
 import { SHOW_DEMO_DASHBOARD, USE_MOCK_DATA } from '../lib/env';
-
-const MOCK_POSITIONS = [
-  {
-    id: 'pos-001',
-    walletAddress: 'SoLg8t3RF1mBqJzPhdQfNkeFJb7ZqSxYhhvpA3oVZmp',
-    vaultPubkey: 'ByYRio3rVhzEofPsckfCEfXgsWirHbgFkTKDMbMCHe4Z',
-    vaultName: 'USDC Multiply',
-    depositedAmount: 3000,
-    depositedToken: 'USDC',
-    sharesReceived: 2985.5,
-    entryApy: 8.2,
-    currentValue: 3028.40,
-    earned: 28.40,
-    txHash: '5kYmZ8R4hJDnPtVJgRFnTVbMQD6K1qLPfCaKEvR3ZABC',
-    sourceChain: 'ethereum',
-    createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
-  },
-  {
-    id: 'pos-002',
-    walletAddress: 'SoLg8t3RF1mBqJzPhdQfNkeFJb7ZqSxYhhvpA3oVZmp',
-    vaultPubkey: '6LtLpnUFNByNXLyCoK9wA2MykKAmQNZKBdY8s47dehDc',
-    vaultName: 'SOL-USDC LP',
-    depositedAmount: 2230,
-    depositedToken: 'USDC',
-    sharesReceived: 2210.8,
-    entryApy: 12.1,
-    currentValue: 2243.78,
-    earned: 13.78,
-    txHash: '3xPqR7sKdVnWY5tNGhBcME9jQZFw8L2UvACpXS1TDEF1',
-    sourceChain: 'arbitrum',
-    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-  },
-];
 
 export function usePositions(walletAddress) {
   const { supabase, isAuthenticated } = useSupabase();
@@ -54,7 +22,7 @@ export function usePositions(walletAddress) {
     try {
       if (USE_MOCK_DATA || SHOW_DEMO_DASHBOARD) {
         await new Promise((r) => setTimeout(r, 500));
-        setData(MOCK_POSITIONS.filter((p) => p.walletAddress === walletAddress));
+        setData(demoPortfolio.getDemoPositions(walletAddress));
       } else {
         if (isAuthenticated && supabase) {
           const stored = await portfolioStore.getStoredPositions(supabase, walletAddress);

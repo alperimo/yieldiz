@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowDown, X, Zap } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
@@ -28,8 +28,11 @@ import { STRINGS, DEPOSIT_FLOW_STATES } from '../../lib/constants';
 import { createRouteIntent } from '../../lib/routeIntent';
 import { getPrivacyBoundary, PRIVACY_MODES } from '../../lib/stablecoins';
 import { formatPercent, formatCurrency } from '../../lib/formatters';
+import { DEMO_DEPOSIT_AMOUNT, DEMO_MODE, DEMO_SOURCE_BALANCES, DEMO_SOURCE_CHAIN, DEMO_SOURCE_TOKEN, USE_MOCK_DATA } from '../../lib/env';
+import * as demoPortfolio from '../../services/demoPortfolio';
 
 export const DepositFlow = () => {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const { connected, connect, address, signTransaction, signAllTransactions, evmAddress, connectEVM, hasEVM, walletAdapter, connection } = useWallet();
   const { supabase, isAuthenticated } = useSupabase();
@@ -37,9 +40,9 @@ export const DepositFlow = () => {
   const { data: quote, loading: quoteLoading, error: quoteError, getQuote } = useBridgeQuote();
   const depositFlow = useDepositFlow();
 
-  const [fromChain, setFromChain] = useState('ethereum');
-  const [fromToken, setFromToken] = useState('USDC');
-  const [amount, setAmount] = useState('');
+  const [fromChain, setFromChain] = useState(DEMO_MODE ? DEMO_SOURCE_CHAIN : 'ethereum');
+  const [fromToken, setFromToken] = useState(DEMO_MODE ? DEMO_SOURCE_TOKEN : 'USDC');
+  const [amount, setAmount] = useState(DEMO_MODE ? DEMO_DEPOSIT_AMOUNT : '');
   const [selectedVault, setSelectedVault] = useState('');
   const [privacyMode, setPrivacyMode] = useState(PRIVACY_MODES.STANDARD);
   const [showTxModal, setShowTxModal] = useState(false);
@@ -115,12 +118,33 @@ export const DepositFlow = () => {
 
   useEffect(() => {
     if (depositFlow.state !== DEPOSIT_FLOW_STATES.CONFIRMED) return;
-    if (!isAuthenticated || !supabase || !address || !vault || !amount) return;
+    if (!address || !vault || !amount) return;
 
     const snapshotKey = `${address}:${depositFlow.txHashes.deposit || 'mock'}:${selectedVault}:${amount}:${fromToken}`;
     if (persistedSnapshotKey.current === snapshotKey) return;
     persistedSnapshotKey.current = snapshotKey;
     setPersistenceError(null);
+
+    if (USE_MOCK_DATA) {
+      try {
+        demoPortfolio.recordDemoDeposit({
+          walletAddress: address,
+          vault,
+          amount: Number(amount),
+          token: fromToken,
+          fromChain,
+          txHashes: depositFlow.txHashes,
+          quote,
+          privacyMode,
+        });
+      } catch (error) {
+        setPersistenceError(error.message);
+        console.error('Failed to persist demo deposit snapshot:', error);
+      }
+      return;
+    }
+
+    if (!isAuthenticated || !supabase) return;
 
     portfolioStore.recordDepositSnapshot(supabase, {
       walletAddress: address,
@@ -188,6 +212,7 @@ export const DepositFlow = () => {
   const estimatedYield = vault && amount ? (Number(amount) * (vault.apy / 100)).toFixed(2) : null;
   const privacyRouteNeedsSetup = privacyMode !== PRIVACY_MODES.STANDARD;
   const canDeposit = amount && Number(amount) > 0 && selectedVault && !privacyRouteNeedsSetup && (!connected || (quote && !quoteError && !quoteLoading));
+  const sourceBalance = DEMO_MODE ? DEMO_SOURCE_BALANCES[fromToken] : null;
 
   return (
     <>
@@ -205,7 +230,8 @@ export const DepositFlow = () => {
             value={amount}
             onChange={setAmount}
             token={fromToken}
-            balance={null}
+            balance={sourceBalance}
+            onMax={sourceBalance ? () => setAmount(String(sourceBalance)) : undefined}
           />
           {fromToken === 'PUSD' && pusdCirculation ? (
             <p className="px-1 text-xs leading-5 text-sg-text-tertiary">
@@ -363,6 +389,7 @@ export const DepositFlow = () => {
                   steps: quote?.steps || [],
                 }}
                 error={depositFlow.error}
+                onBackToDashboard={() => navigate('/app/dashboard')}
               />
             </div>
           </div>

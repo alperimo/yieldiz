@@ -42,9 +42,9 @@ export function useDepositFlow() {
   // Mock execution for development
   const executeMock = async ({ fromChain, needsSwap, executionSteps }) => {
     const MOCK_TX_HASHES = {
-      bridge: '0xa3f9b2c1d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0',
-      swap: '4kYmZ8R4hJDnPtVJgRFnTVbMQD6K1qLPfCaKEvR3ZABC',
-      deposit: '5kYmZ8R4hJDnPtVJgRFnTVbMQD6K1qLPfCaKEvR3ZABC',
+      bridge: '0xb7c4e1a9d2f8365c0a4e7b9d1f3a6c8e2b5d9a0c4f7e1b3d6a8c2e5f9b1d4a7',
+      swap: '6dFlowDemoRoute8R4hJDnPtVJgRFnTVbMQD6K1qLPfCaK',
+      deposit: '7yZdDemoVault5R4hJDnPtVJgRFnTVbMQD6K1qLPfCaK',
     };
 
     setState(DEPOSIT_FLOW_STATES.QUOTING);

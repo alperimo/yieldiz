@@ -1,5 +1,17 @@
 import { useCallback, useMemo, useState } from 'react';
 import * as goldrush from '../services/goldrush';
+import { USE_MOCK_DATA } from '../lib/env';
+
+function createMockConfidence({ chain, tokenSymbol }) {
+  const isEvmRoute = chain !== 'solana';
+
+  return {
+    status: 'ready',
+    reason: `Demo ${tokenSymbol || 'stablecoin'} route confidence is clear.`,
+    recentTransactionCount: isEvmRoute ? 18 : 7,
+    highRiskApprovalCount: 0,
+  };
+}
 
 export function useRouteConfidence() {
   const [data, setData] = useState(null);
@@ -16,6 +28,16 @@ export function useRouteConfidence() {
       };
       setData(missingInput);
       return missingInput;
+    }
+
+    if (USE_MOCK_DATA && !goldrush.isGoldRushConfigured()) {
+      setLoading(true);
+      setError(null);
+      await new Promise((resolve) => setTimeout(resolve, 700));
+      const confidence = createMockConfidence({ chain, tokenSymbol });
+      setData(confidence);
+      setLoading(false);
+      return confidence;
     }
 
     if (!goldrush.isGoldRushConfigured()) {
