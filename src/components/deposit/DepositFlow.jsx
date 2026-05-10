@@ -28,7 +28,7 @@ import { STRINGS, DEPOSIT_FLOW_STATES } from '../../lib/constants';
 import { createRouteIntent } from '../../lib/routeIntent';
 import { getPrivacyBoundary, PRIVACY_MODES } from '../../lib/stablecoins';
 import { formatPercent, formatCurrency } from '../../lib/formatters';
-import { DEMO_DEPOSIT_AMOUNT, DEMO_MODE, DEMO_SOURCE_BALANCES, DEMO_SOURCE_CHAIN, DEMO_SOURCE_TOKEN, USE_MOCK_DATA } from '../../lib/env';
+import { DEMO_MODE, DEMO_SOURCE_BALANCES, USE_MOCK_DATA } from '../../lib/env';
 import * as demoPortfolio from '../../services/demoPortfolio';
 
 export const DepositFlow = () => {
@@ -40,9 +40,9 @@ export const DepositFlow = () => {
   const { data: quote, loading: quoteLoading, error: quoteError, getQuote } = useBridgeQuote();
   const depositFlow = useDepositFlow();
 
-  const [fromChain, setFromChain] = useState(DEMO_MODE ? DEMO_SOURCE_CHAIN : 'ethereum');
-  const [fromToken, setFromToken] = useState(DEMO_MODE ? DEMO_SOURCE_TOKEN : 'USDC');
-  const [amount, setAmount] = useState(DEMO_MODE ? DEMO_DEPOSIT_AMOUNT : '');
+  const [fromChain, setFromChain] = useState('ethereum');
+  const [fromToken, setFromToken] = useState('USDC');
+  const [amount, setAmount] = useState('');
   const [selectedVault, setSelectedVault] = useState('');
   const [privacyMode, setPrivacyMode] = useState(PRIVACY_MODES.STANDARD);
   const [showTxModal, setShowTxModal] = useState(false);
@@ -125,7 +125,7 @@ export const DepositFlow = () => {
     persistedSnapshotKey.current = snapshotKey;
     setPersistenceError(null);
 
-    if (USE_MOCK_DATA) {
+    if (DEMO_MODE || USE_MOCK_DATA) {
       try {
         demoPortfolio.recordDemoDeposit({
           walletAddress: address,
@@ -212,7 +212,7 @@ export const DepositFlow = () => {
   const estimatedYield = vault && amount ? (Number(amount) * (vault.apy / 100)).toFixed(2) : null;
   const privacyRouteNeedsSetup = privacyMode !== PRIVACY_MODES.STANDARD;
   const canDeposit = amount && Number(amount) > 0 && selectedVault && !privacyRouteNeedsSetup && (!connected || (quote && !quoteError && !quoteLoading));
-  const sourceBalance = DEMO_MODE ? DEMO_SOURCE_BALANCES[fromToken] : null;
+  const sourceBalance = DEMO_MODE && connected ? DEMO_SOURCE_BALANCES[fromToken] : null;
 
   return (
     <>
@@ -325,7 +325,7 @@ export const DepositFlow = () => {
             confidence={routeConfidence.data}
             loading={routeConfidence.loading}
             onCheck={handleConfidenceCheck}
-            disabled={!amount || (fromChain === 'solana' ? !address : !hasEVM)}
+            disabled={!connected || !amount || (fromChain === 'solana' ? !address : !hasEVM)}
           />
           <LocalRouteReview
             review={localRouteReview.data}

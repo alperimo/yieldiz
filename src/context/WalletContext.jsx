@@ -93,7 +93,8 @@ const WalletContextBridge = ({ children }) => {
   const evm = useEVMWallet();
 
   const address = publicKey?.toBase58() || null;
-  const demoDashboardActive = DEMO_MODE || (SHOW_DEMO_DASHBOARD && !connected);
+  const demoDashboardActive = SHOW_DEMO_DASHBOARD && !connected;
+  const demoValuesActive = DEMO_MODE && connected;
 
   // Fetch SOL balance when connected
   useEffect(() => {
@@ -134,7 +135,7 @@ const WalletContextBridge = ({ children }) => {
         connected: connected || demoDashboardActive,
         connecting,
         address: demoDashboardActive ? DEMO_WALLET_ADDRESS : address,
-        balance: demoDashboardActive ? 4.28 : balance,
+        balance: demoDashboardActive || demoValuesActive ? 4.28 : balance,
         connect,
         disconnect: demoDashboardActive ? () => {} : disconnect,
         publicKey,

@@ -1,5 +1,7 @@
 import { PRIVACY_MODES } from '../lib/stablecoins';
 
+const APP_NETWORK = import.meta.env.VITE_NETWORK || 'devnet';
+
 function createUnavailableProvider(id, reason) {
   const fail = async () => {
     throw new Error(reason);
@@ -24,6 +26,12 @@ function requireSolanaWallet(wallet) {
   }
 }
 
+function normalizeUmbraNetwork(value) {
+  if (value === 'mainnet-beta') return 'mainnet';
+  if (value === 'mainnet' || value === 'devnet' || value === 'localnet') return value;
+  return 'mainnet';
+}
+
 function withTimeout(promise, ms, label) {
   let timer;
   const timeout = new Promise((_, reject) => {
@@ -38,6 +46,12 @@ export async function createCloakProvider({ wallet, connection }) {
   const relayUrl = import.meta.env.VITE_CLOAK_RELAY_URL || 'https://api.cloak.ag';
   try {
     requireSolanaWallet(wallet);
+    if (APP_NETWORK !== 'mainnet-beta') {
+      return createUnavailableProvider(
+        PRIVACY_MODES.CLOAK,
+        `Cloak private treasury mode requires a mainnet-beta RPC and initialized Cloak shield pool. Current VITE_NETWORK is "${APP_NETWORK}", so this route is not marked ready.`
+      );
+    }
     cloak = await import('@cloak.dev/sdk');
     const { CloakSDK, LocalStorageAdapter } = cloak;
     sdk = new CloakSDK({
@@ -152,7 +166,7 @@ function createWalletSigner(wallet) {
     address: wallet.publicKey.toBase58(),
     publicKey: wallet.publicKey,
     signTransaction: wallet.signTransaction,
-    signTransactions: wallet.signAllTransactions || (async (transactions) => Promise.all(transactions.map(wallet.signTransaction))),
+    signTransactions: wallet.signAllTransactions || (async (transactions) => Promise.all(transactions.map((transaction) => wallet.signTransaction(transaction)))),
     signAllTransactions: wallet.signAllTransactions,
     signMessage: async (message) => ({
       message,
@@ -167,9 +181,16 @@ export async function createUmbraProvider({ wallet, rpcUrl, rpcSubscriptionsUrl 
   let signer;
   let client;
   try {
+    requireSolanaWallet(wallet);
+    if (APP_NETWORK !== 'mainnet-beta') {
+      return createUnavailableProvider(
+        PRIVACY_MODES.UMBRA,
+        `Umbra private balance mode requires a mainnet-beta RPC and deployed Umbra accounts. Current VITE_NETWORK is "${APP_NETWORK}", so this route is not marked ready.`
+      );
+    }
     umbra = await import('@umbra-privacy/sdk');
     signer = createWalletSigner(wallet);
-    const network = import.meta.env.VITE_UMBRA_NETWORK || 'mainnet';
+    const network = normalizeUmbraNetwork(import.meta.env.VITE_UMBRA_NETWORK);
     client = await umbra.getUmbraClient({
       signer,
       network,
@@ -189,7 +210,7 @@ export async function createUmbraProvider({ wallet, rpcUrl, rpcSubscriptionsUrl 
     status: 'ready',
     capabilities: ['registration', 'encrypted-balance-deposit', 'encrypted-balance-withdraw', 'account-query'],
     async validate() {
-      const result = { ok: true, publicKey: signer.address, network: import.meta.env.VITE_UMBRA_NETWORK || 'mainnet' };
+      const result = { ok: true, publicKey: signer.address, network: normalizeUmbraNetwork(import.meta.env.VITE_UMBRA_NETWORK) };
       if (typeof umbra.getUserAccountQuerierFunction !== 'function') return result;
       try {
         const queryUser = umbra.getUserAccountQuerierFunction({ client });

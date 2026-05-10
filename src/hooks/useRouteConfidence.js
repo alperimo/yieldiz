@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import * as goldrush from '../services/goldrush';
-import { USE_MOCK_DATA } from '../lib/env';
+import { DEMO_MODE, USE_MOCK_DATA } from '../lib/env';
 
 function createMockConfidence({ chain, tokenSymbol }) {
   const isEvmRoute = chain !== 'solana';
@@ -30,7 +30,7 @@ export function useRouteConfidence() {
       return missingInput;
     }
 
-    if (USE_MOCK_DATA && !goldrush.isGoldRushConfigured()) {
+    if ((DEMO_MODE || USE_MOCK_DATA) && !goldrush.isGoldRushConfigured()) {
       setLoading(true);
       setError(null);
       await new Promise((resolve) => setTimeout(resolve, 700));

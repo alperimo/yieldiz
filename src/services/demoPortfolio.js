@@ -6,11 +6,11 @@ function nowMinus(ms) {
   return new Date(Date.now() - ms).toISOString();
 }
 
-function seedPositions() {
+function seedPositions(walletAddress = DEMO_WALLET_ADDRESS) {
   return [
     {
       id: 'demo-pos-001',
-      walletAddress: DEMO_WALLET_ADDRESS,
+      walletAddress,
       vaultPubkey: 'ByYRio3rVhzEofPsckfCEfXgsWirHbgFkTKDMbMCHe4Z',
       vaultName: 'USDC Multiply',
       depositedAmount: 3000,
@@ -25,7 +25,7 @@ function seedPositions() {
     },
     {
       id: 'demo-pos-002',
-      walletAddress: DEMO_WALLET_ADDRESS,
+      walletAddress,
       vaultPubkey: '6LtLpnUFNByNXLyCoK9wA2MykKAmQNZKBdY8s47dehDc',
       vaultName: 'SOL-USDC LP',
       depositedAmount: 2230,
@@ -41,11 +41,11 @@ function seedPositions() {
   ];
 }
 
-function seedTransactions() {
+function seedTransactions(walletAddress = DEMO_WALLET_ADDRESS) {
   return [
     {
       id: 'demo-tx-001',
-      walletAddress: DEMO_WALLET_ADDRESS,
+      walletAddress,
       type: 'deposit',
       status: 'confirmed',
       amount: 1000,
@@ -59,7 +59,7 @@ function seedTransactions() {
     },
     {
       id: 'demo-tx-002',
-      walletAddress: DEMO_WALLET_ADDRESS,
+      walletAddress,
       type: 'bridge',
       status: 'confirmed',
       amount: 1000,
@@ -73,7 +73,7 @@ function seedTransactions() {
     },
     {
       id: 'demo-tx-003',
-      walletAddress: DEMO_WALLET_ADDRESS,
+      walletAddress,
       type: 'deposit',
       status: 'confirmed',
       amount: 2230,
@@ -119,13 +119,13 @@ function byNewestCreatedAt(a, b) {
 
 export function getDemoPositions(walletAddress) {
   const stored = readStore().positions.filter((position) => position.walletAddress === walletAddress);
-  const seeded = walletAddress === DEMO_WALLET_ADDRESS ? seedPositions() : [];
+  const seeded = walletAddress ? seedPositions(walletAddress) : [];
   return [...stored, ...seeded].sort(byNewestCreatedAt);
 }
 
 export function getDemoTransactions(walletAddress) {
   const stored = readStore().transactions.filter((transaction) => transaction.walletAddress === walletAddress);
-  const seeded = walletAddress === DEMO_WALLET_ADDRESS ? seedTransactions() : [];
+  const seeded = walletAddress ? seedTransactions(walletAddress) : [];
   return [...stored, ...seeded].sort(byNewestCreatedAt);
 }
 

@@ -105,6 +105,7 @@ Copy `.env.example` to `.env.local`. Configure only the providers you intend to 
 |---|---|---|
 | Network | `VITE_NETWORK` | `devnet` or `mainnet-beta`. Most provider routes are mainnet-first. |
 | Mock mode | `VITE_USE_MOCK_DATA` | `true` = full UX walkthrough with no credentials. |
+| Demo mode | `VITE_DEMO_MODE` | Dev-only recording mode. The user still connects a real Solana wallet; after connection the app uses mock source balances, mock route confidence, mock execution, and browser-local dashboard persistence. Set `VITE_USE_MOCK_DATA=false` to keep live Kamino vault discovery. |
 | Supabase | `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `VITE_SUPABASE_AUTH_MODE` | Use `anonymous` only after enabling anonymous sign-ins. |
 | Solana RPC | `VITE_QUICKNODE_RPC_URL`, `VITE_QUICKNODE_WSS_URL` | Required for live Solana reads. |
 | Bridge / swap | `VITE_LIFI_INTEGRATOR`, `VITE_DFLOW_API_KEY` | DFlow key optional in dev. |
@@ -165,9 +166,10 @@ Provided files: `public/_redirects`, `public/_headers`, `wrangler.toml`.
 
 ## Testing flow
 
-1. **Free product walkthrough** — `VITE_USE_MOCK_DATA=true`, run `npm run dev`, connect any wallet, walk through `/app` end-to-end with mocked routes.
-2. **Persistence** — Provision Supabase, run `supabase/schema.sql`, enable anonymous auth, set the three Supabase env vars. Confirmed deposits land in `positions` and `transactions`.
-3. **Live providers** — Switch to `VITE_USE_MOCK_DATA=false` and `VITE_NETWORK=mainnet-beta`. Validate one provider path at a time: quote → confidence → privacy load → local review → bridge/swap/deposit → dashboard.
+1. **Recorded demo walkthrough** — `VITE_DEMO_MODE=true`, `VITE_USE_MOCK_DATA=false`, run `npm run dev`, connect your own wallet, then record `/app`. Vaults are live, while source balances, route confidence, execution, and dashboard tracking are deterministic.
+2. **Free product walkthrough** — `VITE_USE_MOCK_DATA=true`, run `npm run dev`, connect any wallet, walk through `/app` end-to-end with mocked routes.
+3. **Persistence** — Provision Supabase, run `supabase/schema.sql`, enable anonymous auth, set the three Supabase env vars. Confirmed deposits land in `positions` and `transactions`.
+4. **Live providers** — Switch to `VITE_USE_MOCK_DATA=false` and `VITE_NETWORK=mainnet-beta`. Validate one provider path at a time: quote → confidence → privacy load → local review → bridge/swap/deposit → dashboard.
 
 ---
 

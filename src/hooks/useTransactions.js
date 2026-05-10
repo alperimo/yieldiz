@@ -3,7 +3,7 @@ import * as kamino from '../services/kamino';
 import * as portfolioStore from '../services/portfolioStore';
 import * as demoPortfolio from '../services/demoPortfolio';
 import { useSupabase } from '../lib/useSupabase';
-import { SHOW_DEMO_DASHBOARD, USE_MOCK_DATA } from '../lib/env';
+import { DEMO_MODE, SHOW_DEMO_DASHBOARD, USE_MOCK_DATA } from '../lib/env';
 
 export function useTransactions(walletAddress) {
   const { supabase, isAuthenticated } = useSupabase();
@@ -20,7 +20,7 @@ export function useTransactions(walletAddress) {
     setLoading(true);
     setError(null);
     try {
-      if (USE_MOCK_DATA || SHOW_DEMO_DASHBOARD) {
+      if (DEMO_MODE || USE_MOCK_DATA || SHOW_DEMO_DASHBOARD) {
         await new Promise((r) => setTimeout(r, 400));
         setData(demoPortfolio.getDemoTransactions(walletAddress));
       } else {
