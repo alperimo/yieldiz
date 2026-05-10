@@ -1,176 +1,187 @@
 # Yieldiz
 
-Yieldiz is a stablecoin yield terminal for moving capital into Solana vaults with clear routing, MEV-aware execution, optional privacy, and local route review before signing.
+**A stablecoin yield terminal for Solana.** Yieldiz routes idle stablecoins from any supported chain into Solana vaults with one reviewed flow: quote, cost, settlement path, and privacy boundary are all shown before the user signs.
 
-## Product
+> Status: pre-launch beta. Built for Colosseum Frontier. Default monetization is `0 bps`; the platform fee path is wired and gated behind an env var for post-launch activation.
 
-Users choose a source chain, stablecoin, vault, and privacy preference. Yieldiz quotes the route, explains the movement in plain language, checks route confidence, then executes bridge, swap, and vault deposit steps through the configured providers.
+---
 
-## Current capabilities
+## What it does
 
-- Cross-chain stablecoin quotes and bridging through LI.FI.
-- Stablecoin conversion through DFlow before vault entry when needed.
-- Kamino vault discovery and deposit preparation.
-- Jito bundle submission for MEV-aware Solana execution.
-- Standard-wallet Solana connection with EVM wallet support for source-chain transactions.
-- USDC, USDT, Palm USD, and USDG route metadata, with Palm USD circulation shown when a reachable provider endpoint is configured.
-- GoldRush route confidence checks for balances, recent activity, and EVM approvals.
-- Optional Cloak and Umbra privacy modes, lazy-loaded only when selected.
-- SNS primary `.sol` treasury identity resolution for connected wallets.
-- Browser-local route reviewer, with optional QVAC service mode for user-run local model review.
-- Supabase-backed user data, positions, and transaction history.
+1. **Choose** a source chain, stablecoin, vault, and privacy preference.
+2. **Review** the full route locally — bridge, swap, fees, APY, settlement path, privacy mode — before any signature.
+3. **Execute** bridge → swap → vault deposit through the configured providers.
+4. **Track** confirmed positions and history in the dashboard.
 
-## What can be tested for free?
+The product layer between idle stablecoins and Solana yield. Non-custodial. Audited vaults only. Nothing moves until the user approves the reviewed route.
 
-You can test the full UX, mocked deposit flow, browser-local route review, dashboard layout, and Supabase persistence on free/dev tiers.
+---
 
-You cannot prove every real money movement for free on devnet because several providers are mainnet-first or require real API credentials:
+## Capabilities
 
-- LI.FI routes use live bridge liquidity and are normally mainnet-focused.
-- Kamino production vaults and KTX deposit routes are mainnet-oriented.
-- Jito bundle submission is a mainnet block-engine path.
-- GoldRush needs an API key for route confidence.
-- Cloak/Umbra demo paths depend on their supported networks, relayers, indexers, and wallet adapter support.
-- QVAC model mode is local but requires Node >= 22.17 and local model load time/resources.
+| Area | Implementation |
+|---|---|
+| Cross-chain bridging | LI.FI (multi-chain stablecoin liquidity) |
+| Stablecoin conversion | DFlow swap routing |
+| Vault discovery & deposit | Kamino vaults with KTX deposit prep |
+| MEV-aware settlement | Jito bundle submission with explicit fallback |
+| Solana RPC | QuickNode (HTTP + WebSocket) |
+| Wallets | Solana wallet adapter (Phantom, Solflare, Backpack, …) + EVM (`viem`) for source chains |
+| Stablecoin coverage | USDC, USDT, Palm USD, USDG with public-source circulation metadata |
+| Route confidence | GoldRush balance, activity, and EVM-approval checks |
+| Privacy modes (optional, lazy-loaded) | Cloak (private treasury route), Umbra (private balance route) |
+| Identity | SNS primary `.sol` resolution for connected wallets |
+| Local review | Deterministic browser-local reviewer; optional `@qvac/sdk` local-model service |
+| Persistence | Supabase (positions, transactions, settings) with RLS |
 
-Use `VITE_USE_MOCK_DATA=true` for a free end-to-end product walkthrough. Production builds default to live provider data unless this variable is explicitly set to `true`; use `VITE_USE_MOCK_DATA=false` only when real credentials and funded test/mainnet wallets are ready for transaction execution.
+---
 
 ## Tech stack
 
-- React 18, Vite 6, Tailwind CSS, React Router.
-- Supabase for auth and persistence.
-- Solana wallet adapter, `@solana/web3.js`, and SPL token utilities.
-- LI.FI, DFlow, Kamino, Jito, Quicknode, Palm USD, USDG, GoldRush, Cloak, Umbra, SNS, and QVAC integrations.
+- **Frontend** — React 18, Vite 6, Tailwind CSS, React Router 6, TanStack Query, GSAP.
+- **Solana** — `@solana/web3.js`, `@solana/kit`, `@solana/spl-token`, `@solana/wallet-adapter-*`, `@bonfida/spl-name-service`.
+- **EVM** — `viem` for source-chain reads and approvals.
+- **Integrations** — `@lifi/sdk`, `@cloak.dev/sdk`, `@umbra-privacy/sdk` (+ web zk prover), `@qvac/sdk`, `@supabase/supabase-js`.
+- **Infra** — Cloudflare Pages (static SPA, global CDN, wallet-popup-friendly headers).
+
+---
+
+## Quick start
+
+```bash
+npm install
+cp .env.example .env.local       # fill only the providers you need
+npm run dev                      # http://localhost:5173
+```
+
+For a fully free, end-to-end product walkthrough without any provider credentials, set `VITE_USE_MOCK_DATA=true` in `.env.local`. Production builds default to live data.
+
+---
+
+## Scripts
+
+| Script | Purpose |
+|---|---|
+| `npm run dev` | Vite dev server with HMR. |
+| `npm run build` | Production build to `dist/`. |
+| `npm run preview` | Preview the production build locally. |
+| `npm run deploy:cloudflare` | Build and deploy to Cloudflare Pages (`wrangler`). |
+| `npm run deploy:netlify` | Build and deploy to Netlify. |
+| `npm run qvac:reviewer` | Start the optional local QVAC route-review service on `127.0.0.1:8787`. |
+
+---
 
 ## Project structure
 
 ```text
 src/
-  components/      UI, layout, deposit, dashboard, and vault components
-  context/         Wallet connection state
-  hooks/           App data and execution hooks
-  lib/             Constants, formatters, stablecoin and route models
-  pages/           Marketing, deposit, dashboard, and vault pages
-  services/        Provider/API clients
-  styles/          Global styles and theme
+  components/      UI, layout, deposit, dashboard, vault components
+  content/         Marketing and product copy
+  context/         Wallet and app-wide providers
+  hooks/           Data, route, execution, persistence hooks
+  lib/             Constants, formatters, route models, stablecoin metadata
+  pages/           Marketing, /app, /dashboard, /vaults
+  services/        Provider clients (LI.FI, DFlow, Kamino, Jito, QuickNode,
+                   GoldRush, Cloak, Umbra, SNS, QVAC, Supabase)
+  styles/          Theme, tokens, global styles
+  config.js        Runtime config and feature flags
 scripts/
-  qvac-route-reviewer.mjs
+  qvac-route-reviewer.mjs    Local QVAC service entry
 supabase/
-  schema.sql
+  schema.sql                 user_settings, positions, transactions (+ RLS)
+public/
+  _redirects                 SPA rewrite to index.html
+  _headers                   Cache + minimal security headers (no COOP/COEP)
+wrangler.toml                Cloudflare Pages target = dist/
 ```
 
-## Setup
-
-```bash
-npm install
-cp .env.example .env.local
-npm run dev
-```
-
-Production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-Recommended host for the current app: **Cloudflare Pages**. Yieldiz is a Vite static SPA, so the wallet adapters, injected Solana/EVM wallets, LI.FI, Supabase, Quicknode, GoldRush, Cloak/Umbra, and browser-local QVAC review all run from the browser over HTTPS. Cloudflare Pages is a good fit because it provides free global CDN hosting, custom domains, automatic HTTPS, SPA rewrites, immutable asset caching, and no server runtime lock-in.
-
-This repo includes deploy-safe static hosting files:
-
-- `public/_redirects` rewrites every route to `index.html` so `/app`, `/dashboard`, and `/vaults` work after refresh.
-- `public/_headers` adds cache and basic security headers while intentionally avoiding COOP/COEP and strict CSP headers that can break wallet popups, injected providers, or runtime-configured RPC/API origins.
-- `wrangler.toml` points Cloudflare Pages CLI deployments at `dist`.
-
-### Cloudflare Pages deploy
-
-1. Push the repo to GitHub.
-2. In Cloudflare, create **Workers & Pages → Pages → Connect to Git**.
-3. Select the repo and use:
-   - Build command: `npm run build`
-   - Build output directory: `dist`
-   - Root directory: project root
-4. Add production environment variables from `.env.example`. Cloudflare Pages injects `VITE_*` variables at build time, so after changing them you must trigger a new deploy. For a safe public demo, set `VITE_USE_MOCK_DATA=true`; for live Kamino vault discovery, leave it unset or set it to `false`.
-5. Deploy, then attach your custom domain in **Custom domains**.
-
-CLI alternative:
-
-```bash
-npm run deploy:cloudflare
-```
-
-Local QVAC reviewer:
-
-```bash
-npm run qvac:reviewer
-```
-
-By default, the app performs deterministic browser-local route review and does not call `127.0.0.1`. To use the optional QVAC local service, set `VITE_QVAC_REVIEWER_REMOTE=true`, set `VITE_QVAC_REVIEWER_URL=http://127.0.0.1:8787`, then run `npm run qvac:reviewer`. Set `QVAC_REVIEWER_ENABLE_MODEL=true` only when you want the local QVAC model path.
-
-## Testing flow
-
-1. **Free product walkthrough**
-   - Set `VITE_USE_MOCK_DATA=true`.
-   - Start `npm run dev`.
-   - Open `/`, then `/app`.
-   - Connect a wallet, choose a source chain/token/vault, review privacy options, run the browser-local route review, and complete the mocked deposit.
-
-2. **Supabase persistence**
-   - Create a free Supabase project.
-   - Enable anonymous sign-ins in Supabase Auth.
-   - Run `supabase/schema.sql` in the SQL editor.
-   - Set `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, and `VITE_SUPABASE_AUTH_MODE=anonymous`.
-   - Complete a deposit flow; confirmed deposits are stored in `positions` and `transactions` when Supabase auth is active.
-
-3. **Real provider validation**
-   - Set `VITE_USE_MOCK_DATA=false`.
-   - Set `VITE_NETWORK=mainnet-beta` and configure a mainnet Solana RPC/wallet before attempting live Kamino deposits.
-   - Configure Quicknode, GoldRush, DFlow, LI.FI integrator, Jito, Cloak/Umbra, and any required wallet/network credentials.
-   - Validate one provider path at a time: quote, route confidence, privacy mode load, local review, bridge/swap/deposit, then dashboard persistence.
-
-## Privacy modes
-
-The deposit screen has three privacy choices:
-
-- **Standard route** — fastest path; bridge/swap/deposit are public after signing.
-- **Private treasury route** — loads Cloak only when selected. It is intended for private pre-route treasury movement before funds enter the public vault route.
-- **Private balance route** — loads Umbra only when selected. It is intended for encrypted balance handling before withdrawing into the deposit route.
-
-Important boundary: Yieldiz does not claim Kamino vault deposits are private. Privacy applies before the public vault route; the final vault deposit still settles on-chain. Until a Cloak/Umbra shield-and-withdraw demo is validated on the target network, non-standard privacy modes are presented as setup paths and direct deposit confirmation remains blocked to avoid implying false privacy.
+---
 
 ## Environment
 
-Copy `.env.example` to `.env.local` and configure only the providers you intend to use. Real production routes require provider API keys/RPC URLs and `VITE_USE_MOCK_DATA=false`.
+Copy `.env.example` to `.env.local`. Configure only the providers you intend to use; live routes require credentials and `VITE_USE_MOCK_DATA=false`.
 
-Key groups:
+| Group | Variables | Notes |
+|---|---|---|
+| Network | `VITE_NETWORK` | `devnet` or `mainnet-beta`. Most provider routes are mainnet-first. |
+| Mock mode | `VITE_USE_MOCK_DATA` | `true` = full UX walkthrough with no credentials. |
+| Supabase | `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `VITE_SUPABASE_AUTH_MODE` | Use `anonymous` only after enabling anonymous sign-ins. |
+| Solana RPC | `VITE_QUICKNODE_RPC_URL`, `VITE_QUICKNODE_WSS_URL` | Required for live Solana reads. |
+| Bridge / swap | `VITE_LIFI_INTEGRATOR`, `VITE_DFLOW_API_KEY` | DFlow key optional in dev. |
+| MEV settlement | `VITE_JITO_BLOCK_ENGINE_URL` | Mainnet block engine. |
+| Stablecoin data | `VITE_PALMUSD_API_BASE` | Optional public circulation feed. |
+| Route confidence | `VITE_GOLDRUSH_API_KEY`, `VITE_GOLDRUSH_API_BASE` | |
+| Privacy | `VITE_CLOAK_RELAY_URL`, `VITE_CLOAK_CIRCUITS_BASE_URL`, `VITE_UMBRA_NETWORK`, `VITE_UMBRA_INDEXER_API`, `VITE_UMBRA_RELAYER_API` | SDKs are lazy-loaded only when the user picks the privacy mode. |
+| Local review | `VITE_QVAC_REVIEWER_REMOTE`, `VITE_QVAC_REVIEWER_URL`, `QVAC_REVIEWER_ENABLE_MODEL` | Default review runs in-browser; remote service is optional. |
+| Monetization | `VITE_YIELDIZ_PLATFORM_FEE_BPS` | `0` for beta. Recommended post-launch: `10` (0.10% on completed deposits). |
 
-- Supabase: optional anonymous auth, positions, transactions.
-- Quicknode: Solana RPC and WebSocket subscriptions.
-- LI.FI and DFlow: route quote, bridge, and swap execution.
-- Jito: bundle submission.
-- Palm USD: public circulation API.
-- SNS: primary `.sol` treasury identity resolution through Solana RPC.
-- GoldRush: route confidence API.
-- Cloak and Umbra: optional privacy modes.
-- QVAC: optional local route reviewer URL; browser-local review works without it.
+---
+
+## Privacy modes
+
+The deposit screen offers three explicitly labeled paths:
+
+- **Standard route** — public bridge, swap, and vault deposit after signing.
+- **Private treasury route** — Cloak loaded on demand. Pre-route treasury movement before funds enter the public vault path.
+- **Private balance route** — Umbra loaded on demand. Encrypted balance handling before the deposit route.
+
+**Boundary.** Yieldiz does not claim Kamino vault deposits themselves are private — the final settlement is on-chain. Privacy applies to the segment **before** the public vault route. Until a Cloak/Umbra shield-and-withdraw flow is validated on the target network, non-standard modes are presented as setup paths and direct deposit confirmation is held back to avoid implying false privacy.
+
+---
 
 ## Database
 
-Run `supabase/schema.sql` in Supabase to create:
+`supabase/schema.sql` provisions:
 
 - `user_settings`
 - `positions`
 - `transactions`
 
-Row Level Security is enabled for user-owned data. By default, the app uses a local wallet session so projects without Supabase anonymous auth do not emit auth errors. Set `VITE_SUPABASE_AUTH_MODE=anonymous` after enabling anonymous sign-ins to persist confirmed deposit snapshots and transaction history for the dashboard.
+Row Level Security is enabled for all user-owned data. Without Supabase, the app falls back to a local wallet session so no auth errors surface. Enable Supabase anonymous auth and set `VITE_SUPABASE_AUTH_MODE=anonymous` to persist confirmed deposits and history.
+
+---
+
+## Deployment
+
+Yieldiz is a static Vite SPA. **Cloudflare Pages** is the recommended host: free global CDN, automatic HTTPS, SPA-friendly rewrites, immutable asset caching, and no headers that would break wallet popups or injected providers (we intentionally avoid strict COOP/COEP/CSP).
+
+**Connect-to-Git:**
+
+1. Push to GitHub.
+2. Cloudflare → Workers & Pages → Pages → Connect to Git.
+3. Build command: `npm run build` · Output directory: `dist`.
+4. Add `VITE_*` environment variables (Cloudflare injects them at build time — re-deploy after changes).
+5. Attach a custom domain.
+
+**CLI:**
+
+```bash
+npm run deploy:cloudflare
+```
+
+Provided files: `public/_redirects`, `public/_headers`, `wrangler.toml`.
+
+---
+
+## Testing flow
+
+1. **Free product walkthrough** — `VITE_USE_MOCK_DATA=true`, run `npm run dev`, connect any wallet, walk through `/app` end-to-end with mocked routes.
+2. **Persistence** — Provision Supabase, run `supabase/schema.sql`, enable anonymous auth, set the three Supabase env vars. Confirmed deposits land in `positions` and `transactions`.
+3. **Live providers** — Switch to `VITE_USE_MOCK_DATA=false` and `VITE_NETWORK=mainnet-beta`. Validate one provider path at a time: quote → confidence → privacy load → local review → bridge/swap/deposit → dashboard.
+
+---
 
 ## Documentation
 
-- `.docs/SOLGATE_MASTER_PLAN.md` — current product and architecture plan.
-- `.docs/SOLGATE_TRACK_IMPLEMENTATION_PLAN.md` — implementation plan for Palm USD, GoldRush, Cloak, Umbra, and QVAC.
-- `.docs/SOLGATE_FRONTIER_SIDE_TRACK_REPORT.md` — side-track fit analysis.
-- `.docs/YIELDIZ_FRONTIER_SUBMISSION_PACK.md` — Superteam Earn field-by-field submission answers for selected Frontier side tracks.
+In-repo planning and submission documents live under `.docs/` (legacy filenames retained for git history):
+
+- `YIELDIZ_FRONTIER_SUBMISSION_PACK.md` — Frontier submission pack and pitch deck plan.
+- `SOLGATE_MASTER_PLAN.md` — product and architecture plan.
+- `SOLGATE_TRACK_IMPLEMENTATION_PLAN.md` — Palm USD, GoldRush, Cloak, Umbra, QVAC implementation plan.
+- `SOLGATE_FRONTIER_SIDE_TRACK_REPORT.md` — side-track fit analysis.
+- `SPRINT_REPORT.md` — sprint-by-sprint progress.
+
+---
 
 ## License
 
