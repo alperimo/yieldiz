@@ -431,8 +431,8 @@ export const MARKETING_CONTENT = {
     company: [
       { label: 'About', href: '#product-story' },
       { label: 'Contact', href: 'mailto:hello@yieldiz.app' },
-      { label: 'Terms', href: '#' },
-      { label: 'Privacy', href: '#' },
+      { label: 'Terms', href: '/terms' },
+      { label: 'Privacy', href: '/privacy' },
     ],
   },
 };

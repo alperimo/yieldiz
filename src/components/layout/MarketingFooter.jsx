@@ -1,31 +1,55 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { MARKETING_CONTENT } from '../../content/marketing';
 import { YieldizLogo } from '../brand/YieldizLogo';
 
-const LinkList = ({ title, items }) => (
-  <div>
-    <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#F8E6B6]/78">{title}</p>
-    <ul className="mt-4 space-y-2.5">
-      {items.map((item) => (
-        <li key={item.label}>
-          <a
-            href={item.href}
-            className="group inline-flex items-center gap-1 text-[15px] font-medium text-[#F8E6B6]/82 transition-colors hover:text-white"
-            target={item.href.startsWith('http') ? '_blank' : undefined}
-            rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-          >
-            {item.label}
-            {item.href.startsWith('http') ? (
-              <ArrowUpRight size={12} className="opacity-0 transition-opacity group-hover:opacity-60" />
-            ) : null}
-          </a>
-        </li>
-      ))}
-    </ul>
-  </div>
-);
+const LinkList = ({ title, items }) => {
+  const location = useLocation();
+
+  const resolveHref = (href) => {
+    if (href.startsWith('#') && location.pathname !== '/') return `/${href}`;
+    return href;
+  };
+
+  return (
+    <div>
+      <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#F8E6B6]/78">{title}</p>
+      <ul className="mt-4 space-y-2.5">
+        {items.map((item) => {
+          const href = resolveHref(item.href);
+          const isExternal = href.startsWith('http') || href.startsWith('mailto:');
+          const isRoute = href.startsWith('/') && !href.startsWith('//');
+
+          return (
+            <li key={item.label}>
+              {isRoute ? (
+                <Link
+                  to={href}
+                  className="group inline-flex items-center gap-1 text-[15px] font-medium text-[#F8E6B6]/82 transition-colors hover:text-white"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <a
+                  href={href}
+                  className="group inline-flex items-center gap-1 text-[15px] font-medium text-[#F8E6B6]/82 transition-colors hover:text-white"
+                  target={isExternal ? '_blank' : undefined}
+                  rel={isExternal ? 'noopener noreferrer' : undefined}
+                >
+                  {item.label}
+                  {href.startsWith('http') ? (
+                    <ArrowUpRight size={12} className="opacity-0 transition-opacity group-hover:opacity-60" />
+                  ) : null}
+                </a>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+};
 
 export const MarketingFooter = () => (
   <footer className="relative overflow-hidden border-t border-[#F8E6B6]/10 bg-[#5C3418] text-[#F8E6B6]">

@@ -1,0 +1,45 @@
+Yieldiz Privacy Policy
+Last updated: 2026-05-11
+
+This Privacy Policy explains how Yieldiz handles information when you use the Yieldiz website and web application.
+
+1. What Yieldiz collects
+Yieldiz is designed to collect as little personal information as possible. Depending on how you use the app, Yieldiz may process:
+- wallet addresses you connect;
+- route inputs such as source chain, token, amount, selected vault, fees, and transaction status;
+- transaction hashes and position history shown in the dashboard;
+- local browser data used for demo mode, preferences, and product state;
+- information you voluntarily send, such as an email or message.
+
+2. Public blockchain data
+Wallet addresses, balances, approvals, transactions, and vault activity may be public on blockchains. Yieldiz cannot make public blockchain data private or delete it from a blockchain.
+
+3. Local browser storage
+Yieldiz may use local browser storage for demo mode, wallet-session state, route review state, dashboard display, and preferences. You can clear this data through your browser settings.
+
+4. Optional account and database storage
+If database persistence is enabled, Yieldiz may store wallet-linked position and transaction records so the dashboard can show history. If persistence is not enabled, the app may rely on local browser state or provider data.
+
+5. Third-party services
+Yieldiz may request data from or prepare transactions through third-party services such as wallet providers, bridge providers, swap providers, vault protocols, RPC providers, privacy providers, analytics/data providers, hosting providers, and database providers. Those services may process data under their own policies.
+
+6. Cookies and advertising
+Yieldiz does not currently use advertising cookies or sell personal information. If analytics or cookies are added later, this policy should be updated before they are used.
+
+7. How information is used
+Yieldiz uses information to operate the app, show route and vault data, prepare transactions, display wallet-specific dashboard information, improve reliability, prevent misleading states, and respond to user messages.
+
+8. Sharing
+Yieldiz does not sell personal information. Information may be shared with service providers as needed to operate the app, comply with law, protect the product, or complete actions you request.
+
+9. Security
+Yieldiz aims to limit data collection and use reputable infrastructure, but no website, wallet, protocol, or network can be guaranteed secure. You are responsible for protecting your wallet, device, recovery phrase, and private keys.
+
+10. Data retention
+Local browser data remains until you clear it or the app overwrites it. Database records, if enabled, are kept as long as needed to provide dashboard history, maintain the service, or comply with legal obligations.
+
+11. Your choices
+You can disconnect your wallet, clear browser storage, avoid optional persistence, or contact Yieldiz about privacy questions. Some blockchain data cannot be changed or deleted by Yieldiz.
+
+12. Contact
+Questions: yieldizonsolana@gmail.com

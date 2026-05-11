@@ -11,6 +11,7 @@ const AppLayout = lazy(() => import('./components/layout/Layout').then((module) 
 const Deposit = lazy(() => import('./pages/Deposit'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Vaults = lazy(() => import('./pages/Vaults'));
+const LegalDocument = lazy(() => import('./pages/LegalDocument'));
 
 const PageLoader = () => (
   <div className="flex items-center justify-center py-20">
@@ -25,6 +26,14 @@ export default function App() {
       <Routes>
         <Route element={<MarketingLayout />}>
           <Route path="/" element={<Suspense fallback={<PageLoader />}><Marketing /></Suspense>} />
+          <Route
+            path="/terms"
+            element={<Suspense fallback={<PageLoader />}><LegalDocument sourcePath="/terms.txt" eyebrow="Terms" /></Suspense>}
+          />
+          <Route
+            path="/privacy"
+            element={<Suspense fallback={<PageLoader />}><LegalDocument sourcePath="/privacy.txt" eyebrow="Privacy" /></Suspense>}
+          />
         </Route>
         <Route element={<Suspense fallback={<PageLoader />}><AppShell /></Suspense>}>
           <Route path="/app" element={<Suspense fallback={<PageLoader />}><AppLayout /></Suspense>}>

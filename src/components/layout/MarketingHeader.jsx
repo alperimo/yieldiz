@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { useHideOnScroll } from '../../hooks/useHideOnScroll';
 import { YieldizLogo } from '../brand/YieldizLogo';
@@ -65,6 +65,8 @@ const HEADER_THEMES = {
 };
 
 export const MarketingHeader = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { scrolled } = useHideOnScroll();
   const headerRef = useRef(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -121,6 +123,13 @@ export const MarketingHeader = () => {
   }, []);
 
   const handleAnchorClick = (event, href) => {
+    if (location.pathname !== '/') {
+      event.preventDefault();
+      setMobileOpen(false);
+      navigate(`/${href}`);
+      return;
+    }
+
     const target = document.querySelector(href);
     if (!target) return;
     event.preventDefault();

@@ -1,0 +1,40 @@
+Yieldiz Terms of Use
+Last updated: 2026-05-11
+
+These Terms apply to your use of the Yieldiz website and web application.
+
+1. Informational interface only
+Yieldiz is a non-custodial interface for reviewing and preparing stablecoin routes into Solana yield venues. Yieldiz is not a bank, broker, investment adviser, exchange, custodian, or fiduciary.
+
+2. No financial advice
+Nothing in Yieldiz is financial, investment, tax, legal, or accounting advice. APY, fees, timing, routes, vault data, and risk information are estimates or provider-supplied data and may change at any time.
+
+3. Self-custody
+Yieldiz does not hold or control your private keys or funds. Transactions only occur when you approve them with your wallet. You are responsible for reviewing every transaction before signing.
+
+4. Third-party protocols and wallets
+Yieldiz may display or prepare routes involving wallets, bridges, swap providers, vaults, RPC providers, privacy providers, analytics providers, and other third-party services. Those services are independent from Yieldiz. Yieldiz does not control their availability, security, pricing, execution, or outcomes.
+
+5. No yield or execution guarantee
+Yieldiz does not guarantee any yield, return, route availability, execution time, transaction success, vault safety, or recovery of funds. Digital assets and DeFi protocols involve risk, including loss of funds.
+
+6. Privacy mode boundary
+Privacy features, when available, apply only to the specific pre-route privacy flow shown in the app. Yieldiz does not claim that public blockchain transactions or final vault deposits are private.
+
+7. Beta and demo features
+Some features may be experimental, simulated, incomplete, or available only in demo mode. Demo data is for product walkthroughs and should not be treated as real balances, real returns, or completed live transactions.
+
+8. Fees
+Any Yieldiz service fee, if enabled, is shown before signing. Network, bridge, swap, vault, and third-party fees may also apply and may change outside Yieldiz's control.
+
+9. Your responsibilities
+You are responsible for complying with laws that apply to you, using supported wallets and networks, securing your devices and keys, and deciding whether any route or vault is appropriate for you.
+
+10. No warranties
+Yieldiz is provided "as is" and "as available" without warranties of any kind. To the maximum extent permitted by law, Yieldiz is not liable for losses arising from your use of the site, wallets, third-party services, smart contracts, or public blockchains.
+
+11. Changes
+Yieldiz may update the product or these Terms at any time. Continued use of Yieldiz means you accept the updated Terms.
+
+12. Contact
+Questions: yieldizonsolana@gmail.com
