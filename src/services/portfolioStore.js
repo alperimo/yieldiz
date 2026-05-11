@@ -55,8 +55,9 @@ export async function getStoredTransactions(supabase, walletAddress) {
   return (data || []).map(toCamelTransaction);
 }
 
-export async function recordDepositSnapshot(supabase, { walletAddress, vault, amount, token, fromChain, txHashes, quote, privacyMode }) {
+export async function recordDepositSnapshot(supabase, { walletAddress, vault, amount, token, fromChain, txHashes, quote, privacyMode, benefitCampaign }) {
   const depositHash = txHashes?.deposit || null;
+  const benefitMetadata = benefitCampaign ? { benefit_campaign: benefitCampaign } : {};
 
   const { error: txError } = await supabase.from('transactions').insert({
     wallet_address: walletAddress,
@@ -75,6 +76,7 @@ export async function recordDepositSnapshot(supabase, { walletAddress, vault, am
       fees: quote
         ? Number(quote.bridgeFee || 0) + Number(quote.networkFee || 0) + Number(quote.platformFee || 0)
         : null,
+      ...benefitMetadata,
     },
   });
   if (txError) throw new Error(txError.message);

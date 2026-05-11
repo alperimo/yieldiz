@@ -9,11 +9,14 @@ function createBrowserReview(routeIntent) {
   const needsBridge = routeIntent?.requiresBridge;
   const needsSwap = routeIntent?.requiresSwap;
   const quoteAvailable = Boolean(routeIntent?.quote);
+  const benefitCampaign = routeIntent?.benefitCampaign;
+  const hasPrivacy = routeIntent?.privacyMode && routeIntent.privacyMode !== 'standard';
   const considerations = [
     needsBridge ? `bridging from ${fromChain}` : 'same-chain Solana routing',
     needsSwap ? `${fromToken} to ${toToken} conversion` : `${toToken} direct deposit`,
     quoteAvailable ? 'live quote available' : 'live quote unavailable',
-  ];
+    benefitCampaign ? `${benefitCampaign.name || 'benefit campaign'} metadata attached` : null,
+  ].filter(Boolean);
 
   return {
     summary: `${amount || 'Selected'} ${fromToken} route reviewed locally in the browser.`,
@@ -23,8 +26,13 @@ function createBrowserReview(routeIntent) {
     recommendation: quoteAvailable
       ? 'Proceed only if wallet addresses, destination vault, and expected output match your intent.'
       : 'Connect required wallets or enable mock mode for a demo; no local QVAC server is required for this browser review.',
+    privacyNote: benefitCampaign
+      ? `${benefitCampaign.incentive} Qualification still depends on completing the route.`
+      : hasPrivacy
+        ? 'Privacy mode protects the pre-route movement; the vault deposit still settles on-chain.'
+        : null,
     available: true,
-    mode: 'browser',
+    mode: 'browser-local',
   };
 }
 

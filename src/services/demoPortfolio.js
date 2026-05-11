@@ -129,7 +129,7 @@ export function getDemoTransactions(walletAddress) {
   return [...stored, ...seeded].sort(byNewestCreatedAt);
 }
 
-export function recordDemoDeposit({ walletAddress, vault, amount, token, fromChain, txHashes, quote, privacyMode }) {
+export function recordDemoDeposit({ walletAddress, vault, amount, token, fromChain, txHashes, quote, privacyMode, benefitCampaign }) {
   const timestamp = new Date().toISOString();
   const depositHash = txHashes?.deposit || `demo-deposit-${Date.now()}`;
   const bridgeHash = txHashes?.bridge || null;
@@ -138,6 +138,7 @@ export function recordDemoDeposit({ walletAddress, vault, amount, token, fromCha
     ? Number(quote.bridgeFee || 0) + Number(quote.networkFee || 0) + Number(quote.platformFee || 0)
     : 0;
   const currentValue = quote?.toAmount || amount;
+  const benefitMetadata = benefitCampaign ? { benefit_campaign: benefitCampaign } : {};
 
   const position = {
     id: `demo-position-${depositHash}`,
@@ -167,7 +168,7 @@ export function recordDemoDeposit({ walletAddress, vault, amount, token, fromCha
           fromChain,
           toChain: 'solana',
           txHash: bridgeHash,
-          metadata: { route: quote?.route || 'LI.FI', fees },
+          metadata: { route: quote?.route || 'LI.FI', fees, ...benefitMetadata },
           createdAt: timestamp,
           updatedAt: timestamp,
         }
@@ -183,7 +184,7 @@ export function recordDemoDeposit({ walletAddress, vault, amount, token, fromCha
           fromChain: 'solana',
           toChain: 'solana',
           txHash: swapHash,
-          metadata: { route: 'DFlow', privacy_mode: privacyMode },
+          metadata: { route: 'DFlow', privacy_mode: privacyMode, ...benefitMetadata },
           createdAt: timestamp,
           updatedAt: timestamp,
         }
@@ -204,6 +205,7 @@ export function recordDemoDeposit({ walletAddress, vault, amount, token, fromCha
         route: quote?.route || null,
         privacy_mode: privacyMode,
         fees,
+        ...benefitMetadata,
       },
       createdAt: timestamp,
       updatedAt: timestamp,

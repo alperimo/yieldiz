@@ -32,6 +32,7 @@ The product layer between idle stablecoins and Solana yield. Non-custodial. Audi
 | Privacy modes (optional, lazy-loaded) | Cloak (private treasury route), Umbra (private balance route) |
 | Identity | SNS primary `.sol` resolution for connected wallets |
 | Local review | Deterministic browser-local reviewer; optional `@qvac/sdk` local-model service |
+| Wallet campaigns | URL-triggered benefit campaign attribution and first-route qualification metadata |
 | Persistence | Supabase (positions, transactions, settings) with RLS |
 
 ---
@@ -168,8 +169,9 @@ Provided files: `public/_redirects`, `public/_headers`, `wrangler.toml`.
 
 1. **Recorded demo walkthrough** — `VITE_DEMO_MODE=true`, `VITE_USE_MOCK_DATA=false`, run `npm run dev`, connect your own wallet, then record `/app`. Vaults are live, while source balances, route confidence, execution, and dashboard tracking are deterministic.
 2. **Free product walkthrough** — `VITE_USE_MOCK_DATA=true`, run `npm run dev`, connect any wallet, walk through `/app` end-to-end with mocked routes.
-3. **Persistence** — Provision Supabase, run `supabase/schema.sql`, enable anonymous auth, set the three Supabase env vars. Confirmed deposits land in `positions` and `transactions`.
-4. **Live providers** — Switch to `VITE_USE_MOCK_DATA=false` and `VITE_NETWORK=mainnet-beta`. Validate one provider path at a time: quote → confidence → privacy load → local review → bridge/swap/deposit → dashboard.
+3. **Wallet benefit campaign** — Open `/app?benefit=wallet-placement` or a `utm_source=themiracle` campaign link. The deposit flow shows the benefit, includes it in local route review, and stores campaign metadata with the confirmed route.
+4. **Persistence** — Provision Supabase, run `supabase/schema.sql`, enable anonymous auth, set the three Supabase env vars. Confirmed deposits land in `positions` and `transactions`.
+5. **Live providers** — Switch to `VITE_USE_MOCK_DATA=false` and `VITE_NETWORK=mainnet-beta`. Validate one provider path at a time: quote → confidence → privacy load → local review → bridge/swap/deposit → dashboard.
 
 ---
 

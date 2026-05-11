@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowDown, X, Zap } from 'lucide-react';
 import { Card } from '../ui/Card';
@@ -14,6 +14,7 @@ import { PrivacySelector } from './PrivacySelector';
 import { PrivacyReadiness } from './PrivacyReadiness';
 import { RouteConfidence } from './RouteConfidence';
 import { LocalRouteReview } from './LocalRouteReview';
+import { BenefitCampaignCard } from './BenefitCampaignCard';
 import { useVaults } from '../../hooks/useVaults';
 import { useBridgeQuote } from '../../hooks/useBridgeQuote';
 import { useDepositFlow } from '../../hooks/useDepositFlow';
@@ -29,6 +30,7 @@ import { createRouteIntent } from '../../lib/routeIntent';
 import { getPrivacyBoundary, PRIVACY_MODES } from '../../lib/stablecoins';
 import { formatPercent, formatCurrency } from '../../lib/formatters';
 import { DEMO_MODE, USE_MOCK_DATA } from '../../lib/env';
+import { getBenefitCampaignFromSearchParams, serializeBenefitCampaign } from '../../lib/benefitCampaign';
 import * as demoPortfolio from '../../services/demoPortfolio';
 
 export const DepositFlow = () => {
@@ -66,6 +68,14 @@ export const DepositFlow = () => {
   const selectedVaultParam = searchParams.get('vault');
   const routeConfidence = useRouteConfidence();
   const localRouteReview = useLocalRouteReview();
+  const benefitCampaign = useMemo(
+    () => getBenefitCampaignFromSearchParams(searchParams),
+    [searchParams],
+  );
+  const benefitMetadata = useMemo(
+    () => serializeBenefitCampaign(benefitCampaign),
+    [benefitCampaign],
+  );
   const privacyProvider = usePrivacyProvider({
     wallet: walletAdapter || { publicKey: address ? { toBase58: () => address } : null, signTransaction, signAllTransactions },
     connection,
@@ -133,6 +143,7 @@ export const DepositFlow = () => {
     vault: selectedVault,
     privacyMode,
     quote,
+    benefitCampaign: benefitMetadata,
   });
 
   useEffect(() => {
@@ -159,6 +170,7 @@ export const DepositFlow = () => {
           txHashes: depositFlow.txHashes,
           quote,
           privacyMode,
+          benefitCampaign: benefitMetadata,
         });
       } catch (error) {
         setPersistenceError(error.message);
@@ -178,11 +190,12 @@ export const DepositFlow = () => {
       txHashes: depositFlow.txHashes,
       quote,
       privacyMode,
+      benefitCampaign: benefitMetadata,
     }).catch((error) => {
       setPersistenceError(error.message);
       console.error('Failed to persist deposit snapshot:', error);
     });
-  }, [address, amount, depositFlow.state, depositFlow.txHashes, fromChain, fromToken, isAuthenticated, privacyMode, quote, selectedVault, supabase, vault]);
+  }, [address, amount, benefitMetadata, debitDemoSourceBalance, depositFlow.state, depositFlow.txHashes, fromChain, fromToken, isAuthenticated, privacyMode, quote, selectedVault, supabase, vault]);
 
   useEffect(() => {
     if (!showTxModal) return undefined;
@@ -255,6 +268,11 @@ export const DepositFlow = () => {
             token={fromToken}
             balance={sourceBalance}
             onMax={sourceBalance ? () => setAmount(String(sourceBalance)) : undefined}
+          />
+          <BenefitCampaignCard
+            campaign={benefitCampaign}
+            connected={connected}
+            amount={amount}
           />
           {fromToken === 'PUSD' && pusdCirculation ? (
             <p className="px-1 text-xs leading-5 text-sg-text-tertiary">

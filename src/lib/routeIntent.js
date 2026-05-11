@@ -8,6 +8,7 @@ export function createRouteIntent({
   vault,
   privacyMode = PRIVACY_MODES.STANDARD,
   quote = null,
+  benefitCampaign = null,
 }) {
   const source = getStablecoin(fromToken);
   const destination = getStablecoin(toToken);
@@ -24,6 +25,7 @@ export function createRouteIntent({
     destinationToken: destination,
     requiresBridge: fromChain !== 'solana',
     requiresSwap: Boolean(source && destination && source.symbol !== destination.symbol),
+    benefitCampaign,
     createdAt: new Date().toISOString(),
   };
 }
@@ -45,6 +47,6 @@ export function summarizeRouteIntent(intent) {
     steps,
     privacyMode: intent.privacyMode,
     hasPrivacy: intent.privacyMode !== PRIVACY_MODES.STANDARD,
+    benefitCampaign: intent.benefitCampaign,
   };
 }
-

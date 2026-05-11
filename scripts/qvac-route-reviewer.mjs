@@ -60,6 +60,7 @@ function deterministicReview(routeIntent) {
   const hasPrivacy = routeIntent?.privacyMode && routeIntent.privacyMode !== 'standard';
   const requiresBridge = routeIntent?.requiresBridge;
   const requiresSwap = routeIntent?.requiresSwap || fromToken !== toToken;
+  const benefitCampaign = routeIntent?.benefitCampaign;
 
   return {
     summary: `${amount || 'Your'} ${fromToken} ${requiresBridge ? `moves from ${fromChain} to Solana` : 'stays on Solana'}${requiresSwap ? `, converts to ${toToken},` : ''} and enters the selected vault.`,
@@ -69,7 +70,9 @@ function deterministicReview(routeIntent) {
     privacyNote: hasPrivacy
       ? 'Privacy mode protects the pre-route movement; the vault deposit still settles on-chain.'
       : 'This is a standard on-chain route after confirmation.',
-    recommendation: 'Proceed only if the shown amount, fees, and destination match your intent.',
+    recommendation: benefitCampaign
+      ? `Proceed only if the route matches your intent; completing it attaches ${benefitCampaign.name || 'benefit'} metadata for qualification.`
+      : 'Proceed only if the shown amount, fees, and destination match your intent.',
     source: 'deterministic',
   };
 }
