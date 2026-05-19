@@ -4,6 +4,13 @@
 
 > Default monetization is `0 bps`; the platform fee path is wired and gated behind an env var for post-launch activation.
 
+[![Yieldiz demo preview](docs/marketing-references/yieldiz-app-deposit-hero.png)](https://youtu.be/KDWKRQxt0Fo)
+
+**Videos**
+
+- **Demo video** — https://youtu.be/KDWKRQxt0Fo
+- **Pitch video** — https://www.youtube.com/watch?v=FwqjOfEjQAk&feature=youtu.be
+
 ---
 
 ## What it does
